@@ -1,0 +1,209 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  a4paper,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Libertinus Sans}
+  \setsansfont[]{Libertinus Sans}
+  \setmonofont[]{Iosevka}
+  \setmathfont[]{Libertinus Math}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage[newfloat, cache=false]{minted}
+\setminted{frame=single, framesep=2mm, linenos, breaklines, numbersep=0.5em}
+
+\usepackage{accsupp}
+\newcommand\emptyaccsupp[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
+\let\theHFancyVerbLine\theFancyVerbLine
+\def\theFancyVerbLine{\rmfamily\tiny\emptyaccsupp{\arabic{FancyVerbLine}}}
+
+\setkeys{Gin}{width=0.7\linewidth}
+\usepackage{etoolbox}
+\usepackage[font={footnotesize}, margin=1cm, labelfont=bf]{caption}
+\captionsetup[listing]{position=top}
+\usepackage[size=\scriptsize]{todonotes}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest, width=10cm}
+\usepgfplotslibrary{groupplots}
+\usepackage{extarrows}
+\usepackage{cancel}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\newtcbtheorem[auto counter, number within=section]{theorem}{Theorem}{fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!50!black}{thm}
+\newtcbtheorem[auto counter, number within=section]{definition}{Definition}{fonttitle=\bfseries, colback=gray!5!white,colframe=gray!20!black}{def}
+\newtcbtheorem[auto counter, number within=section]{lemma}{Lemma}{fonttitle=\bfseries, colback=green!5!white,colframe=green!20!black}{lem}
+\newtcbtheorem[auto counter, number within=section]{proposition}{Proposition}{fonttitle=\bfseries, colback=yellow!5!white,colframe=yellow!20!black}{prop}
+\newtcbtheorem[auto counter, number within=section]{example}{Example}{breakable, fonttitle=\bfseries, colback=purple!7!white,colframe=purple!20!gray}{ex}
+\newtcolorbox{info}{title=Info, fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!30!black}
+\newtcolorbox{reference}{title=Reference, fonttitle=\bfseries, colback=gray!5!white,colframe=gray!50!black}
+\newtcolorbox{summary}{title=Summary, fonttitle=\bfseries, colback=magenta!5!white,colframe=magenta!30!black}
+\newtcolorbox{hint}{title=Hint, fonttitle=\bfseries, colback=green!5!white,colframe=green!30!black}
+\newtcolorbox{tip}{title=Tip, fonttitle=\bfseries, colback=green!5!white,colframe=green!30!black}
+\newtcolorbox{question}{title=Question, fonttitle=\bfseries, colback=orange!5!white,colframe=green!30!black}
+\newtcolorbox{note}{title=Note, fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!20!black}
+\newtcolorbox{attention}{title=Attention, fonttitle=\bfseries, colback=orange!10!white,colframe=orange!75!white}
+\renewenvironment{quote}
+{\begin{tcolorbox}[colback=gray!05, colframe=gray!50, sharp corners, boxrule = 0pt, leftrule = 6pt]}
+{\end{tcolorbox}}
+\makeatletter
+\let\listoflistings
+\makeatother
+\makeatletter
+\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\captionsetup[subfloat]{margin=0.5em}
+\AtBeginDocument{%
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+}
+\AtBeginDocument{%
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+}
+\newcounter{pandoccrossref@subfigures@footnote@counter}
+\newenvironment{pandoccrossrefsubfigures}{%
+\setcounter{pandoccrossref@subfigures@footnote@counter}{0}
+\begin{figure}\centering%
+\gdef\global@pandoccrossref@subfigures@footnotes{}%
+\DeclareRobustCommand{\footnote}[1]{\footnotemark%
+\stepcounter{pandoccrossref@subfigures@footnote@counter}%
+\ifx\global@pandoccrossref@subfigures@footnotes\empty%
+\gdef\global@pandoccrossref@subfigures@footnotes{{##1}}%
+\else%
+\g@addto@macro\global@pandoccrossref@subfigures@footnotes{, {##1}}%
+\fi}}%
+{\end{figure}%
+\addtocounter{footnote}{-\value{pandoccrossref@subfigures@footnote@counter}}
+\@for\f:=\global@pandoccrossref@subfigures@footnotes\do{\stepcounter{footnote}\footnotetext{\f}}%
+\gdef\global@pandoccrossref@subfigures@footnotes{}}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[style=ieee,]{biblatex}
+\addbibresource{/home/kchou/Documents/Braindump/998
+Attachments/biblio.bib}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Automatic Harness Generation for Crypto Libraries},
+  pdfauthor={Konstantinos Chousos},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={cyan},
+  citecolor={red},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Automatic Harness Generation for Crypto Libraries}
+\author{ Konstantinos Chousos \\ \small{Department of Informatics and
+Telecommunications, UoA} \\ \small{\texttt{sdi2000215@di.uoa.gr}} }
+% \author{true}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}{}{}%
+
+Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue
+tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus
+tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis
+commodo per. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi
+rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor;
+malesuada ultricies scelerisque. Molestie class tincidunt quis gravida
+ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex.
+Platea eros ullamcorper nullam rutrum facilisis.
+
+%
+\end{abstract}
+
+\section{Introduction}\label{introduction}
+
+Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue
+tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus
+tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis
+commodo per
+\autocite{manesArtScienceEngineering2019,yaoTreeThoughtsDeliberate2023}.
+Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi rutrum
+primis luctus tortor tempor maecenas. Donec curae cras dolor; malesuada
+ultricies scelerisque. Molestie class tincidunt quis gravida ut proin.
+Consequat lacinia arcu justo leo maecenas nunc neque ex. Platea eros
+ullamcorper nullam rutrum facilisis.
+
+Facilisi sit porta quam maecenas vivamus posuere ligula dui. Nunc magna
+nec mollis class sed ligula. Et ligula et vestibulum conubia egestas
+consectetur eros eros. Eget aenean nisi libero libero augue platea
+turpis. Dolor quam aenean mattis vestibulum vel risus aptent. Sodales
+porttitor felis dignissim iaculis aliquam. Placerat iaculis penatibus
+bibendum nisl facilisi. Potenti ad fames mattis pretium phasellus
+ullamcorper odio conubia blandit. Interdum turpis interdum maximus
+taciti pulvinar.
+
+Eleifend himenaeos nostra diam ornare enim nisl facilisis. Blandit dis
+cursus adipiscing quis consectetur fermentum. Parturient sociosqu nisi
+nascetur nam ante volutpat blandit ullamcorper libero. Eu magnis iaculis
+bibendum quam dis varius. Netus ut class ipsum adipiscing a fermentum
+ligula nullam. Phasellus parturient mus nulla ridiculus ridiculus dui
+interdum. Justo dignissim et integer nostra justo nec erat hac litora.
+Consequat finibus suspendisse vitae dui velit. Mus sociosqu magna arcu
+suspendisse facilisis in maecenas?
+
+\printbibliography
+
+\end{document}
