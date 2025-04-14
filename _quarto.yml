@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 manuscript:
-  article: thesis.qmd
+  article: thesis.md
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
