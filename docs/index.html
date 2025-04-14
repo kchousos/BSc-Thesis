@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Konstantinos Chousos">
+<meta name="dcterms.date" content="2025-04-14">
+<meta name="keywords" content="LLMs, Fuzzing, Security, Neyrosymbolic AI">
+
+<title>Automatic Harness Generation for Crypto Libraries</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d1dd7c76585137e4a4a6e1b834363fae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<meta name="citation_title" content="Automatic Harness Generation for Crypto Libraries">
+<meta name="citation_abstract" content="Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis commodo per. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor; malesuada ultricies scelerisque. Molestie class tincidunt quis gravida ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex. Platea eros ullamcorper nullam rutrum facilisis.
+">
+<meta name="citation_keywords" content="LLMs,Fuzzing,Security,Neyrosymbolic AI">
+<meta name="citation_author" content="Konstantinos Chousos">
+<meta name="citation_publication_date" content="2025-04-14">
+<meta name="citation_cover_date" content="2025-04-14">
+<meta name="citation_year" content="2025">
+<meta name="citation_online_date" content="2025-04-14">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=AFL++: Combining incremental steps of fuzzing research;,citation_author=Andrea Fioraldi;,citation_author=Dominik Maier;,citation_author=Heiko Eißfeldt;,citation_author=Marc Heuse;,citation_publication_date=2020-08;,citation_cover_date=2020-08;,citation_year=2020;,citation_conference_title=14th USENIX workshop on offensive technologies (WOOT 20);,citation_conference=USENIX Association;">
+<meta name="citation_reference" content="citation_title=AI-Powered Fuzzing: Breaking the Bug Hunting Barrier;,citation_abstract=Dongge Liu, Jonathan Metzman, Oliver Chang, Google Open Source Security Team&nbsp; Since 2016, OSS-Fuzz has been at the forefront of automated v...;,citation_fulltext_html_url=https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html;,citation_language=en-US;,citation_publisher=Google Online Security Blog;">
+<meta name="citation_reference" content="citation_title=American fuzzy lop;,citation_fulltext_html_url=https://lcamtuf.coredump.cx/afl/;">
+<meta name="citation_reference" content="citation_title=Why cryptosystems fail;,citation_author=Ross Anderson;,citation_publication_date=1993;,citation_cover_date=1993;,citation_year=1993;,citation_fulltext_html_url=http://portal.acm.org/citation.cfm?doid=168588.168615;,citation_doi=10.1145/168588.168615;,citation_isbn=978-0-89791-629-5;,citation_language=en-US;,citation_conference_title=Proceedings of the 1st ACM conference on Computer and communications security - CCS ’93;,citation_conference=ACM Press;">
+<meta name="citation_reference" content="citation_title=OSS-Fuzz;,citation_abstract=OSS-Fuzz - continuous fuzzing for open source software.;,citation_author=Abhishek Arya;,citation_author=Oliver Chang;,citation_author=Jonathan Metzman;,citation_author=Kostya Serebryany;,citation_author=Dongge Liu;,citation_publication_date=2025-04-08;,citation_cover_date=2025-04-08;,citation_year=2025;,citation_fulltext_html_url=https://github.com/google/oss-fuzz;">
+<meta name="citation_reference" content="citation_title=FUDGE: Fuzz driver generation at scale;,citation_author=Domagoj Babić;,citation_author=Stefan Bucur;,citation_author=Yaohui Chen;,citation_author=Franjo Ivančić;,citation_author=Tim King;,citation_author=Markus Kusano;,citation_author=Caroline Lemieux;,citation_author=László Szekeres;,citation_author=Wei Wang;,citation_publication_date=2019-08-12;,citation_cover_date=2019-08-12;,citation_year=2019;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3338906.3340456;,citation_doi=10.1145/3338906.3340456;,citation_isbn=978-1-4503-5572-8;,citation_language=en-US;,citation_conference_title=Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=AI in Software Engineering at Facebook;,citation_abstract=How can artificial intelligence help software engineers better do their jobs and advance the state of the practice? We describe three productivity tools that learn patterns from software artifacts: code search using natural language, code recommendation, and automatic bug fixing.;,citation_author=Johannes Bader;,citation_author=Sonia Seohyun Kim;,citation_author=Frank Sifei Luan;,citation_author=Satish Chandra;,citation_author=Erik Meijer;,citation_publication_date=2021-07;,citation_cover_date=2021-07;,citation_year=2021;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/9360852;,citation_issue=4;,citation_doi=10.1109/MS.2021.3061664;,citation_issn=1937-4194;,citation_volume=38;,citation_journal_title=IEEE Software;">
+<meta name="citation_reference" content="citation_title=Titans: Learning to Memorize at Test Time;,citation_abstract=Over more than a decade there has been an extensive research effort on how to effectively utilize recurrent models and attention. While recurrent models aim to compress the data into a fixed-size memory (called hidden state), attention allows attending to the entire context window, capturing the direct dependencies of all tokens. This more accurate modeling of dependencies, however, comes with a quadratic cost, limiting the model to a fixed-length context. We present a new neural long-term memory module that learns to memorize historical context and helps attention to attend to the current context while utilizing long past information. We show that this neural memory has the advantage of fast parallelizable training while maintaining a fast inference. From a memory perspective, we argue that attention due to its limited context but accurate dependency modeling performs as a short-term memory, while neural memory due to its ability to memorize the data, acts as a long-term, more persistent, memory. Based on these two modules, we introduce a new family of architectures, called Titans, and present three variants to address how one can effectively incorporate memory into this architecture. Our experimental results on language modeling, common-sense reasoning, genomics, and time series tasks show that Titans are more effective than Transformers and recent modern linear recurrent models. They further can effectively scale to larger than 2M context window size with higher accuracy in needle-in-haystack tasks compared to baselines.;,citation_author=Ali Behrouz;,citation_author=Peilin Zhong;,citation_author=Vahab Mirrokni;,citation_publication_date=2024-12-31;,citation_cover_date=2024-12-31;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2501.00663;,citation_doi=10.48550/arXiv.2501.00663;">
+<meta name="citation_reference" content="citation_title=Demonstrating specification gaming in reasoning models;,citation_abstract=We demonstrate LLM agent specification gaming by instructing models to win against a chess engine. We find reasoning models like o1 preview and DeepSeek-R1 will often hack the benchmark by default, while language models like GPT-4o and Claude 3.5 Sonnet need to be told that normal play won’t work to hack. We improve upon prior work like (Hubinger et al., 2024; Meinke et al., 2024; Weij et al., 2024) by using realistic task prompts and avoiding excess nudging. Our results suggest reasoning models may resort to hacking to solve difficult problems, as observed in OpenAI (2024)’s o1 Docker escape during cyber capabilities testing.;,citation_author=Alexander Bondarenko;,citation_author=Denis Volk;,citation_author=Dmitrii Volkov;,citation_author=Jeffrey Ladish;,citation_publication_date=2025-02-18;,citation_cover_date=2025-02-18;,citation_year=2025;,citation_fulltext_html_url=http://arxiv.org/abs/2502.13295;,citation_doi=10.48550/arXiv.2502.13295;">
+<meta name="citation_reference" content="citation_title=Lessons From Red Teaming 100 Generative AI Products;,citation_abstract=In recent years, AI red teaming has emerged as a practice for probing the safety and security of generative AI systems. Due to the nascency of the field, there are many open questions about how red teaming operations should be conducted. Based on our experience red teaming over 100 generative AI products at Microsoft, we present our internal threat model ontology and eight main lessons we have learned: 1. Understand what the system can do and where it is applied 2. You don’t have to compute gradients to break an AI system 3. AI red teaming is not safety benchmarking 4. Automation can help cover more of the risk landscape 5. The human element of AI red teaming is crucial 6. Responsible AI harms are pervasive but difficult to measure 7. LLMs amplify existing security risks and introduce new ones 8. The work of securing AI systems will never be complete By sharing these insights alongside case studies from our operations, we offer practical recommendations aimed at aligning red teaming efforts with real world risks. We also highlight aspects of AI red teaming that we believe are often misunderstood and discuss open questions for the field to consider.;,citation_author=Blake Bullwinkel;,citation_author=Amanda Minnich;,citation_author=Shiven Chawla;,citation_author=Gary Lopez;,citation_author=Martin Pouliot;,citation_author=Whitney Maxwell;,citation_author=Joris Gruyter;,citation_author=Katherine Pratt;,citation_author=Saphir Qi;,citation_author=Nina Chikanov;,citation_author=Roman Lutz;,citation_author=Raja Sekhar Rao Dheekonda;,citation_author=Bolor-Erdene Jagdagdorj;,citation_author=Eugenia Kim;,citation_author=Justin Song;,citation_author=Keegan Hines;,citation_author=Daniel Jones;,citation_author=Giorgio Severi;,citation_author=Richard Lundeen;,citation_author=Sam Vaughan;,citation_author=Victoria Westerhoff;,citation_author=Pete Bryan;,citation_author=Ram Shankar Siva Kumar;,citation_author=Yonatan Zunger;,citation_author=Chang Kawaguchi;,citation_author=Mark Russinovich;,citation_publication_date=2025-01-13;,citation_cover_date=2025-01-13;,citation_year=2025;,citation_fulltext_html_url=http://arxiv.org/abs/2501.07238;,citation_doi=10.48550/arXiv.2501.07238;">
+<meta name="citation_reference" content="citation_title=KLEE: Unassisted and Automatic Generation of High-Coverage Tests for Complex Systems Programs;,citation_abstract=We present a new symbolic execution tool, KLEE, capable of automatically generating tests that achieve high coverage on a diverse set of complex and environmentally-intensive programs. We used KLEE to thoroughly check all 89 stand-alone programs in the GNU COREUTILS utility suite, which form the core user-level environment installed on millions of Unix systems, and arguably are the single most heavily tested set of open-source programs in existence. KLEE-generated tests achieve high line coverage – on average over 90% per tool (median: over 94%) – and significantly beat the coverage of the developers’ own hand-written test suite. When we did the same for 75 equivalent tools in the BUSYBOX embedded system suite, results were even better, including 100% coverage on 31 of them. We also used KLEE as a bug finding tool, applying it to 452 applications (over 430K total lines of code), where it found 56 serious bugs, including three in COREUTILS that had been missed for over 15 years. Finally, we used KLEE to crosscheck purportedly identical BUSYBOX and COREUTILS utilities, finding functional correctness errors and a myriad of inconsistencies.;,citation_author=Cristian Cadar;,citation_author=Daniel Dunbar;,citation_author=D. Engler;,citation_publication_date=2008-12-08;,citation_cover_date=2008-12-08;,citation_year=2008;,citation_fulltext_html_url=https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8;">
+<meta name="citation_reference" content="citation_title=Fuzzing the Rust typechecker using CLP;,citation_author=Kyle Dewey;,citation_author=Jared Roesch;,citation_author=Ben Hardekopf;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=https://ieeexplore.ieee.org/abstract/document/7372036/?casa_token=OUvykOgorF8AAAAA:TJMcYid8CykRaxGcrTxO04ZLXys4UPA6fM9YoAoq5fXHlllPDlWIC_tClo0sEbLg-OnrEKMP5g;,citation_conference_title=2015 30th IEEE/ACM International Conference on Automated Software Engineering (ASE);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=A Neural Lambda Calculus: Neurosymbolic AI meets the foundations of computing and functional programming;,citation_abstract=Over the last decades, deep neural networks based-models became the dominant paradigm in machine learning. Further, the use of artificial neural networks in symbolic learning has been seen as increasingly relevant recently. To study the capabilities of neural networks in the symbolic AI domain, researchers have explored the ability of deep neural networks to learn mathematical constructions, such as addition and multiplication, logic inference, such as theorem provers, and even the execution of computer programs. The latter is known to be too complex a task for neural networks. Therefore, the results were not always successful, and often required the introduction of biased elements in the learning process, in addition to restricting the scope of possible programs to be executed. In this work, we will analyze the ability of neural networks to learn how to execute programs as a whole. To do so, we propose a different approach. Instead of using an imperative programming language, with complex structures, we use the Lambda Calculus ({\lambda}-Calculus), a simple, but Turing-Complete mathematical formalism, which serves as the basis for modern functional programming languages and is at the heart of computability theory. We will introduce the use of integrated neural learning and lambda calculi formalization. Finally, we explore execution of a program in {\lambda}-Calculus is based on reductions, we will show that it is enough to learn how to perform these reductions so that we can execute any program. Keywords: Machine Learning, Lambda Calculus, Neurosymbolic AI, Neural Networks, Transformer Model, Sequence-to-Sequence Models, Computational Models;,citation_author=João Flach;,citation_author=Luis C. Lamb;,citation_publication_date=2023-04-18;,citation_cover_date=2023-04-18;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2304.09276;,citation_doi=10.48550/arXiv.2304.09276;">
+<meta name="citation_reference" content="citation_title=Proof of Thought : Neurosymbolic Program Synthesis allows Robust and Interpretable Reasoning;,citation_abstract=Large Language Models (LLMs) have revolutionized natural language processing, yet they struggle with inconsistent reasoning, particularly in novel domains and complex logical sequences. This research introduces Proof of Thought, a framework that enhances the reliability and transparency of LLM outputs. Our approach bridges LLM-generated ideas with formal logic verification, employing a custom interpreter to convert LLM outputs into First Order Logic constructs for theorem prover scrutiny. Central to our method is an intermediary JSON-based Domain-Specific Language, which by design balances precise logical structures with intuitive human concepts. This hybrid representation enables both rigorous validation and accessible human comprehension of LLM reasoning processes. Key contributions include a robust type system with sort management for enhanced logical integrity, explicit representation of rules for clear distinction between factual and inferential knowledge, and a flexible architecture that allows for easy extension to various domain-specific applications. We demonstrate Proof of Thought’s effectiveness through benchmarking on StrategyQA and a novel multimodal reasoning task, showing improved performance in open-ended scenarios. By providing verifiable and interpretable results, our technique addresses critical needs for AI system accountability and sets a foundation for human-in-the-loop oversight in high-stakes domains.;,citation_author=Debargha Ganguly;,citation_author=Srinivasan Iyengar;,citation_author=Vipin Chaudhary;,citation_author=Shivkumar Kalyanaraman;,citation_publication_date=2024-09-25;,citation_cover_date=2024-09-25;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2409.17270;,citation_doi=10.48550/arXiv.2409.17270;">
+<meta name="citation_reference" content="citation_title=Beyond the Coverage Plateau: A Comprehensive Study of Fuzz Blockers (Registered Report);,citation_abstract=Fuzzing and particularly code coverage-guided greybox fuzzing is highly successful in automated vulnerability discovery, as evidenced by the multitude of vulnerabilities uncovered in real-world software systems. However, results on large benchmarks such as FuzzBench indicate that the state-of-the-art fuzzers often reach a plateau after a certain period, typically around 12 hours. With the aid of the newly introduced FuzzIntrospector platform, this study aims to analyze and categorize the fuzz blockers that impede the progress of fuzzers. Such insights can shed light on future fuzzing research, suggesting areas that require further attention. Our preliminary findings reveal that the majority of top fuzz blockers are not directly related to the program input, emphasizing the need for enhanced techniques in automated fuzz driver generation and modification.;,citation_author=Wentao Gao;,citation_author=Van-Thuan Pham;,citation_author=Dongge Liu;,citation_author=Oliver Chang;,citation_author=Toby Murray;,citation_author=Benjamin I. P. Rubinstein;,citation_publication_date=2023-07-17;,citation_cover_date=2023-07-17;,citation_year=2023;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3605157.3605177;,citation_doi=10.1145/3605157.3605177;,citation_isbn=979-8-4007-0247-1;,citation_conference_title=Proceedings of the 2nd International Fuzzing Workshop;,citation_conference=Association for Computing Machinery;,citation_series_title=FUZZING 2023;">
+<meta name="citation_reference" content="citation_title=Neurosymbolic AI: The 3rd Wave;,citation_abstract=Current advances in Artificial Intelligence (AI) and Machine Learning (ML) have achieved unprecedented impact across research communities and industry. Nevertheless, concerns about trust, safety, interpretability and accountability of AI were raised by influential thinkers. Many have identified the need for well-founded knowledge representation and reasoning to be integrated with deep learning and for sound explainability. Neural-symbolic computing has been an active area of research for many years seeking to bring together robust learning in neural networks with reasoning and explainability via symbolic representations for network models. In this paper, we relate recent and early research results in neurosymbolic AI with the objective of identifying the key ingredients of the next wave of AI systems. We focus on research that integrates in a principled way neural network-based learning with symbolic knowledge representation and logical reasoning. The insights provided by 20 years of neural-symbolic computing are shown to shed new light onto the increasingly prominent role of trust, safety, interpretability and accountability of AI. We also identify promising directions and challenges for the next decade of AI research from the perspective of neural-symbolic systems.;,citation_author=Artur Garcez;,citation_author=Luis C. Lamb;,citation_publication_date=2020-12-16;,citation_cover_date=2020-12-16;,citation_year=2020;,citation_fulltext_html_url=http://arxiv.org/abs/2012.05876;,citation_doi=10.48550/arXiv.2012.05876;">
+<meta name="citation_reference" content="citation_title=Building Trustworthy NeuroSymbolic AI Systems: Consistency, Reliability, Explainability, and Safety;,citation_abstract=Explainability and Safety engender Trust. These require a model to exhibit consistency and reliability. To achieve these, it is necessary to use and analyze data and knowledge with statistical and symbolic AI methods relevant to the AI application - neither alone will do. Consequently, we argue and seek to demonstrate that the NeuroSymbolic AI approach is better suited for making AI a trusted AI system. We present the CREST framework that shows how Consistency, Reliability, user-level Explainability, and Safety are built on NeuroSymbolic methods that use data and knowledge to support requirements for critical applications such as health and well-being. This article focuses on Large Language Models (LLMs) as the chosen AI system within the CREST framework. LLMs have garnered substantial attention from researchers due to their versatility in handling a broad array of natural language processing (NLP) scenarios. For example, ChatGPT and Google’s MedPaLM have emerged as highly promising platforms for providing information in general and health-related queries, respectively. Nevertheless, these models remain black boxes despite incorporating human feedback and instruction-guided tuning. For instance, ChatGPT can generate unsafe responses despite instituting safety guardrails. CREST presents a plausible approach harnessing procedural and graph-based knowledge within a NeuroSymbolic framework to shed light on the challenges associated with LLMs.;,citation_author=Manas Gaur;,citation_author=Amit Sheth;,citation_publication_date=2023-12-05;,citation_cover_date=2023-12-05;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2312.06798;,citation_doi=10.48550/arXiv.2312.06798;">
+<meta name="citation_reference" content="citation_title=Google/atheris;,citation_publication_date=2025-04-09;,citation_cover_date=2025-04-09;,citation_year=2025;,citation_fulltext_html_url=https://github.com/google/atheris;,citation_publisher=Google;">
+<meta name="citation_reference" content="citation_title=Google/clusterfuzz;,citation_abstract=Scalable fuzzing infrastructure.;,citation_publication_date=2025-04-09;,citation_cover_date=2025-04-09;,citation_year=2025;,citation_fulltext_html_url=https://github.com/google/clusterfuzz;,citation_publisher=Google;">
+<meta name="citation_reference" content="citation_title=On the use of neurosymbolic AI for defending against cyber attacks;,citation_abstract=It is generally accepted that all cyber attacks cannot be prevented, creating a need for the ability to detect and respond to cyber attacks. Both connectionist and symbolic AI are currently being used to support such detection and response. In this paper, we make the case for combining them using neurosymbolic AI. We identify a set of challenges when using AI today and propose a set of neurosymbolic use cases we believe are both interesting research directions for the neurosymbolic AI community and can have an impact on the cyber security field. We demonstrate feasibility through two proof-of-concept experiments.;,citation_author=Gudmund Grov;,citation_author=Jonas Halvorsen;,citation_author=Magnus Wiik Eckhoff;,citation_author=Bjørn Jervell Hansen;,citation_author=Martin Eian;,citation_author=Vasileios Mavroeidis;,citation_publication_date=2024-08-09;,citation_cover_date=2024-08-09;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2408.04996;,citation_doi=10.48550/arXiv.2408.04996;">
+<meta name="citation_reference" content="citation_title=Heartbleed Bug;,citation_fulltext_html_url=https://heartbleed.com/;">
+<meta name="citation_reference" content="citation_title=Seed selection for successful fuzzing;,citation_abstract=Mutation-based greybox fuzzingÐunquestionably the most widelyused fuzzing techniqueÐrelies on a set of non-crashing seed inputs (a corpus) to bootstrap the bug-finding process. When evaluating a fuzzer, common approaches for constructing this corpus include: (i) using an empty file; (ii) using a single seed representative of the target’s input format; or (iii) collecting a large number of seeds (e.g., by crawling the Internet). Little thought is given to how this seed choice affects the fuzzing process, and there is no consensus on which approach is best (or even if a best approach exists).;,citation_author=Adrian Herrera;,citation_author=Hendra Gunadi;,citation_author=Shane Magrath;,citation_author=Michael Norrish;,citation_author=Mathias Payer;,citation_author=Antony L. Hosking;,citation_publication_date=2021-07-11;,citation_cover_date=2021-07-11;,citation_year=2021;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3460319.3464795;,citation_doi=10.1145/3460319.3464795;,citation_isbn=978-1-4503-8459-9;,citation_language=en-US;,citation_conference_title=Proceedings of the 30th ACM SIGSOFT International Symposium on Software Testing and Analysis;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=AFL++;,citation_abstract=The fuzzer afl++ is afl with community patches, qemu 5.1 upgrade, collision-free coverage, enhanced laf-intel &amp;amp;amp; redqueen, AFLfast++ power schedules, MOpt mutators, unicorn_mode, and a lot more!;,citation_author=Marc Heuse;,citation_author=Heiko Eißfeldt;,citation_author=Andrea Fioraldi;,citation_author=Dominik Maier;,citation_publication_date=2022-01;,citation_cover_date=2022-01;,citation_year=2022;,citation_fulltext_html_url=https://github.com/AFLplusplus/AFLplusplus;">
+<meta name="citation_reference" content="citation_title=How to Prevent the next Heartbleed;,citation_fulltext_html_url=https://dwheeler.com/essays/heartbleed.html;">
+<meta name="citation_reference" content="citation_title=Large language models based fuzzing techniques: A survey;,citation_author=Linghan Huang;,citation_author=Peizhou Zhao;,citation_author=Huaming Chen;,citation_author=Lei Ma;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://arxiv.org/abs/2402.00350;">
+<meta name="citation_reference" content="citation_title=Software Vulnerability and Functionality Assessment using LLMs;,citation_abstract=While code review is central to the software development process, it can be tedious and expensive to carry out. In this paper, we investigate whether and how Large Language Models (LLMs) can aid with code reviews. Our investigation focuses on two tasks that we argue are fundamental to good reviews: (i) flagging code with security vulnerabilities and (ii) performing software functionality validation, i.e., ensuring that code meets its intended functionality. To test performance on both tasks, we use zero-shot and chain-of-thought prompting to obtain final “approve or reject” recommendations. As data, we employ seminal code generation datasets (HumanEval and MBPP) along with expert-written code snippets with security vulnerabilities from the Common Weakness Enumeration (CWE). Our experiments consider a mixture of three proprietary models from OpenAI and smaller open-source LLMs. We find that the former outperforms the latter by a large margin. Motivated by promising results, we finally ask our models to provide detailed descriptions of security vulnerabilities. Results show that 36.7% of LLM-generated descriptions can be associated with true CWE vulnerabilities.;,citation_author=Rasmus Ingemann Tuffveson Jensen;,citation_author=Vali Tawosi;,citation_author=Salwa Alamir;,citation_publication_date=2024-03-13;,citation_cover_date=2024-03-13;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2403.08429;,citation_doi=10.48550/arXiv.2403.08429;">
+<meta name="citation_reference" content="citation_title=Codexity: Secure AI-assisted Code Generation;,citation_abstract=Despite the impressive performance of Large Language Models (LLMs) in software development activities, recent studies show the concern of introducing vulnerabilities into software codebase by AI programming assistants (e.g., Copilot, CodeWhisperer). In this work, we present Codexity, a security-focused code generation framework integrated with five LLMs. Codexity leverages the feedback of static analysis tools such as Infer and CppCheck to mitigate security vulnerabilities in LLM-generated programs. Our evaluation in a real-world benchmark with 751 automatically generated vulnerable subjects demonstrates Codexity can prevent 60% of the vulnerabilities being exposed to the software developer.;,citation_author=Sung Yong Kim;,citation_author=Zhiyu Fan;,citation_author=Yannic Noller;,citation_author=Abhik Roychoudhury;,citation_publication_date=2024-05-07;,citation_cover_date=2024-05-07;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2405.03927;,citation_doi=10.48550/arXiv.2405.03927;">
+<meta name="citation_reference" content="citation_title=Why does cryptographic software fail? A case study and open problems;,citation_abstract=Mistakes in cryptographic software implementations often undermine the strong security guarantees offered by cryptography. This paper presents a systematic study of cryptographic vulnerabilities in practice, an examination of state-of-the-art techniques to prevent such vulnerabilities, and a discussion of open problems and possible future research directions. Our study covers 269 cryptographic vulnerabilities reported in the CVE database from January 2011 to May 2014. The results show that just 17% of the bugs are in cryptographic libraries (which often have devastating consequences), and the remaining 83% are misuses of cryptographic libraries by individual applications. We observe that preventing bugs in different parts of a system requires different techniques, and that no effective techniques exist to deal with certain classes of mistakes, such as weak key generation.;,citation_author=David Lazar;,citation_author=Haogang Chen;,citation_author=Xi Wang;,citation_author=Nickolai Zeldovich;,citation_publication_date=2014-06-25;,citation_cover_date=2014-06-25;,citation_year=2014;,citation_fulltext_html_url=https://doi.org/10.1145/2637166.2637237;,citation_doi=10.1145/2637166.2637237;,citation_isbn=978-1-4503-3024-4;,citation_conference_title=Proceedings of 5th Asia-Pacific Workshop on Systems;,citation_conference=Association for Computing Machinery;,citation_series_title=APSys ’14;">
+<meta name="citation_reference" content="citation_title=The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers;,citation_author=Hao-Ping Hank Lee;,citation_author=Advait Sarkar;,citation_author=Lev Tankelevitch;,citation_author=Ian Drosos;,citation_author=Sean Rintel;,citation_author=Richard Banks;,citation_author=Nicholas Wilson;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://hankhplee.com/papers/genai_critical_thinking.pdf;">
+<meta name="citation_reference" content="citation_title=libFuzzer – a library for coverage-guided fuzz testing. — LLVM 21.0.0git documentation;,citation_fulltext_html_url=https://llvm.org/docs/LibFuzzer.html;">
+<meta name="citation_reference" content="citation_title=Man-Computer Symbiosis;,citation_abstract=Man-computer symbiosis is an expected development in cooperative interaction between men and electronic computers. It will involve very close coupling between the human and the electronic members of the partnership. The main aims are 1) to let computers facilitate formulative thinking as they now facilitate the solution of formulated problems, and 2) to enable men and computers to cooperate in making decisions and controlling complex situations without inflexible dependence on predetermined programs. In the anticipated symbiotic partnership, men will set the goals, formulate the hypotheses, determine the criteria, and perform the evaluations. Computing machines will do the routinizable work that must be done to prepare the way for insights and decisions in technical and scientific thinking. Preliminary analyses indicate that the symbiotic partnership will perform intellectual operations much more effectively than man alone can perform them. Prerequisites for the achievement of the effective, cooperative association include developments in computer time sharing, in memory components, in memory organization, in programming languages, and in input and output equipment.;,citation_author=J. C. R. Licklider;,citation_publication_date=1960-03;,citation_cover_date=1960-03;,citation_year=1960;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/4503259;,citation_issue=1;,citation_doi=10.1109/THFE2.1960.4503259;,citation_issn=2168-2836;,citation_volume=HFE-1;,citation_journal_title=IRE Transactions on Human Factors in Electronics;">
+<meta name="citation_reference" content="citation_title=Language models: Past, present, and future;,citation_abstract=A language modeling overview, highlighting basic concepts, intuitive explanations, technical achievements, and fundamental challenges.;,citation_author=Hang Li;,citation_publication_date=2022-06-21;,citation_cover_date=2022-06-21;,citation_year=2022;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3490443;,citation_issue=7;,citation_doi=10.1145/3490443;,citation_issn=0001-0782;,citation_volume=65;,citation_journal_title=Commun. ACM;">
+<meta name="citation_reference" content="citation_title=OSS-fuzz-gen: Automated fuzz target generation;,citation_author=Dongge Liu;,citation_author=Oliver Chang;,citation_author=Jonathan metzman;,citation_author=Martin Sablotny;,citation_author=Mihai Maruseac;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://github.com/google/oss-fuzz-gen;">
+<meta name="citation_reference" content="citation_title=DANA: Domain-Aware Neurosymbolic Agents for Consistency and Accuracy;,citation_abstract=Large Language Models (LLMs) have shown remarkable capabilities, but their inherent probabilistic nature often leads to inconsistency and inaccuracy in complex problem-solving tasks. This paper introduces DANA (Domain-Aware Neurosymbolic Agent), an architecture that addresses these issues by integrating domain-specific knowledge with neurosymbolic approaches. We begin by analyzing current AI architectures, including AutoGPT, LangChain ReAct and OpenAI’s ChatGPT, through a neurosymbolic lens, highlighting how their reliance on probabilistic inference contributes to inconsistent outputs. In response, DANA captures and applies domain expertise in both natural-language and symbolic forms, enabling more deterministic and reliable problem-solving behaviors. We implement a variant of DANA using Hierarchical Task Plans (HTPs) in the open-source OpenSSA framework. This implementation achieves over 90\% accuracy on the FinanceBench financial-analysis benchmark, significantly outperforming current LLM-based systems in both consistency and accuracy. Application of DANA in physical industries such as semiconductor shows that its flexible architecture for incorporating knowledge is effective in mitigating the probabilistic limitations of LLMs and has potential in tackling complex, real-world problems that require reliability and precision.;,citation_author=Vinh Luong;,citation_author=Sang Dinh;,citation_author=Shruti Raghavan;,citation_author=William Nguyen;,citation_author=Zooey Nguyen;,citation_author=Quynh Le;,citation_author=Hung Vo;,citation_author=Kentaro Maegaito;,citation_author=Loc Nguyen;,citation_author=Thao Nguyen;,citation_author=Anh Hai Ha;,citation_author=Christopher Nguyen;,citation_publication_date=2024-09-27;,citation_cover_date=2024-09-27;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2410.02823;,citation_doi=10.48550/arXiv.2410.02823;">
+<meta name="citation_reference" content="citation_title=The Art, Science, and Engineering of Fuzzing: A Survey;,citation_abstract=Among the many software vulnerability discovery techniques available today, fuzzing has remained highly popular due to its conceptual simplicity, its low barrier to deployment, and its vast amount of empirical evidence in discovering real-world software vulnerabilities. At a high level, fuzzing refers to a process of repeatedly running a program with generated inputs that may be syntactically or semantically malformed. While researchers and practitioners alike have invested a large and diverse effort towards improving fuzzing in recent years, this surge of work has also made it difficult to gain a comprehensive and coherent view of fuzzing. To help preserve and bring coherence to the vast literature of fuzzing, this paper presents a unified, general-purpose model of fuzzing together with a taxonomy of the current fuzzing literature. We methodically explore the design decisions at every stage of our model fuzzer by surveying the related literature and innovations in the art, science, and engineering that make modern-day fuzzers effective.;,citation_author=Valentin J. M. Manes;,citation_author=HyungSeok Han;,citation_author=Choongwoo Han;,citation_author=Sang Kil Cha;,citation_author=Manuel Egele;,citation_author=Edward J. Schwartz;,citation_author=Maverick Woo;,citation_publication_date=2019-04-07;,citation_cover_date=2019-04-07;,citation_year=2019;,citation_fulltext_html_url=http://arxiv.org/abs/1812.00140;,citation_doi=10.48550/arXiv.1812.00140;">
+<meta name="citation_reference" content="citation_title=Lessons Learned From Previous SSL/TLS Attacks - A Brief Chronology Of Attacks And Weaknesses;,citation_abstract=Since its introduction in 1994 the Secure Socket Layer (SSL) protocol (later renamed to Transport Layer Security (TLS)) evolved to the de facto standard for securing the transport layer. SSL/TLS can be used for ensuring data confidentiality, integrity and authenticity during transport. A main feature of the protocol is its flexibility. Modes of operation and security aims can easily be configured through different cipher suites. During its evolutionary development process several flaws were found. However, the flexible architecture of SSL/TLS allowed efficient fixes in order to counter the issues. This paper presents an overview on theoretical and practical attacks of the last 15 years, in chronological order and four categories: Attacks on the TLS Handshake protocol, on the TLS Record and Application Data Protocols, on the PKI infrastructure of TLS, and on various other attacks. We try to give a short ”Lessons Learned” at the end of each paragraph.;,citation_author=Christopher Meyer;,citation_author=Jörg Schwenk;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_fulltext_html_url=https://eprint.iacr.org/2013/049;">
+<meta name="citation_reference" content="citation_title=GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models;,citation_abstract=Recent advancements in Large Language Models (LLMs) have sparked interest in their formal reasoning capabilities, particularly in mathematics. The GSM8K benchmark is widely used to assess the mathematical reasoning of models on grade-school-level questions. While the performance of LLMs on GSM8K has significantly improved in recent years, it remains unclear whether their mathematical reasoning capabilities have genuinely advanced, raising questions about the reliability of the reported metrics. To address these concerns, we conduct a large-scale study on several SOTA open and closed models. To overcome the limitations of existing evaluations, we introduce GSM-Symbolic, an improved benchmark created from symbolic templates that allow for the generation of a diverse set of questions. GSM-Symbolic enables more controllable evaluations, providing key insights and more reliable metrics for measuring the reasoning capabilities of models.Our findings reveal that LLMs exhibit noticeable variance when responding to different instantiations of the same question. Specifically, the performance of all models declines when only the numerical values in the question are altered in the GSM-Symbolic benchmark. Furthermore, we investigate the fragility of mathematical reasoning in these models and show that their performance significantly deteriorates as the number of clauses in a question increases. We hypothesize that this decline is because current LLMs cannot perform genuine logical reasoning; they replicate reasoning steps from their training data. Adding a single clause that seems relevant to the question causes significant performance drops (up to 65%) across all state-of-the-art models, even though the clause doesn’t contribute to the reasoning chain needed for the final answer. Overall, our work offers a more nuanced understanding of LLMs’ capabilities and limitations in mathematical reasoning.;,citation_author=Iman Mirzadeh;,citation_author=Keivan Alizadeh;,citation_author=Hooman Shahrokhi;,citation_author=Oncel Tuzel;,citation_author=Samy Bengio;,citation_author=Mehrdad Farajtabar;,citation_publication_date=2024-10-07;,citation_cover_date=2024-10-07;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2410.05229;,citation_doi=10.48550/arXiv.2410.05229;">
+<meta name="citation_reference" content="citation_title=Needham–Schroeder protocol;,citation_abstract=The Needham–Schroeder protocol is one of the two key transport protocols intended for use over an insecure network, both proposed by Roger Needham and Michael Schroeder. These are: The Needham–Schroeder Symmetric Key Protocol, based on a symmetric encryption algorithm. It forms the basis for the Kerberos protocol. This protocol aims to establish a session key between two parties on a network, typically to protect further communication. The Needham–Schroeder Public-Key Protocol, based on public-key cryptography. This protocol is intended to provide mutual authentication between two parties communicating on a network, but in its proposed form is insecure.;,citation_publication_date=2024-03-20;,citation_cover_date=2024-03-20;,citation_year=2024;,citation_fulltext_html_url=https://en.wikipedia.org/w/index.php?title=Needham%E2%80%93Schroeder_protocol&amp;amp;amp;oldid=1214650104;,citation_language=en-US;,citation_journal_title=Wikipedia;">
+<meta name="citation_reference" content="citation_title=Valgrind: A framework for heavyweight dynamic binary instrumentation;,citation_abstract=Dynamic binary instrumentation (DBI) frameworks make it easy to build dynamic binary analysis (DBA) tools such as checkers and profilers. Much of the focus on DBI frameworks has been on performance; little attention has been paid to their capabilities. As a result, we believe the potential of DBI has not been fully exploited.In this paper we describe Valgrind, a DBI framework designed for building heavyweight DBA tools. We focus on its unique support for shadow values-a powerful but previously little-studied and difficult-to-implement DBA technique, which requires a tool to shadow every register and memory value with another value that describes it. This support accounts for several crucial design features that distinguish Valgrind from other DBI frameworks. Because of these features, lightweight tools built with Valgrind run comparatively slowly, but Valgrind can be used to build more interesting, heavyweight tools that are difficult or impossible to build with other DBI frameworks such as Pin and DynamoRIO.;,citation_author=Nicholas Nethercote;,citation_author=Julian Seward;,citation_publication_date=2007-06-10;,citation_cover_date=2007-06-10;,citation_year=2007;,citation_fulltext_html_url=https://doi.org/10.1145/1273442.1250746;,citation_issue=6;,citation_doi=10.1145/1273442.1250746;,citation_issn=0362-1340;,citation_volume=42;,citation_journal_title=SIGPLAN Not.;">
+<meta name="citation_reference" content="citation_title=Introducing LLM-based harness synthesis for unfuzzed projects;,citation_abstract=The primary goal of our efforts are to take as input a GitHub repository and output an OSS-Fuzz project as well as a ClusterFuzzLite project with a meaningful fuzz harness. In this blog post we will describe how we automatically build projects, how we generate fuzzing harnesses using LLMs, how these are evaluated and list a selection of 15 projects that we generated OSS-Fuzz/ClusterFuzzLite integrations for and have upstreamed the results. Introducing LLM-based harness generation for unfuzzed projects.;,citation_author=OSS-Fuzz Maintainers;,citation_publication_date=2024-05-27;,citation_cover_date=2024-05-27;,citation_year=2024;,citation_fulltext_html_url=https://blog.oss-fuzz.com/posts/introducing-llm-based-harness-synthesis-for-unfuzzed-projects/;,citation_language=en-US;,citation_publisher=OSS-Fuzz blog;">
+<meta name="citation_reference" content="citation_title=OSS-Fuzz Documentation;,citation_abstract=Documentation for OSS-Fuzz;,citation_fulltext_html_url=https://google.github.io/oss-fuzz/;,citation_language=en-US;,citation_publisher=OSS-Fuzz;">
+<meta name="citation_reference" content="citation_title=Do Users Write More Insecure Code with AI Assistants?;,citation_abstract=We conduct the first large-scale user study examining how users interact with an AI Code assistant to solve a variety of security related tasks across different programming languages. Overall, we find that participants who had access to an AI assistant based on OpenAI’s codex-davinci-002 model wrote significantly less secure code than those without access. Additionally, participants with access to an AI assistant were more likely to believe they wrote secure code than those without access to the AI assistant. Furthermore, we find that participants who trusted the AI less and engaged more with the language and format of their prompts (e.g. re-phrasing, adjusting temperature) provided code with fewer security vulnerabilities. Finally, in order to better inform the design of future AI-based Code assistants, we provide an in-depth analysis of participants’ language and interaction behavior, as well as release our user interface as an instrument to conduct similar studies in the future.;,citation_author=Neil Perry;,citation_author=Megha Srivastava;,citation_author=Deepak Kumar;,citation_author=Dan Boneh;,citation_publication_date=2023-12-18;,citation_cover_date=2023-12-18;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2211.03622;,citation_doi=10.48550/arXiv.2211.03622;">
+<meta name="citation_reference" content="citation_title=PIN: A binary instrumentation tool for computer architecture research and education;,citation_abstract=Computer architecture embraces a tremendous number of ever-changing inter-connected concepts and information, yet computer architecture education is very often static, seemingly motionless. Computer architecture is commonly taught using simple piecewise methods of explaining how the hardware performs a given task, rather than characterizing the interaction of software and hardware. Visualization tools allow students to interactively explore basic concepts in computer architecture but are limited in their ability to engage students in research and design concepts. Likewise as the development of simulation models such as caches, branch predictors, and pipelines aid student understanding of architecture components, such models have limitations in the workloads that can be examined because of issues with execution time and environment. Overall, to effectively understand modern architectures, it is simply essential to experiment the characteristics of real application workloads. Likewise, understanding program behavior is necessary to effective programming, comprehension of architecture bottlenecks, and hardware design. Computer architecture education must include experience in analyzing program behavior and workload characteristics using effective tools. To explore workload characteristic analysis in computer architecture design, we propose using PIN, a binary instrumentation tool for computer architecture research and education projects.;,citation_author=Vijay Janapa Reddi;,citation_author=Alex Settle;,citation_author=Daniel A. Connors;,citation_author=Robert S. Cohn;,citation_publication_date=2004-06-19;,citation_cover_date=2004-06-19;,citation_year=2004;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/1275571.1275600;,citation_doi=10.1145/1275571.1275600;,citation_isbn=978-1-4503-4733-4;,citation_conference_title=Proceedings of the 2004 workshop on Computer architecture education: Held in conjunction with the 31st International Symposium on Computer Architecture;,citation_conference=Association for Computing Machinery;,citation_series_title=WCAE ’04;">
+<meta name="citation_reference" content="citation_title=Neurosymbolic AI – Why, What, and How;,citation_abstract=Humans interact with the environment using a combination of perception - transforming sensory inputs from their environment into symbols, and cognition - mapping symbols to knowledge about the environment for supporting abstraction, reasoning by analogy, and long-term planning. Human perception-inspired machine perception, in the context of AI, refers to large-scale pattern recognition from raw data using neural networks trained using self-supervised learning objectives such as next-word prediction or object recognition. On the other hand, machine cognition encompasses more complex computations, such as using knowledge of the environment to guide reasoning, analogy, and long-term planning. Humans can also control and explain their cognitive functions. This seems to require the retention of symbolic mappings from perception outputs to knowledge about their environment. For example, humans can follow and explain the guidelines and safety constraints driving their decision-making in safety-critical applications such as healthcare, criminal justice, and autonomous driving. This article introduces the rapidly emerging paradigm of Neurosymbolic AI combines neural networks and knowledge-guided symbolic approaches to create more capable and flexible AI systems. These systems have immense potential to advance both algorithm-level (e.g., abstraction, analogy, reasoning) and application-level (e.g., explainable and safety-constrained decision-making) capabilities of AI systems.;,citation_author=Amit Sheth;,citation_author=Kaushik Roy;,citation_author=Manas Gaur;,citation_publication_date=2023-05-01;,citation_cover_date=2023-05-01;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2305.00813;,citation_doi=10.48550/arXiv.2305.00813;">
+<meta name="citation_reference" content="citation_title=This Bot Hunts Software Bugs for the Pentagon;,citation_abstract=Mayhem emerged from a 2016 government-sponsored contest at a Las Vegas casino hotel. Now it’s used by the military.;,citation_author=Tom Simonite;,citation_publication_date=2020-06-01;,citation_cover_date=2020-06-01;,citation_year=2020;,citation_fulltext_html_url=https://www.wired.com/story/bot-hunts-software-bugs-pentagon/;,citation_issn=1059-1028;,citation_language=en-US;,citation_journal_title=Wired;">
+<meta name="citation_reference" content="citation_title=Neurosymbolic AI approach to Attribution in Large Language Models;,citation_abstract=Attribution in large language models (LLMs) remains a significant challenge, particularly in ensuring the factual accuracy and reliability of the generated outputs. Current methods for citation or attribution, such as those employed by tools like Perplexity.ai and Bing Search-integrated LLMs, attempt to ground responses by providing real-time search results and citations. However, so far, these approaches suffer from issues such as hallucinations, biases, surface-level relevance matching, and the complexity of managing vast, unfiltered knowledge sources. While tools like Perplexity.ai dynamically integrate web-based information and citations, they often rely on inconsistent sources such as blog posts or unreliable sources, which limits their overall reliability. We present that these challenges can be mitigated by integrating Neurosymbolic AI (NesyAI), which combines the strengths of neural networks with structured symbolic reasoning. NesyAI offers transparent, interpretable, and dynamic reasoning processes, addressing the limitations of current attribution methods by incorporating structured symbolic knowledge with flexible, neural-based learning. This paper explores how NesyAI frameworks can enhance existing attribution models, offering more reliable, interpretable, and adaptable systems for LLMs.;,citation_author=Deepa Tilwani;,citation_author=Revathy Venkataramanan;,citation_author=Amit P. Sheth;,citation_publication_date=2024-09-30;,citation_cover_date=2024-09-30;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2410.03726;,citation_doi=10.48550/arXiv.2410.03726;">
+<meta name="citation_reference" content="citation_title=Creating an LLM-based AI-agent: A high-level methodology towards enhancing LLMs with APIs;,citation_abstract=Large Language Models (LLMs) have revolutionized various aspects of engineering and science. Their utility is often bottlenecked by the lack of interaction with the external digital environment. To overcome this limitation and achieve integration of LLMs and Artificial Intelligence (AI) into real-world applications, customized AI agents are being constructed. Based on the technological trends and techniques, we extract a high-level approach for constructing these AI agents, focusing on their underlying architecture. This thesis serves as a comprehensive guide that elucidates a multi-faceted approach for empowering LLMs with the capability to leverage Application Programming Interfaces (APIs). We present a 7-step methodology that begins with the selection of suitable LLMs and the task decomposition that is necessary for complex problem-solving. This methodology includes techniques for generating training data for API interactions and heuristics for selecting the appropriate API among a plethora of options. These steps eventually lead to the generation of API calls that are both syntactically and semantically aligned with the LLM’s understanding of a given task. Moreover, we review existing frameworks and tools that facilitate these processes and highlight the gaps in current attempts. In this direction, we propose an on-device architecture that aims to exploit the functionality of carry-on devices by using small models from the Hugging Face community. We examine the effectiveness of these approaches on real-world applications of various domains, including the generation of a piano sheet. Through an extensive analysis of the literature and available technologies, this thesis aims to set a compass for researchers and practitioners to harness the full potential of LLMs augmented with external tool capabilities, thus paving the way for more autonomous, robust, and context-aware AI agents.;,citation_author=Ioannis Tzachristas;,citation_publication_date=2024-12-21;,citation_cover_date=2024-12-21;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2412.13233;,citation_doi=10.48550/arXiv.2412.13233;">
+<meta name="citation_reference" content="citation_title=Attention Is All You Need;,citation_abstract=The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.;,citation_author=Ashish Vaswani;,citation_author=Noam Shazeer;,citation_author=Niki Parmar;,citation_author=Jakob Uszkoreit;,citation_author=Llion Jones;,citation_author=Aidan N. Gomez;,citation_author=Lukasz Kaiser;,citation_author=Illia Polosukhin;,citation_publication_date=2023-08-01;,citation_cover_date=2023-08-01;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/1706.03762;,citation_doi=10.48550/arXiv.1706.03762;">
+<meta name="citation_reference" content="citation_title=ProphetFuzz: Fully Automated Prediction and Fuzzing of High-Risk Option Combinations with Only Documentation via Large Language Model;,citation_abstract=Vulnerabilities related to option combinations pose a significant challenge in software security testing due to their vast search space. Previous research primarily addressed this challenge through mutation or filtering techniques, which inefficiently treated all option combinations as having equal potential for vulnerabilities, thus wasting considerable time on non-vulnerable targets and resulting in low testing efficiency. In this paper, we utilize carefully designed prompt engineering to drive the large language model (LLM) to predict high-risk option combinations (i.e., more likely to contain vulnerabilities) and perform fuzz testing automatically without human intervention. We developed a tool called ProphetFuzz and evaluated it on a dataset comprising 52 programs collected from three related studies. The entire experiment consumed 10.44 CPU years. ProphetFuzz successfully predicted 1748 high-risk option combinations at an average cost of only \$8.69 per program. Results show that after 72 hours of fuzzing, ProphetFuzz discovered 364 unique vulnerabilities associated with 12.30\% of the predicted high-risk option combinations, which was 32.85\% higher than that found by state-of-the-art in the same timeframe. Additionally, using ProphetFuzz, we conducted persistent fuzzing on the latest versions of these programs, uncovering 140 vulnerabilities, with 93 confirmed by developers and 21 awarded CVE numbers.;,citation_author=Dawei Wang;,citation_author=Geng Zhou;,citation_author=Li Chen;,citation_author=Dan Li;,citation_author=Yukai Miao;,citation_publication_date=2024-09-01;,citation_cover_date=2024-09-01;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2409.00922;,citation_doi=10.1145/3658644.3690231;">
+<meta name="citation_reference" content="citation_title=ReAct: Synergizing Reasoning and Acting in Language Models;,citation_abstract=While large language models (LLMs) have demonstrated impressive capabilities across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with external sources, such as knowledge bases or environments, to gather additional information. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines, as well as improved human interpretability and trustworthiness over methods without reasoning or acting components. Concretely, on question answering (HotpotQA) and fact verification (Fever), ReAct overcomes issues of hallucination and error propagation prevalent in chain-of-thought reasoning by interacting with a simple Wikipedia API, and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On two interactive decision making benchmarks (ALFWorld and WebShop), ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, while being prompted with only one or two in-context examples. Project site with code: https://react-lm.github.io;,citation_author=Shunyu Yao;,citation_author=Jeffrey Zhao;,citation_author=Dian Yu;,citation_author=Nan Du;,citation_author=Izhak Shafran;,citation_author=Karthik Narasimhan;,citation_author=Yuan Cao;,citation_publication_date=2023-03-10;,citation_cover_date=2023-03-10;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2210.03629;,citation_doi=10.48550/arXiv.2210.03629;">
+<meta name="citation_reference" content="citation_title=Tree of Thoughts: Deliberate Problem Solving with Large Language Models;,citation_abstract=Language models are increasingly being deployed for general problem solving across a wide range of tasks, but are still confined to token-level, left-to-right decision-making processes during inference. This means they can fall short in tasks that require exploration, strategic lookahead, or where initial decisions play a pivotal role. To surmount these challenges, we introduce a new framework for language model inference, Tree of Thoughts (ToT), which generalizes over the popular Chain of Thought approach to prompting language models, and enables exploration over coherent units of text (thoughts) that serve as intermediate steps toward problem solving. ToT allows LMs to perform deliberate decision making by considering multiple different reasoning paths and self-evaluating choices to decide the next course of action, as well as looking ahead or backtracking when necessary to make global choices. Our experiments show that ToT significantly enhances language models’ problem-solving abilities on three novel tasks requiring non-trivial planning or search: Game of 24, Creative Writing, and Mini Crosswords. For instance, in Game of 24, while GPT-4 with chain-of-thought prompting only solved 4% of tasks, our method achieved a success rate of 74%. Code repo with all prompts: https://github.com/princeton-nlp/tree-of-thought-llm.;,citation_author=Shunyu Yao;,citation_author=Dian Yu;,citation_author=Jeffrey Zhao;,citation_author=Izhak Shafran;,citation_author=Thomas L. Griffiths;,citation_author=Yuan Cao;,citation_author=Karthik Narasimhan;,citation_publication_date=2023-12-03;,citation_cover_date=2023-12-03;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2305.10601;,citation_doi=10.48550/arXiv.2305.10601;">
+<meta name="citation_reference" content="citation_title=Tree of Problems: Improving structured problem solving with compositionality;,citation_abstract=Large Language Models (LLMs) have demonstrated remarkable performance across multiple tasks through in-context learning. For complex reasoning tasks that require step-by-step thinking, Chain-of-Thought (CoT) prompting has given impressive results, especially when combined with self-consistency. Nonetheless, some tasks remain particularly difficult for LLMs to solve. Tree of Thoughts (ToT) and Graph of Thoughts (GoT) emerged as alternatives, dividing the complex problem into paths of subproblems. In this paper, we propose Tree of Problems (ToP), a simpler version of ToT, which we hypothesise can work better for complex tasks that can be divided into identical subtasks. Our empirical results show that our approach outperforms ToT and GoT, and in addition performs better than CoT on complex reasoning tasks. All code for this paper is publicly available here: https://github.com/ArmelRandy/tree-of-problems.;,citation_author=Armel Zebaze;,citation_author=Benoît Sagot;,citation_author=Rachel Bawden;,citation_publication_date=2024-10-09;,citation_cover_date=2024-10-09;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2410.06634;,citation_doi=10.48550/arXiv.2410.06634;">
+<meta name="citation_reference" content="citation_title=How Effective Are They? Exploring Large Language Model Based Fuzz Driver Generation;,citation_abstract=LLM-based (Large Language Model) fuzz driver generation is a promising research area. Unlike traditional program analysis-based method, this text-based approach is more general and capable of harnessing a variety of API usage information, resulting in code that is friendly for human readers. However, there is still a lack of understanding regarding the fundamental issues on this direction, such as its effectiveness and potential challenges. To bridge this gap, we conducted the first in-depth study targeting the important issues of using LLMs to generate effective fuzz drivers. Our study features a curated dataset with 86 fuzz driver generation questions from 30 widely-used C projects. Six prompting strategies are designed and tested across five state-of-the-art LLMs with five different temperature settings. In total, our study evaluated 736,430 generated fuzz drivers, with 0.85 billion token costs ($8,000+ charged tokens). Additionally, we compared the LLM-generated drivers against those utilized in industry, conducting extensive fuzzing experiments (3.75 CPU-year). Our study uncovered that: - While LLM-based fuzz driver generation is a promising direction, it still encounters several obstacles towards practical applications; - LLMs face difficulties in generating effective fuzz drivers for APIs with intricate specifics. Three featured design choices of prompt strategies can be beneficial: issuing repeat queries, querying with examples, and employing an iterative querying process; - While LLM-generated drivers can yield fuzzing outcomes that are on par with those used in the industry, there are substantial opportunities for enhancement, such as extending contained API usage, or integrating semantic oracles to facilitate logical bug detection. Our insights have been implemented to improve the OSS-Fuzz-Gen project, facilitating practical fuzz driver generation in industry.;,citation_author=Cen Zhang;,citation_author=Yaowen Zheng;,citation_author=Mingqiang Bai;,citation_author=Yeting Li;,citation_author=Wei Ma;,citation_author=Xiaofei Xie;,citation_author=Yuekang Li;,citation_author=Limin Sun;,citation_author=Yang Liu;,citation_publication_date=2024-09-11;,citation_cover_date=2024-09-11;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2307.12469;,citation_doi=10.1145/3650212.3680355;,citation_conference_title=Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis;">
+<meta name="citation_reference" content="citation_title=A Guide to Large Language Model Abstractions;,citation_abstract=A map of frameworks for abstracting interactions with and between large language models, plus two systems of organization for reasoning about LLM approaches and philosophies.;,citation_author=Peter Yong Zhong;,citation_author=Haoze He;,citation_author=Omar Khattab;,citation_author=Christopher Potts;,citation_author=Matei Zaharia;,citation_author=Heather Miller;,citation_publication_date=2024-01-16;,citation_cover_date=2024-01-16;,citation_year=2024;,citation_fulltext_html_url=https://www.twosigma.com/articles/a-guide-to-large-language-model-abstractions/;,citation_language=en-US;,citation_publisher=Two Sigma;">
+</head>
+
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Automatic Harness Generation for Crypto Libraries</h1>
+            <p class="subtitle lead">Version: 0.0.0</p>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Author</div>
+          <div class="quarto-title-meta-heading">Affiliation</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author"><a href="https://kchousos.github.io/">Konstantinos Chousos, BSc</a> <a href="mailto:sdi2000215@di.uoa.gr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0008-6063-7915" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        <a href="https://en.uoa.gr/">
+                        National and Kapodistrian University of Athens
+                        </a>
+                      </p>
+                  </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">April 14, 2025</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      <div class="quarto-alternate-formats"><div class="quarto-title-meta-heading">Other Formats</div><div class="quarto-title-meta-contents"><p><a href="thesis.pdf"><i class="bi bi-file-pdf"></i>PDF</a></p></div></div></div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis commodo per. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor; malesuada ultricies scelerisque. Molestie class tincidunt quis gravida ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex. Platea eros ullamcorper nullam rutrum facilisis.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="keywords">
+        <div class="block-title">Keywords</div>
+        <p>LLMs, Fuzzing, Security, Neyrosymbolic AI</p>
+      </div>
+    </div>
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+  
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis commodo per <span class="citation" data-cites="manesArtScienceEngineering2019 yaoTreeThoughtsDeliberate2023"><a href="#ref-manesArtScienceEngineering2019" role="doc-biblioref">[1]</a>, <a href="#ref-yaoTreeThoughtsDeliberate2023" role="doc-biblioref">[2]</a></span>. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor; malesuada ultricies scelerisque. Molestie class tincidunt quis gravida ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex. Platea eros ullamcorper nullam rutrum facilisis.</p>
+<p>Facilisi sit porta quam maecenas vivamus posuere ligula dui. Nunc magna nec mollis class sed ligula. Et ligula et vestibulum conubia egestas consectetur eros eros. Eget aenean nisi libero libero augue platea turpis. Dolor quam aenean mattis vestibulum vel risus aptent. Sodales porttitor felis dignissim iaculis aliquam. Placerat iaculis penatibus bibendum nisl facilisi. Potenti ad fames mattis pretium phasellus ullamcorper odio conubia blandit. Interdum turpis interdum maximus taciti pulvinar.</p>
+<p>Eleifend himenaeos nostra diam ornare enim nisl facilisis. Blandit dis cursus adipiscing quis consectetur fermentum. Parturient sociosqu nisi nascetur nam ante volutpat blandit ullamcorper libero. Eu magnis iaculis bibendum quam dis varius. Netus ut class ipsum adipiscing a fermentum ligula nullam. Phasellus parturient mus nulla ridiculus ridiculus dui interdum. Justo dignissim et integer nostra justo nec erat hac litora. Consequat finibus suspendisse vitae dui velit. Mus sociosqu magna arcu suspendisse facilisis in maecenas?</p>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-manesArtScienceEngineering2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. J. M. Manes <em>et al.</em>, <span>“The <span>Art</span>, <span>Science</span>, and <span>Engineering</span> of <span>Fuzzing</span>: <span>A Survey</span>,”</span> Apr. 07, 2019. doi: <a href="https://doi.org/10.48550/arXiv.1812.00140">10.48550/arXiv.1812.00140</a>. Available: <a href="http://arxiv.org/abs/1812.00140">http://arxiv.org/abs/1812.00140</a></div>
+</div>
+<div id="ref-yaoTreeThoughtsDeliberate2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{chousos2025,
+  author = {Chousos, Konstantinos},
+  title = {Automatic {Harness} {Generation} for {Crypto} {Libraries}},
+  date = {2025-04-14},
+  langid = {en},
+  abstract = {Lorem ipsum odor amet, consectetuer adipiscing elit.
+    Habitasse congue tempus erat rhoncus sapien interdum dolor nec.
+    Posuere habitant metus tellus erat eu. Risus ultricies eu rhoncus,
+    conubia euismod convallis commodo per. Nam tellus quisque maximus
+    duis eleifend; arcu aptent. Nisi rutrum primis luctus tortor tempor
+    maecenas. Donec curae cras dolor; malesuada ultricies scelerisque.
+    Molestie class tincidunt quis gravida ut proin. Consequat lacinia
+    arcu justo leo maecenas nunc neque ex. Platea eros ullamcorper
+    nullam rutrum facilisis.}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas" role="listitem">
+<div class="">K.
+Chousos, <span>“Automatic Harness Generation for Crypto
+Libraries,”</span> Apr. 14, 2025.</div>
+</div></div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

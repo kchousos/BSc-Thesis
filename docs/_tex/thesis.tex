@@ -1,12 +1,16 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   a4paper,
-]{article}
+]{report}
+\usepackage{xcolor}
+\usepackage[margin=1.4in]{geometry}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -20,7 +24,14 @@
 \usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{Libertinus Sans}
+  \ifLuaTeX
+    \usepackage{luaotfload}
+    \directlua{luaotfload.add_fallback("mainfontfallback",{
+      "Liberation Serif:","NotoColorEmoji:mode=harf"
+    })}
+  \fi
+  \setmainfont[,RawFeature={fallback=mainfontfallback}]{Libertinus
+Serif}
   \setsansfont[]{Libertinus Sans}
   \setmonofont[]{Iosevka}
   \setmathfont[]{Libertinus Math}
@@ -41,8 +52,31 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=1.5in]{geometry}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -53,114 +87,114 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
 \setlength{\emergencystretch}{3em} % prevent overfull lines
+
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+
+
+
+ 
+\usepackage[style=ieee,]{biblatex}
+\addbibresource{resources/bibliography.bib}
+
+
 \usepackage[newfloat, cache=false]{minted}
 \setminted{frame=single, framesep=2mm, linenos, breaklines, numbersep=0.5em}
-
-\usepackage{accsupp}
-\newcommand\emptyaccsupp[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
-\let\theHFancyVerbLine\theFancyVerbLine
-\def\theFancyVerbLine{\rmfamily\tiny\emptyaccsupp{\arabic{FancyVerbLine}}}
-
-\setkeys{Gin}{width=0.7\linewidth}
-\usepackage{etoolbox}
+\makeatletter
+\let\listoflistings\relax
+\makeatother
 \usepackage[font={footnotesize}, margin=1cm, labelfont=bf]{caption}
 \captionsetup[listing]{position=top}
-\usepackage[size=\scriptsize]{todonotes}
-\usepackage{subcaption}
-\usepackage{pgfplots}
-\pgfplotsset{compat=newest, width=10cm}
-\usepgfplotslibrary{groupplots}
-\usepackage{extarrows}
-\usepackage{cancel}
-\usepackage{tikz}
-\usepackage[most]{tcolorbox}
-\newtcbtheorem[auto counter, number within=section]{theorem}{Theorem}{fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!50!black}{thm}
-\newtcbtheorem[auto counter, number within=section]{definition}{Definition}{fonttitle=\bfseries, colback=gray!5!white,colframe=gray!20!black}{def}
-\newtcbtheorem[auto counter, number within=section]{lemma}{Lemma}{fonttitle=\bfseries, colback=green!5!white,colframe=green!20!black}{lem}
-\newtcbtheorem[auto counter, number within=section]{proposition}{Proposition}{fonttitle=\bfseries, colback=yellow!5!white,colframe=yellow!20!black}{prop}
-\newtcbtheorem[auto counter, number within=section]{example}{Example}{breakable, fonttitle=\bfseries, colback=purple!7!white,colframe=purple!20!gray}{ex}
-\newtcolorbox{info}{title=Info, fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!30!black}
-\newtcolorbox{reference}{title=Reference, fonttitle=\bfseries, colback=gray!5!white,colframe=gray!50!black}
-\newtcolorbox{summary}{title=Summary, fonttitle=\bfseries, colback=magenta!5!white,colframe=magenta!30!black}
-\newtcolorbox{hint}{title=Hint, fonttitle=\bfseries, colback=green!5!white,colframe=green!30!black}
-\newtcolorbox{tip}{title=Tip, fonttitle=\bfseries, colback=green!5!white,colframe=green!30!black}
-\newtcolorbox{question}{title=Question, fonttitle=\bfseries, colback=orange!5!white,colframe=green!30!black}
-\newtcolorbox{note}{title=Note, fonttitle=\bfseries, colback=cyan!5!white,colframe=cyan!20!black}
-\newtcolorbox{attention}{title=Attention, fonttitle=\bfseries, colback=orange!10!white,colframe=orange!75!white}
-\renewenvironment{quote}
-{\begin{tcolorbox}[colback=gray!05, colframe=gray!50, sharp corners, boxrule = 0pt, leftrule = 6pt]}
-{\end{tcolorbox}}
 \makeatletter
-\let\listoflistings
-\makeatother
-\makeatletter
-\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
-\captionsetup[subfloat]{margin=0.5em}
 \AtBeginDocument{%
-\renewcommand*\figurename{Figure}
-\renewcommand*\tablename{Table}
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
 }
-\AtBeginDocument{%
-\renewcommand*\listfigurename{List of Figures}
-\renewcommand*\listtablename{List of Tables}
-}
-\newcounter{pandoccrossref@subfigures@footnote@counter}
-\newenvironment{pandoccrossrefsubfigures}{%
-\setcounter{pandoccrossref@subfigures@footnote@counter}{0}
-\begin{figure}\centering%
-\gdef\global@pandoccrossref@subfigures@footnotes{}%
-\DeclareRobustCommand{\footnote}[1]{\footnotemark%
-\stepcounter{pandoccrossref@subfigures@footnote@counter}%
-\ifx\global@pandoccrossref@subfigures@footnotes\empty%
-\gdef\global@pandoccrossref@subfigures@footnotes{{##1}}%
-\else%
-\g@addto@macro\global@pandoccrossref@subfigures@footnotes{, {##1}}%
-\fi}}%
-{\end{figure}%
-\addtocounter{footnote}{-\value{pandoccrossref@subfigures@footnote@counter}}
-\@for\f:=\global@pandoccrossref@subfigures@footnotes\do{\stepcounter{footnote}\footnotetext{\f}}%
-\gdef\global@pandoccrossref@subfigures@footnotes{}}
 \@ifpackageloaded{float}{}{\usepackage{float}}
 \floatstyle{ruled}
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[style=ieee,]{biblatex}
-\addbibresource{/home/kchou/Documents/Braindump/998
-Attachments/biblio.bib}
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
   pdftitle={Automatic Harness Generation for Crypto Libraries},
   pdfauthor={Konstantinos Chousos},
+  pdfkeywords={LLMs, Fuzzing, Security, Neyrosymbolic AI},
   colorlinks=true,
-  linkcolor={Maroon},
+  linkcolor={blue},
   filecolor={cyan},
   citecolor={red},
   urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Automatic Harness Generation for Crypto Libraries}
-\author{ Konstantinos Chousos \\ \small{Department of Informatics and
-Telecommunications, UoA} \\ \small{\texttt{sdi2000215@di.uoa.gr}} }
-% \author{true}
-\date{\today}
 
+\title{Automatic Harness Generation for Crypto Libraries}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Version: 0.0.0}
+\author{Konstantinos Chousos}
+\date{April 14, 2025}
 \begin{document}
 \maketitle
-
-\begin{abstract}{}{}%
-
+\begin{abstract}
 Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue
 tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus
 tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis
@@ -169,11 +203,10 @@ rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor;
 malesuada ultricies scelerisque. Molestie class tincidunt quis gravida
 ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex.
 Platea eros ullamcorper nullam rutrum facilisis.
-
-%
 \end{abstract}
 
-\section{Introduction}\label{introduction}
+
+\chapter{Introduction}\label{introduction}
 
 Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue
 tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus
@@ -204,6 +237,9 @@ interdum. Justo dignissim et integer nostra justo nec erat hac litora.
 Consequat finibus suspendisse vitae dui velit. Mus sociosqu magna arcu
 suspendisse facilisis in maecenas?
 
+
 \printbibliography
+
+
 
 \end{document}
