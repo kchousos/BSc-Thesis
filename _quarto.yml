@@ -3,10 +3,11 @@ project:
   output-dir: docs
 
 book:
-  title: Automatic Harness Generation for Crypto Libraries
-  subtitle: "Version: 0.0.0"
-  date: today
-  date-format: long
+  output-file: thesis
+  title: LLM-Driven Fuzzing
+  subtitle: Automatic Harness Generation for Crypto Libraries
+  description: This is, or rather will be, my BSc thesis.
+  # date: 07-01-2025
   author:
     - name: Konstantinos Chousos
       email: sdi2000215@di.uoa.gr
@@ -23,14 +24,12 @@ book:
           ror: https://ror.org/04gnjpq42
       roles: writing
       corresponding: true
-  keyword: 'LLMs, Fuzzing, Security, Neyrosymbolic AI'
   license: CC BY
   abstract: |
     Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis commodo per. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor; malesuada ultricies scelerisque. Molestie class tincidunt quis gravida ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex. Platea eros ullamcorper nullam rutrum facilisis.
   chapters:
     - index.md
     - chapters/intro.md
-    - chapters/references.md
   
   page-navigation: true
   page-footer: 
@@ -47,11 +46,13 @@ book:
         url: "mailto:kon.chousos@gmail.com"
   downloads: [pdf]
   repo-url: https://github.com/kchousos/thesis/
-  repo-actions: [edit, source]
+  # repo-actions: [edit, source]
   repo-branch: master
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
+reference-location: section
+reference-section-title: References
 
 format:
   html:
@@ -71,8 +72,14 @@ format:
         - ./resources/styles-dark.scss
     respect-user-color-scheme: true
     highlight-style: gruvbox-dark
+    date-format: long
+    filters: 
+        - quarto
+        - section-bibliographies
   pdf:
     default: true
+    date: 07-01-2025
+    date-format: MMMM, YYYY
     # documentclass: report
     standalone: true
     number-sections: true
@@ -100,6 +107,7 @@ format:
     filecolor: cyan
     urlcolor: blue
     links-as-notes: false
+    keywords: [LLMs, Fuzzing, Security, Neurosymbolic AI]
     filters:
       - ./resources/minted.lua
     include-in-header: ./resources/preamble.tex
