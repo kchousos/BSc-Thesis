@@ -1,13 +1,15 @@
+\pagenumbering{arabic}
+
 # Introduction
 
 {{<lipsum 1 >}} [@manesArtScienceEngineering2019;@yaoTreeThoughtsDeliberate2023].
 
-{{<lipsum 3 >}}
+{{<lipsum 6 >}}
 
 ## Neurosymbolic AI
 
-{{<lipsum 5 >}}
+{{<lipsum 4 >}}
 
 ## Large Language Models (LLMs)
 
-{{<lipsum 7 >}}
+{{<lipsum 5 >}}

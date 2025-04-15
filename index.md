@@ -12,8 +12,8 @@ date-modified: today
 
 {{< lipsum 1 >}}
 
-```{=latex}
-\newpage
+{{< pagebreak >}}
+
 \tableofcontents
-\newpage
-```
+
+{{< pagebreak >}}
