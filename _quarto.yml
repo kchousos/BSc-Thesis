@@ -42,7 +42,7 @@ book:
       - text: "{{< iconify fa6-brands linkedin >}}"
         url: "https://www.linkedin.com/in/kchousos/"
       - text: "{{< iconify material-symbols mail >}}"
-        url: "mailto:kon.chousos@gmail.com"
+        url: "mailto:sdi2000215@di.uoa.gr"
   downloads: [pdf]
   repo-url: https://github.com/kchousos/thesis/
   # repo-actions: [edit, source]

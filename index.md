@@ -35,7 +35,7 @@ date-modified: today
 }
 </code>
 </pre>
-<div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas" role="listitem">
+<div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas">
 K. Chousos, <span>“LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://example.com">https://example.com</a>
 </div></div></section></div>
 
