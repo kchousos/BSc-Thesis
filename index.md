@@ -21,8 +21,7 @@ date-modified: today
 ::: {.content-visible when-format="html"}
 
 <div id="quarto-appendix" class="default">
-<section class="quarto-appendix-contents" id="quarto-reuse">
-<h2 class="anchored quarto-appendix-heading" id="reuse">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading" id="citation">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div>
+<section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading" id="citation">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div>
 <pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@thesis{chousosLLMDrivenFuzzing2025,
   title = {LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries},
   shorttitle = {LLM-Driven Fuzzing},
@@ -32,9 +31,7 @@ date-modified: today
   location = {Athens, Greece},
   url = {example.com},
   langid = {en, el}
-}
-</code>
-</pre>
+}</code></pre>
 <div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas">
 K. Chousos, <span>“LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://example.com">https://example.com</a>
 </div></div></section></div>
