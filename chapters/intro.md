@@ -4,7 +4,7 @@
 
 {{<lipsum 1 >}} [@manesArtScienceEngineering2019;@yaoTreeThoughtsDeliberate2023].
 
-{{<lipsum 6 >}}
+{{<lipsum 6 >}}^[testing footnotes].
 
 ## Neurosymbolic AI
 
