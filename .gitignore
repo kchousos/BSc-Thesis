@@ -1,4 +1,4 @@
 .vscode/**
 /.quarto/
 site_libs/**
-/_site/
+/docs/
