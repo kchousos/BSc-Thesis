@@ -1,3 +1,3 @@
-.vscode/**
+/.vscode/
 /.quarto/
-site_libs/**
+/site_libs/
