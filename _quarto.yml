@@ -70,7 +70,7 @@ format:
         - ./resources/styles.scss
         - ./resources/styles-dark.scss
     respect-user-color-scheme: true
-    highlight-style: gruvbox-dark
+    highlight-style: arrow
     date-format: long
     # filters: 
     #     - quarto

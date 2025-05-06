@@ -20,6 +20,16 @@
     ]
   },
   {
+    "objectID": "chapters/intro.html#neurosymbolic-ai",
+    "href": "chapters/intro.html#neurosymbolic-ai",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "Listing 1.1: A simple function that does something interesting if it receives the input “HI!”.\n\n\ncat &lt;&lt; EOF &gt; test_fuzzer.cc\n#include &lt;stdint.h&gt;\n#include &lt;stddef.h&gt;\nextern \"C\" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {\n  if (size &gt; 0 && data[0] == 'H')\n    if (size &gt; 1 && data[1] == 'I')\n       if (size &gt; 2 && data[2] == '!')\n       __builtin_trap();\n  return 0;\n}\nEOF\n# Build test_fuzzer.cc with asan and link against libFuzzer.\nclang++ -fsanitize=address,fuzzer test_fuzzer.cc\n# Run the fuzzer with no corpus.\n./a.out",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
     "objectID": "chapters/intro.html#large-language-models-llms",
     "href": "chapters/intro.html#large-language-models-llms",
     "title": "1  Introduction",
