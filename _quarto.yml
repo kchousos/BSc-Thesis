@@ -52,6 +52,8 @@ book:
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
+nocite: |
+  @*
 
 format:
   html:
