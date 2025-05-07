@@ -29,11 +29,11 @@ date-modified: today
   date = {2025-07},
   institution = {{National and Kapodistrian University of Athens}},
   location = {Athens, Greece},
-  url = {example.com},
+  url = {https://kchousos.github.io/thesis/},
   langid = {en, el}
 }</code></pre>
 <div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas">
-K. Chousos, <span>“LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://example.com">https://example.com</a>
+K. Chousos, <span>“LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://kchousos.github.io/thesis">https://kchousos.github.io/thesis/</a>
 </div></div></section></div>
 
 :::
