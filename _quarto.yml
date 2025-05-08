@@ -112,8 +112,7 @@ format:
     urlcolor: blue
     links-as-notes: false
     keywords: [LLMs, Fuzzing, Security, Neurosymbolic AI]
-    filters:
-      - ./resources/minted.lua
+    highlight-style: a11y
     include-in-header: ./resources/preamble.tex
 
 pdf-engine: lualatex

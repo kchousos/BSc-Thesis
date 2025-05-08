@@ -76,6 +76,46 @@ Serif}
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{254,254,254}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.65,0.35,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.85,0.12,0.09}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.85,0.12,0.09}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.65,0.35,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.85,0.12,0.09}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.85,0.12,0.09}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.47,0.16,0.63}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.33,0.33,0.33}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.65,0.35,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.41,0.41,0.41}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -119,13 +159,6 @@ Serif}
 \addbibresource{resources/bibliography.bib}
 
 
-\usepackage[newfloat, cache=false]{minted}
-\setminted{frame=single, framesep=2mm, linenos, breaklines, numbersep=0.5em}
-\makeatletter
-\let\listoflistings\relax
-\makeatother
-\usepackage[font={footnotesize}, margin=1cm, labelfont=bf]{caption}
-\captionsetup[listing]{position=top}
 \pagenumbering{roman}
 \KOMAoption{captions}{tableheading}
 \makeatletter
@@ -216,19 +249,6 @@ Platea eros ullamcorper nullam rutrum facilisis.
 \chapter*{Preface}\label{preface}
 
 \markboth{Preface}{Preface}
-
-\begin{minted}[autogobble]{quarto-title-block}
----
-keywords:
-  - LLMs
-  - Fuzzing
-  - Security
-  - Neurosymbolic AI
-date-modified: today
-
----
-
-\end{minted}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
 posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
@@ -380,23 +400,25 @@ interesting if it receives the input ``HI!''.}
 
 \centering{
 
-\begin{minted}[autogobble]{c}
-cat << EOF > test_fuzzer.cc
-#include <stdint.h>
-#include <stddef.h>
-extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
-  if (size > 0 && data[0] == 'H')
-    if (size > 1 && data[1] == 'I')
-       if (size > 2 && data[2] == '!')
-       __builtin_trap();
-  return 0;
-}
-EOF
-# Build test_fuzzer.cc with asan and link against libFuzzer.
-clang++ -fsanitize=address,fuzzer test_fuzzer.cc
-# Run the fuzzer with no corpus.
-./a.out
-\end{minted}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cat }\OperatorTok{\textless{}\textless{}}\NormalTok{ EOF }\OperatorTok{\textgreater{}}\NormalTok{ test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
+\KeywordTok{extern} \StringTok{"C"} \DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}H\textquotesingle{}}\OperatorTok{)}
+    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{1} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{1}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}I\textquotesingle{}}\OperatorTok{)}
+       \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{2} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{2}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}!\textquotesingle{}}\OperatorTok{)}
+\NormalTok{       \_\_builtin\_trap}\OperatorTok{();}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\NormalTok{EOF}
+\PreprocessorTok{\# }\ErrorTok{Build test\_fuzzer.cc with asan and link against libFuzzer.}
+\NormalTok{clang}\OperatorTok{++} \OperatorTok{{-}}\NormalTok{fsanitize}\OperatorTok{=}\NormalTok{address}\OperatorTok{,}\NormalTok{fuzzer test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
+\PreprocessorTok{\# }\ErrorTok{Run the fuzzer with no corpus.}
+\OperatorTok{./}\NormalTok{a}\OperatorTok{.}\NormalTok{out}
+\end{Highlighting}
+\end{Shaded}
 
 }
 
