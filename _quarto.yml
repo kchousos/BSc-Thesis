@@ -59,6 +59,7 @@ format:
   html:
     default: true
     html-math-method: katex
+    reference-location: block
     citation: true
     toc: true
     toc-expand: true
