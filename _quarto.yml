@@ -30,7 +30,12 @@ book:
   chapters:
     - index.md
     - chapters/intro.md
-    - chapters/refs.md
+    - chapters/background.md
+    - chapters/implementation.md
+    - chapters/conclusion.md
+    - chapters/refs.md # Bibliography
+  appendices:
+    - chapters/appendix.md
   
   page-navigation: true
   page-footer: 

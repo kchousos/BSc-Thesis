@@ -2,13 +2,29 @@
 
 # Introduction
 
-{{<lipsum 1 >}} [@manesArtScienceEngineering2019;@yaoTreeThoughtsDeliberate2023].
+{{<lipsum 1>}}
 
-{{<lipsum 6 >}}^[testing footnotes].
+## Fuzzing
 
-## Neurosymbolic AI
+What is fuzzing [@manes2019].
 
-::: {#lst-test}
+Why fuzz?
+
+### Fuzzing examples
+
+Heartbleed [@heartbleed], shellshock [@meyer2013].
+
+### Fuzzer engines
+
+C/C++: AFL [@afl] & AFL++ [@afl++]. LibFuzzer [@libfuzzer].
+
+Python: Atheris [@atheris].
+
+Java, Rust etc...
+
+An example of a fuzz target/harness can be seen in [@lst-fuzzing-example] [@libfuzzer].
+
+::: {#lst-fuzzing-example}
 ```c
 cat << EOF > test_fuzzer.cc
 #include <stdint.h>
@@ -30,8 +46,25 @@ clang++ -fsanitize=address,fuzzer test_fuzzer.cc
 A simple function that does something interesting if it receives the input "HI!".
 :::
 
-{{<lipsum 4 >}}
-
 ## Large Language Models (LLMs)
 
-{{<lipsum 5 >}}
+Transformers [@vaswani2023], 2017--2025. ChatGPT/OpenAI history & context. Claude, Llama (1--3) etc.
+
+### Prompting
+
+Prompting techniques.
+
+1. Zero-shot.
+2. Chain of Thought [@chainofthought].
+3. ReACt [@reAct].
+4. Tree of Thoughts [@yao2023].
+
+Comparison, strengths weaknesses etc. [@laban2025].
+
+## Neurosymbolic AI
+
+<<<<<<< Updated upstream
+**TODO** [@ganguly2024; @garcez2020; @gaur2023; @grov2024; @sheth2023; @tilwani2024].
+=======
+==TODO== [@ganguly2024; @garcez2020; @gaur2023; @grov2024; @sheth2023; @tilwani2024].
+>>>>>>> Stashed changes

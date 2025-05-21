@@ -326,77 +326,33 @@ volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit
 amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim,
 at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis
 parturient montes, nascetur ridiculus mus.
-\autocite{manesArtScienceEngineering2019,yaoTreeThoughtsDeliberate2023}.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
-rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum
-in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit
-amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit,
-non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante
-volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit
-amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim,
-at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus. Nunc ac dignissim magna.
-Vestibulum vitae egestas elit. Proin feugiat leo quis ante condimentum,
-eu ornare mauris feugiat. Pellentesque habitant morbi tristique senectus
-et netus et malesuada fames ac turpis egestas. Mauris cursus laoreet ex,
-dignissim bibendum est posuere iaculis. Suspendisse et maximus elit. In
-fringilla gravida ornare. Aenean id lectus pulvinar, sagittis felis nec,
-rutrum risus. Nam vel neque eu arcu blandit fringilla et in quam.
-Aliquam luctus est sit amet vestibulum eleifend. Phasellus elementum
-sagittis molestie. Proin tempor lorem arcu, at condimentum purus
-volutpat eu. Fusce et pellentesque ligula. Pellentesque id tellus at
-erat luctus fringilla. Suspendisse potenti. Etiam maximus accumsan
-gravida. Maecenas at nunc dignissim, euismod enim ac, bibendum ipsum.
-Maecenas vehicula velit in nisl aliquet ultricies. Nam eget massa
-interdum, maximus arcu vel, pretium erat. Maecenas sit amet tempor
-purus, vitae aliquet nunc. Vivamus cursus urna velit, eleifend dictum
-magna laoreet ut. Duis eu erat mollis, blandit magna id, tincidunt
-ipsum. Integer massa nibh, commodo eu ex vel, venenatis efficitur
-ligula. Integer convallis lacus elit, maximus eleifend lacus ornare ac.
-Vestibulum scelerisque viverra urna id lacinia. Vestibulum ante ipsum
-primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean
-eget enim at diam bibendum tincidunt eu non purus. Nullam id magna
-ultrices, sodales metus viverra, tempus turpis. Duis ornare ex ac
-iaculis pretium. Maecenas sagittis odio id erat pharetra, sit amet
-consectetur quam sollicitudin. Vivamus pharetra quam purus, nec sagittis
-risus pretium at. Nullam feugiat, turpis ac accumsan interdum, sem
-tellus blandit neque, id vulputate diam quam semper nisl. Donec sit amet
-enim at neque porttitor aliquet. Phasellus facilisis nulla eget placerat
-eleifend. Vestibulum non egestas eros, eget lobortis ipsum. Nulla rutrum
-massa eget enim aliquam, id porttitor erat luctus. Nunc sagittis quis
-eros eu sagittis. Pellentesque dictum, erat at pellentesque
-sollicitudin, justo augue pulvinar metus, quis rutrum est mi nec felis.
-Vestibulum efficitur mi lorem, at elementum purus tincidunt a. Aliquam
-finibus enim magna, vitae pellentesque erat faucibus at. Nulla mauris
-tellus, imperdiet id lobortis et, dignissim condimentum ipsum. Morbi
-nulla orci, varius at aliquet sed, facilisis id tortor. Donec ut urna
-nisi. Aenean placerat luctus tortor vitae molestie. Nulla at aliquet
-nulla. Sed efficitur tellus orci, sed fringilla lectus laoreet eget.
-Vivamus maximus quam sit amet arcu dignissim, sed accumsan massa
-ullamcorper. Sed iaculis tincidunt feugiat. Nulla in est at nunc
-ultricies dictum ut vitae nunc. Aenean convallis vel diam at malesuada.
-Suspendisse arcu libero, vehicula tempus ultrices a, placerat sit amet
-tortor. Sed dictum id nulla commodo mattis. Aliquam mollis, nunc eu
-tristique faucibus, purus lacus tincidunt nulla, ac pretium lorem nunc
-ut enim. Curabitur eget mattis nisl, vitae sodales augue. Nam felis
-massa, bibendum sit amet nulla vel, vulputate rutrum lacus. Aenean
-convallis odio pharetra nulla mattis consequat. Ut ut condimentum augue,
-nec eleifend nisl. Sed facilisis egestas odio ac pretium. Pellentesque
-consequat magna sed venenatis sagittis. Vivamus feugiat lobortis magna
-vitae accumsan. Pellentesque euismod malesuada hendrerit. Ut non mauris
-non arcu condimentum sodales vitae vitae dolor. Nullam dapibus, velit
-eget lacinia rutrum, ipsum justo malesuada odio, et lobortis sapien
-magna vel lacus. Nulla purus neque, hendrerit non malesuada eget, mattis
-vel erat. Suspendisse potenti.\footnote{testing footnotes}.
+\section{Fuzzing}\label{fuzzing}
 
-\section{Neurosymbolic AI}\label{neurosymbolic-ai}
+What is fuzzing \autocite{manes2019}.
+
+Why fuzz?
+
+\subsection{Fuzzing examples}\label{fuzzing-examples}
+
+Heartbleed \autocite{heartbleed}, shellshock \autocite{meyer2013}.
+
+\subsection{Fuzzer engines}\label{fuzzer-engines}
+
+C/C++: AFL \autocite{afl} \& AFL++ \autocite[++]{afl}. LibFuzzer
+\autocite{libfuzzer}.
+
+Python: Atheris \autocite{atheris}.
+
+Java, Rust etc\ldots{}
+
+An example of a fuzz target/harness can be seen in
+Listing~\ref{lst-fuzzing-example} \autocite{libfuzzer}.
 
 \begin{codelisting}
 
-\caption{\label{lst-test}A simple function that does something
-interesting if it receives the input ``HI!''.}
+\caption{\label{lst-fuzzing-example}A simple function that does
+something interesting if it receives the input ``HI!''.}
 
 \centering{
 
@@ -424,6 +380,44 @@ interesting if it receives the input ``HI!''.}
 
 \end{codelisting}%
 
+\section{Large Language Models (LLMs)}\label{large-language-models-llms}
+
+Transformers \autocite{vaswani2023}, 2017--2025. ChatGPT/OpenAI history
+\& context. Claude, Llama (1--3) etc.
+
+\subsection{Prompting}\label{prompting}
+
+Prompting techniques.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Zero-shot.
+\item
+  Chain of Thought \autocite{chainofthought}.
+\item
+  ReACt \autocite{reAct}.
+\item
+  Tree of Thoughts \autocite{yao2023}.
+\end{enumerate}
+
+Comparison, strengths weaknesses etc. \autocite{laban2025}.
+
+\section{Neurosymbolic AI}\label{neurosymbolic-ai}
+
+\textless\textless\textless\textless\textless\textless\textless{}
+Updated upstream \textbf{TODO}
+\autocite{ganguly2024,garcez2020,gaur2023,grov2024,sheth2023,tilwani2024}.
+======= ==TODO==
+\autocite{ganguly2024,garcez2020,gaur2023,grov2024,sheth2023,tilwani2024}.
+\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater{}
+Stashed changes
+
+\bookmarksetup{startatroot}
+
+\chapter{Background Work}\label{background-work}
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
 posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
 rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum
@@ -435,46 +429,100 @@ amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim,
 at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis
 parturient montes, nascetur ridiculus mus.
 
-Nunc ac dignissim magna. Vestibulum vitae egestas elit. Proin feugiat
-leo quis ante condimentum, eu ornare mauris feugiat. Pellentesque
-habitant morbi tristique senectus et netus et malesuada fames ac turpis
-egestas. Mauris cursus laoreet ex, dignissim bibendum est posuere
-iaculis. Suspendisse et maximus elit. In fringilla gravida ornare.
-Aenean id lectus pulvinar, sagittis felis nec, rutrum risus. Nam vel
-neque eu arcu blandit fringilla et in quam. Aliquam luctus est sit amet
-vestibulum eleifend. Phasellus elementum sagittis molestie. Proin tempor
-lorem arcu, at condimentum purus volutpat eu. Fusce et pellentesque
-ligula. Pellentesque id tellus at erat luctus fringilla. Suspendisse
-potenti.
+\section{Automatic Harnesses}\label{automatic-harnesses}
 
-Etiam maximus accumsan gravida. Maecenas at nunc dignissim, euismod enim
-ac, bibendum ipsum. Maecenas vehicula velit in nisl aliquet ultricies.
-Nam eget massa interdum, maximus arcu vel, pretium erat. Maecenas sit
-amet tempor purus, vitae aliquet nunc. Vivamus cursus urna velit,
-eleifend dictum magna laoreet ut. Duis eu erat mollis, blandit magna id,
-tincidunt ipsum. Integer massa nibh, commodo eu ex vel, venenatis
-efficitur ligula. Integer convallis lacus elit, maximus eleifend lacus
-ornare ac. Vestibulum scelerisque viverra urna id lacinia. Vestibulum
-ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-curae; Aenean eget enim at diam bibendum tincidunt eu non purus. Nullam
-id magna ultrices, sodales metus viverra, tempus turpis.
+Where we are right now. SOTA projects. Similar projects using LLMs in
+the fuzzing space \autocite{fuzzgpt,titanfuzz,iris}.
 
-Duis ornare ex ac iaculis pretium. Maecenas sagittis odio id erat
-pharetra, sit amet consectetur quam sollicitudin. Vivamus pharetra quam
-purus, nec sagittis risus pretium at. Nullam feugiat, turpis ac accumsan
-interdum, sem tellus blandit neque, id vulputate diam quam semper nisl.
-Donec sit amet enim at neque porttitor aliquet. Phasellus facilisis
-nulla eget placerat eleifend. Vestibulum non egestas eros, eget lobortis
-ipsum. Nulla rutrum massa eget enim aliquam, id porttitor erat luctus.
-Nunc sagittis quis eros eu sagittis. Pellentesque dictum, erat at
-pellentesque sollicitudin, justo augue pulvinar metus, quis rutrum est
-mi nec felis. Vestibulum efficitur mi lorem, at elementum purus
-tincidunt a. Aliquam finibus enim magna, vitae pellentesque erat
-faucibus at. Nulla mauris tellus, imperdiet id lobortis et, dignissim
-condimentum ipsum. Morbi nulla orci, varius at aliquet sed, facilisis id
-tortor. Donec ut urna nisi.
+\textbf{TODO}.
 
-\section{Large Language Models (LLMs)}\label{large-language-models-llms}
+\subsection{Google}\label{google}
+
+FuzzGen, FUDGE, OSS-Fuzz-Gen
+\autocite{fuzzgen,fudge,oss-fuzz,oss-fuzz-gen}.
+
+\subsubsection{OSS-Fuzz-Gen}\label{oss-fuzz-gen}
+
+Features/caveats. \texttt{from\_scratch} branch\footnote{commit
+  \texttt{171aac2}}.
+
+\section{LLM Programming Libraries}\label{llm-programming-libraries}
+
+Langchain \& LangGraph, LlamaIndex
+\autocite{langchain,langgraph,llamaindex}. DSPy \autocite{dspy}.
+
+Comparison, relevance to our usecase.
+
+\bookmarksetup{startatroot}
+
+\chapter{LLM-Harness}\label{llm-harness}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How is it different?
+\item
+  What does it offer?
+\end{enumerate}
+
+\section{Scope of Usage}\label{scope-of-usage}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In what contexts does it work?
+\item
+  Prerequisites
+\end{enumerate}
+
+\section{Main Library
+Architecture/Structure}\label{main-library-architecturestructure}
+
+\section{GitHub Workflow/Usage}\label{github-workflowusage}
+
+\section{Future work/extensions}\label{future-workextensions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Build system
+\item
+  General \emph{localization} problem
+\end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter{Conclusion}\label{conclusion}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What works/what doesn't
+\item
+  More general future steps for the field in general
+\item
+  Recap
+\end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Bibliography}\label{bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\markboth{Bibliography}{Bibliography}
+
+\printbibliography[heading=none]
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Appendices}
+\appendix
+
+\chapter{Failed Techniques}\label{failed-techniques}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
 posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
@@ -538,14 +586,24 @@ eget mattis nisl, vitae sodales augue. Nam felis massa, bibendum sit
 amet nulla vel, vulputate rutrum lacus. Aenean convallis odio pharetra
 nulla mattis consequat.
 
-\bookmarksetup{startatroot}
+Ut ut condimentum augue, nec eleifend nisl. Sed facilisis egestas odio
+ac pretium. Pellentesque consequat magna sed venenatis sagittis. Vivamus
+feugiat lobortis magna vitae accumsan. Pellentesque euismod malesuada
+hendrerit. Ut non mauris non arcu condimentum sodales vitae vitae dolor.
+Nullam dapibus, velit eget lacinia rutrum, ipsum justo malesuada odio,
+et lobortis sapien magna vel lacus. Nulla purus neque, hendrerit non
+malesuada eget, mattis vel erat. Suspendisse potenti.
 
-\chapter*{Bibliography}\label{bibliography}
-\addcontentsline{toc}{chapter}{Bibliography}
-
-\markboth{Bibliography}{Bibliography}
-
-\printbibliography[heading=none]
+Nullam dapibus cursus dolor sit amet consequat. Nulla facilisi.
+Curabitur vel nulla non magna lacinia tincidunt. Duis porttitor quam
+leo, et blandit velit efficitur ut. Etiam auctor tincidunt porttitor.
+Phasellus sed accumsan mi. Fusce ut erat dui. Suspendisse eu augue eget
+turpis condimentum finibus eu non lorem. Donec finibus eros eu ante
+condimentum, sed pharetra sapien sagittis. Phasellus non dolor ac ante
+mollis auctor nec et sapien. Pellentesque vulputate at nisi eu
+tincidunt. Vestibulum at dolor aliquam, hendrerit purus eu, eleifend
+massa. Morbi consectetur eros id tincidunt gravida. Fusce ut enim quis
+orci hendrerit lacinia sed vitae enim.
 
 
 \nocite{*}
