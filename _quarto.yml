@@ -7,7 +7,7 @@ book:
   title: LLM-Driven Fuzzing
   subtitle: Automatic Harness Generation for Crypto Libraries
   description: This is, or rather will be, my BSc thesis.
-  # date: 07-01-2025
+  date: July 2025
   author:
     - name: Konstantinos Chousos
       email: sdi2000215@di.uoa.gr
@@ -31,7 +31,10 @@ book:
     - index.md
     - chapters/intro.md
     - chapters/background.md
-    - chapters/implementation.md
+    - chapters/related-work.md
+    - chapters/overview.md 
+    - chapters/implementation.md 
+    - chapters/evaluation.md
     - chapters/conclusion.md
     - chapters/refs.md # Bibliography
   appendices:
