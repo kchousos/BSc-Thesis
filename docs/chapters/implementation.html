@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="This is, or rather will be, my BSc thesis.">
+<meta name="description" content="My BSc thesis.">
 
-<title>5&nbsp; Implementation – LLM-Driven Fuzzing</title>
+<title>5&nbsp; Implementation – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -95,6 +75,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer=""></script>
 
 
 </head>
@@ -293,7 +274,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">LLM-Driven Fuzzing</a> 
+      <a href="../">OverHAuL</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/kchousos/thesis/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="../thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -416,209 +397,6 @@ div.csl-indent {
 </ul>
 
 
-<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-2024MagenticOne" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span>“Magentic-<span>One</span>: <span>A Generalist Multi-Agent System</span> for <span>Solving Complex Tasks</span>,”</span> Nov. 04, 2024. Available: <a href="https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/">https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/</a></div>
-</div>
-<div id="ref-2025a" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span>“Google/clusterfuzz.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/clusterfuzz">https://github.com/google/clusterfuzz</a></div>
-</div>
-<div id="ref-2025pydantic" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span>“Pydantic/pydantic-ai.”</span> Pydantic, May 26, 2025. Available: <a href="https://github.com/pydantic/pydantic-ai">https://github.com/pydantic/pydantic-ai</a></div>
-</div>
-<div id="ref-afl" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
-</div>
-<div id="ref-afl++" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
-</div>
-<div id="ref-afl++paper" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A. Fioraldi, D. Maier, H. Eißfeldt, and M. Heuse, <span>“<span>AFL</span>++: <span>Combining</span> incremental steps of fuzzing research,”</span> in <em>14th <span>USENIX</span> workshop on offensive technologies (<span>WOOT</span> 20)</em>, USENIX Association, Aug. 2020.</div>
-</div>
-<div id="ref-anderson1993" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">R. Anderson, <span>“Why cryptosystems fail,”</span> in <em>Proceedings of the 1st <span>ACM</span> conference on <span>Computer</span> and communications security - <span>CCS</span> ’93</em>, Fairfax, Virginia, United States: ACM Press, 1993, pp. 215–227. doi: <a href="https://doi.org/10.1145/168588.168615">10.1145/168588.168615</a>. Available: <a href="http://portal.acm.org/citation.cfm?doid=168588.168615">http://portal.acm.org/citation.cfm?doid=168588.168615</a></div>
-</div>
-<div id="ref-atheris" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span>“Google/atheris.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/atheris">https://github.com/google/atheris</a></div>
-</div>
-<div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
-</div>
-<div id="ref-cheng2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Y. Cheng <em>et al.</em>, <span>“Towards <span>Reliable LLM-Driven Fuzz Testing</span>: <span>Vision</span> and <span>Road Ahead</span>,”</span> Mar. 02, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2503.00795">10.48550/arXiv.2503.00795</a>. Available: <a href="http://arxiv.org/abs/2503.00795">http://arxiv.org/abs/2503.00795</a></div>
-</div>
-<div id="ref-dspy" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
-</div>
-<div id="ref-fudge" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
-</div>
-<div id="ref-fuzzgen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
-</div>
-<div id="ref-fuzzgpt" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">Y. Deng, C. S. Xia, C. Yang, S. D. Zhang, S. Yang, and L. Zhang, <span>“Large <span>Language Models</span> are <span>Edge-Case Fuzzers</span>: <span>Testing Deep Learning Libraries</span> via <span>FuzzGPT</span>,”</span> Apr. 04, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2304.02014">10.48550/arXiv.2304.02014</a>. Available: <a href="http://arxiv.org/abs/2304.02014">http://arxiv.org/abs/2304.02014</a></div>
-</div>
-<div id="ref-ganguly2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>
-</div>
-<div id="ref-gao2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">W. Gao, V.-T. Pham, D. Liu, O. Chang, T. Murray, and B. I. P. Rubinstein, <span>“Beyond the <span>Coverage Plateau</span>: <span>A Comprehensive Study</span> of <span>Fuzz Blockers</span> (<span>Registered Report</span>),”</span> in <em>Proceedings of the 2nd <span>International Fuzzing Workshop</span></em>, in <span>FUZZING</span> 2023. New York, NY, USA: Association for Computing Machinery, Jul. 2023, pp. 47–55. doi: <a href="https://doi.org/10.1145/3605157.3605177">10.1145/3605157.3605177</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3605157.3605177">https://dl.acm.org/doi/10.1145/3605157.3605177</a></div>
-</div>
-<div id="ref-gao2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">Y. Gao <em>et al.</em>, <span>“Retrieval-<span>Augmented Generation</span> for <span>Large Language Models</span>: <span>A Survey</span>,”</span> Mar. 27, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2312.10997">10.48550/arXiv.2312.10997</a>. Available: <a href="http://arxiv.org/abs/2312.10997">http://arxiv.org/abs/2312.10997</a></div>
-</div>
-<div id="ref-garcez2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">A. d’Avila Garcez and L. C. Lamb, <span>“Neurosymbolic <span>AI</span>: <span>The</span> 3rd <span>Wave</span>,”</span> Dec. 16, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2012.05876">10.48550/arXiv.2012.05876</a>. Available: <a href="http://arxiv.org/abs/2012.05876">http://arxiv.org/abs/2012.05876</a></div>
-</div>
-<div id="ref-gaur2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline">M. Gaur and A. Sheth, <span>“Building <span>Trustworthy NeuroSymbolic AI Systems</span>: <span>Consistency</span>, <span>Reliability</span>, <span>Explainability</span>, and <span>Safety</span>,”</span> Dec. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2312.06798">10.48550/arXiv.2312.06798</a>. Available: <a href="http://arxiv.org/abs/2312.06798">http://arxiv.org/abs/2312.06798</a></div>
-</div>
-<div id="ref-gazzola2019Automatic" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[20] </div><div class="csl-right-inline">L. Gazzola, D. Micucci, and L. Mariani, <span>“Automatic <span>Software Repair</span>: <span>A Survey</span>,”</span> <em>IEEE Transactions on Software Engineering</em>, vol. 45, no. 1, pp. 34–67, Jan. 2019, doi: <a href="https://doi.org/10.1109/TSE.2017.2755013">10.1109/TSE.2017.2755013</a>. Available: <a href="https://ieeexplore.ieee.org/document/8089448/">https://ieeexplore.ieee.org/document/8089448/</a></div>
-</div>
-<div id="ref-giannone2025react" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[21] </div><div class="csl-right-inline">D. Giannone, <span>“Demystifying <span>AI Agents</span>: <span>ReAct-Style Agents</span> vs <span>Agentic Workflows</span>,”</span> Feb. 09, 2025. Available: <a href="https://medium.com/@DanGiannone/demystifying-ai-agents-react-style-agents-vs-agentic-workflows-cedca7e26471">https://medium.com/@DanGiannone/demystifying-ai-agents-react-style-agents-vs-agentic-workflows-cedca7e26471</a></div>
-</div>
-<div id="ref-grov2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[22] </div><div class="csl-right-inline">G. Grov, J. Halvorsen, M. W. Eckhoff, B. J. Hansen, M. Eian, and V. Mavroeidis, <span>“On the use of neurosymbolic <span>AI</span> for defending against cyber attacks,”</span> Aug. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2408.04996">10.48550/arXiv.2408.04996</a>. Available: <a href="http://arxiv.org/abs/2408.04996">http://arxiv.org/abs/2408.04996</a></div>
-</div>
-<div id="ref-heartbleed" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[23] </div><div class="csl-right-inline"><span>“Heartbleed <span>Bug</span>.”</span> Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
-</div>
-<div id="ref-herrera2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[24] </div><div class="csl-right-inline">A. Herrera, H. Gunadi, S. Magrath, M. Norrish, M. Payer, and A. L. Hosking, <span>“Seed selection for successful fuzzing,”</span> in <em>Proceedings of the 30th <span>ACM SIGSOFT International Symposium</span> on <span>Software Testing</span> and <span>Analysis</span></em>, Virtual Denmark: ACM, Jul. 2021, pp. 230–243. doi: <a href="https://doi.org/10.1145/3460319.3464795">10.1145/3460319.3464795</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3460319.3464795">https://dl.acm.org/doi/10.1145/3460319.3464795</a></div>
-</div>
-<div id="ref-huang2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[25] </div><div class="csl-right-inline">L. Huang, P. Zhao, H. Chen, and L. Ma, <span>“Large language models based fuzzing techniques: A survey,”</span> 2024. Available: <a href="https://arxiv.org/abs/2402.00350">https://arxiv.org/abs/2402.00350</a></div>
-</div>
-<div id="ref-iris" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[26] </div><div class="csl-right-inline">Z. Li, S. Dutta, and M. Naik, <span>“<span>IRIS</span>: <span>LLM-Assisted Static Analysis</span> for <span>Detecting Security Vulnerabilities</span>,”</span> Apr. 06, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2405.17238">10.48550/arXiv.2405.17238</a>. Available: <a href="http://arxiv.org/abs/2405.17238">http://arxiv.org/abs/2405.17238</a></div>
-</div>
-<div id="ref-jensen2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[27] </div><div class="csl-right-inline">R. I. T. Jensen, V. Tawosi, and S. Alamir, <span>“Software <span>Vulnerability</span> and <span>Functionality Assessment</span> using <span>LLMs</span>,”</span> Mar. 13, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2403.08429">10.48550/arXiv.2403.08429</a>. Available: <a href="http://arxiv.org/abs/2403.08429">http://arxiv.org/abs/2403.08429</a></div>
-</div>
-<div id="ref-kim2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[28] </div><div class="csl-right-inline">S. Y. Kim, Z. Fan, Y. Noller, and A. Roychoudhury, <span>“Codexity: <span class="nocase">Secure AI-assisted Code Generation</span>,”</span> May 07, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2405.03927">10.48550/arXiv.2405.03927</a>. Available: <a href="http://arxiv.org/abs/2405.03927">http://arxiv.org/abs/2405.03927</a></div>
-</div>
-<div id="ref-klee" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[29] </div><div class="csl-right-inline">C. Cadar, D. Dunbar, and D. Engler, <span>“<span>KLEE</span>: <span>Unassisted</span> and <span>Automatic Generation</span> of <span>High-Coverage Tests</span> for <span>Complex Systems Programs</span>,”</span> presented at the <span>USENIX Symposium</span> on <span>Operating Systems Design</span> and <span>Implementation</span>, Dec. 2008. Available: <a href="https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8">https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8</a></div>
-</div>
-<div id="ref-laban2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[30] </div><div class="csl-right-inline">P. Laban, H. Hayashi, Y. Zhou, and J. Neville, <span>“<span>LLMs Get Lost In Multi-Turn Conversation</span>,”</span> May 09, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2505.06120">10.48550/arXiv.2505.06120</a>. Available: <a href="http://arxiv.org/abs/2505.06120">http://arxiv.org/abs/2505.06120</a></div>
-</div>
-<div id="ref-langchain" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[31] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
-</div>
-<div id="ref-langgraph" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[32] </div><div class="csl-right-inline"><span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
-</div>
-<div id="ref-lazar2014" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[33] </div><div class="csl-right-inline">D. Lazar, H. Chen, X. Wang, and N. Zeldovich, <span>“Why does cryptographic software fail? A case study and open problems,”</span> in <em>Proceedings of 5th <span>Asia-Pacific Workshop</span> on <span>Systems</span></em>, in <span>APSys</span> ’14. New York, NY, USA: Association for Computing Machinery, Jun. 2014, pp. 1–7. doi: <a href="https://doi.org/10.1145/2637166.2637237">10.1145/2637166.2637237</a>. Available: <a href="https://doi.org/10.1145/2637166.2637237">https://doi.org/10.1145/2637166.2637237</a></div>
-</div>
-<div id="ref-lee2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[34] </div><div class="csl-right-inline">H.-P. H. Lee <em>et al.</em>, <span>“The <span>Impact</span> of <span>Generative AI</span> on <span>Critical Thinking</span>: <span>Self-Reported Reductions</span> in <span>Cognitive Effort</span> and <span>Confidence Effects From</span> a <span>Survey</span> of <span>Knowledge Workers</span>,”</span> 2025, Available: <a href="https://hankhplee.com/papers/genai_critical_thinking.pdf">https://hankhplee.com/papers/genai_critical_thinking.pdf</a></div>
-</div>
-<div id="ref-legoues2013Repair" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[35] </div><div class="csl-right-inline">C. Le Goues, S. Forrest, and W. Weimer, <span>“Current challenges in automatic software repair,”</span> <em>Software Qual J</em>, vol. 21, no. 3, pp. 421–443, Sep. 2013, doi: <a href="https://doi.org/10.1007/s11219-013-9208-0">10.1007/s11219-013-9208-0</a>. Available: <a href="http://link.springer.com/10.1007/s11219-013-9208-0">http://link.springer.com/10.1007/s11219-013-9208-0</a></div>
-</div>
-<div id="ref-li2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[36] </div><div class="csl-right-inline">H. Li, <span>“Language models: Past, present, and future,”</span> <em>Commun. ACM</em>, vol. 65, no. 7, pp. 56–63, Jun. 2022, doi: <a href="https://doi.org/10.1145/3490443">10.1145/3490443</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3490443">https://dl.acm.org/doi/10.1145/3490443</a></div>
-</div>
-<div id="ref-libfuzzer" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[37] </div><div class="csl-right-inline"><span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation.”</span> Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
-</div>
-<div id="ref-licklider1960" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[38] </div><div class="csl-right-inline">J. C. R. Licklider, <span>“Man-<span>Computer Symbiosis</span>,”</span> <em>IRE Transactions on Human Factors in Electronics</em>, vol. HFE–1, no. 1, pp. 4–11, Mar. 1960, doi: <a href="https://doi.org/10.1109/THFE2.1960.4503259">10.1109/THFE2.1960.4503259</a>. Available: <a href="https://ieeexplore.ieee.org/document/4503259">https://ieeexplore.ieee.org/document/4503259</a></div>
-</div>
-<div id="ref-liu2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[39] </div><div class="csl-right-inline">J. Liu, S. Lee, E. Losiouk, and M. Böhme, <span>“Can <span>LLM Generate Regression Tests</span> for <span>Software Commits</span>?”</span> Jan. 19, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2501.11086">10.48550/arXiv.2501.11086</a>. Available: <a href="http://arxiv.org/abs/2501.11086">http://arxiv.org/abs/2501.11086</a></div>
-</div>
-<div id="ref-llamaindex" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[40] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
-</div>
-<div id="ref-lyu2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[41] </div><div class="csl-right-inline">Y. Lyu, Y. Xie, P. Chen, and H. Chen, <span>“Prompt <span>Fuzzing</span> for <span>Fuzz Driver Generation</span>,”</span> May 29, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2312.17677">10.48550/arXiv.2312.17677</a>. Available: <a href="http://arxiv.org/abs/2312.17677">http://arxiv.org/abs/2312.17677</a></div>
-</div>
-<div id="ref-manes2019" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[42] </div><div class="csl-right-inline">V. J. M. Manes <em>et al.</em>, <span>“The <span>Art</span>, <span>Science</span>, and <span>Engineering</span> of <span>Fuzzing</span>: <span>A Survey</span>,”</span> Apr. 07, 2019. doi: <a href="https://doi.org/10.48550/arXiv.1812.00140">10.48550/arXiv.1812.00140</a>. Available: <a href="http://arxiv.org/abs/1812.00140">http://arxiv.org/abs/1812.00140</a></div>
-</div>
-<div id="ref-meyer2013" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[43] </div><div class="csl-right-inline">C. Meyer and J. Schwenk, <span>“Lessons <span>Learned From Previous SSL</span>/<span>TLS Attacks</span> - <span>A Brief Chronology Of Attacks And Weaknesses</span>,”</span> 2013. Available: <a href="https://eprint.iacr.org/2013/049">https://eprint.iacr.org/2013/049</a></div>
-</div>
-<div id="ref-nethercote2007" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[44] </div><div class="csl-right-inline">N. Nethercote and J. Seward, <span>“Valgrind: A framework for heavyweight dynamic binary instrumentation,”</span> <em>SIGPLAN Not.</em>, vol. 42, no. 6, pp. 89–100, Jun. 2007, doi: <a href="https://doi.org/10.1145/1273442.1250746">10.1145/1273442.1250746</a>. Available: <a href="https://doi.org/10.1145/1273442.1250746">https://doi.org/10.1145/1273442.1250746</a></div>
-</div>
-<div id="ref-oss-fuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[45] </div><div class="csl-right-inline">A. Arya, O. Chang, J. Metzman, K. Serebryany, and D. Liu, <span>“<span>OSS-Fuzz</span>.”</span> Apr. 08, 2025. Available: <a href="https://github.com/google/oss-fuzz">https://github.com/google/oss-fuzz</a></div>
-</div>
-<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[46] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
-</div>
-<div id="ref-oss-fuzzmaintainers2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[47] </div><div class="csl-right-inline">OSS-Fuzz Maintainers, <span>“Introducing <span class="nocase">LLM-based</span> harness synthesis for unfuzzed projects,”</span> May 27, 2024. Available: <a href="https://blog.oss-fuzz.com/posts/introducing-llm-based-harness-synthesis-for-unfuzzed-projects/">https://blog.oss-fuzz.com/posts/introducing-llm-based-harness-synthesis-for-unfuzzed-projects/</a></div>
-</div>
-<div id="ref-perry2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[48] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
-</div>
-<div id="ref-prophetfuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[49] </div><div class="csl-right-inline">D. Wang, G. Zhou, L. Chen, D. Li, and Y. Miao, <span>“<span>ProphetFuzz</span>: <span>Fully Automated Prediction</span> and <span>Fuzzing</span> of <span>High-Risk Option Combinations</span> with <span>Only Documentation</span> via <span>Large Language Model</span>,”</span> Sep. 01, 2024. doi: <a href="https://doi.org/10.1145/3658644.3690231">10.1145/3658644.3690231</a>. Available: <a href="http://arxiv.org/abs/2409.00922">http://arxiv.org/abs/2409.00922</a></div>
-</div>
-<div id="ref-reAct" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[50] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
-</div>
-<div id="ref-sasirekha2011Slicing" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[51] </div><div class="csl-right-inline">N. Sasirekha, A. Edwin Robert, and M. Hemalatha, <span>“Program <span>Slicing Techniques</span> and its <span>Applications</span>,”</span> <em>IJSEA</em>, vol. 2, no. 3, pp. 50–64, Jul. 2011, doi: <a href="https://doi.org/10.5121/ijsea.2011.2304">10.5121/ijsea.2011.2304</a>. Available: <a href="http://www.airccse.org/journal/ijsea/papers/0711ijsea04.pdf">http://www.airccse.org/journal/ijsea/papers/0711ijsea04.pdf</a></div>
-</div>
-<div id="ref-sheth2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[52] </div><div class="csl-right-inline">A. Sheth, K. Roy, and M. Gaur, <span>“Neurosymbolic <span>AI</span> – <span>Why</span>, <span>What</span>, and <span>How</span>,”</span> May 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.00813">10.48550/arXiv.2305.00813</a>. Available: <a href="http://arxiv.org/abs/2305.00813">http://arxiv.org/abs/2305.00813</a></div>
-</div>
-<div id="ref-simonite2020mayhem" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[53] </div><div class="csl-right-inline">T. Simonite, <span>“This <span>Bot Hunts Software Bugs</span> for the <span>Pentagon</span>,”</span> <em>Wired</em>, Jun. 01, 2020. Available: <a href="https://www.wired.com/story/bot-hunts-software-bugs-pentagon/">https://www.wired.com/story/bot-hunts-software-bugs-pentagon/</a></div>
-</div>
-<div id="ref-tilwani2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[54] </div><div class="csl-right-inline">D. Tilwani, R. Venkataramanan, and A. P. Sheth, <span>“Neurosymbolic <span>AI</span> approach to <span>Attribution</span> in <span>Large Language Models</span>,”</span> Sep. 30, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.03726">10.48550/arXiv.2410.03726</a>. Available: <a href="http://arxiv.org/abs/2410.03726">http://arxiv.org/abs/2410.03726</a></div>
-</div>
-<div id="ref-titanfuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[55] </div><div class="csl-right-inline">Y. Deng, C. S. Xia, H. Peng, C. Yang, and L. Zhang, <span>“Large <span>Language Models Are Zero-Shot Fuzzers</span>: <span>Fuzzing Deep-Learning Libraries</span> via <span>Large Language Models</span>,”</span> in <em>Proceedings of the 32nd <span>ACM SIGSOFT International Symposium</span> on <span>Software Testing</span> and <span>Analysis</span></em>, in <span>ISSTA</span> 2023. New York, NY, USA: Association for Computing Machinery, Jul. 2023, pp. 423–435. doi: <a href="https://doi.org/10.1145/3597926.3598067">10.1145/3597926.3598067</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3597926.3598067">https://dl.acm.org/doi/10.1145/3597926.3598067</a></div>
-</div>
-<div id="ref-tzachristas2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[56] </div><div class="csl-right-inline">I. Tzachristas, <span>“Creating an <span class="nocase">LLM-based AI-agent</span>: <span>A</span> high-level methodology towards enhancing <span>LLMs</span> with <span>APIs</span>,”</span> Dec. 21, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2412.13233">10.48550/arXiv.2412.13233</a>. Available: <a href="http://arxiv.org/abs/2412.13233">http://arxiv.org/abs/2412.13233</a></div>
-</div>
-<div id="ref-vaswani2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[57] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
-</div>
-<div id="ref-yao2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[58] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
-</div>
-<div id="ref-zebaze2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[59] </div><div class="csl-right-inline">A. Zebaze, B. Sagot, and R. Bawden, <span>“Tree of <span>Problems</span>: <span>Improving</span> structured problem solving with compositionality,”</span> Oct. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.06634">10.48550/arXiv.2410.06634</a>. Available: <a href="http://arxiv.org/abs/2410.06634">http://arxiv.org/abs/2410.06634</a></div>
-</div>
-<div id="ref-zhang2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[60] </div><div class="csl-right-inline">C. Zhang <em>et al.</em>, <span>“How <span>Effective Are They</span>? <span>Exploring Large Language Model Based Fuzz Driver Generation</span>,”</span> in <em>Proceedings of the 33rd <span>ACM SIGSOFT International Symposium</span> on <span>Software Testing</span> and <span>Analysis</span></em>, Sep. 2024, pp. 1223–1235. doi: <a href="https://doi.org/10.1145/3650212.3680355">10.1145/3650212.3680355</a>. Available: <a href="http://arxiv.org/abs/2307.12469">http://arxiv.org/abs/2307.12469</a></div>
-</div>
-<div id="ref-zhang2024a" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[61] </div><div class="csl-right-inline">C. Zhang <em>et al.</em>, <span>“How <span>Effective Are They</span>? <span>Exploring Large Language Model Based Fuzz Driver Generation</span>,”</span> in <em>Proceedings of the 33rd <span>ACM SIGSOFT International Symposium</span> on <span>Software Testing</span> and <span>Analysis</span></em>, in <span>ISSTA</span> 2024. New York, NY, USA: Association for Computing Machinery, Sep. 2024, pp. 1223–1235. doi: <a href="https://doi.org/10.1145/3650212.3680355">10.1145/3650212.3680355</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3650212.3680355">https://dl.acm.org/doi/10.1145/3650212.3680355</a></div>
-</div>
-<div id="ref-zhang2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[62] </div><div class="csl-right-inline">K. Zhang <em>et al.</em>, <span>“Your <span>Fix Is My Exploit</span>: <span>Enabling Comprehensive DL Library API Fuzzing</span> with <span>Large Language Models</span>,”</span> Jan. 08, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2501.04312">10.48550/arXiv.2501.04312</a>. Available: <a href="http://arxiv.org/abs/2501.04312">http://arxiv.org/abs/2501.04312</a></div>
-</div>
-<div id="ref-zhong2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[63] </div><div class="csl-right-inline">P. Y. Zhong, H. He, O. Khattab, C. Potts, M. Zaharia, and H. Miller, <span>“A <span>Guide</span> to <span>Large Language Model Abstractions</span>,”</span> Jan. 16, 2024. Available: <a href="https://www.twosigma.com/articles/a-guide-to-large-language-model-abstractions/">https://www.twosigma.com/articles/a-guide-to-large-language-model-abstractions/</a></div>
-</div>
-<div id="ref-zibaeirad2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[64] </div><div class="csl-right-inline">A. Zibaeirad and M. Vieira, <span>“Reasoning with <span>LLMs</span> for <span>Zero-Shot Vulnerability Detection</span>,”</span> Mar. 22, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2503.17885">10.48550/arXiv.2503.17885</a>. Available: <a href="http://arxiv.org/abs/2503.17885">http://arxiv.org/abs/2503.17885</a></div>
-</div>
-<div id="ref-zotero-item-3751" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[65] </div><div class="csl-right-inline"><span>“How to <span>Prevent</span> the next <span>Heartbleed</span>.”</span> Available: <a href="https://dwheeler.com/essays/heartbleed.html">https://dwheeler.com/essays/heartbleed.html</a></div>
-</div>
-<div id="ref-zotero-item-4182" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[66] </div><div class="csl-right-inline"><span>“<span>AI-Powered Fuzzing</span>: <span>Breaking</span> the <span>Bug Hunting Barrier</span>.”</span> Available: <a href="https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html">https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html</a></div>
-</div>
-<div id="ref-zotero-item-4392" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[67] </div><div class="csl-right-inline"><span>“<span>OSS-Fuzz Documentation</span>.”</span> Available: <a href="https://google.github.io/oss-fuzz/">https://google.github.io/oss-fuzz/</a></div>
-</div>
-</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

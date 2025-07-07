@@ -4,9 +4,9 @@ project:
 
 book:
   output-file: thesis
-  title: LLM-Driven Fuzzing
-  subtitle: Automatic Harness Generation for Crypto Libraries
-  description: This is, or rather will be, my BSc thesis.
+  title: OverHAuL
+  subtitle: Harnessing Automation for C Libraries via LLMs
+  description: My BSc thesis.
   date: July 2025
   author:
     - name: Konstantinos Chousos
@@ -60,8 +60,8 @@ book:
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
-nocite: |
-  @*
+# nocite: |
+#   @*
 
 format:
   html:
@@ -86,6 +86,8 @@ format:
     # filters: 
     #     - quarto
     #     - section-bibliographies
+    include-in-header:
+      text: <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer></script>
   pdf:
     default: true
     date: 07-01-2025
@@ -120,7 +122,7 @@ format:
     filecolor: cyan
     urlcolor: blue
     links-as-notes: false
-    keywords: [LLMs, Fuzzing, Security, Neurosymbolic AI]
+    keywords: [LLMs, Fuzzing, Automation, Security, Neurosymbolic AI]
     highlight-style: a11y
     include-in-header: ./resources/preamble.tex
 

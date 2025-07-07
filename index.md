@@ -1,5 +1,5 @@
 ---
-keywords: [LLMs, Fuzzing, Security, Neurosymbolic AI]
+keywords: [LLMs, Fuzzing, Automation, Security, Neurosymbolic AI]
 date-modified: today
 ---
 # Preface {.unlisted .unnumbered}
