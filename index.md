@@ -22,7 +22,7 @@ date-modified: today
 
 <div id="quarto-appendix" class="default">
 <section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading" id="citation">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div>
-<pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@thesis{chousosLLMDrivenFuzzing2025,
+<pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@thesis{chousos2025,
   title = {LLM-Driven Fuzzing: Automatic Harness Generation for Crypto Libraries},
   shorttitle = {LLM-Driven Fuzzing},
   author = {Chousos, Konstantinos},

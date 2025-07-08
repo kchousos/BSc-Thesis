@@ -31,14 +31,15 @@ book:
     - index.md
     - chapters/intro.md
     - chapters/background.md
-    - chapters/related-work.md
-    - chapters/overview.md 
-    - chapters/implementation.md 
-    - chapters/evaluation.md
+    - chapters/related.md
+    - chapters/overhaul.md 
+    - chapters/results.md
+    - chapters/future.md
+    - chapters/discussion.md
     - chapters/conclusion.md
     - chapters/refs.md # Bibliography
-  appendices:
-    - chapters/appendix.md
+  # appendices:
+  #   - chapters/appendix.md
   
   page-navigation: true
   page-footer: 
@@ -55,13 +56,10 @@ book:
         url: "mailto:sdi2000215@di.uoa.gr"
   downloads: [pdf]
   repo-url: https://github.com/kchousos/thesis/
-  # repo-actions: [edit, source]
   repo-branch: master
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
-# nocite: |
-#   @*
 
 format:
   html:
@@ -83,9 +81,6 @@ format:
     respect-user-color-scheme: true
     highlight-style: arrow
     date-format: long
-    # filters: 
-    #     - quarto
-    #     - section-bibliographies
     include-in-header:
       text: <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer></script>
   pdf:
@@ -93,9 +88,6 @@ format:
     date: 07-01-2025
     date-format: MMMM, YYYY
     documentclass: scrreprt
-    # classoption:
-    #   - twoside
-    #   - openright
     standalone: true
     number-sections: true
     keep-tex: true
