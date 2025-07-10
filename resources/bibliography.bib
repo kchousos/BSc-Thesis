@@ -67,6 +67,7 @@ Read\_Status\_Date: 2025-05-22T18:17:39.315Z},
 
 @online{anthropic2025,
   title = {Prompt Engineering Overview},
+  date = {2025},
   url = {https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview},
   langid = {english},
   organization = {Anthropic},
@@ -114,6 +115,7 @@ Read\_Status\_Date: 2025-05-22T18:17:39.315Z},
 
 @online{chatgpt,
   title = {{{ChatGPT}}},
+  date = {2025},
   url = {https://chatgpt.com},
   abstract = {A conversational AI system that listens, learns, and challenges},
   langid = {american},
@@ -155,6 +157,7 @@ Read\_Status\_Date: 2025-05-06T10:56:05.200Z},
 
 @online{claude,
   title = {Claude},
+  date = {2025},
   url = {https://claude.ai/new},
   file = {/home/kchou/HDD/Library/References/new.html}
 }
@@ -171,6 +174,7 @@ Read\_Status\_Date: 2025-05-06T10:56:05.200Z},
 
 @online{clibs,
   title = {Clib {{Packages}}},
+  date = {2025},
   url = {https://github.com/clibs/clib/wiki/Packages},
   abstract = {Package manager for the C programming language. Contribute to clibs/clib development by creating an account on GitHub.},
   langid = {english},
@@ -190,6 +194,7 @@ Read\_Status\_Date: 2025-05-06T10:56:05.200Z},
 
 @online{cursor,
   title = {Cursor - {{The AI Code Editor}}},
+  date = {2025},
   url = {https://cursor.com/},
   abstract = {Built to make you extraordinarily productive, Cursor is the best way to code with AI.},
   langid = {english},
@@ -300,9 +305,19 @@ Read\_Status\_Date: 2025-05-06T10:56:05.200Z},
   isbn = {978-1-4503-5572-8},
   langid = {english},
   keywords = {with-notes},
-  annotation = {Read\_Status: To Read\\
-Read\_Status\_Date: 2025-05-04T14:28:48.237Z},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T10:20:12.413Z},
   file = {/home/kchou/HDD/Library/Zotero data/storage/VMLR5CAA/Babić et al. - 2019 - FUDGE fuzz driver generation at scale - @babicFUDGEFuzzDriver2019.pdf}
+}
+
+@software{fuzz-introspector,
+  title = {Ossf/Fuzz-Introspector},
+  date = {2025-06-30T22:12:31Z},
+  origdate = {2021-12-06T19:27:40Z},
+  url = {https://github.com/ossf/fuzz-introspector},
+  abstract = {Fuzz Introspector -- introspect, extend and optimise fuzzers},
+  organization = {Open Source Security Foundation (OpenSSF)},
+  keywords = {fuzz-testing,fuzzing,security,security-research,testing,vulnerability-analysis}
 }
 
 @inproceedings{fuzzgen,
@@ -314,9 +329,9 @@ Read\_Status\_Date: 2025-05-04T14:28:48.237Z},
   pages = {2271--2287},
   url = {https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou},
   abstract = {Fuzzing is a testing technique to discover unknown vulnerabilities in software. When applying fuzzing to libraries, the core idea of supplying random input remains unchanged, yet it is non-trivial to achieve good code coverage. Libraries cannot run as standalone programs, but instead are invoked through another application. Triggering code deep in a library remains challenging as specific sequences of API calls are required to build up the necessary state. Libraries are diverse and have unique interfaces that require unique fuzzers, so far written by a human analyst. To address this issue, we present FuzzGen, a tool for automatically synthesizing fuzzers for complex libraries in a given environment. FuzzGen leverages a whole system analysis to infer the library’s interface and synthesizes fuzzers specifically for that library. FuzzGen requires no human interaction and can be applied to a wide range of libraries. Furthermore, the generated fuzzers leverage LibFuzzer to achieve better code coverage and expose bugs that reside deep in the library. FuzzGen was evaluated on Debian and the Android Open Source Project (AOSP) selecting 7 libraries to generate fuzzers. So far, we have found 17 previously unpatched vulnerabilities with 6 assigned CVEs. The generated fuzzers achieve an average of 54.94\% code coverage; an improvement of 6.94\% when compared to manually written fuzzers, demonstrating the effectiveness and generality of FuzzGen.},
-  keywords = {fuzzing},
-  annotation = {Read\_Status: New\\
-Read\_Status\_Date: 2025-05-09T15:42:23.379Z},
+  keywords = {fuzzing,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T11:39:03.348Z},
   file = {/home/kchou/HDD/Library/References/Ispoglou et al. - 2020 - FuzzGen Automatic fuzzer generation - fuzzgen.pdf}
 }
 
@@ -333,10 +348,18 @@ Read\_Status\_Date: 2025-05-09T15:42:23.379Z},
   abstract = {Bugs in Deep Learning (DL) libraries may affect almost all downstream DL applications, and it is crucial to ensure the quality of such systems. It is challenging to generate valid input programs for fuzzing DL libraries, since the input programs need to satisfy both the syntax/semantics of the supported languages (e.g., Python) and the tensor/operator constraints for constructing valid computational graphs. Recently, the TitanFuzz work demonstrates that modern Large Language Models (LLMs) can be directly leveraged to implicitly learn all the language and DL computation constraints to generate valid programs for fuzzing DL libraries. However, LLMs tend to generate ordinary programs following similar patterns/tokens with typical programs seen in their massive training corpora (e.g., GitHub), while fuzzing favors unusual inputs that cover edge cases or are unlikely to be manually produced. To fill this gap, this paper proposes FuzzGPT, the first technique to prime LLMs to synthesize unusual programs for fuzzing. FuzzGPT is built on the well-known hypothesis that historical bug-triggering programs may include rare/valuable code ingredients important for bug finding. Meanwhile, while traditional techniques leveraging such historical information require intensive human efforts to both design dedicated generators and ensure the syntactic/semantic validity of generated programs, FuzzGPT demonstrates that this process can be fully automated via the intrinsic capabilities of LLMs (including fine-tuning and in-context learning), while being generalizable and applicable to challenging domains. While FuzzGPT can be applied with different LLMs, this paper focuses on the powerful GPT-style models: Codex and CodeGen. Moreover, FuzzGPT also shows the potential of directly leveraging the instruct-following capability of the recent ChatGPT for effective fuzzing. The experimental study on two popular DL libraries (PyTorch and TensorFlow) shows that FuzzGPT can substantially outperform TitanFuzz, detecting 76 bugs, with 49 already confirmed as previously unknown bugs, including 11 high-priority bugs or security vulnerabilities.},
   langid = {english},
   pubstate = {prepublished},
-  keywords = {Computer Science - Software Engineering},
-  annotation = {Read\_Status: New\\
-Read\_Status\_Date: 2025-05-08T13:33:14.524Z},
+  keywords = {Computer Science - Software Engineering,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T12:07:19.426Z},
   file = {/home/kchou/HDD/Library/References/Deng et al. - 2023 - Large Language Models are Edge-Case Fuzzers Testing Deep Learning Libraries via FuzzGPT - deng2023.pdf}
+}
+
+@software{fuzztest,
+  title = {Google/Fuzztest},
+  date = {2025-07-10T13:29:04Z},
+  origdate = {2022-08-10T20:54:25Z},
+  url = {https://github.com/google/fuzztest},
+  organization = {Google}
 }
 
 @online{ganguly2024,
@@ -442,6 +465,7 @@ Read\_Status\_Date: 2025-04-30T09:46:00.498Z},
 
 @online{gemini,
   title = {‎{{Google Gemini}}},
+  date = {2025},
   url = {https://gemini.google.com},
   abstract = {Gemini is your personal, proactive, and powerful AI assistant from Google. Try it for free to help with work, school, and at home for whatever inspires you.},
   langid = {english},
@@ -489,6 +513,24 @@ Read\_Status\_Date: 2025-05-22T07:06:25.712Z},
   file = {/home/kchou/HDD/Library/References/Grattafiori et al. - 2024 - The Llama 3 Herd of Models - grattafiori2024.pdf;/home/kchou/HDD/Library/References/2407.html}
 }
 
+@inproceedings{green2022,
+  title = {{{GraphFuzz}}: Library {{API}} Fuzzing with Lifetime-Aware Dataflow Graphs},
+  shorttitle = {{{GraphFuzz}}},
+  booktitle = {Proceedings of the 44th {{International Conference}} on {{Software Engineering}}},
+  author = {Green, Harrison and Avgerinos, Thanassis},
+  date = {2022-05-21},
+  pages = {1070--1081},
+  publisher = {ACM},
+  location = {Pittsburgh Pennsylvania},
+  doi = {10.1145/3510003.3510228},
+  url = {https://dl.acm.org/doi/10.1145/3510003.3510228},
+  eventtitle = {{{ICSE}} '22: 44th {{International Conference}} on {{Software Engineering}}},
+  keywords = {with-notes},
+  annotation = {Read\_Status: Not Reading\\
+Read\_Status\_Date: 2025-07-09T15:09:25.747Z},
+  file = {/home/kchou/HDD/Library/References/Green and Avgerinos - 2022 - GraphFuzz library API fuzzing with lifetime-aware dataflow graphs - green2022.pdf}
+}
+
 @online{grov2024,
   title = {On the Use of Neurosymbolic {{AI}} for Defending against Cyber Attacks},
   author = {Grov, Gudmund and Halvorsen, Jonas and Eckhoff, Magnus Wiik and Hansen, Bjørn Jervell and Eian, Martin and Mavroeidis, Vasileios},
@@ -515,10 +557,18 @@ Read\_Status\_Date: 2024-10-28T22:20:10.404Z},
 
 @online{heartbleed,
   title = {Heartbleed {{Bug}}},
+  date = {2025-03-07},
   url = {https://heartbleed.com/},
   annotation = {Read\_Status: Read\\
 Read\_Status\_Date: 2025-05-04T14:28:15.555Z},
   file = {/home/kchou/HDD/Library/References/heartbleed.com.html}
+}
+
+@online{heartbleed-cve,
+  title = {{{CVE}} - {{CVE-2014-0160}}},
+  date = {2014},
+  url = {https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160},
+  file = {/home/kchou/HDD/Library/References/cvename.html}
 }
 
 @inproceedings{herrera2021,
@@ -536,6 +586,16 @@ Read\_Status\_Date: 2025-05-04T14:28:15.555Z},
   isbn = {978-1-4503-8459-9},
   langid = {english},
   file = {/home/kchou/HDD/Library/References/Herrera et al. - 2021 - Seed selection for successful fuzzing - @herreraSeedSelectionSuccessful2021.pdf}
+}
+
+@software{honggfuzz,
+  title = {Google/Honggfuzz},
+  date = {2025-07-10T08:01:50Z},
+  origdate = {2015-05-07T15:43:01Z},
+  url = {https://github.com/google/honggfuzz},
+  abstract = {Security oriented software fuzzer. Supports evolutionary, feedback-driven fuzzing based on code coverage (SW and HW based)},
+  organization = {Google},
+  keywords = {c,fuzzing,security}
 }
 
 @online{huang2024,
@@ -563,8 +623,8 @@ Read\_Status\_Date: 2025-02-24T20:29:10.448Z},
   abstract = {Software is prone to security vulnerabilities. Program analysis tools to detect them have limited effectiveness in practice due to their reliance on human labeled specifications. Large language models (or LLMs) have shown impressive code generation capabilities but they cannot do complex reasoning over code to detect such vulnerabilities especially since this task requires whole-repository analysis. We propose IRIS, a neuro-symbolic approach that systematically combines LLMs with static analysis to perform whole-repository reasoning for security vulnerability detection. Specifically, IRIS leverages LLMs to infer taint specifications and perform contextual analysis, alleviating needs for human specifications and inspection. For evaluation, we curate a new dataset, CWE-Bench-Java, comprising 120 manually validated security vulnerabilities in real-world Java projects. A state-of-the-art static analysis tool CodeQL detects only 27 of these vulnerabilities whereas IRIS with GPT-4 detects 55 (+28) and improves upon CodeQL's average false discovery rate by 5\% points. Furthermore, IRIS identifies 4 previously unknown vulnerabilities which cannot be found by existing tools. IRIS is available publicly at https://github.com/iris-sast/iris.},
   pubstate = {prepublished},
   keywords = {Computer Science - Cryptography and Security,Computer Science - Programming Languages,Computer Science - Software Engineering,llm fuzzing,with-notes},
-  annotation = {Read\_Status: To Read\\
-Read\_Status\_Date: 2025-05-05T11:45:47.764Z},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T16:36:31.431Z},
   file = {/home/kchou/HDD/Library/References/Li et al. - 2025 - IRIS LLM-Assisted Static Analysis for Detecting Security Vulnerabilities - @liIRISLLMAssistedStatic2025.pdf;/home/kchou/HDD/Library/References/2405 2.html}
 }
 
@@ -608,9 +668,9 @@ Read\_Status\_Date: 2025-05-04T14:32:41.923Z},
   url = {https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8},
   abstract = {We present a new symbolic execution tool, KLEE, capable of automatically generating tests that achieve high coverage on a diverse set of complex and environmentally-intensive programs. We used KLEE to thoroughly check all 89 stand-alone programs in the GNU COREUTILS utility suite, which form the core user-level environment installed on millions of Unix systems, and arguably are the single most heavily tested set of open-source programs in existence. KLEE-generated tests achieve high line coverage -- on average over 90\% per tool (median: over 94\%) -- and significantly beat the coverage of the developers' own hand-written test suite. When we did the same for 75 equivalent tools in the BUSYBOX embedded system suite, results were even better, including 100\% coverage on 31 of them.    We also used KLEE as a bug finding tool, applying it to 452 applications (over 430K total lines of code), where it found 56 serious bugs, including three in COREUTILS that had been missed for over 15 years. Finally, we used KLEE to crosscheck purportedly identical BUSYBOX and COREUTILS utilities, finding functional correctness errors and a myriad of inconsistencies.},
   eventtitle = {{{USENIX Symposium}} on {{Operating Systems Design}} and {{Implementation}}},
-  keywords = {suggested},
-  annotation = {Read\_Status: To Read\\
-Read\_Status\_Date: 2025-03-19T10:38:46.368Z},
+  keywords = {suggested,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T10:41:06.670Z},
   file = {/home/kchou/HDD/Library/References/Cadar et al. - 2008 - KLEE Unassisted and Automatic Generation of High-Coverage Tests for Complex Systems Programs - @cadarKLEEUnassistedAutomatic2008.pdf}
 }
 
@@ -731,6 +791,7 @@ Read\_Status\_Date: 2025-04-30T09:46:00.505Z},
 
 @online{libfuzzer,
   title = {{{libFuzzer}} – a Library for Coverage-Guided Fuzz Testing. — {{LLVM}} 21.0.0git Documentation},
+  date = {2025},
   url = {https://llvm.org/docs/LibFuzzer.html},
   keywords = {project/thesis},
   file = {/home/kchou/HDD/Library/References/LibFuzzer.html}
@@ -752,6 +813,21 @@ Read\_Status\_Date: 2025-04-30T09:46:00.505Z},
   annotation = {Read\_Status: To Read\\
 Read\_Status\_Date: 2025-04-02T08:50:08.357Z},
   file = {/home/kchou/HDD/Library/References/Licklider - 1960 - Man-Computer Symbiosis - @lickliderManComputerSymbiosis1960.pdf;/home/kchou/HDD/Library/References/4503259.html}
+}
+
+@online{liu2023,
+  type = {Blog},
+  title = {{{AI-Powered Fuzzing}}: {{Breaking}} the {{Bug Hunting Barrier}}},
+  shorttitle = {{{AI-Powered Fuzzing}}},
+  author = {Liu, Dongge and Metzman, Jonathan and Chang, Oliver and Team, Google Open Source Security},
+  date = {2023-08-16},
+  url = {https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html},
+  abstract = {Dongge Liu, Jonathan Metzman, Oliver Chang, Google Open Source Security Team~ Since 2016, OSS-Fuzz  has been at the forefront of automated v...},
+  langid = {english},
+  organization = {Google Online Security Blog},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-10T16:08:30.374Z},
+  file = {/home/kchou/HDD/Library/References/ai-powered-fuzzing-breaking-bug-hunting 1.html}
 }
 
 @online{liu2025,
@@ -782,6 +858,7 @@ Read\_Status\_Date: 2025-05-05T11:45:47.763Z},
 
 @online{llvm,
   title = {The {{LLVM Compiler Infrastructure Project}}},
+  date = {2025},
   url = {https://llvm.org/},
   file = {/home/kchou/HDD/Library/References/llvm.org.html}
 }
@@ -853,6 +930,22 @@ Read\_Status\_Date: 2024-12-20T14:54:14.658Z},
   file = {/home/kchou/HDD/Library/References/Nethercote and Seward - 2007 - Valgrind a framework for heavyweight dynamic binary instrumentation - @nethercoteValgrindFrameworkHeavyweight2007.pdf}
 }
 
+@article{nijkamp2023,
+  title = {{{CodeGen}}: {{An}} Open Large Language Model for Code with Multi-Turn Program Synthesis},
+  author = {Nijkamp, Erik and Pang, Bo and Hayashi, Hiroaki and Tu, Lifu and Wang, Huan and Zhou, Yingbo and Savarese, Silvio and Xiong, Caiming},
+  date = {2023},
+  journaltitle = {ICLR},
+  file = {/home/kchou/HDD/Library/References/Nijkamp et al. - 2023 - CodeGen An open large language model for code with multi-turn program synthesis - nijkamp2023.pdf}
+}
+
+@article{nijkamp2023a,
+  title = {{{CodeGen2}}: {{Lessons}} for Training Llms on Programming and Natural Languages},
+  author = {Nijkamp, Erik and Hayashi, Hiroaki and Xiong, Caiming and Savarese, Silvio and Zhou, Yingbo},
+  date = {2023},
+  journaltitle = {ICLR},
+  file = {/home/kchou/HDD/Library/References/Nijkamp et al. - 2023 - CodeGen2 Lessons for training llms on programming and natural languages - nijkamp2023a.pdf}
+}
+
 @software{oss-fuzz,
   title = {{{OSS-Fuzz}}},
   author = {Arya, Abhishek and Chang, Oliver and Metzman, Jonathan and Serebryany, Kostya and Liu, Dongge},
@@ -880,10 +973,22 @@ Read\_Status\_Date: 2024-12-20T14:54:14.658Z},
   abstract = {The primary goal of our efforts are to take as input a GitHub repository and output an OSS-Fuzz project as well as a ClusterFuzzLite project with a meaningful fuzz harness. In this blog post we will describe how we automatically build projects, how we generate fuzzing harnesses using LLMs, how these are evaluated and list a selection of 15 projects that we generated OSS-Fuzz/ClusterFuzzLite integrations for and have upstreamed the results. Introducing LLM-based harness generation for unfuzzed projects.},
   langid = {english},
   organization = {OSS-Fuzz blog},
-  keywords = {important},
+  keywords = {important,with-notes},
   annotation = {Read\_Status: Read\\
-Read\_Status\_Date: 2025-04-01T09:51:26.317Z},
+Read\_Status\_Date: 2025-07-09T15:21:06.199Z},
   file = {/home/kchou/HDD/Library/References/index.html}
+}
+
+@online{ossfuzzdocs2025,
+  title = {{{OSS-Fuzz Documentation}}},
+  date = {2025},
+  url = {https://google.github.io/oss-fuzz/},
+  abstract = {Documentation for OSS-Fuzz},
+  langid = {american},
+  organization = {OSS-Fuzz},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-05-04T14:28:02.098Z},
+  file = {/home/kchou/HDD/Library/References/oss-fuzz.html}
 }
 
 @online{perry2023,
@@ -913,8 +1018,9 @@ Read\_Status\_Date: 2025-04-02T09:03:10.656Z},
   url = {http://arxiv.org/abs/2409.00922},
   abstract = {Vulnerabilities related to option combinations pose a significant challenge in software security testing due to their vast search space. Previous research primarily addressed this challenge through mutation or filtering techniques, which inefficiently treated all option combinations as having equal potential for vulnerabilities, thus wasting considerable time on non-vulnerable targets and resulting in low testing efficiency. In this paper, we utilize carefully designed prompt engineering to drive the large language model (LLM) to predict high-risk option combinations (i.e., more likely to contain vulnerabilities) and perform fuzz testing automatically without human intervention. We developed a tool called ProphetFuzz and evaluated it on a dataset comprising 52 programs collected from three related studies. The entire experiment consumed 10.44 CPU years. ProphetFuzz successfully predicted 1748 high-risk option combinations at an average cost of only \textbackslash\$8.69 per program. Results show that after 72 hours of fuzzing, ProphetFuzz discovered 364 unique vulnerabilities associated with 12.30\textbackslash\% of the predicted high-risk option combinations, which was 32.85\textbackslash\% higher than that found by state-of-the-art in the same timeframe. Additionally, using ProphetFuzz, we conducted persistent fuzzing on the latest versions of these programs, uncovering 140 vulnerabilities, with 93 confirmed by developers and 21 awarded CVE numbers.},
   pubstate = {prepublished},
-  annotation = {Read\_Status: To Read\\
-Read\_Status\_Date: 2024-10-19T08:53:01.845Z},
+  keywords = {with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T15:35:05.407Z},
   file = {/home/kchou/HDD/Library/References/Wang et al. - 2024 - ProphetFuzz Fully Automated Prediction and Fuzzing of High-Risk Option Combinations with Only Docum - @wangProphetFuzzFullyAutomated2024.pdf;/home/kchou/HDD/Library/References/2409.html}
 }
 
@@ -965,6 +1071,12 @@ Read\_Status\_Date: 2024-10-21T16:44:45.166Z},
   file = {/home/kchou/HDD/Library/References/Sasirekha et al. - 2011 - Program Slicing Techniques and its Applications - sasirekha2011Program.pdf}
 }
 
+@online{shellshock-cve,
+  title = {{{NVD}} - {{CVE-2014-6271}}},
+  date = {2014},
+  url = {https://nvd.nist.gov/vuln/detail/CVE-2014-6271}
+}
+
 @online{sheth2023,
   title = {Neurosymbolic {{AI}} -- {{Why}}, {{What}}, and {{How}}},
   author = {Sheth, Amit and Roy, Kaushik and Gaur, Manas},
@@ -1009,7 +1121,19 @@ Read\_Status\_Date: 2025-05-04T14:28:05.460Z}
   url = {https://doi.org/10.1145/3689236.3689272},
   abstract = {Fuzz drivers are essential components of library fuzz testing, yet automatically generating correct and robust fuzz drivers and executing them is challenging. The predominant approach to fuzz testing libraries and their function interfaces involves security experts manually writing test drivers for fuzz testers. In contrast, generation based on LLMs (Large Language Models) is a promising direction, as it can operate with lower requirements on consumer programs, utilizes API (Application Programming Interface) usage information across multiple dimensions, and generates user-friendly output code. However, there is currently no fully automated method for driver generation and compilation. To address this issue, this paper has designed an automated method for generating and compiling drivers, and has evaluated the quality of the drivers it produces. Evaluation results indicate that drivers generated by large language models perform nearly as well in coverage as those written manually, and the generated compilation commands achieve an accuracy of 75\%.},
   isbn = {979-8-4007-1813-7},
+  keywords = {with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T15:44:36.518Z},
   file = {/home/kchou/HDD/Library/References/Sun - 2024 - Automated Generation and Compilation of Fuzz Driver Based on Large Language Models - sun2024.pdf}
+}
+
+@software{thomason2025,
+  title = {Leethomason/Tinyxml2},
+  author = {Thomason, Lee},
+  date = {2025-07-10T03:54:27Z},
+  origdate = {2012-02-25T05:15:50Z},
+  url = {https://github.com/leethomason/tinyxml2},
+  abstract = {TinyXML2 is a simple, small, efficient, C++ XML parser that can be easily integrated into other programs.}
 }
 
 @online{tilwani2024,
@@ -1041,8 +1165,8 @@ Read\_Status\_Date: 2024-10-28T22:19:58.738Z},
   url = {https://dl.acm.org/doi/10.1145/3597926.3598067},
   abstract = {Deep Learning (DL) systems have received exponential growth in popularity and have become ubiquitous in our everyday life. Such systems are built on top of popular DL libraries, e.g., TensorFlow and PyTorch which provide APIs as building blocks for DL systems. Detecting bugs in these DL libraries is critical for almost all downstream DL systems in ensuring effectiveness/safety for end users. Meanwhile, traditional fuzzing techniques can be hardly effective for such a challenging domain since the input DL programs need to satisfy both the input language (e.g., Python) syntax/semantics and the DL API input/shape constraints for tensor computations.   To address these limitations, we propose TitanFuzz – the first approach to directly leveraging Large Language Models (LLMs) to generate input programs for fuzzing DL libraries. LLMs are titanic models trained on billions of code snippets and can autoregressively generate human-like code snippets. Our key insight is that modern LLMs can also include numerous code snippets invoking DL library APIs in their training corpora, and thus can implicitly learn both language syntax/semantics and intricate DL API constraints for valid DL program generation. More specifically, we use both generative and infilling LLMs (e.g., Codex/InCoder) to generate and mutate valid/diverse input DL programs for fuzzing. Our experimental results demonstrate that TitanFuzz can achieve 30.38\%/50.84\% higher code coverage than state-of-the-art fuzzers on TensorFlow/PyTorch. Furthermore, TitanFuzz is able to detect 65 bugs, with 44 already confirmed as previously unknown bugs.   This paper demonstrates that modern titanic LLMs can be leveraged to directly perform both generation-based and mutation-based fuzzing studied for decades, while being fully automated, generalizable, and applicable to domains challenging for traditional approaches (such as DL systems). We hope TitanFuzz can stimulate more work in this promising direction of LLMs for fuzzing.},
   isbn = {979-8-4007-0221-1},
-  annotation = {Read\_Status: New\\
-Read\_Status\_Date: 2025-05-06T12:49:07.180Z},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T11:59:04.570Z},
   file = {/home/kchou/HDD/Library/References/Deng et al. - 2023 - Large Language Models Are Zero-Shot Fuzzers Fuzzing Deep-Learning Libraries via Large Language Mode - @dengLargeLanguageModels2023.pdf}
 }
 
@@ -1077,7 +1201,9 @@ Read\_Status\_Date: 2025-05-04T14:30:45.262Z},
   url = {https://ieeexplore.ieee.org/abstract/document/10179394},
   abstract = {Fuzzing is arguably the most practical approach for detecting security bugs in software, but a non-trivial extent of efforts is required for its adoption. To be effective, high-quality fuzz drivers should be first formulated with a proper sequence of APIs that can exhaustively explore the program states. To alleviate this burden, existing solutions attempt to generate fuzz drivers either by inferring the valid sequences of APIs from the consumer code (i.e., actual uses of APIs) or by directly extracting them from sample executions. Unfortunately, all existing approaches suffer from a common problem: the observed API sequences, either statically inferred or dynamically monitored, are intermingled with custom application logics. However, we observed that the unit tests are carefully crafted by the actual designer of the APIs to validate their proper usages, and importantly, it is a common practice to write the unit tests during their development (e.g., over 70\% of popular GitHub projects).In this paper, we propose, UTopia, an open-source tool and analysis algorithm that can automatically synthesize effective fuzz drivers from existing unit tests with near-zero human involvement. To demonstrate its effectiveness, we applied UTopia to 55 open-source project libraries, including Tizen and Node.js, and automatically generated 5K fuzz drivers from 8K eligible unit tests. In addition, we executed the generated fuzzers for approximately 5 million per-core hours and discovered 123 bugs. More importantly, 2.4K of the generated fuzz drivers were adopted to the continuous integration process of the Tizen project, indicating the quality of the synthesized fuzz driver. The proposed tool and results are publicly available and maintained for a broader adoption among both researchers and practitioners.},
   eventtitle = {2023 {{IEEE Symposium}} on {{Security}} and {{Privacy}} ({{SP}})},
-  keywords = {Codes,Computer bugs,Libraries,Privacy,Security,Semantics,Software},
+  keywords = {Codes,Computer bugs,Libraries,Privacy,Security,Semantics,Software,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-09T12:35:17.953Z},
   file = {/home/kchou/HDD/Library/References/Jeong et al. - 2023 - UTopia Automatic Generation of Fuzz Driver using Unit Tests - jeong2023.pdf}
 }
 
@@ -1095,6 +1221,14 @@ Read\_Status\_Date: 2025-05-04T14:30:45.262Z},
   annotation = {Read\_Status: Read\\
 Read\_Status\_Date: 2025-02-21T21:12:48.910Z},
   file = {/home/kchou/HDD/Library/References/Vaswani et al_2023_Attention Is All You Need.pdf;/home/kchou/HDD/Library/Zotero data/storage/VWIT3A5A/1706.html}
+}
+
+@online{wheeler2014,
+  title = {How to {{Prevent}} the next {{Heartbleed}}},
+  author = {Wheeler, David},
+  date = {2014},
+  url = {https://dwheeler.com/essays/heartbleed.html},
+  file = {/home/kchou/HDD/Library/References/heartbleed.html}
 }
 
 @online{yao2023,
@@ -1145,27 +1279,9 @@ Read\_Status\_Date: 2024-10-19T08:55:10.104Z},
   url = {https://dl.acm.org/doi/10.1145/3650212.3680355},
   abstract = {Fuzz drivers are essential for library API fuzzing. However, automatically generating fuzz drivers is a complex task, as it demands the creation of high-quality, correct, and robust API usage code. An LLM-based (Large Language Model) approach for generating fuzz drivers is a promising area of research. Unlike traditional program analysis-based generators, this text-based approach is more generalized and capable of harnessing a variety of API usage information, resulting in code that is friendly for human readers. However, there is still a lack of understanding regarding the fundamental issues on this direction, such as its effectiveness and potential challenges.     To bridge this gap, we conducted the first in-depth study targeting the important issues of using LLMs to generate effective fuzz drivers. Our study features a curated dataset with 86 fuzz driver generation questions from 30 widely-used C projects. Six prompting strategies are designed and tested across five state-of-the-art LLMs with five different temperature settings. In total, our study evaluated 736,430 generated fuzz drivers, with 0.85 billion token costs (\$8,000+ charged tokens). Additionally, we compared the LLM-generated drivers against those utilized in industry, conducting extensive fuzzing experiments (3.75 CPU-year). Our study uncovered that:     1) While LLM-based fuzz driver generation is a promising direction, it still encounters several obstacles towards practical applications;   2) LLMs face difficulties in generating effective fuzz drivers for APIs with intricate specifics. Three featured design choices of prompt strategies can be beneficial: issuing repeat queries, querying with examples, and employing an iterative querying process;   3) While LLM-generated drivers can yield fuzzing outcomes that are on par with those used in the industry, there are substantial opportunities for enhancement, such as extending contained API usage, or integrating semantic oracles to facilitate logical bug detection.     Our insights have been implemented to improve the OSS-Fuzz-Gen project, facilitating practical fuzz driver generation in industry.},
   isbn = {979-8-4007-0612-7},
-  annotation = {Read\_Status: New\\
-Read\_Status\_Date: 2025-05-06T12:49:05.698Z},
-  file = {/home/kchou/HDD/Library/References/Zhang et al. - 2024 - How Effective Are They Exploring Large Language Model Based Fuzz Driver Generation - @zhangHowEffectiveAre2024.pdf}
-}
-
-@inproceedings{zhang2024a,
-  title = {How {{Effective Are They}}? {{Exploring Large Language Model Based Fuzz Driver Generation}}},
-  shorttitle = {How {{Effective Are They}}?},
-  booktitle = {Proceedings of the 33rd {{ACM SIGSOFT International Symposium}} on {{Software Testing}} and {{Analysis}}},
-  author = {Zhang, Cen and Zheng, Yaowen and Bai, Mingqiang and Li, Yeting and Ma, Wei and Xie, Xiaofei and Li, Yuekang and Sun, Limin and Liu, Yang},
-  date = {2024-09-11},
-  eprint = {2307.12469},
-  eprinttype = {arXiv},
-  eprintclass = {cs},
-  pages = {1223--1235},
-  doi = {10.1145/3650212.3680355},
-  url = {http://arxiv.org/abs/2307.12469},
-  abstract = {LLM-based (Large Language Model) fuzz driver generation is a promising research area. Unlike traditional program analysis-based method, this text-based approach is more general and capable of harnessing a variety of API usage information, resulting in code that is friendly for human readers. However, there is still a lack of understanding regarding the fundamental issues on this direction, such as its effectiveness and potential challenges. To bridge this gap, we conducted the first in-depth study targeting the important issues of using LLMs to generate effective fuzz drivers. Our study features a curated dataset with 86 fuzz driver generation questions from 30 widely-used C projects. Six prompting strategies are designed and tested across five state-of-the-art LLMs with five different temperature settings. In total, our study evaluated 736,430 generated fuzz drivers, with 0.85 billion token costs (\$8,000+ charged tokens). Additionally, we compared the LLM-generated drivers against those utilized in industry, conducting extensive fuzzing experiments (3.75 CPU-year). Our study uncovered that: - While LLM-based fuzz driver generation is a promising direction, it still encounters several obstacles towards practical applications; - LLMs face difficulties in generating effective fuzz drivers for APIs with intricate specifics. Three featured design choices of prompt strategies can be beneficial: issuing repeat queries, querying with examples, and employing an iterative querying process; - While LLM-generated drivers can yield fuzzing outcomes that are on par with those used in the industry, there are substantial opportunities for enhancement, such as extending contained API usage, or integrating semantic oracles to facilitate logical bug detection. Our insights have been implemented to improve the OSS-Fuzz-Gen project, facilitating practical fuzz driver generation in industry.},
-  keywords = {important},
-  annotation = {Read\_Status: To Read\\
-Read\_Status\_Date: 2025-04-02T09:02:31.545Z},
+  keywords = {important,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-08T11:58:56.334Z},
   file = {/home/kchou/HDD/Library/References/Zhang et al. - 2024 - How Effective Are They Exploring Large Language Model Based Fuzz Driver Generation - @zhangHowEffectiveAre2024.pdf;/home/kchou/HDD/Documents/Zotero Library/2307 1.html}
 }
 
@@ -1231,33 +1347,4 @@ Read\_Status\_Date: 2025-04-01T17:25:06.645Z},
   annotation = {Read\_Status: In Progress\\
 Read\_Status\_Date: 2025-05-06T12:01:14.135Z},
   file = {/home/kchou/HDD/Library/References/Zibaeirad and Vieira - 2025 - Reasoning with LLMs for Zero-Shot Vulnerability Detection - @zibaeiradReasoningLLMsZeroShot2025.pdf;/home/kchou/HDD/Library/References/2503 1.html}
-}
-
-@online{zotero-item-3751,
-  title = {How to {{Prevent}} the next {{Heartbleed}}},
-  url = {https://dwheeler.com/essays/heartbleed.html},
-  file = {/home/kchou/HDD/Library/References/heartbleed.html}
-}
-
-@online{zotero-item-4182,
-  title = {{{AI-Powered Fuzzing}}: {{Breaking}} the {{Bug Hunting Barrier}}},
-  shorttitle = {{{AI-Powered Fuzzing}}},
-  url = {https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html},
-  abstract = {Dongge Liu, Jonathan Metzman, Oliver Chang, Google Open Source Security Team~ Since 2016, OSS-Fuzz  has been at the forefront of automated v...},
-  langid = {english},
-  organization = {Google Online Security Blog},
-  annotation = {Read\_Status: Read\\
-Read\_Status\_Date: 2025-05-04T14:27:49.683Z},
-  file = {/home/kchou/HDD/Library/References/ai-powered-fuzzing-breaking-bug-hunting.html}
-}
-
-@online{zotero-item-4392,
-  title = {{{OSS-Fuzz Documentation}}},
-  url = {https://google.github.io/oss-fuzz/},
-  abstract = {Documentation for OSS-Fuzz},
-  langid = {american},
-  organization = {OSS-Fuzz},
-  annotation = {Read\_Status: Read\\
-Read\_Status\_Date: 2025-05-04T14:28:02.098Z},
-  file = {/home/kchou/HDD/Library/References/oss-fuzz.html}
 }

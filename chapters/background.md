@@ -4,6 +4,8 @@
 
 What is fuzzing [@manes2019].
 
+terminology: fuzz campaign, harness, driver, target, corpus
+
 Why fuzz?
 
 ### Fuzzing examples
@@ -42,6 +44,8 @@ clang++ -fsanitize=address,fuzzer test_fuzzer.cc
 
 A simple function that does something interesting if it receives the input "HI!".
 :::
+
+OSS-Fuzz: 2016, after heartbleed.
 
 ## Large Language Models (LLMs)
 

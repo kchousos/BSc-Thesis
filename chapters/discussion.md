@@ -1,7 +1,2 @@
-# Conclusion
+# Discussion
 
-Recap
-
-## Acknowledgements
-
-{{<lipsum 1>}}

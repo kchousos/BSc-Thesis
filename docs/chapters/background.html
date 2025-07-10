@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/related-work.html" rel="next">
+<link href="../chapters/related.html" rel="next">
 <link href="../chapters/intro.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -364,32 +364,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/related-work.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/overhaul.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
+  <a href="../chapters/results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
+  <a href="../chapters/future.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -398,23 +404,6 @@ div.csl-indent {
  <span class="menu-text">Bibliography</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Failed Techniques</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -465,6 +454,7 @@ div.csl-indent {
 <section id="fuzzing" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="fuzzing"><span class="header-section-number">2.1</span> Fuzzing</h2>
 <p>What is fuzzing <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
+<p>terminology: fuzz campaign, harness, driver, target, corpus</p>
 <p>Why fuzz?</p>
 <section id="fuzzing-examples" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="fuzzing-examples"><span class="header-section-number">2.1.1</span> Fuzzing examples</h3>
@@ -500,6 +490,7 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
 </div>
 </figure>
 </div>
+<p>OSS-Fuzz: 2016, after heartbleed.</p>
 </section>
 </section>
 <section id="large-language-models-llms" class="level2" data-number="2.2">
@@ -533,7 +524,7 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. J. M. Manes <em>et al.</em>, <span>“The <span>Art</span>, <span>Science</span>, and <span>Engineering</span> of <span>Fuzzing</span>: <span>A Survey</span>,”</span> Apr. 07, 2019. doi: <a href="https://doi.org/10.48550/arXiv.1812.00140">10.48550/arXiv.1812.00140</a>. Available: <a href="http://arxiv.org/abs/1812.00140">http://arxiv.org/abs/1812.00140</a></div>
 </div>
 <div id="ref-heartbleed" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span>“Heartbleed <span>Bug</span>.”</span> Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
 </div>
 <div id="ref-meyer2013" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">C. Meyer and J. Schwenk, <span>“Lessons <span>Learned From Previous SSL</span>/<span>TLS Attacks</span> - <span>A Brief Chronology Of Attacks And Weaknesses</span>,”</span> 2013. Available: <a href="https://eprint.iacr.org/2013/049">https://eprint.iacr.org/2013/049</a></div>
@@ -542,7 +533,7 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
 <div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
 </div>
 <div id="ref-libfuzzer" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation.”</span> Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation,”</span> 2025. Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
 </div>
 <div id="ref-atheris" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span>“Google/atheris.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/atheris">https://github.com/google/atheris</a></div>
@@ -1015,7 +1006,7 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/related-work.html" class="pagination-link" aria-label="Related work">
+      <a href="../chapters/related.html" class="pagination-link" aria-label="Related work">
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

@@ -8,7 +8,7 @@
 
 <meta name="description" content="My BSc thesis.">
 
-<title>5&nbsp; Implementation – OverHAuL</title>
+<title>6&nbsp; Future work – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -31,8 +51,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/evaluation.html" rel="next">
-<link href="../chapters/overview.html" rel="prev">
+<link href="../chapters/discussion.html" rel="next">
+<link href="../chapters/results.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -259,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/implementation.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Implementation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/future.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future work</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -309,32 +329,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/related-work.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/overhaul.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/implementation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
+  <a href="../chapters/results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
+  <a href="../chapters/future.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -343,23 +369,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Bibliography</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Failed Techniques</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -374,7 +383,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Implementation</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future work</span></h1>
 </div>
 
 
@@ -392,11 +401,44 @@ ul.task-list li input[type="checkbox"] {
 
 
 <ul>
-<li>Tools</li>
-<li>Libraries</li>
+<li>More diverse build support</li>
+<li>More language support</li>
+<li>More fuzzers support
+<ul>
+<li>GraphFuzz <span class="citation" data-cites="green2022"><a href="refs.html#ref-green2022" role="doc-biblioref">[1]</a></span></li>
+</ul></li>
+<li>Experimentation with different LLM providers/models
+<ul>
+<li>Code-specific LLMs
+<ul>
+<li>codex-1, https://openai.com/index/introducing-codex/</li>
+<li>codegen <span class="citation" data-cites="nijkamp2023a nijkamp2023"><a href="refs.html#ref-nijkamp2023a" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-nijkamp2023" role="doc-biblioref">[3]</a></span></li>
+</ul></li>
+</ul></li>
+<li>Different chunking techniques</li>
+<li>GitHub Action</li>
+<li>More sophisticated evaluation methods</li>
+<li>Usage of program slicing in static analysis step</li>
+<li>testing in all of clib</li>
+<li>PRs fixing found bugs</li>
+<li>More extensive comparison with OFG</li>
+<li>ablation study Project-by-project manually</li>
+<li>Token/$ comparison</li>
+<li>leveraging of existing unit tests</li>
 </ul>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-green2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H. Green and T. Avgerinos, <span>“<span>GraphFuzz</span>: Library <span>API</span> fuzzing with lifetime-aware dataflow graphs,”</span> in <em>Proceedings of the 44th <span>International Conference</span> on <span>Software Engineering</span></em>, Pittsburgh Pennsylvania: ACM, May 2022, pp. 1070–1081. doi: <a href="https://doi.org/10.1145/3510003.3510228">10.1145/3510003.3510228</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3510003.3510228">https://dl.acm.org/doi/10.1145/3510003.3510228</a></div>
+</div>
+<div id="ref-nijkamp2023a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">E. Nijkamp, H. Hayashi, C. Xiong, S. Savarese, and Y. Zhou, <span>“<span>CodeGen2</span>: <span>Lessons</span> for training llms on programming and natural languages,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+<div id="ref-nijkamp2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">E. Nijkamp <em>et al.</em>, <span>“<span>CodeGen</span>: <span>An</span> open large language model for code with multi-turn program synthesis,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -813,13 +855,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/overview.html" class="pagination-link" aria-label="Overview">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span>
+      <a href="../chapters/results.html" class="pagination-link" aria-label="Evaluation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/evaluation.html" class="pagination-link" aria-label="Evaluation">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Evaluation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/discussion.html" class="pagination-link" aria-label="Discussion">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Discussion</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
