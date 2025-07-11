@@ -63,6 +63,8 @@ Prompting techniques.
 
 Comparison, strengths weaknesses etc. [@laban2025].
 
+[@perry2023]
+
 ### LLM Programming Libraries (?)
 
 Langchain & LangGraph, LlamaIndex [@langchain;@langgraph;@llamaindex]. DSPy [@dspy].
