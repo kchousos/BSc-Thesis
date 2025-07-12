@@ -472,21 +472,21 @@ div.csl-indent {
 Listing&nbsp;2.1: A simple function that does something interesting if it receives the input “HI!”.
 </figcaption>
 <div aria-describedby="lst-fuzzing-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cat <span class="op">&lt;&lt;</span> EOF <span class="op">&gt;</span> test_fuzzer<span class="op">.</span>cc</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'H'</span><span class="op">)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'I'</span><span class="op">)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'!'</span><span class="op">)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       __builtin_trap<span class="op">();</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>EOF</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp"># </span><span class="er">Build test_fuzzer.cc with asan and link against libFuzzer.</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>clang<span class="op">++</span> <span class="op">-</span>fsanitize<span class="op">=</span>address<span class="op">,</span>fuzzer test_fuzzer<span class="op">.</span>cc</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="pp"># </span><span class="er">Run the fuzzer with no corpus.</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">./</span>a<span class="op">.</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a>cat <span class="op">&lt;&lt;</span> EOF <span class="op">&gt;</span> test_fuzzer<span class="op">.</span>cc</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'H'</span><span class="op">)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'I'</span><span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>       <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'!'</span><span class="op">)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>       __builtin_trap<span class="op">();</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>EOF</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="pp"># </span><span class="er">Build test_fuzzer.cc with asan and link against libFuzzer.</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>clang<span class="op">++</span> <span class="op">-</span>fsanitize<span class="op">=</span>address<span class="op">,</span>fuzzer test_fuzzer<span class="op">.</span>cc</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="pp"># </span><span class="er">Run the fuzzer with no corpus.</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="op">./</span>a<span class="op">.</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </figure>
 </div>
@@ -507,16 +507,17 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
 <li>Tree of Thoughts <span class="citation" data-cites="yao2023"><a href="refs.html#ref-yao2023" role="doc-biblioref">[10]</a></span>.</li>
 </ol>
 <p>Comparison, strengths weaknesses etc. <span class="citation" data-cites="laban2025"><a href="refs.html#ref-laban2025" role="doc-biblioref">[11]</a></span>.</p>
+<p><span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[12]</a></span></p>
 </section>
 <section id="llm-programming-libraries" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="llm-programming-libraries"><span class="header-section-number">2.2.2</span> LLM Programming Libraries (?)</h3>
-<p>Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[12]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[14]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[15]</a></span>.</p>
+<p>Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[14]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[15]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[16]</a></span>.</p>
 <p>Comparison, relevance to our usecase.</p>
 </section>
 </section>
 <section id="neurosymbolic-ai" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</h2>
-<p><mark>TODO</mark> <span class="citation" data-cites="ganguly2024 garcez2020 gaur2023 grov2024 sheth2023 tilwani2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[16]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[17]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[18]</a>, <a href="refs.html#ref-grov2024" role="doc-biblioref">[19]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[20]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[21]</a></span>.</p>
+<p><mark>TODO</mark> <span class="citation" data-cites="ganguly2024 garcez2020 gaur2023 grov2024 sheth2023 tilwani2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[17]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[18]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[19]</a>, <a href="refs.html#ref-grov2024" role="doc-biblioref">[20]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[21]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[22]</a></span>.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
@@ -553,35 +554,38 @@ Listing&nbsp;2.1: A simple function that does something interesting if it receiv
 <div id="ref-laban2025" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[11] </div><div class="csl-right-inline">P. Laban, H. Hayashi, Y. Zhou, and J. Neville, <span>“<span>LLMs Get Lost In Multi-Turn Conversation</span>,”</span> May 09, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2505.06120">10.48550/arXiv.2505.06120</a>. Available: <a href="http://arxiv.org/abs/2505.06120">http://arxiv.org/abs/2505.06120</a></div>
 </div>
+<div id="ref-perry2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
+</div>
 <div id="ref-langchain" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
 </div>
 <div id="ref-langgraph" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline"><span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline"><span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
 </div>
 <div id="ref-llamaindex" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
 </div>
 <div id="ref-dspy" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
 </div>
 <div id="ref-ganguly2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>
 </div>
 <div id="ref-garcez2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">A. d’Avila Garcez and L. C. Lamb, <span>“Neurosymbolic <span>AI</span>: <span>The</span> 3rd <span>Wave</span>,”</span> Dec. 16, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2012.05876">10.48550/arXiv.2012.05876</a>. Available: <a href="http://arxiv.org/abs/2012.05876">http://arxiv.org/abs/2012.05876</a></div>
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">A. d’Avila Garcez and L. C. Lamb, <span>“Neurosymbolic <span>AI</span>: <span>The</span> 3rd <span>Wave</span>,”</span> Dec. 16, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2012.05876">10.48550/arXiv.2012.05876</a>. Available: <a href="http://arxiv.org/abs/2012.05876">http://arxiv.org/abs/2012.05876</a></div>
 </div>
 <div id="ref-gaur2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">M. Gaur and A. Sheth, <span>“Building <span>Trustworthy NeuroSymbolic AI Systems</span>: <span>Consistency</span>, <span>Reliability</span>, <span>Explainability</span>, and <span>Safety</span>,”</span> Dec. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2312.06798">10.48550/arXiv.2312.06798</a>. Available: <a href="http://arxiv.org/abs/2312.06798">http://arxiv.org/abs/2312.06798</a></div>
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">M. Gaur and A. Sheth, <span>“Building <span>Trustworthy NeuroSymbolic AI Systems</span>: <span>Consistency</span>, <span>Reliability</span>, <span>Explainability</span>, and <span>Safety</span>,”</span> Dec. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2312.06798">10.48550/arXiv.2312.06798</a>. Available: <a href="http://arxiv.org/abs/2312.06798">http://arxiv.org/abs/2312.06798</a></div>
 </div>
 <div id="ref-grov2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline">G. Grov, J. Halvorsen, M. W. Eckhoff, B. J. Hansen, M. Eian, and V. Mavroeidis, <span>“On the use of neurosymbolic <span>AI</span> for defending against cyber attacks,”</span> Aug. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2408.04996">10.48550/arXiv.2408.04996</a>. Available: <a href="http://arxiv.org/abs/2408.04996">http://arxiv.org/abs/2408.04996</a></div>
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">G. Grov, J. Halvorsen, M. W. Eckhoff, B. J. Hansen, M. Eian, and V. Mavroeidis, <span>“On the use of neurosymbolic <span>AI</span> for defending against cyber attacks,”</span> Aug. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2408.04996">10.48550/arXiv.2408.04996</a>. Available: <a href="http://arxiv.org/abs/2408.04996">http://arxiv.org/abs/2408.04996</a></div>
 </div>
 <div id="ref-sheth2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[20] </div><div class="csl-right-inline">A. Sheth, K. Roy, and M. Gaur, <span>“Neurosymbolic <span>AI</span> – <span>Why</span>, <span>What</span>, and <span>How</span>,”</span> May 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.00813">10.48550/arXiv.2305.00813</a>. Available: <a href="http://arxiv.org/abs/2305.00813">http://arxiv.org/abs/2305.00813</a></div>
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">A. Sheth, K. Roy, and M. Gaur, <span>“Neurosymbolic <span>AI</span> – <span>Why</span>, <span>What</span>, and <span>How</span>,”</span> May 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.00813">10.48550/arXiv.2305.00813</a>. Available: <a href="http://arxiv.org/abs/2305.00813">http://arxiv.org/abs/2305.00813</a></div>
 </div>
 <div id="ref-tilwani2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[21] </div><div class="csl-right-inline">D. Tilwani, R. Venkataramanan, and A. P. Sheth, <span>“Neurosymbolic <span>AI</span> approach to <span>Attribution</span> in <span>Large Language Models</span>,”</span> Sep. 30, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.03726">10.48550/arXiv.2410.03726</a>. Available: <a href="http://arxiv.org/abs/2410.03726">http://arxiv.org/abs/2410.03726</a></div>
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">D. Tilwani, R. Venkataramanan, and A. P. Sheth, <span>“Neurosymbolic <span>AI</span> approach to <span>Attribution</span> in <span>Large Language Models</span>,”</span> Sep. 30, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.03726">10.48550/arXiv.2410.03726</a>. Available: <a href="http://arxiv.org/abs/2410.03726">http://arxiv.org/abs/2410.03726</a></div>
 </div>
 </div>
 </section>

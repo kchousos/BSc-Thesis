@@ -166,6 +166,8 @@ Serif}
 
 
 \pagenumbering{roman}
+\usepackage{lineno}
+\linenumbers
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -420,7 +422,7 @@ something interesting if it receives the input ``HI!''.}
 \centering{
 
 \begin{Shaded}
-\begin{Highlighting}[]
+\begin{Highlighting}[numbers=left,,]
 \NormalTok{cat }\OperatorTok{\textless{}\textless{}}\NormalTok{ EOF }\OperatorTok{\textgreater{}}\NormalTok{ test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
@@ -470,6 +472,8 @@ Prompting techniques.
 \end{enumerate}
 
 Comparison, strengths weaknesses etc. \autocite{laban2025}.
+
+\autocite{perry2023}
 
 \subsection{LLM Programming Libraries
 (?)}\label{llm-programming-libraries}
@@ -626,7 +630,10 @@ Heartbleed vulnerability
 \autocite{heartbleed-cve,wheeler2014,heartbleed}. Its hope is that
 through more extensive fuzzing such errors could be caught and corrected
 before having the chance to be exploited and thus disrupt the public
-digital infrastructure.
+digital infrastructure. So far, it has helped uncover over 10,000
+security vulnerabilities and 36,000 bugs across more than 1,000
+projects, significantly enhancing the quality and security of major
+software like Chrome, OpenSSL, and systemd.
 
 A project that's part of OSS-Fuzz must have been configured as a
 ClusterFuzz \autocite{clusterfuzz} project. ClusterFuzz is the fuzzing
@@ -762,10 +769,11 @@ built based on predefined prompt templates, a technique also present in
 OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
 DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
 
-In conclusion, OverHAuL offers new functionality by offering a
-straightforward installation process, packaged as a self-contained
-Python package with minimal external dependencies. It also introduces
-novel approaches compared to previous work by
+In conclusion, OverHAuL constitutes an \emph{open-source} tool that
+offers new functionality by offering a straightforward installation
+process, packaged as a self-contained Python package with minimal
+external dependencies. It also introduces novel approaches compared to
+previous work by
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
