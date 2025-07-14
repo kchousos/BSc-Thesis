@@ -34,7 +34,7 @@
     "href": "chapters/background.html",
     "title": "2  Background",
     "section": "",
-    "text": "2.1 Fuzzing\nWhat is fuzzing [1].\nterminology: fuzz campaign, harness, driver, target, corpus\nWhy fuzz?",
+    "text": "2.1 Fuzzing\nquarto definitions\nWhat is fuzzing [1].\nterminology: fuzz campaign, harness, driver, target, corpus\nWhy fuzz?",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Background</span>"
     ]
