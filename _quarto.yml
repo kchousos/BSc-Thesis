@@ -29,14 +29,14 @@ book:
 
   chapters:
     - index.md
-    - chapters/intro.md
-    - chapters/background.md
-    - chapters/related.md
-    - chapters/overhaul.md 
-    - chapters/results.md
-    - chapters/future.md
-    - chapters/discussion.md
-    - chapters/conclusion.md
+    - chapters/01-intro.md
+    - chapters/02-background.md
+    - chapters/03-related.md
+    - chapters/04-overhaul.md 
+    - chapters/05-results.md
+    - chapters/06-future.md
+    - chapters/07-discussion.md
+    - chapters/08-conclusion.md
     - chapters/refs.md # Bibliography
   # appendices:
   #   - chapters/appendix.md

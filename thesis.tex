@@ -168,7 +168,7 @@ Serif}
 \pagenumbering{roman}
 \usepackage{lineno}
 \linenumbers
-\AtBeginBibliography{\footnotesize}
+\renewcommand*{\bibfont}{\small}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -207,6 +207,15 @@ Serif}
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem{refremark}{Remark}[chapter]
+\newtheorem{refsolution}{Solution}[chapter]
 \makeatother
 \makeatletter
 \makeatother
@@ -395,9 +404,103 @@ quarto definitions
 
 \section{Fuzzing}\label{fuzzing}
 
-What is fuzzing \autocite{manes2019}.
+Discovering vulnerabilities in the development stage instead of in
+production.
 
-terminology: fuzz campaign, harness, driver, target, corpus
+Discovering vulnerabilities ourselves before attackers do.
+
+Borrowing definitions from \autocite{manes2019}:
+
+\begin{definition}[Fuzzing]\protect\hypertarget{def-fuzzing}{}\label{def-fuzzing}
+
+Fuzzing is the execution of a Program Under Test (PUT) using input(s)
+sampled from an input space (the ``fuzz input space'') that protrudes
+the expected input space of the PUT.
+
+\end{definition}
+
+\begin{definition}[Fuzz
+Testing]\protect\hypertarget{def-fuzz-testing}{}\label{def-fuzz-testing}
+
+Fuzz testing is the use of fuzzing to test if a PUT violates a security
+policy.
+
+\end{definition}
+
+\begin{definition}[Fuzzer]\protect\hypertarget{def-fuzzer}{}\label{def-fuzzer}
+
+A fuzzer is a program that performs fuzz testing on a PUT.
+
+\end{definition}
+
+\begin{definition}[Fuzz
+Campaign]\protect\hypertarget{def-campaign}{}\label{def-campaign}
+
+A fuzz campaign is a specific execution of a fuzzer on a PUT with a
+specific security policy.
+
+\end{definition}
+
+\begin{definition}[Bug
+Oracle]\protect\hypertarget{def-oracle}{}\label{def-oracle}
+
+A bug oracle is a program, perhaps as part of a fuzzer, that determines
+whether a given execution of the PUT violates a specific security
+policy.
+
+\end{definition}
+
+\begin{definition}[Black-box
+fuzzer]\protect\hypertarget{def-blackbox}{}\label{def-blackbox}
+
+A black-box fuzzer is a testing tool that inputs random or specified
+data into a software application without knowledge of its internal
+workings, aiming to uncover vulnerabilities or bugs by observing the
+program's behavior in response to various inputs.
+
+\end{definition}
+
+\begin{definition}[White-box
+fuzzer]\protect\hypertarget{def-whitebox}{}\label{def-whitebox}
+
+A white-box fuzzer is a testing tool that analyzes the internal
+structure and logic of a program to generate test inputs. It uses
+knowledge of the code, such as control flow and data paths, to
+systematically explore all possible execution paths and identify
+vulnerabilities more effectively.
+
+\end{definition}
+
+\begin{definition}[Grey-box
+fuzzer]\protect\hypertarget{def-greybox}{}\label{def-greybox}
+
+A grey-box fuzzer is a testing tool that combines aspects of both
+black-box and white-box fuzzing. It has limited knowledge of the
+internal workings of the application, often using some code coverage
+information or program analysis to generate more targeted inputs,
+thereby improving the efficiency of vulnerability detection.
+
+\end{definition}
+
+\begin{definition}[Generational
+fuzzing]\protect\hypertarget{def-generational}{}\label{def-generational}
+
+Generationbased fuzzers produce test cases based on a given model that
+describes the inputs expected by the PUT, e.g.~a Backus--Naur form (BNF)
+grammar \autocite{backus1959}.
+
+\end{definition}
+
+\begin{definition}[Mutational
+fuzzing]\protect\hypertarget{def-mutational}{}\label{def-mutational}
+
+mutation-based fuzzers produce test cases by mutating a given seed
+input.
+
+\end{definition}
+
+terminology: fuzz campaign (Definition~\ref{def-campaign}), harness,
+driver, target, corpus
 
 Why fuzz?
 

@@ -81,6 +81,15 @@
   keywords = {repo}
 }
 
+@inproceedings{backus1959,
+  title = {The Syntax and the Semantics of the Proposed International Algebraic Language of the {{Zurich ACM-GAMM Conference}}},
+  booktitle = {{{ICIP Proceedings}}},
+  author = {Backus, John W.},
+  date = {1959},
+  pages = {125--132},
+  url = {https://cir.nii.ac.jp/crid/1572824501224489728}
+}
+
 @online{brown2020,
   title = {Language {{Models}} Are {{Few-Shot Learners}}},
   author = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel M. and Wu, Jeffrey and Winter, Clemens and Hesse, Christopher and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
@@ -980,6 +989,21 @@ Read\_Status\_Date: 2024-12-20T14:54:14.658Z},
   file = {/home/kchou/HDD/Library/References/Meyer and Schwenk - 2013 - Lessons Learned From Previous SSLTLS Attacks - A Brief Chronology Of Attacks And Weaknesses - @meyerLessonsLearnedPrevious2013.pdf}
 }
 
+@article{miller1990,
+  title = {An Empirical Study of the Reliability of {{UNIX}} Utilities},
+  author = {Miller, Barton P. and Fredriksen, Lars and So, Bryan},
+  date = {1990-12-01},
+  journaltitle = {Commun. ACM},
+  volume = {33},
+  number = {12},
+  pages = {32--44},
+  issn = {0001-0782},
+  doi = {10.1145/96267.96279},
+  url = {https://dl.acm.org/doi/10.1145/96267.96279},
+  abstract = {The following section describes the tools we built to test the utilities. These tools include the fuzz (random character) generator, ptyjig (to test interactive utilities), and scripts to automate the testing process. Next, we will describe the tests we performed, giving the types of input we presented to the utilities. Results from the tests will follow along with an analysis of the results, including identification and classification of the program bugs that caused the crashes. The final section presents concluding remarks, including suggestions for avoiding the types of problems detected by our study and some commentary on the bugs we found. We include an Appendix with the user manual pages for fuzz and ptyjig.},
+  file = {/home/kchou/HDD/Library/References/Miller et al. - 1990 - An empirical study of the reliability of UNIX utilities - miller1990.pdf}
+}
+
 @article{nethercote2007,
   title = {Valgrind: A Framework for Heavyweight Dynamic Binary Instrumentation},
   shorttitle = {Valgrind},
@@ -1119,6 +1143,18 @@ Read\_Status\_Date: 2025-07-09T15:35:05.407Z},
   file = {/home/kchou/HDD/Library/References/Wang et al. - 2024 - ProphetFuzz Fully Automated Prediction and Fuzzing of High-Risk Option Combinations with Only Docum - @wangProphetFuzzFullyAutomated2024.pdf;/home/kchou/HDD/Library/References/2409.html}
 }
 
+@book{rathaus2007,
+  title = {Open Source Fuzzing Tools},
+  author = {Rathaus, Noam and Evron, Gadi},
+  editor = {Evron, Gadi},
+  date = {2007},
+  publisher = {Syngress Pub},
+  location = {Burlington, MA},
+  isbn = {978-1-59749-195-2},
+  pagetotal = {199},
+  keywords = {Computer software,Debugging in computer science,Open source software,Testing}
+}
+
 @online{reAct,
   title = {{{ReAct}}: {{Synergizing Reasoning}} and {{Acting}} in {{Language Models}}},
   shorttitle = {{{ReAct}}},
@@ -1131,6 +1167,19 @@ Read\_Status\_Date: 2025-07-09T15:35:05.407Z},
   abstract = {While large language models (LLMs) have demonstrated impressive capabilities across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with external sources, such as knowledge bases or environments, to gather additional information. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines, as well as improved human interpretability and trustworthiness over methods without reasoning or acting components. Concretely, on question answering (HotpotQA) and fact verification (Fever), ReAct overcomes issues of hallucination and error propagation prevalent in chain-of-thought reasoning by interacting with a simple Wikipedia API, and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On two interactive decision making benchmarks (ALFWorld and WebShop), ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34\% and 10\% respectively, while being prompted with only one or two in-context examples. Project site with code: https://react-lm.github.io},
   pubstate = {prepublished},
   file = {/home/kchou/HDD/Library/References/Yao et al. - 2023 - ReAct Synergizing Reasoning and Acting in Language Models - @yaoReActSynergizingReasoning2023.pdf;/home/kchou/HDD/Library/References/2210.html}
+}
+
+@inproceedings{rebert2014,
+  title = {Optimizing Seed Selection for Fuzzing},
+  booktitle = {Proceedings of the 23rd {{USENIX}} Conference on {{Security Symposium}}},
+  author = {Rebert, Alexandre and Cha, Sang Kil and Avgerinos, Thanassis and Foote, Jonathan and Warren, David and Grieco, Gustavo and Brumley, David},
+  date = {2014-08-20},
+  series = {{{SEC}}'14},
+  pages = {861--875},
+  publisher = {USENIX Association},
+  location = {USA},
+  abstract = {Randomly mutating well-formed program inputs or simply fuzzing, is a highly effective and widely used strategy to find bugs in software. Other than showing fuzzers find bugs, there has been little systematic effort in understanding the science of how to fuzz properly. In this paper, we focus on how to mathematically formulate and reason about one critical aspect in fuzzing: how best to pick seed files to maximize the total number of bugs found during a fuzz campaign. We design and evaluate six different algorithms using over 650 CPU days on Amazon Elastic Compute Cloud (EC2) to provide ground truth data. Overall, we find 240 bugs in 8 applications and show that the choice of algorithm can greatly increase the number of bugs found. We also show that current seed selection strategies as found in Peach may fare no better than picking seeds at random. We make our data set and code publicly available.},
+  isbn = {978-1-931971-15-7}
 }
 
 @online{sarkar2025,
@@ -1219,6 +1268,31 @@ Read\_Status\_Date: 2025-05-04T14:28:05.460Z}
   annotation = {Read\_Status: Read\\
 Read\_Status\_Date: 2025-07-09T15:44:36.518Z},
   file = {/home/kchou/HDD/Library/References/Sun - 2024 - Automated Generation and Compilation of Fuzz Driver Based on Large Language Models - sun2024.pdf}
+}
+
+@book{sutton2007,
+  title = {Fuzzing: Brute Force Vulnerabilty Discovery},
+  shorttitle = {Fuzzing},
+  author = {Sutton, Michael and Greene, Adam and Amini, Pedram},
+  date = {2007},
+  publisher = {Addison-Wesley},
+  location = {Upper Saddle River, NJ},
+  isbn = {978-0-321-44611-4},
+  pagetotal = {543},
+  keywords = {Computer networks,Computer security,Computer software,Development,Security measures}
+}
+
+@book{takanen2018,
+  title = {Fuzzing for Software Security Testing and Quality Assurance},
+  author = {Takanen, Ari and DeMott, Jared and Miller, Charlie and Kettunen, Atte},
+  date = {2018},
+  series = {Information Security and Privacy Library},
+  edition = {Second edition},
+  publisher = {Artech House},
+  location = {Boston London Norwood, MA},
+  isbn = {978-1-63081-519-6},
+  langid = {english},
+  pagetotal = {1}
 }
 
 @software{thomason2025,
