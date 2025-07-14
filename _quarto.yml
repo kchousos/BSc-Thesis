@@ -55,7 +55,7 @@ book:
       - text: "{{< iconify material-symbols mail >}}"
         url: "mailto:sdi2000215@di.uoa.gr"
   downloads: [pdf]
-  repo-url: https://github.com/kchousos/thesis/
+  repo-url: https://github.com/kchousos/BSc-Thesis/
   repo-branch: master
 
 bibliography: "./resources/bibliography.bib"
