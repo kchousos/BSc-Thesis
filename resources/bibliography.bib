@@ -96,6 +96,15 @@
   file = {/home/kchou/HDD/Library/References/Brown et al. - 2020 - Language Models are Few-Shot Learners - brown2020.pdf;/home/kchou/HDD/Library/References/2005.html}
 }
 
+@software{cedilnik2000,
+  title = {{{CMake}} - {{Upgrade Your Software Build System}}},
+  author = {Cedilnik, Andy and Hoffman, Bill and King, Brad and Martin, Ken and Neundorf, Alexander},
+  date = {2000},
+  url = {https://cmake.org/},
+  abstract = {CMake is a powerful and comprehensive solution for managing the software build process. CMake is the de-facto standard for building C++ code, with over 2 million downloads a month.},
+  file = {/home/kchou/HDD/Library/References/cmake.org.html}
+}
+
 @online{chainofthought,
   title = {Chain-of-{{Thought Prompting Elicits Reasoning}} in {{Large Language Models}}},
   author = {Wei, Jason and Wang, Xuezhi and Schuurmans, Dale and Bosma, Maarten and Ichter, Brian and Xia, Fei and Chi, Ed and Le, Quoc and Zhou, Denny},
@@ -148,7 +157,7 @@
   url = {http://arxiv.org/abs/2309.03496},
   abstract = {Despite the fact that the state-of-the-art fuzzers can generate inputs efficiently, existing fuzz drivers still cannot adequately cover entries in libraries. Most of these fuzz drivers are crafted manually by developers, and their quality depends on the developers' understanding of the code. Existing works have attempted to automate the generation of fuzz drivers by learning API usage from code and execution traces. However, the generated fuzz drivers are limited to a few specific call sequences by the code being learned. To address these challenges, we present HOPPER, which can fuzz libraries without requiring any domain knowledge to craft fuzz drivers. It transforms the problem of library fuzzing into the problem of interpreter fuzzing. The interpreters linked against libraries under test can interpret the inputs that describe arbitrary API usage. To generate semantically correct inputs for the interpreter, HOPPER learns the intra- and inter-API constraints in the libraries and mutates the program with grammar awareness. We implemented HOPPER and evaluated its effectiveness on 11 real-world libraries against manually crafted fuzzers and other automatic solutions. Our results show that HOPPER greatly outperformed the other fuzzers in both code coverage and bug finding, having uncovered 25 previously unknown bugs that other fuzzers couldn't. Moreover, we have demonstrated that the proposed intra- and inter-API constraint learning methods can correctly learn constraints implied by the library and, therefore, significantly improve the fuzzing efficiency. The experiment results indicate that HOPPER is able to explore a vast range of API usages for library fuzzing out of the box.},
   pubstate = {prepublished},
-  keywords = {Computer Science - Cryptography and Security},
+  keywords = {Computer Science - Cryptography and Security,with-notes},
   annotation = {Read\_Status: Not Reading\\
 Read\_Status\_Date: 2025-07-14T10:44:03.113Z},
   file = {/home/kchou/HDD/Library/References/Chen et al. - 2023 - HOPPER Interpretative Fuzzing for Libraries - chen2023a.pdf;/home/kchou/HDD/Library/References/2309.html}
@@ -298,6 +307,23 @@ Read\_Status\_Date: 2025-05-06T10:56:05.200Z},
   pubstate = {prepublished},
   keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Software Engineering},
   file = {/home/kchou/HDD/Library/References/Douze et al. - 2025 - The Faiss library - faiss.pdf;/home/kchou/HDD/Library/References/2401 1.html}
+}
+
+@article{feldman1979,
+  title = {Make — a Program for Maintaining Computer Programs},
+  author = {Feldman, Stuart I.},
+  date = {1979},
+  journaltitle = {Software: Practice and Experience},
+  volume = {9},
+  number = {4},
+  pages = {255--265},
+  issn = {1097-024X},
+  doi = {10.1002/spe.4380090402},
+  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402},
+  abstract = {Good programmers break their projects into a number of pieces, each to be processed or compiled by a different chain of programs. After a set of changes is made, the series of actions that must be taken can be quite complex, and costly errors are frequently made. This paper describes a program that can keep track of the relationships between parts of a program, and issue the commands needed to make the parts consistent after changes are made. Make has been in use on UNIX UNIX is a trademark of Bell Laboratories. systems since 1975. The underlying idea is quite simple and can be adapted to many other environments.},
+  langid = {english},
+  keywords = {Program maintenance,Program updating},
+  file = {/home/kchou/HDD/Library/References/Feldman - 1979 - Make — a program for maintaining computer programs - feldman1979.pdf;/home/kchou/HDD/Library/References/spe.html}
 }
 
 @online{flawfinder,
@@ -929,6 +955,16 @@ Read\_Status\_Date: 2024-10-19T09:03:55.881Z},
   file = {/home/kchou/HDD/Library/References/Manes et al. - 2019 - The Art, Science, and Engineering of Fuzzing A Survey - @manesArtScienceEngineering2019.pdf;/home/kchou/HDD/Library/References/1812.html}
 }
 
+@software{martin2025,
+  title = {Ninja-Build/Ninja},
+  author = {Martin, Evan},
+  date = {2025-07-14T08:19:17Z},
+  origdate = {2011-02-06T19:07:12Z},
+  url = {https://github.com/ninja-build/ninja},
+  abstract = {a small build system with a focus on speed},
+  organization = {ninja-build}
+}
+
 @online{meyer2013,
   title = {Lessons {{Learned From Previous SSL}}/{{TLS Attacks}} - {{A Brief Chronology Of Attacks And Weaknesses}}},
   author = {Meyer, Christopher and Schwenk, Jörg},
@@ -987,6 +1023,16 @@ Read\_Status\_Date: 2024-12-20T14:54:14.658Z},
   file = {/home/kchou/HDD/Library/References/gpt-4-1.html}
 }
 
+@online{openai2025a,
+  title = {Introducing {{Codex}}},
+  author = {{OpenAI}},
+  date = {2025-05-16},
+  url = {https://openai.com/index/introducing-codex/},
+  abstract = {Introducing Codex: a cloud-based software engineering agent that can work on many tasks in parallel, powered by codex-1. With Codex, developers can simultaneously deploy multiple agents to independently handle coding tasks such as writing features, answering questions about your codebase, fixing bugs, and proposing pull requests for review.},
+  langid = {american},
+  file = {/home/kchou/HDD/Library/References/introducing-codex.html}
+}
+
 @software{oss-fuzz,
   title = {{{OSS-Fuzz}}},
   author = {Arya, Abhishek and Chang, Oliver and Metzman, Jonathan and Serebryany, Kostya and Liu, Dongge},
@@ -1030,6 +1076,16 @@ Read\_Status\_Date: 2025-07-09T15:21:06.199Z},
   annotation = {Read\_Status: Read\\
 Read\_Status\_Date: 2025-05-04T14:28:02.098Z},
   file = {/home/kchou/HDD/Library/References/oss-fuzz.html}
+}
+
+@software{pakkanen2025,
+  title = {Mesonbuild/Meson},
+  author = {Pakkanen, Jussi},
+  date = {2025-07-14T02:07:49Z},
+  origdate = {2014-05-14T15:08:16Z},
+  url = {https://github.com/mesonbuild/meson},
+  abstract = {The Meson Build System},
+  organization = {The Meson Build System}
 }
 
 @online{perry2023,

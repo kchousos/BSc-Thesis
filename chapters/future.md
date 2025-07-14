@@ -1,21 +1,33 @@
-# Future work
+# Future Work
 
-- More diverse build support
-- More language support
-- More fuzzers support
-  - GraphFuzz [@green2022]
-- Experimentation with different LLM providers/models
-  - Code-specific LLMs
-    - codex-1, https://openai.com/index/introducing-codex/
-    - codegen [@nijkamp2023a; @nijkamp2023]
-- Different chunking techniques
-- GitHub Action
-- More sophisticated evaluation methods
-- Usage of program slicing in static analysis step
-- testing in all of clib
-- PRs fixing found bugs
-- More extensive comparison with OFG
-- ablation study
-  Project-by-project manually
-- Token/$ comparison
-- leveraging of existing unit tests
+The prototype implementation of OverHAuL offers a compelling demonstration of its potential to automate the fuzzing process for open-source libraries, providing tangible benefits to developers and maintainers alike. This initial version successfully validates the core design principles underpinning OverHAuL, showcasing its ability to streamline and enhance the software testing workflow through automated generation of fuzz drivers using large language models. Nevertheless, while these foundational capabilities lay a solid groundwork, numerous avenues exist for further expansion, refinement, and rigorous evaluation to fully realize the tool’s potential and adapt to evolving challenges in software quality assurance.
+
+## Enhancements to Core Features
+
+Enhancing OverHAuL’s core functionality represents a primary direction for future development. First, expanding support to encompass a wider array of build systems commonly employed in C and C++ projects---such as GNU Make, CMake, Meson, and Ninja [@cedilnik2000; @feldman1979; @martin2025; @pakkanen2025]---would significantly broaden the scope of libraries amenable to automated fuzzing using OverHAuL. This advancement would enable OverHAuL to scale effectively and be applied to larger, more complex codebases, thereby increasing its practical utility and impact.
+
+Second, integrating additional fuzzing engines beyond LibFuzzer stands out as a strategic enhancement. Incorporation of widely adopted fuzzers like AFL++ [@aflpp] could diversify the fuzzing strategies available to OverHAuL, while exploring more experimental tools such as GraphFuzz [@green2022] may pioneer specialized approaches for certain code patterns or architectures. Multi-engine support would also facilitate extending language coverage, for instance by incorporating fuzzers tailored to other programming ecosystems---for example, Google’s Atheris for Python projects [@atheris]. Such versatility would position OverHAuL as a more universal fuzzing automation platform.
+
+Third, the evaluation component of OverHAuL presents an opportunity for refinement through more sophisticated analysis techniques. Beyond the current criteria, incorporating dynamic metrics such as differential code coverage tracking between generated fuzz harnesses would yield deeper insights into test quality and coverage completeness. This quantitative evaluation could guide iterative improvements in fuzz driver generation and overall testing effectiveness.
+
+Finally, OverHAuL’s methodology could be extended to leverage existing client codebases and unit tests in addition to the library source code itself, resources that for now OverHAuL leaves untapped. Inspired by approaches like those found in FUDGE and FuzzGen [@fuzzgen; @fudge], this enhancement would enable the tool to exploit programmer-written usage scenarios as seeds or contexts, potentially generating more meaningful and targeted fuzz inputs. Incorporating these richer information sources would likely improve the efficacy of fuzzing campaigns and uncover subtler bugs.
+
+## Experimentation with Large Language Models and Data Representation
+
+OverHAuL’s reliance on large language models (LLMs) invites comprehensive experimentation with different providers and architectures to assess their comparative strengths and limitations. Conducting empirical evaluations across leading models---such as OpenAI’s o1 and o3 families and Anthropic’s Claude Opus 4---will provide valuable insights into their capabilities, cost-efficiency, and suitability for fuzz driver synthesis. Additionally, specialized code-focused LLMs, including generative and fill-in models like Codex-1 and CodeGen [@nijkamp2023a; @nijkamp2023; @openai2025a], merit exploration due to their targeted optimization for source code generation and understanding.
+
+Another dimension worthy of investigation concerns the granularity of code chunking employed during the given project's code processing stage. Whereas the current approach partitions code at the function level, experimenting with more nuanced segmentation strategies---such as splitting per step inside a function, as a finer-grained technique---could improve the semantic coherence of stored representations and enhance retrieval relevance during fuzz driver generation. This line of inquiry has the potential to optimize model input preparation and ultimately improve output quality.
+
+## Comprehensive Evaluation and Benchmarking
+
+To thoroughly establish OverHAuL’s effectiveness, extensive large-scale evaluation beyond the initial 10-project corpus is imperative. Applying the tool to repositories indexed in the clib package manager [@clibs], which encompasses hundreds of C libraries, would test scalability and robustness across diverse real-world settings. Such a broad benchmark would also enable systematic comparisons against state-of-the-art automated fuzzing frameworks like OSS-Fuzz-Gen and AutoGen, elucidating OverHAuL’s relative strengths and identifying areas for improvement [@oss-fuzz-gen; @sun2024].
+
+Complementing broad benchmarking, detailed ablation studies dissecting the contributions of individual pipeline components and algorithmic choices will yield critical insights into what drives OverHAuL’s performance. Understanding the impact of each module will guide targeted optimizations and support evidence-based design decisions.
+
+Furthermore, an economic analysis exploring resource consumption---such as API token usage and associated monetary costs---relative to fuzzing effectiveness would be valuable for assessing the practical viability of integrating LLM-based fuzz driver generation into continuous integration processes.
+
+## Practical Deployment and Community Engagement
+
+From a usability perspective, embedding OverHAuL within a GitHub Actions workflow represents a practical and impactful enhancement, enabling seamless integration with developers’ existing toolchains and continuous integration pipelines. This would promote wider adoption by reducing barriers to entry and fostering real-time feedback during code development cycles.
+
+Additionally, establishing a mechanism to generate and submit automated pull requests (PRs) to the maintainers of fuzzed libraries---highlighting detected bugs and proposing patches---would not only validate OverHAuL’s findings but also contribute tangible improvements to open-source software quality. This collaborative feedback loop epitomizes the symbiosis between automated testing tools and the open-source community. As an initial step, developing targeted PRs for the projects where bugs were discovered during OverHAuL's development would help facilitate practical follow-up and improvements.
