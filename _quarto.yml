@@ -61,6 +61,8 @@ book:
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
 
+code-line-numbers: true
+
 format:
   html:
     default: true

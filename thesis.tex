@@ -166,6 +166,8 @@ Serif}
 
 
 \pagenumbering{roman}
+\usepackage{lineno}
+\linenumbers
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -420,7 +422,7 @@ something interesting if it receives the input ``HI!''.}
 \centering{
 
 \begin{Shaded}
-\begin{Highlighting}[]
+\begin{Highlighting}[numbers=left,,]
 \NormalTok{cat }\OperatorTok{\textless{}\textless{}}\NormalTok{ EOF }\OperatorTok{\textgreater{}}\NormalTok{ test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
@@ -470,6 +472,8 @@ Prompting techniques.
 \end{enumerate}
 
 Comparison, strengths weaknesses etc. \autocite{laban2025}.
+
+\autocite{perry2023}
 
 \subsection{LLM Programming Libraries
 (?)}\label{llm-programming-libraries}
@@ -626,7 +630,10 @@ Heartbleed vulnerability
 \autocite{heartbleed-cve,wheeler2014,heartbleed}. Its hope is that
 through more extensive fuzzing such errors could be caught and corrected
 before having the chance to be exploited and thus disrupt the public
-digital infrastructure.
+digital infrastructure. So far, it has helped uncover over 10,000
+security vulnerabilities and 36,000 bugs across more than 1,000
+projects, significantly enhancing the quality and security of major
+software like Chrome, OpenSSL, and systemd.
 
 A project that's part of OSS-Fuzz must have been configured as a
 ClusterFuzz \autocite{clusterfuzz} project. ClusterFuzz is the fuzzing
@@ -762,10 +769,11 @@ built based on predefined prompt templates, a technique also present in
 OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
 DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
 
-In conclusion, OverHAuL offers new functionality by offering a
-straightforward installation process, packaged as a self-contained
-Python package with minimal external dependencies. It also introduces
-novel approaches compared to previous work by
+In conclusion, OverHAuL constitutes an \emph{open-source} tool that
+offers new functionality by offering a straightforward installation
+process, packaged as a self-contained Python package with minimal
+external dependencies. It also introduces novel approaches compared to
+previous work by
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -778,6 +786,119 @@ novel approaches compared to previous work by
 \item
   Leveraging a vector store for code consumption and retrieval.
 \end{enumerate}
+
+\textbf{TODO} να συμπεριλάβω και τα:
+
+\subsection{IntelliGen
+{[}{[}20250711141156{]}{]}}\label{intelligen-20250711141156}
+
+\textbf{SAMPLE}
+
+\textbf{IntelliGen: Automatic Fuzz Driver Synthesis Based on
+Vulnerability Heuristics} Zhang et al.~(2021) present
+\textbf{IntelliGen}, a system for automatically synthesizing fuzz
+drivers by statically identifying potentially vulnerable entry-point
+functions within C projects. Implemented using LLVM, IntelliGen focuses
+on improving fuzzing efficiency by targeting code more likely to contain
+memory safety issues, rather than exhaustively fuzzing all available
+functions.
+
+The system comprises two main components: the \textbf{Entry Function
+Locator} and the \textbf{Fuzz Driver Synthesizer}. The Entry Function
+Locator analyzes the project's abstract syntax tree (AST) and classifies
+functions based on heuristics that indicate vulnerability. These include
+pointer dereferencing, calls to memory-related functions (e.g.,
+\texttt{memcpy}, \texttt{memset}), and invocation of other internal
+functions. Functions that score highly on these metrics are prioritized
+for fuzz driver generation. The guiding insight is that entry points
+with fewer argument checks and more direct memory operations expose more
+useful program logic for fuzz testing.
+
+The Fuzz Driver Synthesizer then generates harnesses for these entry
+points. For each target function, it synthesizes a
+\texttt{LLVMFuzzerTestOneInput} function that invokes the target with
+arguments derived from the fuzzer input. This process involves inferring
+argument types from the source code and ensuring that runtime behavior
+does not violate memory safety---thus avoiding invalid inputs that would
+cause crashes unrelated to genuine bugs.
+
+IntelliGen stands out by integrating static vulnerability estimation
+into the driver generation pipeline. Compared to prior tools like
+FuzzGen and FUDGE, it uses a more targeted, heuristic-based selection of
+functions, increasing the likelihood that fuzzing will exercise
+meaningful and vulnerable code paths.
+
+\subsection{CKGFuzzer
+{[}{[}20250711203054{]}{]}}\label{ckgfuzzer-20250711203054}
+
+\textbf{SAMPLE}
+
+CKGFuzzer is a fuzzing framework designed to automate the generation of
+effective fuzz drivers for C/C++ libraries by leveraging static analysis
+and large language models. Its workflow begins by parsing the target
+project along with any associated library APIs to construct a code
+knowledge graph. This involves two primary steps: first, parsing the
+abstract syntax tree (AST), and second, performing interprocedural
+program analysis. Through this process, CKGFuzzer extracts essential
+program elements such as data structures, function signatures, function
+implementations, and call relationships.
+
+Using the knowledge graph, CKGFuzzer then identifies and queries
+meaningful API combinations, focusing on those that are either
+frequently invoked together or exhibit functional similarity. It
+generates candidate fuzz drivers for these combinations and attempts to
+compile them. Any compilation errors encountered during this phase are
+automatically repaired using heuristics and domain knowledge. A
+dynamically updated knowledge base, constructed from prior library usage
+patterns, guides both the generation and repair processes.
+
+Once the drivers are successfully compiled, CKGFuzzer executes them
+while monitoring code coverage at the file level. It uses coverage
+feedback to iteratively mutate underperforming API combinations,
+refining them until new execution paths are discovered or a preset
+mutation budget is exhausted.
+
+Finally, any crashes triggered during fuzzing are subjected to a
+reasoning process based on chain-of-thought prompting. To help determine
+their severity and root cause, CKGFuzzer consults an LLM-generated
+knowledge base containing real-world examples of vulnerabilities mapped
+to known Common Weakness Enumeration (CWE) entries.
+
+\subsection{PromptFuzz
+{[}{[}20250713225436{]}{]}}\label{promptfuzz-20250713225436}
+
+\textbf{SAMPLE}
+
+Lyu et al.~(2024) introduce PromptFuzz \autocite{lyu2024}, a system for
+automatically generating fuzz drivers using LLMs, with a novel focus on
+\textbf{prompt mutation} to improve coverage. The system is implemented
+in Rust and targets C libraries, aiming to explore more of the API
+surface with each iteration.
+
+The workflow begins with the random selection of API functions,
+extracted from header file declarations. These functions are used to
+construct initial prompts that instruct the LLM to generate a simple
+program utilizing the API. Each generated program is compiled, executed,
+and monitored for code coverage. Programs that fail to compile or
+violate runtime checks (e.g., sanitizers) are discarded.
+
+A key innovation in PromptFuzz is \textbf{coverage-guided prompt
+mutation}. Instead of mutating generated code directly, PromptFuzz
+mutates the LLM prompts---selecting new combinations of API functions to
+target unexplored code paths. This process is guided by a \textbf{power
+scheduling} strategy that prioritizes underused or promising API
+functions based on feedback from previous runs.
+
+Once an effective program is produced, it is transformed into a fuzz
+driver by replacing constants and arguments with variables derived from
+the fuzzer input. Multiple such drivers are embedded into a single
+harness, where the input determines which program variant to execute,
+typically via a case-switch construct.
+
+Overall, PromptFuzz demonstrates that prompt-level mutation enables more
+effective exploration of complex APIs and achieves better coverage than
+direct code mutations, offering a compelling direction for LLM-based
+automated fuzzing systems.
 
 \bookmarksetup{startatroot}
 
@@ -829,6 +950,8 @@ novel approaches compared to previous work by
   Fuzzers
 \item
   GitHub Workflow/Usage
+\item
+  ``Ieration budget''
 \end{itemize}
 
 \bookmarksetup{startatroot}
@@ -920,6 +1043,12 @@ work/extensions}\label{architectural-future-workextensions}
 \bookmarksetup{startatroot}
 
 \chapter{Discussion}\label{discussion}
+
+more powerful llms -\textgreater{} better results
+
+open source libraries might have been in the training data results for
+closed source libraries could be worse this could be mitigated with llm
+fine-tuning
 
 \bookmarksetup{startatroot}
 
