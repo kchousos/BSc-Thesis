@@ -8,11 +8,11 @@ Results from integration with 10/100 open-source C/C++ projects.
 
 ## Issues
 
-## Future work
+## Future Work
 
-### Technical future work
+### Technical Future Work
 
-### Architectural future work/extensions
+### Architectural Future Work/Extensions
 
 1. Build system
 2. More (static) analysis tolls integrations

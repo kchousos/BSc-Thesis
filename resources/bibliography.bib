@@ -90,6 +90,13 @@
   url = {https://cir.nii.ac.jp/crid/1572824501224489728}
 }
 
+@online{bash,
+  title = {Bash - {{GNU Project}} - {{Free Software Foundation}}},
+  author = {{GNU Project}},
+  url = {https://www.gnu.org/software/bash/},
+  file = {/home/kchou/HDD/Library/References/bash.html}
+}
+
 @online{brown2020,
   title = {Language {{Models}} Are {{Few-Shot Learners}}},
   author = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel M. and Wu, Jeffrey and Winter, Clemens and Hesse, Christopher and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
@@ -958,9 +965,9 @@ Read\_Status\_Date: 2025-07-14T10:25:06.712Z},
   url = {http://arxiv.org/abs/1812.00140},
   abstract = {Among the many software vulnerability discovery techniques available today, fuzzing has remained highly popular due to its conceptual simplicity, its low barrier to deployment, and its vast amount of empirical evidence in discovering real-world software vulnerabilities. At a high level, fuzzing refers to a process of repeatedly running a program with generated inputs that may be syntactically or semantically malformed. While researchers and practitioners alike have invested a large and diverse effort towards improving fuzzing in recent years, this surge of work has also made it difficult to gain a comprehensive and coherent view of fuzzing. To help preserve and bring coherence to the vast literature of fuzzing, this paper presents a unified, general-purpose model of fuzzing together with a taxonomy of the current fuzzing literature. We methodically explore the design decisions at every stage of our model fuzzer by surveying the related literature and innovations in the art, science, and engineering that make modern-day fuzzers effective.},
   pubstate = {prepublished},
-  keywords = {read-now,suggested},
-  annotation = {Read\_Status: In Progress\\
-Read\_Status\_Date: 2024-10-19T09:03:55.881Z},
+  keywords = {suggested,with-notes},
+  annotation = {Read\_Status: Read\\
+Read\_Status\_Date: 2025-07-14T21:03:20.585Z},
   file = {/home/kchou/HDD/Library/References/Manes et al. - 2019 - The Art, Science, and Engineering of Fuzzing A Survey - @manesArtScienceEngineering2019.pdf;/home/kchou/HDD/Library/References/1812.html}
 }
 
@@ -1102,6 +1109,15 @@ Read\_Status\_Date: 2025-05-04T14:28:02.098Z},
   file = {/home/kchou/HDD/Library/References/oss-fuzz.html}
 }
 
+@online{owaspfoundation,
+  title = {Fuzzing},
+  author = {{OWASP Foundation}},
+  url = {https://owasp.org/www-community/Fuzzing},
+  abstract = {Fuzzing on the main website for The OWASP Foundation. OWASP is a nonprofit foundation that works to improve the security of software.},
+  langid = {english},
+  file = {/home/kchou/HDD/Library/References/Fuzzing.html}
+}
+
 @software{pakkanen2025,
   title = {Mesonbuild/Meson},
   author = {Pakkanen, Jussi},
@@ -1179,7 +1195,18 @@ Read\_Status\_Date: 2025-07-09T15:35:05.407Z},
   publisher = {USENIX Association},
   location = {USA},
   abstract = {Randomly mutating well-formed program inputs or simply fuzzing, is a highly effective and widely used strategy to find bugs in software. Other than showing fuzzers find bugs, there has been little systematic effort in understanding the science of how to fuzz properly. In this paper, we focus on how to mathematically formulate and reason about one critical aspect in fuzzing: how best to pick seed files to maximize the total number of bugs found during a fuzz campaign. We design and evaluate six different algorithms using over 650 CPU days on Amazon Elastic Compute Cloud (EC2) to provide ground truth data. Overall, we find 240 bugs in 8 applications and show that the choice of algorithm can greatly increase the number of bugs found. We also show that current seed selection strategies as found in Peach may fare no better than picking seeds at random. We make our data set and code publicly available.},
-  isbn = {978-1-931971-15-7}
+  isbn = {978-1-931971-15-7},
+  file = {/home/kchou/HDD/Library/References/Rebert et al. - 2014 - Optimizing seed selection for fuzzing - rebert2014.pdf}
+}
+
+@online{saarinen2014,
+  title = {Further Flaws Render {{Shellshock}} Patch Ineffective},
+  author = {Saarinen, Juha},
+  date = {2014-09-29},
+  url = {https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256},
+  abstract = {Patched systems remain vulnerable.},
+  organization = {iTnews},
+  file = {/home/kchou/HDD/Library/References/further-flaws-render-shellshock-patch-ineffective-396256.html}
 }
 
 @online{sarkar2025,
@@ -1211,6 +1238,17 @@ Read\_Status\_Date: 2025-07-09T15:35:05.407Z},
   doi = {10.5121/ijsea.2011.2304},
   url = {http://www.airccse.org/journal/ijsea/papers/0711ijsea04.pdf},
   file = {/home/kchou/HDD/Library/References/Sasirekha et al. - 2011 - Program Slicing Techniques and its Applications - sasirekha2011Program.pdf}
+}
+
+@inproceedings{serebryany2012,
+  title = {{{AddressSanitizer}}: {{A}} Fast Address Sanity Checker},
+  shorttitle = {{{AddressSanitizer}}},
+  booktitle = {2012 {{USENIX}} Annual Technical Conference ({{USENIX ATC}} 12)},
+  author = {Serebryany, Konstantin and Bruening, Derek and Potapenko, Alexander and Vyukov, Dmitriy},
+  date = {2012},
+  pages = {309--318},
+  url = {https://www.usenix.org/conference/atc12/technical-sessions/presentation/serebryany},
+  file = {/home/kchou/HDD/Library/References/Serebryany et al. - 2012 - AddressSanitizer A fast address sanity checker - serebryany2012.pdf}
 }
 
 @online{shellshock-cve,
@@ -1293,6 +1331,17 @@ Read\_Status\_Date: 2025-07-09T15:44:36.518Z},
   isbn = {978-1-63081-519-6},
   langid = {english},
   pagetotal = {1}
+}
+
+@software{theopensslproject2025,
+  title = {Openssl/Openssl},
+  author = {{The OpenSSL Project}},
+  date = {2025-07-15T07:33:10Z},
+  origdate = {2013-01-15T22:34:48Z},
+  url = {https://github.com/openssl/openssl},
+  abstract = {TLS/SSL and crypto library},
+  organization = {OpenSSL},
+  keywords = {cryptography,decryption,encryption,openssl,ssl,tls}
 }
 
 @software{thomason2025,

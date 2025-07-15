@@ -1,93 +1,113 @@
 # Background
 
-## Fuzzing
+## Fuzz Testing
 
-Introduced in 1990 [@miller1990].
+**Fuzzing** is an automated software-testing technique in which a *Program Under Test* (PUT) is executed with (pseudo-)random inputs in the hope of exposing undefined behavior. When such behavior manifests as a crash, hang, or memory-safety violation, the corresponding input constitutes a *test-case* that reveals a bug and often a vulnerability [@manes2019]. In essence, fuzzing is a form of adversarial, penetration-style testing carried out by the defender before the adversary has an opportunity to do so. Interest in the technique surged after the publication of three practitioner-oriented books in 2007--2008 [@takanen2018; @sutton2007; @rathaus2007].
 
-Discovering vulnerabilities in the development stage instead of in production.
-
-Discovering vulnerabilities ourselves before attackers do.
-
-Borrowing definitions from [@manes2019]:
-
-Goal: trigger unexpected behavior (e.g., crashes, hangs, memory errors).
-
-
-
-> The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.
->
-> --- [OWASP Foundation](https://owasp.org/www-community/Fuzzing)
-
-
-Fuzz testing is valuable for:
-
-1. Software that receives inputs from untrusted sources (security)
-2. Sanity checking the equivalence of two complex algorithms (correctness)
-3. Verifying the stability of a high-volume API that takes complex inputs (stability), e.g. a decompressor, even if all the inputs are trusted.
-
+Historically, the term was coined by Miller et al. in 1990, who used "fuzz" to describe a program that "generates a stream of random characters to be consumed by a target program" [@miller1990]. More rigorously---borrowing Manes et al.'s definitions [@manes2019]:
 
 ::: {#def-fuzzing}
-#### Fuzzing
-Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the "fuzz input space") that protrudes the expected input space of the PUT.
+###### Fuzzing
+Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the *fuzz input space*) that protrudes the expected input space of the PUT.
 :::
+
+An individual execution (or bounded set of executions) that meets this definition is a *fuzzing run*. When such runs are performed systematically and at scale to test whether the PUT violates a specified security policy, we speak of **fuzz testing** (or simply *fuzzing* in common parlance):
 
 ::: {#def-fuzz-testing}
-#### Fuzz Testing
-Fuzz testing is the use of fuzzing to test if a PUT violates a security policy.
+###### Fuzz Testing
+Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy.
 :::
 
+A **fuzzer engine** orchestrates a **fuzz campaign**---one concrete instantiation of a fuzzer running against a single PUT under a particular policy:
+
 ::: {#def-fuzzer}
-#### Fuzzer
+###### Fuzzer, Fuzzer Engine
 A fuzzer is a program that performs fuzz testing on a PUT.
 :::
 
 ::: {#def-campaign}
-#### Fuzz Campaign
+###### Fuzz Campaign
 A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy.
 :::
 
+During each execution the **bug oracle** decides whether the observed behaviour constitutes a policy violation:
+
 ::: {#def-oracle}
-#### Bug Oracle
-A bug oracle is a program, perhaps as part of a fuzzer, that determines whether a given execution of the PUT violates a specific security policy.
+###### Bug Oracle
+A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy.
 :::
+
+In practice, many oracles are based on runtime instrumentation such as fatal POSIX signals (e.g., `SIGSEGV`) or sanitizers like AddressSanitizer (ASan) [@serebryany2012], as used by LibFuzzer [@libfuzzer].
+
+### Seeds, Mutation, and the Seed-Selection Problem
+
+A campaign usually begins with one or more **seeds**---well-formed inputs that belong to the PUT's expected input space. The fuzzer mutates these seeds to explore the larger fuzz input space:
+
+::: {#def-seed}
+###### Seed
+An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign ([@def-campaign]) all seeds are stored in a seed *pool* or *corpus*.
+:::
+
+Selecting an initial corpus that leads to fast, wide code-coverage is non-trivial and has been studied as the *seed-selection problem* [@rebert2014].
+
+### Taxonomies of Fuzzing
+
+Fuzzers are traditionally classified along two orthogonal dimensions. Namely, in regards to the knowledge of the PUT they have access to and the strategy used for the input generation.
+
+#### Knowledge of the PUT
 
 ::: {#def-blackbox}
-#### Black-box fuzzer
-A black-box fuzzer is a testing tool that inputs random or specified data into a software application without knowledge of its internal workings, aiming to uncover vulnerabilities or bugs by observing the program's behavior in response to various inputs.
+###### Black-box fuzzer
+Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations.
 :::
-
-::: {#def-whitebox}
-#### White-box fuzzer
-A white-box fuzzer is a testing tool that analyzes the internal structure and logic of a program to generate test inputs. It uses knowledge of the code, such as control flow and data paths, to systematically explore all possible execution paths and identify vulnerabilities more effectively.
-:::
-
 ::: {#def-greybox}
-#### Grey-box fuzzer
-A grey-box fuzzer is a testing tool that combines aspects of both black-box and white-box fuzzing. It has limited knowledge of the internal workings of the application, often using some code coverage information or program analysis to generate more targeted inputs, thereby improving the efficiency of vulnerability detection.
+###### Grey-box fuzzer
+Gains limited insight---typically lightweight coverage metrics---via instrumentation, allowing more informed mutations while retaining scalability.
 :::
+::: {#def-whitebox}
+###### White-box fuzzer
+Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths.
+:::
+
+#### Test-case Generation Strategy
 
 ::: {#def-generational}
-#### Generational fuzzing
-Generationbased fuzzers produce test cases based on a given model that describes the inputs expected by the PUT, e.g. a Backus--Naur form (BNF) grammar [@backus1959].
+###### Generational fuzzing
+Produces inputs from a structural model (e.g., a BNF grammar [@backus1959]) or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse.
 :::
-
 ::: {#def-mutational}
-#### Mutational fuzzing
-mutation-based fuzzers produce test cases by mutating a given seed input.
+###### Mutational fuzzing
+Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective.
 :::
 
-terminology: fuzz campaign [@def-campaign], harness, driver, target, corpus
+These axes can be combined: e.g., AFL [@afl] is a grey-box, mutational fuzzer; Honggfuzz [@honggfuzz] with a grammar description becomes grey-box generational.
 
-Why fuzz?
+### Why Fuzz?
 
-### Fuzzing success stories
+> The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.
+>
+> --- OWASP Foundation [@owaspfoundation]
 
-- Heartbleed vulnerability, OpenSSL[@heartbleed] ([CVE-2014-0160](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160))
-  - Easily found with fuzzing ⇒ Preventable
-- Shellshock vulnerabilities, Bash ([CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271))
-- [Mayhem](https://www.mayhem.security/) (FKA ForAllSecure) [@simonite2020mayhem]
-  1.  Cloudflare
-  2.  OpenWRT
+Fuzz testing offers several tangible benefits:
+
+1. **Early vulnerability discovery.** Detecting defects during development is cheaper and safer than addressing exploits in production.
+2. **Adversary-parity.** Performing the same randomised stress that attackers employ allows defenders to pre-empt zero-days.
+3. **Robustness and correctness.** Beyond security, fuzzing exposes logic errors and stability issues in complex, high-throughput APIs (e.g., decompressors) even when inputs are *expected* to be well-formed.
+4. **Regression prevention.** Re-running a corpus of crashing inputs as part of continuous integration ensures that fixed bugs remain fixed.
+
+### Success Stories
+
+*Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read in OpenSSL [@theopensslproject2025] introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
+
+Likewise, the *Shellshock* (or *Bashdoor*) family of bugs in GNU Bash [@bash] enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google's Michał Zalewski using fuzzing in late 2014 [@saarinen2014].
+
+On the defensive tooling side, the security tool named *Mayhem*---developed by the company of the same name---has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities [@simonite2020mayhem].
+
+These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.
+
+qqqqqq
+
+### How to Fuzz?
 
 ### Fuzzer engines
 
@@ -101,7 +121,7 @@ Python: Atheris [@atheris].
 Used to fuzz library functions. The programmer writes a fuzz target to test their implementation.
 
 :::{#def-target}
-#### Fuzz target
+###### Fuzz target
 A function that accepts an array of bytes and does something interesting with these bytes using the API under test [@libfuzzer].
 
 AKA fuzz driver, fuzzer entry point, harness.

@@ -371,7 +371,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-overhaul.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -414,17 +414,31 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fuzzing" id="toc-fuzzing" class="nav-link active" data-scroll-target="#fuzzing"><span class="header-section-number">2.1</span> Fuzzing</a>
+  <li><a href="#fuzz-testing" id="toc-fuzz-testing" class="nav-link active" data-scroll-target="#fuzz-testing"><span class="header-section-number">2.1</span> Fuzz Testing</a>
   <ul class="collapse">
-  <li><a href="#fuzzing-success-stories" id="toc-fuzzing-success-stories" class="nav-link" data-scroll-target="#fuzzing-success-stories"><span class="header-section-number">2.1.1</span> Fuzzing success stories</a></li>
-  <li><a href="#fuzzer-engines" id="toc-fuzzer-engines" class="nav-link" data-scroll-target="#fuzzer-engines"><span class="header-section-number">2.1.2</span> Fuzzer engines</a></li>
+  <li><a href="#seeds-mutation-and-the-seed-selection-problem" id="toc-seeds-mutation-and-the-seed-selection-problem" class="nav-link" data-scroll-target="#seeds-mutation-and-the-seed-selection-problem"><span class="header-section-number">2.1.1</span> Seeds, Mutation, and the Seed-Selection Problem</a></li>
+  <li><a href="#taxonomies-of-fuzzing" id="toc-taxonomies-of-fuzzing" class="nav-link" data-scroll-target="#taxonomies-of-fuzzing"><span class="header-section-number">2.1.2</span> Taxonomies of Fuzzing</a></li>
+  <li><a href="#why-fuzz" id="toc-why-fuzz" class="nav-link" data-scroll-target="#why-fuzz"><span class="header-section-number">2.1.3</span> Why Fuzz?</a></li>
+  <li><a href="#success-stories" id="toc-success-stories" class="nav-link" data-scroll-target="#success-stories"><span class="header-section-number">2.1.4</span> Success Stories</a></li>
+  <li><a href="#how-to-fuzz" id="toc-how-to-fuzz" class="nav-link" data-scroll-target="#how-to-fuzz"><span class="header-section-number">2.1.5</span> How to Fuzz?</a></li>
+  <li><a href="#fuzzer-engines" id="toc-fuzzer-engines" class="nav-link" data-scroll-target="#fuzzer-engines"><span class="header-section-number">2.1.6</span> Fuzzer engines</a></li>
+  <li><a href="#difficulties" id="toc-difficulties" class="nav-link" data-scroll-target="#difficulties"><span class="header-section-number">2.1.7</span> Difficulties</a></li>
   </ul></li>
   <li><a href="#large-language-models-llms" id="toc-large-language-models-llms" class="nav-link" data-scroll-target="#large-language-models-llms"><span class="header-section-number">2.2</span> Large Language Models (LLMs)</a>
   <ul class="collapse">
-  <li><a href="#sec-prompting" id="toc-sec-prompting" class="nav-link" data-scroll-target="#sec-prompting"><span class="header-section-number">2.2.1</span> Prompting</a></li>
-  <li><a href="#llm-programming-libraries" id="toc-llm-programming-libraries" class="nav-link" data-scroll-target="#llm-programming-libraries"><span class="header-section-number">2.2.2</span> LLM Programming Libraries (?)</a></li>
+  <li><a href="#what-are-they" id="toc-what-are-they" class="nav-link" data-scroll-target="#what-are-they"><span class="header-section-number">2.2.1</span> What are they?</a></li>
+  <li><a href="#biggest-gpts" id="toc-biggest-gpts" class="nav-link" data-scroll-target="#biggest-gpts"><span class="header-section-number">2.2.2</span> Biggest GPTs</a></li>
+  <li><a href="#sec-prompting" id="toc-sec-prompting" class="nav-link" data-scroll-target="#sec-prompting"><span class="header-section-number">2.2.3</span> Prompting</a></li>
+  <li><a href="#for-coding" id="toc-for-coding" class="nav-link" data-scroll-target="#for-coding"><span class="header-section-number">2.2.4</span> For coding</a></li>
+  <li><a href="#for-fuzzing" id="toc-for-fuzzing" class="nav-link" data-scroll-target="#for-fuzzing"><span class="header-section-number">2.2.5</span> For fuzzing</a></li>
+  <li><a href="#llm-programming-libraries" id="toc-llm-programming-libraries" class="nav-link" data-scroll-target="#llm-programming-libraries"><span class="header-section-number">2.2.6</span> LLM Programming Libraries (?)</a></li>
   </ul></li>
-  <li><a href="#neurosymbolic-ai" id="toc-neurosymbolic-ai" class="nav-link" data-scroll-target="#neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</a></li>
+  <li><a href="#neurosymbolic-ai" id="toc-neurosymbolic-ai" class="nav-link" data-scroll-target="#neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it"><span class="header-section-number">2.3.1</span> What is it?</a></li>
+  <li><a href="#what-does-it-solve" id="toc-what-does-it-solve" class="nav-link" data-scroll-target="#what-does-it-solve"><span class="header-section-number">2.3.2</span> What does it solve?</a></li>
+  <li><a href="#its-state" id="toc-its-state" class="nav-link" data-scroll-target="#its-state"><span class="header-section-number">2.3.3</span> Its state</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -451,201 +465,371 @@ div.csl-indent {
 </header>
 
 
-<section id="fuzzing" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="fuzzing"><span class="header-section-number">2.1</span> Fuzzing</h2>
-<p>Discovering vulnerabilities in the development stage instead of in production.</p>
-<p>Discovering vulnerabilities ourselves before attackers do.</p>
-<p>Borrowing definitions from <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>:</p>
-<p>Goal: trigger unexpected behavior (e.g., crashes, hangs, memory errors).</p>
-<blockquote class="blockquote">
-<p>The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.</p>
-<p>— <a href="https://owasp.org/www-community/Fuzzing">OWASP Foundation</a></p>
-</blockquote>
-<p>Fuzz testing is valuable for:</p>
-<ol type="1">
-<li>Software that receives inputs from untrusted sources (security)</li>
-<li>Sanity checking the equivalence of two complex algorithms (correctness)</li>
-<li>Verifying the stability of a high-volume API that takes complex inputs (stability), e.g.&nbsp;a decompressor, even if all the inputs are trusted.</li>
-</ol>
+<section id="fuzz-testing" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="fuzz-testing"><span class="header-section-number">2.1</span> Fuzz Testing</h2>
+<p><strong>Fuzzing</strong> is an automated software-testing technique in which a <em>Program Under Test</em> (PUT) is executed with (pseudo-)random inputs in the hope of exposing undefined behavior. When such behavior manifests as a crash, hang, or memory-safety violation, the corresponding input constitutes a <em>test-case</em> that reveals a bug and often a vulnerability <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>. In essence, fuzzing is a form of adversarial, penetration-style testing carried out by the defender before the adversary has an opportunity to do so. Interest in the technique surged after the publication of three practitioner-oriented books in 2007–2008 <span class="citation" data-cites="takanen2018 sutton2007 rathaus2007"><a href="refs.html#ref-takanen2018" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-sutton2007" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-rathaus2007" role="doc-biblioref">[4]</a></span>.</p>
+<p>Historically, the term was coined by Miller et al.&nbsp;in 1990, who used “fuzz” to describe a program that “generates a stream of random characters to be consumed by a target program” <span class="citation" data-cites="miller1990"><a href="refs.html#ref-miller1990" role="doc-biblioref">[5]</a></span>. More rigorously—borrowing Manes et al.’s definitions <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>:</p>
 <div id="def-fuzzing" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1 (Fuzzing)</strong></span> Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the “fuzz input space”) that protrudes the expected input space of the PUT.</p>
+<p><span class="theorem-title"><strong>Definition 2.1 (Fuzzing)</strong></span> Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the <em>fuzz input space</em>) that protrudes the expected input space of the PUT.</p>
 </div>
+<p>An individual execution (or bounded set of executions) that meets this definition is a <em>fuzzing run</em>. When such runs are performed systematically and at scale to test whether the PUT violates a specified security policy, we speak of <strong>fuzz testing</strong> (or simply <em>fuzzing</em> in common parlance):</p>
 <div id="def-fuzz-testing" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.2 (Fuzz Testing)</strong></span> Fuzz testing is the use of fuzzing to test if a PUT violates a security policy.</p>
+<p><span class="theorem-title"><strong>Definition 2.2 (Fuzz Testing)</strong></span> Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy.</p>
 </div>
+<p>A <strong>fuzzer engine</strong> orchestrates a <strong>fuzz campaign</strong>—one concrete instantiation of a fuzzer running against a single PUT under a particular policy:</p>
 <div id="def-fuzzer" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.3 (Fuzzer)</strong></span> A fuzzer is a program that performs fuzz testing on a PUT.</p>
+<p><span class="theorem-title"><strong>Definition 2.3 (Fuzzer, Fuzzer Engine)</strong></span> A fuzzer is a program that performs fuzz testing on a PUT.</p>
 </div>
 <div id="def-campaign" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2.4 (Fuzz Campaign)</strong></span> A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy.</p>
 </div>
+<p>During each execution the <strong>bug oracle</strong> decides whether the observed behaviour constitutes a policy violation:</p>
 <div id="def-oracle" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.5 (Bug Oracle)</strong></span> A bug oracle is a program, perhaps as part of a fuzzer, that determines whether a given execution of the PUT violates a specific security policy.</p>
+<p><span class="theorem-title"><strong>Definition 2.5 (Bug Oracle)</strong></span> A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy.</p>
 </div>
+<p>In practice, many oracles are based on runtime instrumentation such as fatal POSIX signals (e.g., <code>SIGSEGV</code>) or sanitizers like AddressSanitizer (ASan) <span class="citation" data-cites="serebryany2012"><a href="refs.html#ref-serebryany2012" role="doc-biblioref">[6]</a></span>, as used by LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>.</p>
+<section id="seeds-mutation-and-the-seed-selection-problem" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="seeds-mutation-and-the-seed-selection-problem"><span class="header-section-number">2.1.1</span> Seeds, Mutation, and the Seed-Selection Problem</h3>
+<p>A campaign usually begins with one or more <strong>seeds</strong>—well-formed inputs that belong to the PUT’s expected input space. The fuzzer mutates these seeds to explore the larger fuzz input space:</p>
+<div id="def-seed" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.6 (Seed)</strong></span> An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign (<a href="#def-campaign" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>) all seeds are stored in a seed <em>pool</em> or <em>corpus</em>.</p>
+</div>
+<p>Selecting an initial corpus that leads to fast, wide code-coverage is non-trivial and has been studied as the <em>seed-selection problem</em> <span class="citation" data-cites="rebert2014"><a href="refs.html#ref-rebert2014" role="doc-biblioref">[8]</a></span>.</p>
+</section>
+<section id="taxonomies-of-fuzzing" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="taxonomies-of-fuzzing"><span class="header-section-number">2.1.2</span> Taxonomies of Fuzzing</h3>
+<p>Fuzzers are traditionally classified along two orthogonal dimensions. Namely, in regards to the knowledge of the PUT they have access to and the strategy used for the input generation.</p>
+<section id="knowledge-of-the-put" class="level4" data-number="2.1.2.1">
+<h4 data-number="2.1.2.1" class="anchored" data-anchor-id="knowledge-of-the-put"><span class="header-section-number">2.1.2.1</span> Knowledge of the PUT</h4>
 <div id="def-blackbox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.6 (Black-box fuzzer)</strong></span> A black-box fuzzer is a testing tool that inputs random or specified data into a software application without knowledge of its internal workings, aiming to uncover vulnerabilities or bugs by observing the program’s behavior in response to various inputs.</p>
-</div>
-<div id="def-whitebox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.7 (White-box fuzzer)</strong></span> A white-box fuzzer is a testing tool that analyzes the internal structure and logic of a program to generate test inputs. It uses knowledge of the code, such as control flow and data paths, to systematically explore all possible execution paths and identify vulnerabilities more effectively.</p>
+<p><span class="theorem-title"><strong>Definition 2.7 (Black-box fuzzer)</strong></span> Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations.</p>
 </div>
 <div id="def-greybox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.8 (Grey-box fuzzer)</strong></span> A grey-box fuzzer is a testing tool that combines aspects of both black-box and white-box fuzzing. It has limited knowledge of the internal workings of the application, often using some code coverage information or program analysis to generate more targeted inputs, thereby improving the efficiency of vulnerability detection.</p>
+<p><span class="theorem-title"><strong>Definition 2.8 (Grey-box fuzzer)</strong></span> Gains limited insight—typically lightweight coverage metrics—via instrumentation, allowing more informed mutations while retaining scalability.</p>
 </div>
+<div id="def-whitebox" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.9 (White-box fuzzer)</strong></span> Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths.</p>
+</div>
+</section>
+<section id="test-case-generation-strategy" class="level4" data-number="2.1.2.2">
+<h4 data-number="2.1.2.2" class="anchored" data-anchor-id="test-case-generation-strategy"><span class="header-section-number">2.1.2.2</span> Test-case Generation Strategy</h4>
 <div id="def-generational" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.9 (Generational fuzzing)</strong></span> Generationbased fuzzers produce test cases based on a given model that describes the inputs expected by the PUT, e.g.&nbsp;a Backus–Naur form (BNF) grammar <span class="citation" data-cites="backus1959"><a href="refs.html#ref-backus1959" role="doc-biblioref">[2]</a></span>.</p>
+<p><span class="theorem-title"><strong>Definition 2.10 (Generational fuzzing)</strong></span> Produces inputs from a structural model (e.g., a BNF grammar <span class="citation" data-cites="backus1959"><a href="refs.html#ref-backus1959" role="doc-biblioref">[9]</a></span>) or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse.</p>
 </div>
 <div id="def-mutational" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.10 (Mutational fuzzing)</strong></span> mutation-based fuzzers produce test cases by mutating a given seed input.</p>
+<p><span class="theorem-title"><strong>Definition 2.11 (Mutational fuzzing)</strong></span> Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective.</p>
 </div>
-<p>terminology: fuzz campaign <a href="#def-campaign" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>, harness, driver, target, corpus</p>
-<p>Why fuzz?</p>
-<section id="fuzzing-success-stories" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="fuzzing-success-stories"><span class="header-section-number">2.1.1</span> Fuzzing success stories</h3>
-<p>Heartbleed <span class="citation" data-cites="heartbleed heartbleed-cve"><a href="refs.html#ref-heartbleed" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[4]</a></span>, shellshock <span class="citation" data-cites="meyer2013 shellshock-cve"><a href="refs.html#ref-meyer2013" role="doc-biblioref">[5]</a>, <a href="refs.html#ref-shellshock-cve" role="doc-biblioref">[6]</a></span>.</p>
-<p>Mayhem (formerly known as ForAllSecure) <span class="citation" data-cites="simonite2020mayhem"><a href="refs.html#ref-simonite2020mayhem" role="doc-biblioref">[7]</a></span> 1. Cloudflare 2. OpenWRT</p>
+<p>These axes can be combined: e.g., AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span> is a grey-box, mutational fuzzer; Honggfuzz <span class="citation" data-cites="honggfuzz"><a href="refs.html#ref-honggfuzz" role="doc-biblioref">[11]</a></span> with a grammar description becomes grey-box generational.</p>
 </section>
-<section id="fuzzer-engines" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="fuzzer-engines"><span class="header-section-number">2.1.2</span> Fuzzer engines</h3>
-<p>C/C++: AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[8]</a></span> &amp; AFL++ <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[8]</a>, ++</span>. LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[9]</a></span>. <span class="citation" data-cites="honggfuzz"><a href="refs.html#ref-honggfuzz" role="doc-biblioref">[10]</a></span>.</p>
-<p>Python: Atheris <span class="citation" data-cites="atheris"><a href="refs.html#ref-atheris" role="doc-biblioref">[11]</a></span>.</p>
-<p>An example of a fuzz target/harness can be seen in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.1</span></a> <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[9]</a></span>.</p>
+</section>
+<section id="why-fuzz" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="why-fuzz"><span class="header-section-number">2.1.3</span> Why Fuzz?</h3>
+<blockquote class="blockquote">
+<p>The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.</p>
+<p>— OWASP Foundation <span class="citation" data-cites="owaspfoundation"><a href="refs.html#ref-owaspfoundation" role="doc-biblioref">[12]</a></span></p>
+</blockquote>
+<p>Fuzz testing offers several tangible benefits:</p>
+<ol type="1">
+<li><strong>Early vulnerability discovery.</strong> Detecting defects during development is cheaper and safer than addressing exploits in production.</li>
+<li><strong>Adversary-parity.</strong> Performing the same randomised stress that attackers employ allows defenders to pre-empt zero-days.</li>
+<li><strong>Robustness and correctness.</strong> Beyond security, fuzzing exposes logic errors and stability issues in complex, high-throughput APIs (e.g., decompressors) even when inputs are <em>expected</em> to be well-formed.</li>
+<li><strong>Regression prevention.</strong> Re-running a corpus of crashing inputs as part of continuous integration ensures that fixed bugs remain fixed.</li>
+</ol>
+</section>
+<section id="success-stories" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="success-stories"><span class="header-section-number">2.1.4</span> Success Stories</h3>
+<p><em>Heartbleed</em> (CVE-2014-0160) <span class="citation" data-cites="heartbleed heartbleed-cve"><a href="refs.html#ref-heartbleed" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[14]</a></span> arose from a buffer over-read in OpenSSL <span class="citation" data-cites="theopensslproject2025"><a href="refs.html#ref-theopensslproject2025" role="doc-biblioref">[15]</a></span> introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately <span class="citation" data-cites="wheeler2014"><a href="refs.html#ref-wheeler2014" role="doc-biblioref">[16]</a></span>.</p>
+<p>Likewise, the <em>Shellshock</em> (or <em>Bashdoor</em>) family of bugs in GNU Bash <span class="citation" data-cites="bash"><a href="refs.html#ref-bash" role="doc-biblioref">[17]</a></span> enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google’s Michał Zalewski using fuzzing in late 2014 <span class="citation" data-cites="saarinen2014"><a href="refs.html#ref-saarinen2014" role="doc-biblioref">[18]</a></span>.</p>
+<p>On the defensive tooling side, the security tool named <em>Mayhem</em>—developed by the company of the same name—has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities <span class="citation" data-cites="simonite2020mayhem"><a href="refs.html#ref-simonite2020mayhem" role="doc-biblioref">[19]</a></span>.</p>
+<p>These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.</p>
+<p>qqqqqq</p>
+</section>
+<section id="how-to-fuzz" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="how-to-fuzz"><span class="header-section-number">2.1.5</span> How to Fuzz?</h3>
+</section>
+<section id="fuzzer-engines" class="level3" data-number="2.1.6">
+<h3 data-number="2.1.6" class="anchored" data-anchor-id="fuzzer-engines"><span class="header-section-number">2.1.6</span> Fuzzer engines</h3>
+<p>C/C++: AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span> &amp; AFL++ <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a>, ++</span>. LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>. <span class="citation" data-cites="honggfuzz"><a href="refs.html#ref-honggfuzz" role="doc-biblioref">[11]</a></span>.</p>
+<p>Python: Atheris <span class="citation" data-cites="atheris"><a href="refs.html#ref-atheris" role="doc-biblioref">[20]</a></span>.</p>
+<blockquote class="blockquote">
+<p>LibFuzzer is an in-process, coverage-guided, evolutionary fuzzing engine. LibFuzzer is linked with the library under test, and feeds fuzzed inputs to the library via a specific fuzzing entrypoint (fuzz target). - In-process, coverage-guided, mutation-based fuzzer.</p>
+</blockquote>
+<p>Used to fuzz library functions. The programmer writes a fuzz target to test their implementation.</p>
+<div id="def-target" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.12 (Fuzz target)</strong></span> A function that accepts an array of bytes and does something interesting with these bytes using the API under test <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>.</p>
+<p>AKA fuzz driver, fuzzer entry point, harness.</p>
+</div>
+<p>Fuzz target structure</p>
+<ul>
+<li>Entry point called repeatedly with mutated inputs.</li>
+<li>Feedback-driven: uses coverage to guide mutations.</li>
+<li>Best for libraries, not full programs.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">extern</span> <span class="st">"C"</span> <span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="at">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>Data<span class="op">,</span> <span class="dt">size_t</span> Size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  DoSomethingWithData<span class="op">(</span>Data<span class="op">,</span> Size<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>An example of a fuzz target/harness can be seen in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.1</span></a> <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>.</p>
 <div id="lst-fuzzing-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-fuzzing-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listing&nbsp;2.1: A simple function that does something interesting if it receives the input “HI!”.
 </figcaption>
 <div aria-describedby="lst-fuzzing-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a>cat <span class="op">&lt;&lt;</span> EOF <span class="op">&gt;</span> test_fuzzer<span class="op">.</span>cc</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'H'</span><span class="op">)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'I'</span><span class="op">)</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>       <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'!'</span><span class="op">)</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>       __builtin_trap<span class="op">();</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="op">}</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>EOF</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="pp"># </span><span class="er">Build test_fuzzer.cc with asan and link against libFuzzer.</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>clang<span class="op">++</span> <span class="op">-</span>fsanitize<span class="op">=</span>address<span class="op">,</span>fuzzer test_fuzzer<span class="op">.</span>cc</span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="pp"># </span><span class="er">Run the fuzzer with no corpus.</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="op">./</span>a<span class="op">.</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>cat <span class="op">&lt;&lt;</span> EOF <span class="op">&gt;</span> test_fuzzer<span class="op">.</span>cc</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'H'</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'I'</span><span class="op">)</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>       <span class="cf">if</span> <span class="op">(</span>size <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> data<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">==</span> <span class="ch">'!'</span><span class="op">)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>       __builtin_trap<span class="op">();</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>EOF</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="pp"># </span><span class="er">Build test_fuzzer.cc with asan and link against libFuzzer.</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>clang<span class="op">++</span> <span class="op">-</span>fsanitize<span class="op">=</span>address<span class="op">,</span>fuzzer test_fuzzer<span class="op">.</span>cc</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="pp"># </span><span class="er">Run the fuzzer with no corpus.</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="op">./</span>a<span class="op">.</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </figure>
 </div>
+<ul>
+<li><em>American Fuzzy Lop</em> (AFL) <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span>.
+<ul>
+<li>Instrumented binaries for edge coverage.</li>
+<li>Adds more fuzzing strategies, better speed, and QEMU/Unicorn support.</li>
+<li>Superseded by <em>AFL++</em> <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[21]</a></span>.</li>
+</ul></li>
+</ul>
+<p>AFL fuzzes programs/binaries. The inputs are taken from the <code>seeds_dir</code> and their mutations.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">$</span> ./afl-fuzz <span class="at">-i</span> seeds_dir <span class="at">-o</span> output_dir <span class="at">--</span> /path/to/tested/program</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Works on black-box or instrumented binaries.</li>
+<li>Uses fork-server model for speed.</li>
+<li>Supports persistent mode, QEMU, and Unicorn modes.</li>
+</ul>
+<p>Μπορεί επίσης να χρησιμοποιηθεί για fuzzing βιβλιοθηκών κτλ., απλά αντί για <code>LLVMFuzzerTestOneInput</code> έχουμε την <code>main</code>.</p>
+<p>Μπορεί να χρησιμοποιήσει και <code>LLVMFuzzerTestOneInput</code> harnesses.</p>
 <p>OSS-Fuzz: 2016, after heartbleed.</p>
+</section>
+<section id="difficulties" class="level3" data-number="2.1.7">
+<h3 data-number="2.1.7" class="anchored" data-anchor-id="difficulties"><span class="header-section-number">2.1.7</span> Difficulties</h3>
+<ul>
+<li>Relatively unknown practice, especially compared to TDD</li>
+<li>Upfront cost of writing harnesses</li>
+<li>Cost of examining and evaluating crashes</li>
+</ul>
 </section>
 </section>
 <section id="large-language-models-llms" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="large-language-models-llms"><span class="header-section-number">2.2</span> Large Language Models (LLMs)</h2>
-<p>Transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[12]</a></span>, 2017–2025. ChatGPT/OpenAI history &amp; context. Claude, Llama (1–3) etc.</p>
-<section id="sec-prompting" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-prompting"><span class="header-section-number">2.2.1</span> Prompting</h3>
-<p>Prompting techniques.</p>
-<ol type="1">
-<li>Zero-shot.</li>
-<li>One-shot.</li>
-<li>Chain of Thought <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[13]</a></span>.</li>
-<li>ReACt <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[14]</a></span>.</li>
-<li>Tree of Thoughts <span class="citation" data-cites="yao2023"><a href="refs.html#ref-yao2023" role="doc-biblioref">[15]</a></span>.</li>
-</ol>
-<p>Comparison, strengths weaknesses etc. <span class="citation" data-cites="laban2025"><a href="refs.html#ref-laban2025" role="doc-biblioref">[16]</a></span>.</p>
-<p><span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[17]</a></span></p>
+<p>Transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[22]</a></span>, 2017–2025. ChatGPT/OpenAI history &amp; context. Claude, Llama (1–3) etc.</p>
+<section id="what-are-they" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="what-are-they"><span class="header-section-number">2.2.1</span> What are they?</h3>
+<p><span class="citation" data-cites="li2022"><a href="refs.html#ref-li2022" role="doc-biblioref">[23]</a></span> Transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[22]</a></span></p>
 </section>
-<section id="llm-programming-libraries" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="llm-programming-libraries"><span class="header-section-number">2.2.2</span> LLM Programming Libraries (?)</h3>
-<p>Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[18]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[19]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[20]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[21]</a></span>.</p>
+<section id="biggest-gpts" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="biggest-gpts"><span class="header-section-number">2.2.2</span> Biggest GPTs</h3>
+<ul>
+<li>Closed-source ChatGPT, Claude, Gemini <span class="citation" data-cites="chatgpt claude gemini"><a href="refs.html#ref-chatgpt" role="doc-biblioref">[24]</a>, <a href="refs.html#ref-claude" role="doc-biblioref">[25]</a>, <a href="refs.html#ref-gemini" role="doc-biblioref">[26]</a></span></li>
+<li>Open-source (i.e.&nbsp;open-weights)</li>
+</ul>
+<p>Llama{1,..,3}, Deepseek <span class="citation" data-cites="grattafiori2024 deepseek-ai2025"><a href="refs.html#ref-grattafiori2024" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-deepseek-ai2025" role="doc-biblioref">[28]</a></span></p>
+</section>
+<section id="sec-prompting" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-prompting"><span class="header-section-number">2.2.3</span> Prompting</h3>
+<ul>
+<li>Zero-shot</li>
+<li>Few-shot <span class="citation" data-cites="brown2020"><a href="refs.html#ref-brown2020" role="doc-biblioref">[29]</a></span></li>
+<li>RAG <span class="citation" data-cites="lewis2021"><a href="refs.html#ref-lewis2021" role="doc-biblioref">[30]</a></span></li>
+<li>chain of thought <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[31]</a></span></li>
+<li>tree of thought <span class="citation" data-cites="yao2023"><a href="refs.html#ref-yao2023" role="doc-biblioref">[32]</a></span></li>
+<li>reAct <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[33]</a></span></li>
+</ul>
+<p>Comparison, strengths weaknesses etc. <span class="citation" data-cites="laban2025"><a href="refs.html#ref-laban2025" role="doc-biblioref">[34]</a></span>.</p>
+</section>
+<section id="for-coding" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="for-coding"><span class="header-section-number">2.2.4</span> For coding</h3>
+<p>LLM-assisted IDEs <span class="citation" data-cites="cursor ghcopilot chen2021"><a href="refs.html#ref-cursor" role="doc-biblioref">[35]</a>, <a href="refs.html#ref-ghcopilot" role="doc-biblioref">[36]</a>, <a href="refs.html#ref-chen2021" role="doc-biblioref">[37]</a></span> Vibecoding <span class="citation" data-cites="sarkar2025"><a href="refs.html#ref-sarkar2025" role="doc-biblioref">[38]</a></span></p>
+</section>
+<section id="for-fuzzing" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="for-fuzzing"><span class="header-section-number">2.2.5</span> For fuzzing</h3>
+<p>They don't work</p>
+<p>The above problems can be solved with NS AI</p>
+<p><span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[39]</a></span></p>
+</section>
+<section id="llm-programming-libraries" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="llm-programming-libraries"><span class="header-section-number">2.2.6</span> LLM Programming Libraries (?)</h3>
+<p>Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[40]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[41]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[42]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[43]</a></span>.</p>
 <p>Comparison, relevance to our usecase.</p>
 </section>
 </section>
 <section id="neurosymbolic-ai" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</h2>
-<p><mark>TODO</mark> <span class="citation" data-cites="ganguly2024 garcez2020 gaur2023 grov2024 sheth2023 tilwani2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[22]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[23]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[24]</a>, <a href="refs.html#ref-grov2024" role="doc-biblioref">[25]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[27]</a></span>.</p>
+<p><mark>TODO</mark> <span class="citation" data-cites="ganguly2024 garcez2020 gaur2023 grov2024 sheth2023 tilwani2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[44]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[45]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-grov2024" role="doc-biblioref">[47]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[48]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[49]</a></span>.</p>
+<section id="what-is-it" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="what-is-it"><span class="header-section-number">2.3.1</span> What is it?</h3>
+<p><span class="citation" data-cites="sheth2023 gaur2023"><a href="refs.html#ref-gaur2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[48]</a></span> Neurosymbolic AI for attribution in LLMs <span class="citation" data-cites="tilwani2024"><a href="refs.html#ref-tilwani2024" role="doc-biblioref">[49]</a></span></p>
+</section>
+<section id="what-does-it-solve" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="what-does-it-solve"><span class="header-section-number">2.3.2</span> What does it solve?</h3>
+</section>
+<section id="its-state" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="its-state"><span class="header-section-number">2.3.3</span> Its state</h3>
+<p>restatement of overarching goal, segue to section 2</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-manes2019" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. J. M. Manes <em>et al.</em>, <span>“The <span>Art</span>, <span>Science</span>, and <span>Engineering</span> of <span>Fuzzing</span>: <span>A Survey</span>,”</span> Apr. 07, 2019. doi: <a href="https://doi.org/10.48550/arXiv.1812.00140">10.48550/arXiv.1812.00140</a>. Available: <a href="http://arxiv.org/abs/1812.00140">http://arxiv.org/abs/1812.00140</a></div>
 </div>
-<div id="ref-backus1959" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">J. W. Backus, <span>“The syntax and the semantics of the proposed international algebraic language of the <span>Zurich ACM-GAMM Conference</span>,”</span> in <em><span>ICIP Proceedings</span></em>, 1959, pp. 125–132. Available: <a href="https://cir.nii.ac.jp/crid/1572824501224489728">https://cir.nii.ac.jp/crid/1572824501224489728</a></div>
+<div id="ref-takanen2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">A. Takanen, J. DeMott, C. Miller, and A. Kettunen, <em>Fuzzing for software security testing and quality assurance</em>, Second edition. in Information security and privacy library. Boston London Norwood, MA: Artech House, 2018.</div>
 </div>
-<div id="ref-heartbleed" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
+<div id="ref-sutton2007" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">M. Sutton, A. Greene, and P. Amini, <em>Fuzzing: Brute force vulnerabilty discovery</em>. Upper Saddle River, NJ: Addison-Wesley, 2007.</div>
 </div>
-<div id="ref-heartbleed-cve" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">CVE Program, <span>“<span>CVE</span> - <span>CVE-2014-0160</span>,”</span> 2014. Available: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160">https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160</a></div>
+<div id="ref-rathaus2007" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">N. Rathaus and G. Evron, <em>Open source fuzzing tools</em>. Burlington, MA: Syngress Pub, 2007.</div>
 </div>
-<div id="ref-meyer2013" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C. Meyer and J. Schwenk, <span>“Lessons <span>Learned From Previous SSL</span>/<span>TLS Attacks</span> - <span>A Brief Chronology Of Attacks And Weaknesses</span>,”</span> 2013. Available: <a href="https://eprint.iacr.org/2013/049">https://eprint.iacr.org/2013/049</a></div>
+<div id="ref-miller1990" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">B. P. Miller, L. Fredriksen, and B. So, <span>“An empirical study of the reliability of <span>UNIX</span> utilities,”</span> <em>Commun. ACM</em>, vol. 33, no. 12, pp. 32–44, Dec. 1990, doi: <a href="https://doi.org/10.1145/96267.96279">10.1145/96267.96279</a>. Available: <a href="https://dl.acm.org/doi/10.1145/96267.96279">https://dl.acm.org/doi/10.1145/96267.96279</a></div>
 </div>
-<div id="ref-shellshock-cve" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">NIST, <span>“<span>NVD</span> - <span>CVE-2014-6271</span>,”</span> 2014. Available: <a href="https://nvd.nist.gov/vuln/detail/CVE-2014-6271">https://nvd.nist.gov/vuln/detail/CVE-2014-6271</a></div>
-</div>
-<div id="ref-simonite2020mayhem" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">T. Simonite, <span>“This <span>Bot Hunts Software Bugs</span> for the <span>Pentagon</span>,”</span> <em>Wired</em>, Jun. 01, 2020. Available: <a href="https://www.wired.com/story/bot-hunts-software-bugs-pentagon/">https://www.wired.com/story/bot-hunts-software-bugs-pentagon/</a></div>
-</div>
-<div id="ref-afl" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
+<div id="ref-serebryany2012" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">K. Serebryany, D. Bruening, A. Potapenko, and D. Vyukov, <span>“<span>AddressSanitizer</span>: <span>A</span> fast address sanity checker,”</span> in <em>2012 <span>USENIX</span> annual technical conference (<span>USENIX ATC</span> 12)</em>, 2012, pp. 309–318. Available: <a href="https://www.usenix.org/conference/atc12/technical-sessions/presentation/serebryany">https://www.usenix.org/conference/atc12/technical-sessions/presentation/serebryany</a></div>
 </div>
 <div id="ref-libfuzzer" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation,”</span> 2025. Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation,”</span> 2025. Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
+</div>
+<div id="ref-rebert2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">A. Rebert <em>et al.</em>, <span>“Optimizing seed selection for fuzzing,”</span> in <em>Proceedings of the 23rd <span>USENIX</span> conference on <span>Security Symposium</span></em>, in <span>SEC</span>’14. USA: USENIX Association, Aug. 2014, pp. 861–875.</div>
+</div>
+<div id="ref-backus1959" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">J. W. Backus, <span>“The syntax and the semantics of the proposed international algebraic language of the <span>Zurich ACM-GAMM Conference</span>,”</span> in <em><span>ICIP Proceedings</span></em>, 1959, pp. 125–132. Available: <a href="https://cir.nii.ac.jp/crid/1572824501224489728">https://cir.nii.ac.jp/crid/1572824501224489728</a></div>
+</div>
+<div id="ref-afl" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
 </div>
 <div id="ref-honggfuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span>“Google/honggfuzz.”</span> Google, Jul. 10, 2025. Available: <a href="https://github.com/google/honggfuzz">https://github.com/google/honggfuzz</a></div>
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline"><span>“Google/honggfuzz.”</span> Google, Jul. 10, 2025. Available: <a href="https://github.com/google/honggfuzz">https://github.com/google/honggfuzz</a></div>
+</div>
+<div id="ref-owaspfoundation" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">OWASP Foundation, <span>“Fuzzing.”</span> Available: <a href="https://owasp.org/www-community/Fuzzing">https://owasp.org/www-community/Fuzzing</a></div>
+</div>
+<div id="ref-heartbleed" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline"><span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
+</div>
+<div id="ref-heartbleed-cve" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">CVE Program, <span>“<span>CVE</span> - <span>CVE-2014-0160</span>,”</span> 2014. Available: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160">https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160</a></div>
+</div>
+<div id="ref-theopensslproject2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">The OpenSSL Project, <span>“Openssl/openssl.”</span> OpenSSL, Jul. 15, 2025. Available: <a href="https://github.com/openssl/openssl">https://github.com/openssl/openssl</a></div>
+</div>
+<div id="ref-wheeler2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">D. Wheeler, <span>“How to <span>Prevent</span> the next <span>Heartbleed</span>,”</span> 2014. Available: <a href="https://dwheeler.com/essays/heartbleed.html">https://dwheeler.com/essays/heartbleed.html</a></div>
+</div>
+<div id="ref-bash" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">GNU Project, <span>“Bash - <span>GNU Project</span> - <span>Free Software Foundation</span>.”</span> Available: <a href="https://www.gnu.org/software/bash/">https://www.gnu.org/software/bash/</a></div>
+</div>
+<div id="ref-saarinen2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">J. Saarinen, <span>“Further flaws render <span>Shellshock</span> patch ineffective,”</span> Sep. 29, 2014. Available: <a href="https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256">https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256</a></div>
+</div>
+<div id="ref-simonite2020mayhem" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">T. Simonite, <span>“This <span>Bot Hunts Software Bugs</span> for the <span>Pentagon</span>,”</span> <em>Wired</em>, Jun. 01, 2020. Available: <a href="https://www.wired.com/story/bot-hunts-software-bugs-pentagon/">https://www.wired.com/story/bot-hunts-software-bugs-pentagon/</a></div>
 </div>
 <div id="ref-atheris" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline"><span>“Google/atheris.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/atheris">https://github.com/google/atheris</a></div>
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline"><span>“Google/atheris.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/atheris">https://github.com/google/atheris</a></div>
+</div>
+<div id="ref-aflpp" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
 </div>
 <div id="ref-vaswani2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
+</div>
+<div id="ref-li2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">H. Li, <span>“Language models: Past, present, and future,”</span> <em>Commun. ACM</em>, vol. 65, no. 7, pp. 56–63, Jun. 2022, doi: <a href="https://doi.org/10.1145/3490443">10.1145/3490443</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3490443">https://dl.acm.org/doi/10.1145/3490443</a></div>
+</div>
+<div id="ref-chatgpt" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">OpenAI, <span>“<span>ChatGPT</span>,”</span> 2025. Available: <a href="https://chatgpt.com">https://chatgpt.com</a></div>
+</div>
+<div id="ref-claude" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">Anthropic, <span>“Claude,”</span> 2025. Available: <a href="https://claude.ai/new">https://claude.ai/new</a></div>
+</div>
+<div id="ref-gemini" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">Google, <span>“‎<span>Google Gemini</span>,”</span> 2025. Available: <a href="https://gemini.google.com">https://gemini.google.com</a></div>
+</div>
+<div id="ref-grattafiori2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">A. Grattafiori <em>et al.</em>, <span>“The <span>Llama</span> 3 <span>Herd</span> of <span>Models</span>,”</span> Nov. 23, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2407.21783">10.48550/arXiv.2407.21783</a>. Available: <a href="http://arxiv.org/abs/2407.21783">http://arxiv.org/abs/2407.21783</a></div>
+</div>
+<div id="ref-deepseek-ai2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">DeepSeek-AI <em>et al.</em>, <span>“<span>DeepSeek-R1</span>: <span>Incentivizing Reasoning Capability</span> in <span>LLMs</span> via <span>Reinforcement Learning</span>,”</span> Jan. 22, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2501.12948">10.48550/arXiv.2501.12948</a>. Available: <a href="http://arxiv.org/abs/2501.12948">http://arxiv.org/abs/2501.12948</a></div>
+</div>
+<div id="ref-brown2020" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">T. B. Brown <em>et al.</em>, <span>“Language <span>Models</span> are <span>Few-Shot Learners</span>,”</span> Jul. 22, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2005.14165">10.48550/arXiv.2005.14165</a>. Available: <a href="http://arxiv.org/abs/2005.14165">http://arxiv.org/abs/2005.14165</a></div>
+</div>
+<div id="ref-lewis2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">P. Lewis <em>et al.</em>, <span>“Retrieval-<span>Augmented Generation</span> for <span>Knowledge-Intensive NLP Tasks</span>,”</span> Apr. 12, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2005.11401">10.48550/arXiv.2005.11401</a>. Available: <a href="http://arxiv.org/abs/2005.11401">http://arxiv.org/abs/2005.11401</a></div>
 </div>
 <div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
-</div>
-<div id="ref-reAct" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
 </div>
 <div id="ref-yao2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
+</div>
+<div id="ref-reAct" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
 </div>
 <div id="ref-laban2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">P. Laban, H. Hayashi, Y. Zhou, and J. Neville, <span>“<span>LLMs Get Lost In Multi-Turn Conversation</span>,”</span> May 09, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2505.06120">10.48550/arXiv.2505.06120</a>. Available: <a href="http://arxiv.org/abs/2505.06120">http://arxiv.org/abs/2505.06120</a></div>
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">P. Laban, H. Hayashi, Y. Zhou, and J. Neville, <span>“<span>LLMs Get Lost In Multi-Turn Conversation</span>,”</span> May 09, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2505.06120">10.48550/arXiv.2505.06120</a>. Available: <a href="http://arxiv.org/abs/2505.06120">http://arxiv.org/abs/2505.06120</a></div>
+</div>
+<div id="ref-cursor" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">Anysphere, <span>“Cursor - <span>The AI Code Editor</span>,”</span> 2025. Available: <a href="https://cursor.com/">https://cursor.com/</a></div>
+</div>
+<div id="ref-ghcopilot" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">Microsoft, <span>“<span>GitHub Copilot</span> · <span>Your AI</span> pair programmer,”</span> 2025. Available: <a href="https://github.com/features/copilot">https://github.com/features/copilot</a></div>
+</div>
+<div id="ref-chen2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">M. Chen <em>et al.</em>, <span>“Evaluating <span>Large Language Models Trained</span> on <span>Code</span>,”</span> Jul. 14, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2107.03374">10.48550/arXiv.2107.03374</a>. Available: <a href="http://arxiv.org/abs/2107.03374">http://arxiv.org/abs/2107.03374</a></div>
+</div>
+<div id="ref-sarkar2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">A. Sarkar and I. Drosos, <span>“Vibe coding: Programming through conversation with artificial intelligence,”</span> Jun. 29, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2506.23253">10.48550/arXiv.2506.23253</a>. Available: <a href="http://arxiv.org/abs/2506.23253">http://arxiv.org/abs/2506.23253</a></div>
 </div>
 <div id="ref-perry2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
 </div>
 <div id="ref-langchain" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
 </div>
 <div id="ref-langgraph" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline"><span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline"><span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
 </div>
 <div id="ref-llamaindex" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[20] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
 </div>
 <div id="ref-dspy" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[21] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+<div class="csl-left-margin">[43] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
 </div>
 <div id="ref-ganguly2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[22] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>
+<div class="csl-left-margin">[44] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>
 </div>
 <div id="ref-garcez2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[23] </div><div class="csl-right-inline">A. d’Avila Garcez and L. C. Lamb, <span>“Neurosymbolic <span>AI</span>: <span>The</span> 3rd <span>Wave</span>,”</span> Dec. 16, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2012.05876">10.48550/arXiv.2012.05876</a>. Available: <a href="http://arxiv.org/abs/2012.05876">http://arxiv.org/abs/2012.05876</a></div>
+<div class="csl-left-margin">[45] </div><div class="csl-right-inline">A. d’Avila Garcez and L. C. Lamb, <span>“Neurosymbolic <span>AI</span>: <span>The</span> 3rd <span>Wave</span>,”</span> Dec. 16, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2012.05876">10.48550/arXiv.2012.05876</a>. Available: <a href="http://arxiv.org/abs/2012.05876">http://arxiv.org/abs/2012.05876</a></div>
 </div>
 <div id="ref-gaur2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[24] </div><div class="csl-right-inline">M. Gaur and A. Sheth, <span>“Building <span>Trustworthy NeuroSymbolic AI Systems</span>: <span>Consistency</span>, <span>Reliability</span>, <span>Explainability</span>, and <span>Safety</span>,”</span> Dec. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2312.06798">10.48550/arXiv.2312.06798</a>. Available: <a href="http://arxiv.org/abs/2312.06798">http://arxiv.org/abs/2312.06798</a></div>
+<div class="csl-left-margin">[46] </div><div class="csl-right-inline">M. Gaur and A. Sheth, <span>“Building <span>Trustworthy NeuroSymbolic AI Systems</span>: <span>Consistency</span>, <span>Reliability</span>, <span>Explainability</span>, and <span>Safety</span>,”</span> Dec. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2312.06798">10.48550/arXiv.2312.06798</a>. Available: <a href="http://arxiv.org/abs/2312.06798">http://arxiv.org/abs/2312.06798</a></div>
 </div>
 <div id="ref-grov2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[25] </div><div class="csl-right-inline">G. Grov, J. Halvorsen, M. W. Eckhoff, B. J. Hansen, M. Eian, and V. Mavroeidis, <span>“On the use of neurosymbolic <span>AI</span> for defending against cyber attacks,”</span> Aug. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2408.04996">10.48550/arXiv.2408.04996</a>. Available: <a href="http://arxiv.org/abs/2408.04996">http://arxiv.org/abs/2408.04996</a></div>
+<div class="csl-left-margin">[47] </div><div class="csl-right-inline">G. Grov, J. Halvorsen, M. W. Eckhoff, B. J. Hansen, M. Eian, and V. Mavroeidis, <span>“On the use of neurosymbolic <span>AI</span> for defending against cyber attacks,”</span> Aug. 09, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2408.04996">10.48550/arXiv.2408.04996</a>. Available: <a href="http://arxiv.org/abs/2408.04996">http://arxiv.org/abs/2408.04996</a></div>
 </div>
 <div id="ref-sheth2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[26] </div><div class="csl-right-inline">A. Sheth, K. Roy, and M. Gaur, <span>“Neurosymbolic <span>AI</span> – <span>Why</span>, <span>What</span>, and <span>How</span>,”</span> May 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.00813">10.48550/arXiv.2305.00813</a>. Available: <a href="http://arxiv.org/abs/2305.00813">http://arxiv.org/abs/2305.00813</a></div>
+<div class="csl-left-margin">[48] </div><div class="csl-right-inline">A. Sheth, K. Roy, and M. Gaur, <span>“Neurosymbolic <span>AI</span> – <span>Why</span>, <span>What</span>, and <span>How</span>,”</span> May 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.00813">10.48550/arXiv.2305.00813</a>. Available: <a href="http://arxiv.org/abs/2305.00813">http://arxiv.org/abs/2305.00813</a></div>
 </div>
 <div id="ref-tilwani2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[27] </div><div class="csl-right-inline">D. Tilwani, R. Venkataramanan, and A. P. Sheth, <span>“Neurosymbolic <span>AI</span> approach to <span>Attribution</span> in <span>Large Language Models</span>,”</span> Sep. 30, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.03726">10.48550/arXiv.2410.03726</a>. Available: <a href="http://arxiv.org/abs/2410.03726">http://arxiv.org/abs/2410.03726</a></div>
+<div class="csl-left-margin">[49] </div><div class="csl-right-inline">D. Tilwani, R. Venkataramanan, and A. P. Sheth, <span>“Neurosymbolic <span>AI</span> approach to <span>Attribution</span> in <span>Large Language Models</span>,”</span> Sep. 30, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2410.03726">10.48550/arXiv.2410.03726</a>. Available: <a href="http://arxiv.org/abs/2410.03726">http://arxiv.org/abs/2410.03726</a></div>
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->

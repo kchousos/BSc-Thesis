@@ -400,34 +400,53 @@ parturient montes, nascetur ridiculus mus.
 
 \chapter{Background}\label{background}
 
-quarto definitions
+\section{Fuzz Testing}\label{fuzz-testing}
 
-\section{Fuzzing}\label{fuzzing}
+\textbf{Fuzzing} is an automated software-testing technique in which a
+\emph{Program Under Test} (PUT) is executed with (pseudo-)random inputs
+in the hope of exposing undefined behavior. When such behavior manifests
+as a crash, hang, or memory-safety violation, the corresponding input
+constitutes a \emph{test-case} that reveals a bug and often a
+vulnerability \autocite{manes2019}. In essence, fuzzing is a form of
+adversarial, penetration-style testing carried out by the defender
+before the adversary has an opportunity to do so. Interest in the
+technique surged after the publication of three practitioner-oriented
+books in 2007--2008 \autocite{takanen2018,sutton2007,rathaus2007}.
 
-Discovering vulnerabilities in the development stage instead of in
-production.
-
-Discovering vulnerabilities ourselves before attackers do.
-
-Borrowing definitions from \autocite{manes2019}:
+Historically, the term was coined by Miller et al.~in 1990, who used
+``fuzz'' to describe a program that ``generates a stream of random
+characters to be consumed by a target program'' \autocite{miller1990}.
+More rigorously---borrowing Manes et al.'s definitions
+\autocite{manes2019}:
 
 \begin{definition}[Fuzzing]\protect\hypertarget{def-fuzzing}{}\label{def-fuzzing}
 
 Fuzzing is the execution of a Program Under Test (PUT) using input(s)
-sampled from an input space (the ``fuzz input space'') that protrudes
+sampled from an input space (the \emph{fuzz input space}) that protrudes
 the expected input space of the PUT.
 
 \end{definition}
 
+An individual execution (or bounded set of executions) that meets this
+definition is a \emph{fuzzing run}. When such runs are performed
+systematically and at scale to test whether the PUT violates a specified
+security policy, we speak of \textbf{fuzz testing} (or simply
+\emph{fuzzing} in common parlance):
+
 \begin{definition}[Fuzz
 Testing]\protect\hypertarget{def-fuzz-testing}{}\label{def-fuzz-testing}
 
-Fuzz testing is the use of fuzzing to test if a PUT violates a security
-policy.
+Fuzz testing is the use of fuzzing to test whether a PUT violates a
+security policy.
 
 \end{definition}
 
-\begin{definition}[Fuzzer]\protect\hypertarget{def-fuzzer}{}\label{def-fuzzer}
+A \textbf{fuzzer engine} orchestrates a \textbf{fuzz campaign}---one
+concrete instantiation of a fuzzer running against a single PUT under a
+particular policy:
+
+\begin{definition}[Fuzzer, Fuzzer
+Engine]\protect\hypertarget{def-fuzzer}{}\label{def-fuzzer}
 
 A fuzzer is a program that performs fuzz testing on a PUT.
 
@@ -441,81 +460,211 @@ specific security policy.
 
 \end{definition}
 
+During each execution the \textbf{bug oracle} decides whether the
+observed behaviour constitutes a policy violation:
+
 \begin{definition}[Bug
 Oracle]\protect\hypertarget{def-oracle}{}\label{def-oracle}
 
-A bug oracle is a program, perhaps as part of a fuzzer, that determines
+A bug oracle is a component (often inside the fuzzer) that determines
 whether a given execution of the PUT violates a specific security
 policy.
 
 \end{definition}
 
-\begin{definition}[Black-box
-fuzzer]\protect\hypertarget{def-blackbox}{}\label{def-blackbox}
+In practice, many oracles are based on runtime instrumentation such as
+fatal POSIX signals (e.g., \texttt{SIGSEGV}) or sanitizers like
+AddressSanitizer (ASan) \autocite{serebryany2012}, as used by LibFuzzer
+\autocite{libfuzzer}.
 
-A black-box fuzzer is a testing tool that inputs random or specified
-data into a software application without knowledge of its internal
-workings, aiming to uncover vulnerabilities or bugs by observing the
-program's behavior in response to various inputs.
+\subsection{Seeds, Mutation, and the Seed-Selection
+Problem}\label{seeds-mutation-and-the-seed-selection-problem}
+
+A campaign usually begins with one or more \textbf{seeds}---well-formed
+inputs that belong to the PUT's expected input space. The fuzzer mutates
+these seeds to explore the larger fuzz input space:
+
+\begin{definition}[Seed]\protect\hypertarget{def-seed}{}\label{def-seed}
+
+An input given to the PUT that is mutated by the fuzzer to produce new
+test cases. During a fuzz campaign (Definition~\ref{def-campaign}) all
+seeds are stored in a seed \emph{pool} or \emph{corpus}.
 
 \end{definition}
 
-\begin{definition}[White-box
-fuzzer]\protect\hypertarget{def-whitebox}{}\label{def-whitebox}
+Selecting an initial corpus that leads to fast, wide code-coverage is
+non-trivial and has been studied as the \emph{seed-selection problem}
+\autocite{rebert2014}.
 
-A white-box fuzzer is a testing tool that analyzes the internal
-structure and logic of a program to generate test inputs. It uses
-knowledge of the code, such as control flow and data paths, to
-systematically explore all possible execution paths and identify
-vulnerabilities more effectively.
+\subsection{Taxonomies of Fuzzing}\label{taxonomies-of-fuzzing}
+
+Fuzzers are traditionally classified along two orthogonal dimensions.
+Namely, in regards to the knowledge of the PUT they have access to and
+the strategy used for the input generation.
+
+\subsubsection{Knowledge of the PUT}\label{knowledge-of-the-put}
+
+\begin{definition}[Black-box
+fuzzer]\protect\hypertarget{def-blackbox}{}\label{def-blackbox}
+
+Operates solely on program binaries, with no knowledge of internal
+structure; input generation is guided only by external observations.
 
 \end{definition}
 
 \begin{definition}[Grey-box
 fuzzer]\protect\hypertarget{def-greybox}{}\label{def-greybox}
 
-A grey-box fuzzer is a testing tool that combines aspects of both
-black-box and white-box fuzzing. It has limited knowledge of the
-internal workings of the application, often using some code coverage
-information or program analysis to generate more targeted inputs,
-thereby improving the efficiency of vulnerability detection.
+Gains limited insight---typically lightweight coverage metrics---via
+instrumentation, allowing more informed mutations while retaining
+scalability.
 
 \end{definition}
+
+\begin{definition}[White-box
+fuzzer]\protect\hypertarget{def-whitebox}{}\label{def-whitebox}
+
+Has full source-level visibility and employs heavy program analysis
+(symbolic execution, constraint solving, etc.) to systematically
+enumerate paths.
+
+\end{definition}
+
+\subsubsection{Test-case Generation
+Strategy}\label{test-case-generation-strategy}
 
 \begin{definition}[Generational
 fuzzing]\protect\hypertarget{def-generational}{}\label{def-generational}
 
-Generationbased fuzzers produce test cases based on a given model that
-describes the inputs expected by the PUT, e.g.~a Backus--Naur form (BNF)
-grammar \autocite{backus1959}.
+Produces inputs from a structural model (e.g., a BNF grammar
+\autocite{backus1959}) or protocol description, ensuring that test-cases
+are syntactically valid yet semantically diverse.
 
 \end{definition}
 
 \begin{definition}[Mutational
 fuzzing]\protect\hypertarget{def-mutational}{}\label{def-mutational}
 
-mutation-based fuzzers produce test cases by mutating a given seed
-input.
+Starts from existing seeds and applies stochastic mutations (bit-flips,
+block insertions, splice operations). Coverage-guided mutational fuzzers
+such as AFL have proved especially effective.
 
 \end{definition}
 
-terminology: fuzz campaign (Definition~\ref{def-campaign}), harness,
-driver, target, corpus
+These axes can be combined: e.g., AFL \autocite{afl} is a grey-box,
+mutational fuzzer; Honggfuzz \autocite{honggfuzz} with a grammar
+description becomes grey-box generational.
 
-Why fuzz?
+\subsection{Why Fuzz?}\label{why-fuzz}
 
-\subsection{Fuzzing examples}\label{fuzzing-examples}
+\begin{quote}
+The purpose of fuzzing relies on the assumption that there are bugs
+within every program, which are waiting to be discovered. Therefore, a
+systematic approach should find them sooner or later.
 
-Heartbleed \autocite{heartbleed}, shellshock \autocite{meyer2013}.
+--- OWASP Foundation \autocite{owaspfoundation}
+\end{quote}
+
+Fuzz testing offers several tangible benefits:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Early vulnerability discovery.} Detecting defects during
+  development is cheaper and safer than addressing exploits in
+  production.
+\item
+  \textbf{Adversary-parity.} Performing the same randomised stress that
+  attackers employ allows defenders to pre-empt zero-days.
+\item
+  \textbf{Robustness and correctness.} Beyond security, fuzzing exposes
+  logic errors and stability issues in complex, high-throughput APIs
+  (e.g., decompressors) even when inputs are \emph{expected} to be
+  well-formed.
+\item
+  \textbf{Regression prevention.} Re-running a corpus of crashing inputs
+  as part of continuous integration ensures that fixed bugs remain
+  fixed.
+\end{enumerate}
+
+\subsection{Success Stories}\label{success-stories}
+
+\emph{Heartbleed} (CVE-2014-0160) \autocite{heartbleed,heartbleed-cve}
+arose from a buffer over-read in OpenSSL
+\autocite{theopensslproject2025} introduced on 1 February 2012 and
+unnoticed until 1 April 2014. Post-mortem analyses showed that a simple
+fuzz campaign exercising the TLS heartbeat extension would have revealed
+the defect almost immediately \autocite{wheeler2014}.
+
+Likewise, the \emph{Shellshock} (or \emph{Bashdoor}) family of bugs in
+GNU Bash \autocite{bash} enabled arbitrary command execution on many
+UNIX systems. While the initial flaw was fixed promptly, subsequent bug
+variants were discovered by Google's Michał Zalewski using fuzzing in
+late 2014 \autocite{saarinen2014}.
+
+On the defensive tooling side, the security tool named
+\emph{Mayhem}---developed by the company of the same name---has since
+been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous
+open-source communities. It has found and facilitated the remediation of
+thousands of previously unknown vulnerabilities
+\autocite{simonite2020mayhem}.
+
+These cases underscore the central thesis of fuzz testing: exhaustive
+manual review is infeasible, but scalable stochastic exploration
+reliably surfaces the critical few defects that matter most.
+
+qqqqqq
+
+\subsection{How to Fuzz?}\label{how-to-fuzz}
 
 \subsection{Fuzzer engines}\label{fuzzer-engines}
 
 C/C++: AFL \autocite{afl} \& AFL++ \autocite[++]{afl}. LibFuzzer
-\autocite{libfuzzer}.
+\autocite{libfuzzer}. \autocite{honggfuzz}.
 
 Python: Atheris \autocite{atheris}.
 
-Java, Rust etc\ldots{}
+\begin{quote}
+LibFuzzer is an in-process, coverage-guided, evolutionary fuzzing
+engine. LibFuzzer is linked with the library under test, and feeds
+fuzzed inputs to the library via a specific fuzzing entrypoint (fuzz
+target). - In-process, coverage-guided, mutation-based fuzzer.
+\end{quote}
+
+Used to fuzz library functions. The programmer writes a fuzz target to
+test their implementation.
+
+\begin{definition}[Fuzz
+target]\protect\hypertarget{def-target}{}\label{def-target}
+
+A function that accepts an array of bytes and does something interesting
+with these bytes using the API under test \autocite{libfuzzer}.
+
+AKA fuzz driver, fuzzer entry point, harness.
+
+\end{definition}
+
+Fuzz target structure
+
+\begin{itemize}
+\tightlist
+\item
+  Entry point called repeatedly with mutated inputs.
+\item
+  Feedback-driven: uses coverage to guide mutations.
+\item
+  Best for libraries, not full programs.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\AttributeTok{extern} \StringTok{"C"} \DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\AttributeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{Data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ Size}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{  DoSomethingWithData}\OperatorTok{(}\NormalTok{Data}\OperatorTok{,}\NormalTok{ Size}\OperatorTok{);}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 An example of a fuzz target/harness can be seen in
 Listing~\ref{lst-fuzzing-example} \autocite{libfuzzer}.
@@ -551,33 +700,112 @@ something interesting if it receives the input ``HI!''.}
 
 \end{codelisting}%
 
+\begin{itemize}
+\tightlist
+\item
+  \emph{American Fuzzy Lop} (AFL) \autocite{afl}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Instrumented binaries for edge coverage.
+  \item
+    Adds more fuzzing strategies, better speed, and QEMU/Unicorn
+    support.
+  \item
+    Superseded by \emph{AFL++} \autocite{aflpp}.
+  \end{itemize}
+\end{itemize}
+
+AFL fuzzes programs/binaries. The inputs are taken from the
+\texttt{seeds\_dir} and their mutations.
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ExtensionTok{$}\NormalTok{ ./afl{-}fuzz }\AttributeTok{{-}i}\NormalTok{ seeds\_dir }\AttributeTok{{-}o}\NormalTok{ output\_dir }\AttributeTok{{-}{-}}\NormalTok{ /path/to/tested/program}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Works on black-box or instrumented binaries.
+\item
+  Uses fork-server model for speed.
+\item
+  Supports persistent mode, QEMU, and Unicorn modes.
+\end{itemize}
+
+Μπορεί επίσης να χρησιμοποιηθεί για fuzzing βιβλιοθηκών κτλ., απλά αντί
+για \texttt{LLVMFuzzerTestOneInput} έχουμε την \texttt{main}.
+
+Μπορεί να χρησιμοποιήσει και \texttt{LLVMFuzzerTestOneInput} harnesses.
+
 OSS-Fuzz: 2016, after heartbleed.
+
+\subsection{Difficulties}\label{difficulties}
+
+\begin{itemize}
+\tightlist
+\item
+  Relatively unknown practice, especially compared to TDD
+\item
+  Upfront cost of writing harnesses
+\item
+  Cost of examining and evaluating crashes
+\end{itemize}
 
 \section{Large Language Models (LLMs)}\label{large-language-models-llms}
 
 Transformers \autocite{vaswani2023}, 2017--2025. ChatGPT/OpenAI history
 \& context. Claude, Llama (1--3) etc.
 
-\subsection{Prompting}\label{sec-prompting}
+\subsection{What are they?}\label{what-are-they}
 
-Prompting techniques.
+\autocite{li2022} Transformers \autocite{vaswani2023}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\subsection{Biggest GPTs}\label{biggest-gpts}
+
+\begin{itemize}
 \tightlist
 \item
-  Zero-shot.
+  Closed-source ChatGPT, Claude, Gemini \autocite{chatgpt,claude,gemini}
 \item
-  One-shot.
+  Open-source (i.e.~open-weights)
+\end{itemize}
+
+Llama\{1,..,3\}, Deepseek \autocite{grattafiori2024,deepseek-ai2025}
+
+\subsection{Prompting}\label{sec-prompting}
+
+\begin{itemize}
+\tightlist
 \item
-  Chain of Thought \autocite{chainofthought}.
+  Zero-shot
 \item
-  ReACt \autocite{reAct}.
+  Few-shot \autocite{brown2020}
 \item
-  Tree of Thoughts \autocite{yao2023}.
-\end{enumerate}
+  RAG \autocite{lewis2021}
+\item
+  chain of thought \autocite{chainofthought}
+\item
+  tree of thought \autocite{yao2023}
+\item
+  reAct \autocite{reAct}
+\end{itemize}
 
 Comparison, strengths weaknesses etc. \autocite{laban2025}.
+
+\subsection{For coding}\label{for-coding}
+
+LLM-assisted IDEs \autocite{cursor,ghcopilot,chen2021} Vibecoding
+\autocite{sarkar2025}
+
+\subsection{For fuzzing}\label{for-fuzzing}
+
+They don\textquotesingle t work
+
+The above problems can be solved with NS AI
 
 \autocite{perry2023}
 
@@ -594,6 +822,17 @@ Comparison, relevance to our usecase.
 \hl{TODO}
 \autocite{ganguly2024,garcez2020,gaur2023,grov2024,sheth2023,tilwani2024}.
 
+\subsection{What is it?}\label{what-is-it}
+
+\autocite{sheth2023,gaur2023} Neurosymbolic AI for attribution in LLMs
+\autocite{tilwani2024}
+
+\subsection{What does it solve?}\label{what-does-it-solve}
+
+\subsection{Its state}\label{its-state}
+
+restatement of overarching goal, segue to section 2
+
 \bookmarksetup{startatroot}
 
 \chapter{Related work}\label{related-work}
@@ -609,7 +848,7 @@ shifted almost entirely to researching the incorporation and employment
 of LLMs in the last half decade, in the name of automation
 \autocite{iris,sun2024,prophetfuzz,oss-fuzz-gen,green2022,utopia,fuzzgpt,titanfuzz,fuzzgen,fudge}.
 
-\section{Previous projects}\label{previous-projects}
+\section{Previous Projects}\label{previous-projects}
 
 \subsection{KLEE}\label{klee}
 
@@ -1008,7 +1247,7 @@ automated fuzzing systems.
 
 \bookmarksetup{startatroot}
 
-\chapter{Overview}\label{overview}
+\chapter{OverHAuL}\label{overhaul}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1072,12 +1311,12 @@ Results from integration with 10/100 open-source C/C++ projects.
 
 \section{Issues}\label{issues}
 
-\section{Future work}\label{future-work}
+\section{Future Work}\label{future-work}
 
-\subsection{Technical future work}\label{technical-future-work}
+\subsection{Technical Future Work}\label{technical-future-work}
 
-\subsection{Architectural future
-work/extensions}\label{architectural-future-workextensions}
+\subsection{Architectural Future
+Work/Extensions}\label{architectural-future-workextensions}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1233,19 +1472,6 @@ fine-tuning
 \chapter{Conclusion}\label{conclusion}
 
 Recap
-
-\section{Acknowledgements}\label{acknowledgements}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
-rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum
-in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit
-amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit,
-non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante
-volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit
-amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim,
-at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
 
 \bookmarksetup{startatroot}
 
