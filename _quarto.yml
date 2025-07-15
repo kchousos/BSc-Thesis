@@ -57,6 +57,7 @@ book:
   downloads: [pdf]
   repo-url: https://github.com/kchousos/BSc-Thesis/
   repo-branch: master
+  repo-actions: [edit, source]
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
