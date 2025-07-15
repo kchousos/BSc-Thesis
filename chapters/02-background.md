@@ -202,7 +202,7 @@ Although AFL is traditionally utilized for fuzzing standalone programs or binari
 
 Despite its potential for uncovering software vulnerabilities, fuzzing remains a relatively underutilized testing technique compared to more established methodologies such as Test-Driven Development (TDD). This limited adoption can be attributed, in part, to the substantial initial investment required to design and implement appropriate test harnesses that enable effective fuzzing processes. Furthermore, the interpretation of fuzzing outcomes---particularly the identification, diagnostic analysis, and prioritization of program crashes---demands considerable resources and specialized expertise. These factors collectively pose significant barriers to the widespread integration of fuzzing within standard software development and testing practices.
 
-## Large Language Models (LLMs)
+## Large Language Models
 
 Natural Language Processing (NLP), a subfield of Artificial Intelligence (AI), has a rich and ongoing history that has evolved significantly since its beginning in the 1990s [@li2022; @wang2025]. Among the most notable---and recent---advancements in this domain are Large Language Models (LLMs), which have transformed the landscape of NLP and AI in general.
 
@@ -242,20 +242,15 @@ While large language models (LLMs) demonstrate significant potential in enhancin
 
 In addition to this issue, the risk of error-prone code produced by LLMs further complicates the fuzzing workflow. When a crash occurs during the fuzzing process, it becomes imperative for developers to ascertain that the root cause of the failure is not attributable to deficiencies or bugs within the harness itself. This additional layer of verification adds to the cognitive load placed upon developers, potentially detracting from their ability to focus on testing and improving the underlying software.
 
-To enhance the reliability of LLM-generated harnesses in fuzzing contexts, it is essential that these generated artifacts undergo thorough evaluation and validation through programmatic means. This involves the implementation of systematic techniques that assess the accuracy and robustness of the generated code, ensuring that it aligns with the expected behavior of the components it is intended to interact with. This strategy can be conceptualized within the framework of Neurosymbolic AI, which seeks to integrate the strengths of neural networks with symbolic reasoning capabilities. By marrying these two paradigms, it may be possible to improve the reliability and efficacy of LLMs in the creation of fuzzing harnesses, ultimately leading to a more seamless integration of automated testing methodologies into the software development lifecycle.
+To enhance the reliability of LLM-generated harnesses in fuzzing contexts, it is essential that these generated artifacts undergo thorough evaluation and validation through programmatic means. This involves the implementation of systematic techniques that assess the accuracy and robustness of the generated code, ensuring that it aligns with the expected behavior of the components it is intended to interact with. This strategy can be conceptualized within the framework of Neurosymbolic AI (@sec-nesy), which seeks to integrate the strengths of neural networks with symbolic reasoning capabilities. By marrying these two paradigms, it may be possible to improve the reliability and efficacy of LLMs in the creation of fuzzing harnesses, ultimately leading to a more seamless integration of automated testing methodologies into the software development lifecycle.
 
-## Neurosymbolic AI
+## Neurosymbolic AI {#sec-nesy}
 
-qqqq
+Neurosymbolic AI (NeSy AI) represents a groundbreaking fusion of neural network methodologies with symbolic execution techniques and tools, providing a multi-faceted approach to overcoming the inherent limitations of traditional AI paradigms [@sheth2023; @garcez2020]. This innovative synthesis seeks to combine the strengths of both neural networks, which excel in pattern recognition and data-driven learning, and symbolic systems, which offer structured reasoning and interpretability. By integrating these two approaches, NeSy AI aims to create cognitive models that are not only more accurate but also more robust in problem-solving contexts.
 
-[TODO]{.mark} [@ganguly2024; @garcez2020; @gaur2023; @grov2024; @sheth2023; @tilwani2024].
+At its core, NeSy AI facilitates the development of AI systems that are capable of understanding and interpreting feedback in real-world scenarios [@ganguly2024]. This characteristic is particularly significant in the current landscape of artificial intelligence, where LLMs are predominant. In this context, NeSy AI is increasingly viewed as a critical solution to pressing issues related to explainability, attribution, and reliability in AI systems [@gaur2023; @tilwani2024]. These challenges are essential for ensuring that AI systems can be trusted and effectively utilized in various applications, from business to healthcare.
 
-### What is it?
+The burgeoning field of neurosymbolic AI is still in its nascent stages, with ongoing research and development actively exploring its potential to enhance attribution methodologies within large language models. By addressing these critical challenges, NeSy AI can significantly contribute to the broader landscape of trustworthy AI systems, allowing for more transparent and accountable decision-making processes [@sheth2023; @gaur2023; @tilwani2024].
 
-[@sheth2023; @gaur2023] Neurosymbolic AI for attribution in LLMs [@tilwani2024]
+Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (@sec-related). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz's taxonomy [@sarker2022; @kautz2020]. This means that the neural model---specifically the LLM---can leverage symbolic reasoning tools---in this case a source code explorer (@sec-implementation)---to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.
 
-### What does it solve?
-
-### Its state
-
-restatement of overarching goal, segue to section 2

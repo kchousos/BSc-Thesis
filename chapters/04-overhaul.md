@@ -22,3 +22,5 @@
 - LLM Programming Libraries (?)
   Langchain & LangGraph, LlamaIndex [@langchain;@langgraph;@llamaindex]. DSPy [@dspy].
   Comparison, relevance to our usecase.
+
+## Implementation {#sec-implementation}

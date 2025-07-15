@@ -746,7 +746,7 @@ resources and specialized expertise. These factors collectively pose
 significant barriers to the widespread integration of fuzzing within
 standard software development and testing practices.
 
-\section{Large Language Models (LLMs)}\label{large-language-models-llms}
+\section{Large Language Models}\label{large-language-models}
 
 Natural Language Processing (NLP), a subfield of Artificial Intelligence
 (AI), has a rich and ongoing history that has evolved significantly
@@ -924,34 +924,63 @@ involves the implementation of systematic techniques that assess the
 accuracy and robustness of the generated code, ensuring that it aligns
 with the expected behavior of the components it is intended to interact
 with. This strategy can be conceptualized within the framework of
-Neurosymbolic AI, which seeks to integrate the strengths of neural
-networks with symbolic reasoning capabilities. By marrying these two
-paradigms, it may be possible to improve the reliability and efficacy of
-LLMs in the creation of fuzzing harnesses, ultimately leading to a more
-seamless integration of automated testing methodologies into the
-software development lifecycle.
+Neurosymbolic AI (Section~\ref{sec-nesy}), which seeks to integrate the
+strengths of neural networks with symbolic reasoning capabilities. By
+marrying these two paradigms, it may be possible to improve the
+reliability and efficacy of LLMs in the creation of fuzzing harnesses,
+ultimately leading to a more seamless integration of automated testing
+methodologies into the software development lifecycle.
 
-\section{Neurosymbolic AI}\label{neurosymbolic-ai}
+\section{Neurosymbolic AI}\label{sec-nesy}
 
-qqqq
+Neurosymbolic AI (NeSy AI) represents a groundbreaking fusion of neural
+network methodologies with symbolic execution techniques and tools,
+providing a multi-faceted approach to overcoming the inherent
+limitations of traditional AI paradigms \autocite{sheth2023,garcez2020}.
+This innovative synthesis seeks to combine the strengths of both neural
+networks, which excel in pattern recognition and data-driven learning,
+and symbolic systems, which offer structured reasoning and
+interpretability. By integrating these two approaches, NeSy AI aims to
+create cognitive models that are not only more accurate but also more
+robust in problem-solving contexts.
 
-\hl{TODO}
-\autocite{ganguly2024,garcez2020,gaur2023,grov2024,sheth2023,tilwani2024}.
+At its core, NeSy AI facilitates the development of AI systems that are
+capable of understanding and interpreting feedback in real-world
+scenarios \autocite{ganguly2024}. This characteristic is particularly
+significant in the current landscape of artificial intelligence, where
+LLMs are predominant. In this context, NeSy AI is increasingly viewed as
+a critical solution to pressing issues related to explainability,
+attribution, and reliability in AI systems
+\autocite{gaur2023,tilwani2024}. These challenges are essential for
+ensuring that AI systems can be trusted and effectively utilized in
+various applications, from business to healthcare.
 
-\subsection{What is it?}\label{what-is-it}
+The burgeoning field of neurosymbolic AI is still in its nascent stages,
+with ongoing research and development actively exploring its potential
+to enhance attribution methodologies within large language models. By
+addressing these critical challenges, NeSy AI can significantly
+contribute to the broader landscape of trustworthy AI systems, allowing
+for more transparent and accountable decision-making processes
+\autocite{sheth2023,gaur2023,tilwani2024}.
 
-\autocite{sheth2023,gaur2023} Neurosymbolic AI for attribution in LLMs
-\autocite{tilwani2024}
-
-\subsection{What does it solve?}\label{what-does-it-solve}
-
-\subsection{Its state}\label{its-state}
-
-restatement of overarching goal, segue to section 2
+Moreover, the application of neurosymbolic AI within the domain of
+fuzzing is gaining traction, paving the way for innovative explorations.
+This integration of LLMs with symbolic systems opens up new avenues for
+research. Currently, there are only a limited number of tools that
+support such hybrid approaches (Chapter~\ref{sec-related}). Among these,
+OverHAuL constitutes a Neuro{[}Symbolic{]} tool, as classified by Henry
+Kautz's taxonomy \autocite{sarker2022,kautz2020}. This means that the
+neural model---specifically the LLM---can leverage symbolic reasoning
+tools---in this case a source code explorer
+(Section~\ref{sec-implementation})---to augment its reasoning
+capabilities. This symbiotic relationship enhances the overall efficacy
+and versatility of LLMs for fuzzing harnesses generation, demonstrating
+the profound potential held by the fusion of neural and symbolic
+methodologies.
 
 \bookmarksetup{startatroot}
 
-\chapter{Related work}\label{related-work}
+\chapter{Related work}\label{sec-related}
 
 Automated testing, automated fuzzing and automated harness creation have
 a long research history. Still, a lot of ground remains to be covered
@@ -1417,6 +1446,8 @@ automated fuzzing systems.
   \autocite{langchain,langgraph,llamaindex}. DSPy \autocite{dspy}.
   Comparison, relevance to our usecase.
 \end{itemize}
+
+\section{Implementation}\label{sec-implementation}
 
 \bookmarksetup{startatroot}
 

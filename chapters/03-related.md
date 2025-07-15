@@ -1,4 +1,4 @@
-# Related work
+# Related work {#sec-related}
 
 Automated testing, automated fuzzing and automated harness creation have a long research history. Still, a lot of ground remains to be covered until true automation of these tasks is achieved. Until the introduction of transformers [@vaswani2023] and the 2020's boom of commercial GPTs [@chatgpt], automation regarding testing and fuzzing was mainly attempted through static and dynamic program analysis methods. These approaches are still utilized, but the fuzzing community has shifted almost entirely to researching the incorporation and employment of LLMs in the last half decade, in the name of automation [@iris; @sun2024; @prophetfuzz; @oss-fuzz-gen; @green2022; @utopia; @fuzzgpt; @titanfuzz; @fuzzgen; @fudge].
 
