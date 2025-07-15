@@ -95,7 +95,7 @@ Fuzz testing offers several tangible benefits:
 3. **Robustness and correctness.** Beyond security, fuzzing exposes logic errors and stability issues in complex, high-throughput APIs (e.g., decompressors) even when inputs are *expected* to be well-formed.
 4. **Regression prevention.** Re-running a corpus of crashing inputs as part of continuous integration ensures that fixed bugs remain fixed.
 
-### Success Stories
+#### Success Stories
 
 *Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read in OpenSSL [@theopensslproject2025] introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
 
@@ -105,20 +105,17 @@ On the defensive tooling side, the security tool named *Mayhem*---developed by t
 
 These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.
 
-qqqqqq
-
 ### How to Fuzz?
 
-### Fuzzer engines
+As we saw, fuzzing of a PUT is done through a fuzzer engine ([@def-fuzzer]). The most commonly used ones for C and C++ projects and libraries are AFL [@afl] (superseded by AFL++ [@afl++]) and LibFuzzer [@libfuzzer].
 
-C/C++: AFL [@afl] & AFL++ [@afl++]. LibFuzzer [@libfuzzer]. [@honggfuzz].
+#### LibFuzzer
 
-Python: Atheris [@atheris].
+LibFuzzer is an "in-process, coverage-guided, evolutionary fuzzing engine". LibFuzzer is mainly used to fuzz libraries. It is linked with the library under test, and feeds fuzzed inputs to the library via a specific fuzzing entry-point (i.e. fuzz target).
 
-> LibFuzzer is an in-process, coverage-guided, evolutionary fuzzing engine. LibFuzzer is linked with the library under test, and feeds fuzzed inputs to the library via a specific fuzzing entrypoint (fuzz target).
-  - In-process, coverage-guided, mutation-based fuzzer.
+qqqqqqq
 
-Used to fuzz library functions. The programmer writes a fuzz target to test their implementation.
+A developer can use The programmer writes a fuzz target to test their implementation.
 
 :::{#def-target}
 ###### Fuzz target
