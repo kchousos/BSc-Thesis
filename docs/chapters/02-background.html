@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -94,14 +94,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -290,6 +290,7 @@ div.csl-indent {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -416,19 +417,16 @@ div.csl-indent {
   <ul>
   <li><a href="#fuzz-testing" id="toc-fuzz-testing" class="nav-link active" data-scroll-target="#fuzz-testing"><span class="header-section-number">2.1</span> Fuzz Testing</a>
   <ul class="collapse">
-  <li><a href="#taxonomies-of-fuzzing" id="toc-taxonomies-of-fuzzing" class="nav-link" data-scroll-target="#taxonomies-of-fuzzing"><span class="header-section-number">2.1.1</span> Taxonomies of Fuzzing</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">2.1.2</span> Motivation</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="header-section-number">2.1.3</span> Methodology</a></li>
-  <li><a href="#challenges-in-adoption" id="toc-challenges-in-adoption" class="nav-link" data-scroll-target="#challenges-in-adoption"><span class="header-section-number">2.1.4</span> Challenges in Adoption</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">2.1.1</span> Motivation</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="header-section-number">2.1.2</span> Methodology</a></li>
+  <li><a href="#challenges-in-adoption" id="toc-challenges-in-adoption" class="nav-link" data-scroll-target="#challenges-in-adoption"><span class="header-section-number">2.1.3</span> Challenges in Adoption</a></li>
   </ul></li>
   <li><a href="#large-language-models-llms" id="toc-large-language-models-llms" class="nav-link" data-scroll-target="#large-language-models-llms"><span class="header-section-number">2.2</span> Large Language Models (LLMs)</a>
   <ul class="collapse">
-  <li><a href="#what-are-they" id="toc-what-are-they" class="nav-link" data-scroll-target="#what-are-they"><span class="header-section-number">2.2.1</span> What are they?</a></li>
-  <li><a href="#biggest-gpts" id="toc-biggest-gpts" class="nav-link" data-scroll-target="#biggest-gpts"><span class="header-section-number">2.2.2</span> Biggest GPTs</a></li>
-  <li><a href="#sec-prompting" id="toc-sec-prompting" class="nav-link" data-scroll-target="#sec-prompting"><span class="header-section-number">2.2.3</span> Prompting</a></li>
-  <li><a href="#for-coding" id="toc-for-coding" class="nav-link" data-scroll-target="#for-coding"><span class="header-section-number">2.2.4</span> For coding</a></li>
-  <li><a href="#for-fuzzing" id="toc-for-fuzzing" class="nav-link" data-scroll-target="#for-fuzzing"><span class="header-section-number">2.2.5</span> For fuzzing</a></li>
-  <li><a href="#llm-programming-libraries" id="toc-llm-programming-libraries" class="nav-link" data-scroll-target="#llm-programming-libraries"><span class="header-section-number">2.2.6</span> LLM Programming Libraries (?)</a></li>
+  <li><a href="#biggest-gpts" id="toc-biggest-gpts" class="nav-link" data-scroll-target="#biggest-gpts"><span class="header-section-number">2.2.1</span> Biggest GPTs</a></li>
+  <li><a href="#sec-prompting" id="toc-sec-prompting" class="nav-link" data-scroll-target="#sec-prompting"><span class="header-section-number">2.2.2</span> Prompting</a></li>
+  <li><a href="#sec-llm-coding" id="toc-sec-llm-coding" class="nav-link" data-scroll-target="#sec-llm-coding"><span class="header-section-number">2.2.3</span> LLMs for Coding</a></li>
+  <li><a href="#llms-for-fuzzing" id="toc-llms-for-fuzzing" class="nav-link" data-scroll-target="#llms-for-fuzzing"><span class="header-section-number">2.2.4</span> LLMs for Fuzzing</a></li>
   </ul></li>
   <li><a href="#neurosymbolic-ai" id="toc-neurosymbolic-ai" class="nav-link" data-scroll-target="#neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</a>
   <ul class="collapse">
@@ -490,44 +488,43 @@ div.csl-indent {
 <p><span class="theorem-title"><strong>Definition 2.6 (Seed)</strong></span> An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign (<a href="#def-campaign" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>) all seeds are stored in a seed <em>pool</em> or <em>corpus</em>.</p>
 </div>
 <p>The process of selecting an effective initial corpus is crucial because it directly impacts how quickly and thoroughly the fuzzer can cover the target program’s code. This challenge—studied as the <em>seed-selection problem</em>—involves identifying seeds that enable rapid discovery of diverse execution paths and is non-trivial <span class="citation" data-cites="rebert2014"><a href="refs.html#ref-rebert2014" role="doc-biblioref">[8]</a></span>. A well-chosen seed set often accelerates bug discovery and improves overall fuzzing efficiency.</p>
-<section id="taxonomies-of-fuzzing" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="taxonomies-of-fuzzing"><span class="header-section-number">2.1.1</span> Taxonomies of Fuzzing</h3>
-<p>To better understand fuzzers, researchers traditionally classify them along two orthogonal axes: the level of knowledge about the PUT that they possess, and the strategy they use to generate test inputs.</p>
-<section id="knowledge-of-the-put" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="knowledge-of-the-put">Knowledge of the PUT</h4>
-<p>Fuzzers differ in how much information they leverage about the program under test:</p>
-<div id="def-blackbox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.7 (Black-box fuzzer)</strong></span> Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations.</p>
-</div>
-<p>Black-box fuzzers treat the PUT as a black box, generating inputs without insights into program internals. This makes them simple but often less efficient in uncovering deep bugs.</p>
-<div id="def-greybox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.8 (Grey-box fuzzer)</strong></span> Gains limited insight—typically lightweight coverage metrics—via instrumentation, allowing more informed mutations while retaining scalability.</p>
-</div>
-<p>Grey-box fuzzers strike a balance by collecting partial information, such as execution coverage via lightweight instrumentation, enabling more targeted input mutations that improve effectiveness.</p>
-<div id="def-whitebox" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.9 (White-box fuzzer)</strong></span> Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths.</p>
-</div>
-<p>White-box fuzzers exploit full program knowledge, using advanced techniques like symbolic execution to methodically explore program paths, but often at the cost of reduced scalability.</p>
-</section>
-<section id="test-case-generation-strategy" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="test-case-generation-strategy">Test-case Generation Strategy</h4>
-<p>The second axis concerns how fuzzers generate test inputs:</p>
-<div id="def-generational" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.10 (Generational fuzzing)</strong></span> Produces inputs from a structural model or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse.</p>
-</div>
-<p>Generational fuzzing leverages knowledge of input formats (e.g., a BNF grammar <span class="citation" data-cites="backus1959"><a href="refs.html#ref-backus1959" role="doc-biblioref">[9]</a></span>) to produce well-formed test cases derived from formal specifications or models, improving the likelihood of meaningful program behavior.</p>
-<div id="def-mutational" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.11 (Mutational fuzzing)</strong></span> Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective.</p>
-</div>
-<p>Mutational fuzzing begins with seeds and applies random or guided mutations to explore nearby input space regions. Techniques like coverage-guided fuzzing have greatly enhanced the efficiency of this approach.</p>
-<p>These two dimensions are often combined to tailor fuzzers to specific scenarios. For example, AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span> is a grey-box, mutational fuzzer that uses coverage feedback to guide input mutations, while Honggfuzz <span class="citation" data-cites="honggfuzz"><a href="refs.html#ref-honggfuzz" role="doc-biblioref">[11]</a></span> can operate as a grey-box generational fuzzer when provided with grammar-based input models. This flexibility allows fuzzers to adapt to varied testing goals and program characteristics.</p>
-</section>
-</section>
-<section id="motivation" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.1.2</span> Motivation</h3>
+<!-- ### Taxonomies of Fuzzing -->
+<!-- To better understand fuzzers, researchers traditionally classify them along two orthogonal axes: the level of knowledge about the PUT that they possess, and the strategy they use to generate test inputs. -->
+<!-- #### Knowledge of the PUT {.unnumbered} -->
+<!-- Fuzzers differ in how much information they leverage about the program under test: -->
+<!-- ::: {#def-blackbox} -->
+<!-- ###### Black-box fuzzer -->
+<!-- Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations. -->
+<!-- ::: -->
+<!-- Black-box fuzzers treat the PUT as a black box, generating inputs without insights into program internals. This makes them simple but often less efficient in uncovering deep bugs. -->
+<!-- ::: {#def-greybox} -->
+<!-- ###### Grey-box fuzzer -->
+<!-- Gains limited insight---typically lightweight coverage metrics---via instrumentation, allowing more informed mutations while retaining scalability. -->
+<!-- ::: -->
+<!-- Grey-box fuzzers strike a balance by collecting partial information, such as execution coverage via lightweight instrumentation, enabling more targeted input mutations that improve effectiveness. -->
+<!-- ::: {#def-whitebox} -->
+<!-- ###### White-box fuzzer -->
+<!-- Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths. -->
+<!-- ::: -->
+<!-- White-box fuzzers exploit full program knowledge, using advanced techniques like symbolic execution to methodically explore program paths, but often at the cost of reduced scalability. -->
+<!-- #### Test-case Generation Strategy {.unnumbered} -->
+<!-- The second axis concerns how fuzzers generate test inputs: -->
+<!-- ::: {#def-generational} -->
+<!-- ###### Generational fuzzing -->
+<!-- Produces inputs from a structural model or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse. -->
+<!-- ::: -->
+<!-- Generational fuzzing leverages knowledge of input formats (e.g., a BNF grammar [@backus1959]) to produce well-formed test cases derived from formal specifications or models, improving the likelihood of meaningful program behavior. -->
+<!-- ::: {#def-mutational} -->
+<!-- ###### Mutational fuzzing -->
+<!-- Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective. -->
+<!-- ::: -->
+<!-- Mutational fuzzing begins with seeds and applies random or guided mutations to explore nearby input space regions. Techniques like coverage-guided fuzzing have greatly enhanced the efficiency of this approach. -->
+<!-- These two dimensions are often combined to tailor fuzzers to specific scenarios. For example, AFL [@afl] is a grey-box, mutational fuzzer that uses coverage feedback to guide input mutations, while Honggfuzz [@honggfuzz] can operate as a grey-box generational fuzzer when provided with grammar-based input models. This flexibility allows fuzzers to adapt to varied testing goals and program characteristics. -->
+<section id="motivation" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.1.1</span> Motivation</h3>
 <blockquote class="blockquote">
 <p>The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.</p>
-<p>— OWASP Foundation <span class="citation" data-cites="owaspfoundation"><a href="refs.html#ref-owaspfoundation" role="doc-biblioref">[12]</a></span></p>
+<p>— OWASP Foundation <span class="citation" data-cites="owaspfoundation"><a href="refs.html#ref-owaspfoundation" role="doc-biblioref">[9]</a></span></p>
 </blockquote>
 <p>Fuzz testing offers several tangible benefits:</p>
 <ol type="1">
@@ -536,29 +533,29 @@ div.csl-indent {
 <li><strong>Robustness and correctness</strong>: Beyond security, fuzzing exposes logic errors and stability issues in complex, high-throughput APIs (e.g., decompressors) even when inputs are <em>expected</em> to be well-formed.</li>
 <li><strong>Regression prevention</strong>: Re-running a corpus of crashing inputs as part of continuous integration ensures that fixed bugs remain fixed.</li>
 </ol>
-<section id="success-stories" class="level4" data-number="2.1.2.1">
-<h4 data-number="2.1.2.1" class="anchored" data-anchor-id="success-stories"><span class="header-section-number">2.1.2.1</span> Success Stories</h4>
-<p><em>Heartbleed</em> (CVE-2014-0160) <span class="citation" data-cites="heartbleed heartbleed-cve"><a href="refs.html#ref-heartbleed" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[14]</a></span> arose from a buffer over-read<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in OpenSSL <span class="citation" data-cites="theopensslproject2025"><a href="refs.html#ref-theopensslproject2025" role="doc-biblioref">[15]</a></span> introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately <span class="citation" data-cites="wheeler2014"><a href="refs.html#ref-wheeler2014" role="doc-biblioref">[16]</a></span>.</p>
+<section id="success-stories" class="level4" data-number="2.1.1.1">
+<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="success-stories"><span class="header-section-number">2.1.1.1</span> Success Stories</h4>
+<p><em>Heartbleed</em> (CVE-2014-0160) <span class="citation" data-cites="heartbleed heartbleed-cve"><a href="refs.html#ref-heartbleed" role="doc-biblioref">[10]</a>, <a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[11]</a></span> arose from a buffer over-read<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in OpenSSL <span class="citation" data-cites="theopensslproject2025"><a href="refs.html#ref-theopensslproject2025" role="doc-biblioref">[12]</a></span> introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately <span class="citation" data-cites="wheeler2014"><a href="refs.html#ref-wheeler2014" role="doc-biblioref">[13]</a></span>.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
 <ol>
 <li id="fn1"><p><a href="https://xkcd.com/1354/" class="uri">https://xkcd.com/1354/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
-<p>Likewise, the <em>Shellshock</em> (or <em>Bashdoor</em>) family of bugs in GNU Bash <span class="citation" data-cites="bash"><a href="refs.html#ref-bash" role="doc-biblioref">[17]</a></span> enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google’s Michał Zalewski using his own fuzzer <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span> in late 2014 <span class="citation" data-cites="saarinen2014"><a href="refs.html#ref-saarinen2014" role="doc-biblioref">[18]</a></span>.</p>
-<p>On the defensive tooling side, the security tool named <em>Mayhem</em>—developed by the company of the same name—has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities <span class="citation" data-cites="simonite2020mayhem"><a href="refs.html#ref-simonite2020mayhem" role="doc-biblioref">[19]</a></span>.</p>
+<p>Likewise, the <em>Shellshock</em> (or <em>Bashdoor</em>) family of bugs in GNU Bash <span class="citation" data-cites="bash"><a href="refs.html#ref-bash" role="doc-biblioref">[14]</a></span> enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google’s Michał Zalewski using his own fuzzer <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[15]</a></span> in late 2014 <span class="citation" data-cites="saarinen2014"><a href="refs.html#ref-saarinen2014" role="doc-biblioref">[16]</a></span>.</p>
+<p>On the defensive tooling side, the security tool named <em>Mayhem</em>—developed by the company of the same name—has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities <span class="citation" data-cites="simonite2020mayhem"><a href="refs.html#ref-simonite2020mayhem" role="doc-biblioref">[17]</a></span>.</p>
 <p>These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.</p>
 </section>
 </section>
-<section id="methodology" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2.1.3</span> Methodology</h3>
-<p>As previously discussed, fuzz testing of a program under test (PUT) is typically conducted using a dedicated fuzzing engine (see <a href="#def-fuzzer" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>). Among the most widely adopted fuzzers for C and C++ projects and libraries are AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span>—which has since evolved into AFL++ <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[20]</a></span>—and LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>. Within the OverHAuL framework, LibFuzzer is preferred owing to its superior suitability for library fuzzing, whereas AFL++ predominantly targets executables and binary fuzzing.</p>
-<section id="libfuzzer" class="level4" data-number="2.1.3.1">
-<h4 data-number="2.1.3.1" class="anchored" data-anchor-id="libfuzzer"><span class="header-section-number">2.1.3.1</span> LibFuzzer</h4>
-<p>LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span> is an in-process, coverage-guided evolutionary fuzzing engine primarily designed for testing libraries. It forms part of the LLVM ecosystem <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[21]</a></span> and operates by linking directly with the library under evaluation. The fuzzer delivers mutated input data to the library through a designated fuzzing entry point, commonly referred to as the <em>fuzz target</em>.</p>
+<section id="methodology" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="methodology"><span class="header-section-number">2.1.2</span> Methodology</h3>
+<p>As previously discussed, fuzz testing of a program under test (PUT) is typically conducted using a dedicated fuzzing engine (see <a href="#def-fuzzer" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>). Among the most widely adopted fuzzers for C and C++ projects and libraries are AFL <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[15]</a></span>—which has since evolved into AFL++ <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[18]</a></span>—and LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>. Within the OverHAuL framework, LibFuzzer is preferred owing to its superior suitability for library fuzzing, whereas AFL++ predominantly targets executables and binary fuzzing.</p>
+<section id="libfuzzer" class="level4" data-number="2.1.2.1">
+<h4 data-number="2.1.2.1" class="anchored" data-anchor-id="libfuzzer"><span class="header-section-number">2.1.2.1</span> LibFuzzer</h4>
+<p>LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span> is an in-process, coverage-guided evolutionary fuzzing engine primarily designed for testing libraries. It forms part of the LLVM ecosystem <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[19]</a></span> and operates by linking directly with the library under evaluation. The fuzzer delivers mutated input data to the library through a designated fuzzing entry point, commonly referred to as the <em>fuzz target</em>.</p>
 <div id="def-target" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.12 (Fuzz target)</strong></span> A function that accepts a byte array as input and exercises the application programming interface (API) under test using these inputs <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>. This construct is also known as a <em>fuzz driver</em>, <em>fuzzer entry point</em>, or <em>fuzzing harness</em>.</p>
+<p><span class="theorem-title"><strong>Definition 2.7 (Fuzz target)</strong></span> A function that accepts a byte array as input and exercises the application programming interface (API) under test using these inputs <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span>. This construct is also known as a <em>fuzz driver</em>, <em>fuzzer entry point</em>, or <em>fuzzing harness</em>.</p>
 </div>
-<p>For the remainder of this thesis, the terms presented in <a href="#def-target" class="quarto-xref">Definition&nbsp;<span>2.12</span></a> will be used interchangeably.</p>
+<p>For the remainder of this thesis, the terms presented in <a href="#def-target" class="quarto-xref">Definition&nbsp;<span>2.7</span></a> will be used interchangeably.</p>
 <p>To effectively validate an implementation or library, developers are required to author a fuzzing harness that invokes the target library’s API functions utilizing the fuzz-generated inputs. This harness serves as the principal interface for the fuzzer and is executed iteratively, each time with mutated input designed to maximize code coverage and uncover defects. To comply with LibFuzzer’s interface requirements, a harness must conform to the following function signature:</p>
 <div id="lst-basic-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
@@ -594,7 +591,7 @@ Listing&nbsp;2.2: This example demonstrates a minimal harness that triggers a co
 </div>
 </figure>
 </div>
-<p>To compile and link such a harness with LibFuzzer, the Clang compiler—also part of the LLVM project <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[21]</a></span>—must be used alongside appropriate compiler flags. For instance, compiling the harness in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.2</span></a> can be achieved as follows:</p>
+<p>To compile and link such a harness with LibFuzzer, the Clang compiler—also part of the LLVM project <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[19]</a></span>—must be used alongside appropriate compiler flags. For instance, compiling the harness in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.2</span></a> can be achieved as follows:</p>
 <div id="lst-harness-compilation" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-harness-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -609,66 +606,59 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
 </figure>
 </div>
 </section>
-<section id="afl-and-afl" class="level4" data-number="2.1.3.2">
-<h4 data-number="2.1.3.2" class="anchored" data-anchor-id="afl-and-afl"><span class="header-section-number">2.1.3.2</span> AFL and AFL++</h4>
-<p><em>American Fuzzy Lop</em> (AFL) <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[10]</a></span>, developed by Michał Zalewski, is a seminal fuzzer targeting C and C++ applications. Its core methodology relies on instrumented binaries to provide edge coverage feedback, thereby guiding input mutation towards unexplored program paths. AFL supports several emulation backends including QEMU <span class="citation" data-cites="bellard2025"><a href="refs.html#ref-bellard2025" role="doc-biblioref">[22]</a></span>—an open-source CPU emulator facilitating fuzzing on diverse architectures—and Unicorn <span class="citation" data-cites="unicornengine2025"><a href="refs.html#ref-unicornengine2025" role="doc-biblioref">[23]</a></span>, a lightweight multi-platform CPU emulator. While AFL established itself as a foundational tool within the fuzzing community, its successor AFL++ <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[20]</a></span> incorporates numerous enhancements and additional features to improve fuzzing efficacy.</p>
+<section id="afl-and-afl" class="level4" data-number="2.1.2.2">
+<h4 data-number="2.1.2.2" class="anchored" data-anchor-id="afl-and-afl"><span class="header-section-number">2.1.2.2</span> AFL and AFL++</h4>
+<p><em>American Fuzzy Lop</em> (AFL) <span class="citation" data-cites="afl"><a href="refs.html#ref-afl" role="doc-biblioref">[15]</a></span>, developed by Michał Zalewski, is a seminal fuzzer targeting C and C++ applications. Its core methodology relies on instrumented binaries to provide edge coverage feedback, thereby guiding input mutation towards unexplored program paths. AFL supports several emulation backends including QEMU <span class="citation" data-cites="bellard2025"><a href="refs.html#ref-bellard2025" role="doc-biblioref">[20]</a></span>—an open-source CPU emulator facilitating fuzzing on diverse architectures—and Unicorn <span class="citation" data-cites="unicornengine2025"><a href="refs.html#ref-unicornengine2025" role="doc-biblioref">[21]</a></span>, a lightweight multi-platform CPU emulator. While AFL established itself as a foundational tool within the fuzzing community, its successor AFL++ <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[18]</a></span> incorporates numerous enhancements and additional features to improve fuzzing efficacy.</p>
 <p>AFL operates by ingesting seed inputs from a specified directory (<code>seeds_dir</code>), applying mutations, and then executing the target binary to discover novel execution paths. Execution can be initiated using the following command-line syntax:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">./afl-fuzz</span> <span class="at">-i</span> seeds_dir <span class="at">-o</span> output_dir <span class="at">--</span> /path/to/tested/program</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>AFL is capable of fuzzing both black-box and instrumented binaries, employing a fork-server mechanism to optimize performance. It additionally supports persistent mode execution as well as modes leveraging QEMU and Unicorn emulators, thereby providing extensive flexibility for different testing environments.</p>
 <p>Although AFL is traditionally utilized for fuzzing standalone programs or binaries, it is also capable of fuzzing libraries and other software components. In such scenarios, rather than implementing the <code>LLVMFuzzerTestOneInput</code> style harness, AFL can use the standard <code>main()</code> function as the fuzzing entry point. Nonetheless, AFL also accommodates integration with <code>LLVMFuzzerTestOneInput</code>-based harnesses, underscoring its adaptability across varied fuzzing use cases.</p>
 </section>
 </section>
-<section id="challenges-in-adoption" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="challenges-in-adoption"><span class="header-section-number">2.1.4</span> Challenges in Adoption</h3>
+<section id="challenges-in-adoption" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="challenges-in-adoption"><span class="header-section-number">2.1.3</span> Challenges in Adoption</h3>
 <p>Despite its potential for uncovering software vulnerabilities, fuzzing remains a relatively underutilized testing technique compared to more established methodologies such as Test-Driven Development (TDD). This limited adoption can be attributed, in part, to the substantial initial investment required to design and implement appropriate test harnesses that enable effective fuzzing processes. Furthermore, the interpretation of fuzzing outcomes—particularly the identification, diagnostic analysis, and prioritization of program crashes—demands considerable resources and specialized expertise. These factors collectively pose significant barriers to the widespread integration of fuzzing within standard software development and testing practices.</p>
-<p>qqqqqqq</p>
 </section>
 </section>
 <section id="large-language-models-llms" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="large-language-models-llms"><span class="header-section-number">2.2</span> Large Language Models (LLMs)</h2>
-<p>Transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[24]</a></span>, 2017–2025. ChatGPT/OpenAI history &amp; context. Claude, Llama (1–3) etc.</p>
-<section id="what-are-they" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="what-are-they"><span class="header-section-number">2.2.1</span> What are they?</h3>
-<p><span class="citation" data-cites="li2022"><a href="refs.html#ref-li2022" role="doc-biblioref">[25]</a></span> Transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[24]</a></span></p>
+<p>Natural Language Processing (NLP), a subfield of Artificial Intelligence (AI), has a rich and ongoing history that has evolved significantly since its beginning in the 1990s <span class="citation" data-cites="li2022 wang2025"><a href="refs.html#ref-li2022" role="doc-biblioref">[22]</a>, <a href="refs.html#ref-wang2025" role="doc-biblioref">[23]</a></span>. Among the most notable—and recent—advancements in this domain are Large Language Models (LLMs), which have transformed the landscape of NLP and AI in general.</p>
+<p>At the core of many LLMs is the attention mechanism, which was introduced by Bahdanau et al.&nbsp;in 2014 <span class="citation" data-cites="bahdanau2016"><a href="refs.html#ref-bahdanau2016" role="doc-biblioref">[24]</a></span>. This pivotal innovation enabled models to focus on relevant parts of the input sequence when making predictions, significantly improving language understanding and generation tasks. Building on this foundation, the Transformer architecture was proposed by Vaswani et al.&nbsp;in 2017 <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[25]</a></span>. This architecture has become the backbone of most contemporary LLMs, as it efficiently processes sequences of data, capturing long-range dependencies without being hindered by sequential processing limitations.</p>
+<p>One of the first major breakthroughs utilizing the Transformer architecture was BERT (Bidirectional Encoder Representations from Transformers), developed by Devlin et al.&nbsp;in 2019 <span class="citation" data-cites="devlin2019"><a href="refs.html#ref-devlin2019" role="doc-biblioref">[26]</a></span>. BERT’s bi-directional understanding allowed it to capture the context of words from both directions, which improved the accuracy of various NLP tasks. Following this, the Generative Pre-trained Transformer (GPT) series, initiated by OpenAI with the original GPT model in 2018 <span class="citation" data-cites="radford2018"><a href="refs.html#ref-radford2018" role="doc-biblioref">[27]</a></span>, further pushed the boundaries. Subsequent iterations, including GPT-2 <span class="citation" data-cites="radford2019"><a href="refs.html#ref-radford2019" role="doc-biblioref">[28]</a></span>, GPT-3 <span class="citation" data-cites="brown2020"><a href="refs.html#ref-brown2020" role="doc-biblioref">[29]</a></span>, and the most current GPT-4 <span class="citation" data-cites="openai2024"><a href="refs.html#ref-openai2024" role="doc-biblioref">[30]</a></span>, have continued to enhance performance by scaling model size, data, and training techniques.</p>
+<p>In addition to OpenAI’s contributions, other significant models have emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3) <span class="citation" data-cites="claude deepseek-ai2025 grattafiori2024"><a href="refs.html#ref-claude" role="doc-biblioref">[31]</a>, <a href="refs.html#ref-deepseek-ai2025" role="doc-biblioref">[32]</a>, <a href="refs.html#ref-grattafiori2024" role="doc-biblioref">[33]</a></span>. The proliferation of LLMs has sparked an active discourse about their capabilities, applications, and implications in various fields.</p>
+<section id="biggest-gpts" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="biggest-gpts"><span class="header-section-number">2.2.1</span> Biggest GPTs</h3>
+<p>User-facing LLMs are generally categorized between closed-source and open-source models. Closed-source LLMs like ChatGPT, Claude, and Gemini <span class="citation" data-cites="chatgpt claude gemini"><a href="refs.html#ref-claude" role="doc-biblioref">[31]</a>, <a href="refs.html#ref-chatgpt" role="doc-biblioref">[34]</a>, <a href="refs.html#ref-gemini" role="doc-biblioref">[35]</a></span> represent commercially developed systems often optimized for specific tasks without public access to their underlying weights. In contrast, open-source models<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, including the Llama series <span class="citation" data-cites="grattafiori2024"><a href="refs.html#ref-grattafiori2024" role="doc-biblioref">[33]</a></span> and Deepseek <span class="citation" data-cites="deepseek-ai2025"><a href="refs.html#ref-deepseek-ai2025" role="doc-biblioref">[32]</a></span>, provide researchers and practitioners with access to model weights, allowing for greater transparency and adaptability.</p>
+<aside id="footnotes-2" class="footnotes footnotes-end-of-block" role="doc-footnote">
+<ol start="2">
+<li id="fn2"><p>The term “open-source” models is somewhat misleading, since these are better termed as <em>open-weights</em> models. While their weights are publicly available, their training data and underlying code are often proprietary. This terminology reflects community usage but fails to capture the limitations of transparency and accessibility inherent in these models.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </section>
-<section id="biggest-gpts" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="biggest-gpts"><span class="header-section-number">2.2.2</span> Biggest GPTs</h3>
-<ul>
-<li>Closed-source ChatGPT, Claude, Gemini <span class="citation" data-cites="chatgpt claude gemini"><a href="refs.html#ref-chatgpt" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-claude" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-gemini" role="doc-biblioref">[28]</a></span></li>
-<li>Open-source (i.e.&nbsp;open-weights)</li>
-</ul>
-<p>Llama{1,..,3}, Deepseek <span class="citation" data-cites="grattafiori2024 deepseek-ai2025"><a href="refs.html#ref-grattafiori2024" role="doc-biblioref">[29]</a>, <a href="refs.html#ref-deepseek-ai2025" role="doc-biblioref">[30]</a></span></p>
+<section id="sec-prompting" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-prompting"><span class="header-section-number">2.2.2</span> Prompting</h3>
+<p>Interaction with LLMs typically occurs through chat-like interfaces, a process commonly referred to as <em>prompting</em>. A critical aspect of effective engagement with LLMs is the usage of different prompting strategies, which can significantly influence the quality and relevance of the generated outputs. Various approaches to prompting have been developed and studied, including zero-shot and few-shot prompting. In zero-shot prompting, the model is expected to perform a specific task without any examples, while in few-shot prompting, the user provides a limited number of examples to guide the model’s responses <span class="citation" data-cites="brown2020"><a href="refs.html#ref-brown2020" role="doc-biblioref">[29]</a></span>.</p>
+<p>To enhance performance on more complex tasks, several advanced prompting techniques have emerged. One notable strategy is the <em>Chain of Thought</em> approach <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[36]</a></span>, which entails presenting the model with sample thought processes for solving a given task. This method encourages the model to generate more coherent and logical reasoning by mimicking human-like cognitive pathways. A refined variant of this approach is the <em>Tree of Thoughts</em> technique <span class="citation" data-cites="yao2023"><a href="refs.html#ref-yao2023" role="doc-biblioref">[37]</a></span>, which enables the LLM to explore multiple lines of reasoning concurrently, thereby facilitating the selection of the most promising train of thought for further exploration.</p>
+<p>In addition to these cognitive strategies, Retrieval-Augmented Generation (RAG) <span class="citation" data-cites="lewis2021"><a href="refs.html#ref-lewis2021" role="doc-biblioref">[38]</a></span> is another innovative technique that enhances the model’s capacity to provide accurate information by incorporating external knowledge not present in its training dataset. RAG operates by integrating the LLM with an external storage system—often a vector store containing relevant documents—that the model can query in real-time. This allows the LLM to pull up pertinent and/or proprietary information in response to user queries, resulting in more comprehensive and accurate answers.</p>
+<p>Moreover, the ReAct framework <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[39]</a></span>, which stands for Reasoning and Acting, empowers LLMs by granting access to external tools. This capability allows LLM instances to function as intelligent agents that can interact meaningfully with their environment through user-defined tools. For instance, a ReAct tool could be a function that returns a weather forecast based on the user’s current location. In this scenario, the LLM can provide accurate and truthful predictions, thereby mitigating risks associated with hallucinated responses.</p>
 </section>
-<section id="sec-prompting" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-prompting"><span class="header-section-number">2.2.3</span> Prompting</h3>
-<ul>
-<li>Zero-shot</li>
-<li>Few-shot <span class="citation" data-cites="brown2020"><a href="refs.html#ref-brown2020" role="doc-biblioref">[31]</a></span></li>
-<li>RAG <span class="citation" data-cites="lewis2021"><a href="refs.html#ref-lewis2021" role="doc-biblioref">[32]</a></span></li>
-<li>chain of thought <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[33]</a></span></li>
-<li>tree of thought <span class="citation" data-cites="yao2023"><a href="refs.html#ref-yao2023" role="doc-biblioref">[34]</a></span></li>
-<li>reAct <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[35]</a></span></li>
-</ul>
-<p>Comparison, strengths weaknesses etc. <span class="citation" data-cites="laban2025"><a href="refs.html#ref-laban2025" role="doc-biblioref">[36]</a></span>.</p>
+<section id="sec-llm-coding" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-llm-coding"><span class="header-section-number">2.2.3</span> LLMs for Coding</h3>
+<p>The impact of LLMs in software development in recent years is apparent, with hundreds of LLM-assistance extensions and Integrated Development Environments (IDEs) being published. Notable instances include tools like GitHub Copilot and IDEs such as Cursor, which leverage LLM capabilities to provide developers with coding suggestions, auto-completions, and even real-time debugging assistance <span class="citation" data-cites="cursor ghcopilot"><a href="refs.html#ref-cursor" role="doc-biblioref">[40]</a>, <a href="refs.html#ref-ghcopilot" role="doc-biblioref">[41]</a></span>. Such innovations have introduced a layer of interaction that enhances productivity and fosters a more intuitive coding experience. Simultaneously, certain LLMs are trained themselves with the code-generation task in mind <span class="citation" data-cites="nijkamp2023a nijkamp2023 openai2025a"><a href="refs.html#ref-nijkamp2023a" role="doc-biblioref">[42]</a>, <a href="refs.html#ref-nijkamp2023" role="doc-biblioref">[43]</a>, <a href="refs.html#ref-openai2025a" role="doc-biblioref">[44]</a></span>.</p>
+<p>One exemplary product of this innovation is <em>vibecoding</em> and the no-code movement, which describe the development of software by only prompting and tasking an LLM, i.e.&nbsp;without any actual programming required by the user. This constitutes a showcase of how LLMs can be harnessed to elevate the coding experience by supporting developers as they navigate complex programming tasks <span class="citation" data-cites="sarkar2025"><a href="refs.html#ref-sarkar2025" role="doc-biblioref">[45]</a></span>. By analyzing the context of the code being written, these sophisticated models can provide contextualized insights and relevant snippets, effectively streamlining the development process. Developers can benefit from reduced cognitive load, as they receive suggestions that not only cater to immediate coding needs but also promote adherence to best practices and coding standards.</p>
+<p>Despite these advancements, it is crucial to recognize the inherent limitations of LLMs when applied to software development. While they can help in many aspects of coding, they are not immune to generating erroneous outputs—a phenomenon often referred to as “hallucination”. Hallucinations occur when LLMs produce information that is unfounded or inaccurate, which can stem from several factors, including the limitations of their training data and the constrained context window within which they operate. As LLMs generate code suggestions based on the patterns learned from vast datasets, they may inadvertently propose solutions that do not align with the specific requirements of a task or that utilize outdated programming paradigms.</p>
+<p>Moreover, the challenge of limited context windows can lead to suboptimal suggestions. LLMs generally process a fixed amount of text when generating responses, which can impact their ability to fully grasp the nuances of complex coding scenarios. This may result in outputs that lack the necessary depth and specificity required for successful implementation. As a consequence, developers must exercise caution and critically evaluate the suggestions offered by these models, as reliance on them without due diligence could lead to the introduction of bugs or other issues in the code.</p>
 </section>
-<section id="for-coding" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="for-coding"><span class="header-section-number">2.2.4</span> For coding</h3>
-<p>LLM-assisted IDEs <span class="citation" data-cites="cursor ghcopilot chen2021"><a href="refs.html#ref-cursor" role="doc-biblioref">[37]</a>, <a href="refs.html#ref-ghcopilot" role="doc-biblioref">[38]</a>, <a href="refs.html#ref-chen2021" role="doc-biblioref">[39]</a></span> Vibecoding <span class="citation" data-cites="sarkar2025"><a href="refs.html#ref-sarkar2025" role="doc-biblioref">[40]</a></span></p>
-</section>
-<section id="for-fuzzing" class="level3" data-number="2.2.5">
-<h3 data-number="2.2.5" class="anchored" data-anchor-id="for-fuzzing"><span class="header-section-number">2.2.5</span> For fuzzing</h3>
-<p>They don't work</p>
-<p>The above problems can be solved with NS AI</p>
-<p><span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[41]</a></span></p>
-</section>
-<section id="llm-programming-libraries" class="level3" data-number="2.2.6">
-<h3 data-number="2.2.6" class="anchored" data-anchor-id="llm-programming-libraries"><span class="header-section-number">2.2.6</span> LLM Programming Libraries (?)</h3>
-<p>Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[42]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[43]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[44]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[45]</a></span>.</p>
-<p>Comparison, relevance to our usecase.</p>
+<section id="llms-for-fuzzing" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="llms-for-fuzzing"><span class="header-section-number">2.2.4</span> LLMs for Fuzzing</h3>
+<p>While large language models (LLMs) demonstrate significant potential in enhancing the software development process, the challenges highlighted in <a href="#sec-llm-coding" class="quarto-xref"><span>Section 2.2.3</span></a> become even more pronounced and troublesome when these models are employed to generate fuzzing harnesses. The task of writing a fuzzing harness inherently demands an in-depth comprehension of both the library being tested and the intricate interactions expected among its various components. This level of understanding is often beyond the capabilities of LLMs, primarily due to their context window limitations, which restrict the amount of information they can effectively process and retain during code generation.</p>
+<p>In addition to this issue, the risk of error-prone code produced by LLMs further complicates the fuzzing workflow. When a crash occurs during the fuzzing process, it becomes imperative for developers to ascertain that the root cause of the failure is not attributable to deficiencies or bugs within the harness itself. This additional layer of verification adds to the cognitive load placed upon developers, potentially detracting from their ability to focus on testing and improving the underlying software.</p>
+<p>To enhance the reliability of LLM-generated harnesses in fuzzing contexts, it is essential that these generated artifacts undergo thorough evaluation and validation through programmatic means. This involves the implementation of systematic techniques that assess the accuracy and robustness of the generated code, ensuring that it aligns with the expected behavior of the components it is intended to interact with. This strategy can be conceptualized within the framework of Neurosymbolic AI, which seeks to integrate the strengths of neural networks with symbolic reasoning capabilities. By marrying these two paradigms, it may be possible to improve the reliability and efficacy of LLMs in the creation of fuzzing harnesses, ultimately leading to a more seamless integration of automated testing methodologies into the software development lifecycle.</p>
 </section>
 </section>
 <section id="neurosymbolic-ai" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="neurosymbolic-ai"><span class="header-section-number">2.3</span> Neurosymbolic AI</h2>
+<p>qqqq</p>
 <p><mark>TODO</mark> <span class="citation" data-cites="ganguly2024 garcez2020 gaur2023 grov2024 sheth2023 tilwani2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[47]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[48]</a>, <a href="refs.html#ref-grov2024" role="doc-biblioref">[49]</a>, <a href="refs.html#ref-sheth2023" role="doc-biblioref">[50]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[51]</a></span>.</p>
 <section id="what-is-it" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="what-is-it"><span class="header-section-number">2.3.1</span> What is it?</h3>
@@ -707,116 +697,116 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
 <div id="ref-rebert2014" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[8] </div><div class="csl-right-inline">A. Rebert <em>et al.</em>, <span>“Optimizing seed selection for fuzzing,”</span> in <em>Proceedings of the 23rd <span>USENIX</span> conference on <span>Security Symposium</span></em>, in <span>SEC</span>’14. USA: USENIX Association, Aug. 2014, pp. 861–875.</div>
 </div>
-<div id="ref-backus1959" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">J. W. Backus, <span>“The syntax and the semantics of the proposed international algebraic language of the <span>Zurich ACM-GAMM Conference</span>,”</span> in <em><span>ICIP Proceedings</span></em>, 1959, pp. 125–132. Available: <a href="https://cir.nii.ac.jp/crid/1572824501224489728">https://cir.nii.ac.jp/crid/1572824501224489728</a></div>
-</div>
-<div id="ref-afl" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">M. Zalewski, <span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
-</div>
-<div id="ref-honggfuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Google, <span>“Google/honggfuzz.”</span> Google, Jul. 10, 2025. Available: <a href="https://github.com/google/honggfuzz">https://github.com/google/honggfuzz</a></div>
-</div>
 <div id="ref-owaspfoundation" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">OWASP Foundation, <span>“Fuzzing.”</span> Available: <a href="https://owasp.org/www-community/Fuzzing">https://owasp.org/www-community/Fuzzing</a></div>
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">OWASP Foundation, <span>“Fuzzing.”</span> Available: <a href="https://owasp.org/www-community/Fuzzing">https://owasp.org/www-community/Fuzzing</a></div>
 </div>
 <div id="ref-heartbleed" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Blackduck, Inc., <span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Blackduck, Inc., <span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
 </div>
 <div id="ref-heartbleed-cve" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[14] </div><div class="csl-right-inline">CVE Program, <span>“<span>CVE</span> - <span>CVE-2014-0160</span>,”</span> 2014. Available: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160">https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160</a></div>
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">CVE Program, <span>“<span>CVE</span> - <span>CVE-2014-0160</span>,”</span> 2014. Available: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160">https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160</a></div>
 </div>
 <div id="ref-theopensslproject2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[15] </div><div class="csl-right-inline">The OpenSSL Project, <span>“Openssl/openssl.”</span> OpenSSL, Jul. 15, 2025. Available: <a href="https://github.com/openssl/openssl">https://github.com/openssl/openssl</a></div>
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">The OpenSSL Project, <span>“Openssl/openssl.”</span> OpenSSL, Jul. 15, 2025. Available: <a href="https://github.com/openssl/openssl">https://github.com/openssl/openssl</a></div>
 </div>
 <div id="ref-wheeler2014" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[16] </div><div class="csl-right-inline">D. Wheeler, <span>“How to <span>Prevent</span> the next <span>Heartbleed</span>,”</span> 2014. Available: <a href="https://dwheeler.com/essays/heartbleed.html">https://dwheeler.com/essays/heartbleed.html</a></div>
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">D. Wheeler, <span>“How to <span>Prevent</span> the next <span>Heartbleed</span>,”</span> 2014. Available: <a href="https://dwheeler.com/essays/heartbleed.html">https://dwheeler.com/essays/heartbleed.html</a></div>
 </div>
 <div id="ref-bash" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">GNU Project, <span>“Bash - <span>GNU Project</span> - <span>Free Software Foundation</span>.”</span> Available: <a href="https://www.gnu.org/software/bash/">https://www.gnu.org/software/bash/</a></div>
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">GNU Project, <span>“Bash - <span>GNU Project</span> - <span>Free Software Foundation</span>.”</span> Available: <a href="https://www.gnu.org/software/bash/">https://www.gnu.org/software/bash/</a></div>
+</div>
+<div id="ref-afl" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">M. Zalewski, <span>“American fuzzy lop.”</span> Available: <a href="https://lcamtuf.coredump.cx/afl/">https://lcamtuf.coredump.cx/afl/</a></div>
 </div>
 <div id="ref-saarinen2014" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[18] </div><div class="csl-right-inline">J. Saarinen, <span>“Further flaws render <span>Shellshock</span> patch ineffective,”</span> Sep. 29, 2014. Available: <a href="https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256">https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256</a></div>
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">J. Saarinen, <span>“Further flaws render <span>Shellshock</span> patch ineffective,”</span> Sep. 29, 2014. Available: <a href="https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256">https://www.itnews.com.au/news/further-flaws-render-shellshock-patch-ineffective-396256</a></div>
 </div>
 <div id="ref-simonite2020mayhem" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[19] </div><div class="csl-right-inline">T. Simonite, <span>“This <span>Bot Hunts Software Bugs</span> for the <span>Pentagon</span>,”</span> <em>Wired</em>, Jun. 01, 2020. Available: <a href="https://www.wired.com/story/bot-hunts-software-bugs-pentagon/">https://www.wired.com/story/bot-hunts-software-bugs-pentagon/</a></div>
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">T. Simonite, <span>“This <span>Bot Hunts Software Bugs</span> for the <span>Pentagon</span>,”</span> <em>Wired</em>, Jun. 01, 2020. Available: <a href="https://www.wired.com/story/bot-hunts-software-bugs-pentagon/">https://www.wired.com/story/bot-hunts-software-bugs-pentagon/</a></div>
 </div>
 <div id="ref-aflpp" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[20] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
 </div>
 <div id="ref-llvm" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[21] </div><div class="csl-right-inline">LLVM Project, <span>“The <span>LLVM Compiler Infrastructure Project</span>,”</span> 2025. Available: <a href="https://llvm.org/">https://llvm.org/</a></div>
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">LLVM Project, <span>“The <span>LLVM Compiler Infrastructure Project</span>,”</span> 2025. Available: <a href="https://llvm.org/">https://llvm.org/</a></div>
 </div>
 <div id="ref-bellard2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[22] </div><div class="csl-right-inline">F. Bellard, P. Maydell, and QEMU Team, <span>“<span>QEMU</span>.”</span> May 29, 2025. Available: <a href="https://www.qemu.org/">https://www.qemu.org/</a></div>
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">F. Bellard, P. Maydell, and QEMU Team, <span>“<span>QEMU</span>.”</span> May 29, 2025. Available: <a href="https://www.qemu.org/">https://www.qemu.org/</a></div>
 </div>
 <div id="ref-unicornengine2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[23] </div><div class="csl-right-inline">Unicorn Engine, <span>“Unicorn-engine/unicorn.”</span> Unicorn Engine, Jul. 15, 2025. Available: <a href="https://github.com/unicorn-engine/unicorn">https://github.com/unicorn-engine/unicorn</a></div>
-</div>
-<div id="ref-vaswani2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[24] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">Unicorn Engine, <span>“Unicorn-engine/unicorn.”</span> Unicorn Engine, Jul. 15, 2025. Available: <a href="https://github.com/unicorn-engine/unicorn">https://github.com/unicorn-engine/unicorn</a></div>
 </div>
 <div id="ref-li2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[25] </div><div class="csl-right-inline">H. Li, <span>“Language models: Past, present, and future,”</span> <em>Commun. ACM</em>, vol. 65, no. 7, pp. 56–63, Jun. 2022, doi: <a href="https://doi.org/10.1145/3490443">10.1145/3490443</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3490443">https://dl.acm.org/doi/10.1145/3490443</a></div>
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">H. Li, <span>“Language models: Past, present, and future,”</span> <em>Commun. ACM</em>, vol. 65, no. 7, pp. 56–63, Jun. 2022, doi: <a href="https://doi.org/10.1145/3490443">10.1145/3490443</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3490443">https://dl.acm.org/doi/10.1145/3490443</a></div>
 </div>
-<div id="ref-chatgpt" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[26] </div><div class="csl-right-inline">OpenAI, <span>“<span>ChatGPT</span>,”</span> 2025. Available: <a href="https://chatgpt.com">https://chatgpt.com</a></div>
+<div id="ref-wang2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">Z. Wang, Z. Chu, T. V. Doan, S. Ni, M. Yang, and W. Zhang, <span>“History, development, and principles of large language models: An introductory survey,”</span> <em>AI Ethics</em>, vol. 5, no. 3, pp. 1955–1971, Jun. 2025, doi: <a href="https://doi.org/10.1007/s43681-024-00583-7">10.1007/s43681-024-00583-7</a>. Available: <a href="https://doi.org/10.1007/s43681-024-00583-7">https://doi.org/10.1007/s43681-024-00583-7</a></div>
 </div>
-<div id="ref-claude" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[27] </div><div class="csl-right-inline">Anthropic, <span>“Claude,”</span> 2025. Available: <a href="https://claude.ai/new">https://claude.ai/new</a></div>
+<div id="ref-bahdanau2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">D. Bahdanau, K. Cho, and Y. Bengio, <span>“Neural <span>Machine Translation</span> by <span>Jointly Learning</span> to <span>Align</span> and <span>Translate</span>,”</span> May 19, 2016. doi: <a href="https://doi.org/10.48550/arXiv.1409.0473">10.48550/arXiv.1409.0473</a>. Available: <a href="http://arxiv.org/abs/1409.0473">http://arxiv.org/abs/1409.0473</a></div>
 </div>
-<div id="ref-gemini" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[28] </div><div class="csl-right-inline">Google, <span>“‎<span>Google Gemini</span>,”</span> 2025. Available: <a href="https://gemini.google.com">https://gemini.google.com</a></div>
+<div id="ref-vaswani2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
 </div>
-<div id="ref-grattafiori2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[29] </div><div class="csl-right-inline">A. Grattafiori <em>et al.</em>, <span>“The <span>Llama</span> 3 <span>Herd</span> of <span>Models</span>,”</span> Nov. 23, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2407.21783">10.48550/arXiv.2407.21783</a>. Available: <a href="http://arxiv.org/abs/2407.21783">http://arxiv.org/abs/2407.21783</a></div>
+<div id="ref-devlin2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, <span>“<span>BERT</span>: <span class="nocase">Pre-training</span> of <span>Deep Bidirectional Transformers</span> for <span>Language Understanding</span>,”</span> May 24, 2019. doi: <a href="https://doi.org/10.48550/arXiv.1810.04805">10.48550/arXiv.1810.04805</a>. Available: <a href="http://arxiv.org/abs/1810.04805">http://arxiv.org/abs/1810.04805</a></div>
 </div>
-<div id="ref-deepseek-ai2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[30] </div><div class="csl-right-inline">DeepSeek-AI <em>et al.</em>, <span>“<span>DeepSeek-R1</span>: <span>Incentivizing Reasoning Capability</span> in <span>LLMs</span> via <span>Reinforcement Learning</span>,”</span> Jan. 22, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2501.12948">10.48550/arXiv.2501.12948</a>. Available: <a href="http://arxiv.org/abs/2501.12948">http://arxiv.org/abs/2501.12948</a></div>
+<div id="ref-radford2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">A. Radford, K. Narasimhan, T. Salimans, and I. Sutskever, <span>“Improving language understanding by generative pre-training,”</span> 2018, Available: <a href="https://www.mikecaptain.com/resources/pdf/GPT-1.pdf">https://www.mikecaptain.com/resources/pdf/GPT-1.pdf</a></div>
+</div>
+<div id="ref-radford2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">A. Radford, J. Wu, R. Child, D. Luan, D. Amodei, and I. Sutskever, <span>“Language models are unsupervised multitask learners,”</span> <em>OpenAI blog</em>, vol. 1, no. 8, p. 9, 2019, Available: <a href="https://storage.prod.researchhub.com/uploads/papers/2020/06/01/language-models.pdf">https://storage.prod.researchhub.com/uploads/papers/2020/06/01/language-models.pdf</a></div>
 </div>
 <div id="ref-brown2020" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[31] </div><div class="csl-right-inline">T. B. Brown <em>et al.</em>, <span>“Language <span>Models</span> are <span>Few-Shot Learners</span>,”</span> Jul. 22, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2005.14165">10.48550/arXiv.2005.14165</a>. Available: <a href="http://arxiv.org/abs/2005.14165">http://arxiv.org/abs/2005.14165</a></div>
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">T. B. Brown <em>et al.</em>, <span>“Language <span>Models</span> are <span>Few-Shot Learners</span>,”</span> Jul. 22, 2020. doi: <a href="https://doi.org/10.48550/arXiv.2005.14165">10.48550/arXiv.2005.14165</a>. Available: <a href="http://arxiv.org/abs/2005.14165">http://arxiv.org/abs/2005.14165</a></div>
 </div>
-<div id="ref-lewis2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[32] </div><div class="csl-right-inline">P. Lewis <em>et al.</em>, <span>“Retrieval-<span>Augmented Generation</span> for <span>Knowledge-Intensive NLP Tasks</span>,”</span> Apr. 12, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2005.11401">10.48550/arXiv.2005.11401</a>. Available: <a href="http://arxiv.org/abs/2005.11401">http://arxiv.org/abs/2005.11401</a></div>
+<div id="ref-openai2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">OpenAI <em>et al.</em>, <span>“<span>GPT-4 Technical Report</span>,”</span> Mar. 04, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2303.08774">10.48550/arXiv.2303.08774</a>. Available: <a href="http://arxiv.org/abs/2303.08774">http://arxiv.org/abs/2303.08774</a></div>
+</div>
+<div id="ref-claude" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">Anthropic, <span>“Claude,”</span> 2025. Available: <a href="https://claude.ai/new">https://claude.ai/new</a></div>
+</div>
+<div id="ref-deepseek-ai2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">DeepSeek-AI <em>et al.</em>, <span>“<span>DeepSeek-R1</span>: <span>Incentivizing Reasoning Capability</span> in <span>LLMs</span> via <span>Reinforcement Learning</span>,”</span> Jan. 22, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2501.12948">10.48550/arXiv.2501.12948</a>. Available: <a href="http://arxiv.org/abs/2501.12948">http://arxiv.org/abs/2501.12948</a></div>
+</div>
+<div id="ref-grattafiori2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">A. Grattafiori <em>et al.</em>, <span>“The <span>Llama</span> 3 <span>Herd</span> of <span>Models</span>,”</span> Nov. 23, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2407.21783">10.48550/arXiv.2407.21783</a>. Available: <a href="http://arxiv.org/abs/2407.21783">http://arxiv.org/abs/2407.21783</a></div>
+</div>
+<div id="ref-chatgpt" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">OpenAI, <span>“<span>ChatGPT</span>,”</span> 2025. Available: <a href="https://chatgpt.com">https://chatgpt.com</a></div>
+</div>
+<div id="ref-gemini" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">Google, <span>“‎<span>Google Gemini</span>,”</span> 2025. Available: <a href="https://gemini.google.com">https://gemini.google.com</a></div>
 </div>
 <div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[33] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
 </div>
 <div id="ref-yao2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[34] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“Tree of <span>Thoughts</span>: <span>Deliberate Problem Solving</span> with <span>Large Language Models</span>,”</span> Dec. 03, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2305.10601">10.48550/arXiv.2305.10601</a>. Available: <a href="http://arxiv.org/abs/2305.10601">http://arxiv.org/abs/2305.10601</a></div>
+</div>
+<div id="ref-lewis2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">P. Lewis <em>et al.</em>, <span>“Retrieval-<span>Augmented Generation</span> for <span>Knowledge-Intensive NLP Tasks</span>,”</span> Apr. 12, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2005.11401">10.48550/arXiv.2005.11401</a>. Available: <a href="http://arxiv.org/abs/2005.11401">http://arxiv.org/abs/2005.11401</a></div>
 </div>
 <div id="ref-reAct" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[35] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
-</div>
-<div id="ref-laban2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[36] </div><div class="csl-right-inline">P. Laban, H. Hayashi, Y. Zhou, and J. Neville, <span>“<span>LLMs Get Lost In Multi-Turn Conversation</span>,”</span> May 09, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2505.06120">10.48550/arXiv.2505.06120</a>. Available: <a href="http://arxiv.org/abs/2505.06120">http://arxiv.org/abs/2505.06120</a></div>
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
 </div>
 <div id="ref-cursor" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[37] </div><div class="csl-right-inline">Anysphere, <span>“Cursor - <span>The AI Code Editor</span>,”</span> 2025. Available: <a href="https://cursor.com/">https://cursor.com/</a></div>
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">Anysphere, <span>“Cursor - <span>The AI Code Editor</span>,”</span> 2025. Available: <a href="https://cursor.com/">https://cursor.com/</a></div>
 </div>
 <div id="ref-ghcopilot" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[38] </div><div class="csl-right-inline">Microsoft, <span>“<span>GitHub Copilot</span> · <span>Your AI</span> pair programmer,”</span> 2025. Available: <a href="https://github.com/features/copilot">https://github.com/features/copilot</a></div>
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline">Microsoft, <span>“<span>GitHub Copilot</span> · <span>Your AI</span> pair programmer,”</span> 2025. Available: <a href="https://github.com/features/copilot">https://github.com/features/copilot</a></div>
 </div>
-<div id="ref-chen2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[39] </div><div class="csl-right-inline">M. Chen <em>et al.</em>, <span>“Evaluating <span>Large Language Models Trained</span> on <span>Code</span>,”</span> Jul. 14, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2107.03374">10.48550/arXiv.2107.03374</a>. Available: <a href="http://arxiv.org/abs/2107.03374">http://arxiv.org/abs/2107.03374</a></div>
+<div id="ref-nijkamp2023a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">E. Nijkamp <em>et al.</em>, <span>“<span>CodeGen</span>: <span>An</span> open large language model for code with multi-turn program synthesis,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+<div id="ref-nijkamp2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[43] </div><div class="csl-right-inline">E. Nijkamp, H. Hayashi, C. Xiong, S. Savarese, and Y. Zhou, <span>“<span>CodeGen2</span>: <span>Lessons</span> for training llms on programming and natural languages,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+<div id="ref-openai2025a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[44] </div><div class="csl-right-inline">OpenAI, <span>“Introducing <span>GPT-4</span>.1 in the <span>API</span>,”</span> Apr. 14, 2025. Available: <a href="https://openai.com/index/gpt-4-1/">https://openai.com/index/gpt-4-1/</a></div>
 </div>
 <div id="ref-sarkar2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[40] </div><div class="csl-right-inline">A. Sarkar and I. Drosos, <span>“Vibe coding: Programming through conversation with artificial intelligence,”</span> Jun. 29, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2506.23253">10.48550/arXiv.2506.23253</a>. Available: <a href="http://arxiv.org/abs/2506.23253">http://arxiv.org/abs/2506.23253</a></div>
-</div>
-<div id="ref-perry2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[41] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
-</div>
-<div id="ref-langchain" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[42] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
-</div>
-<div id="ref-langgraph" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[43] </div><div class="csl-right-inline">Langchain Project, <span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
-</div>
-<div id="ref-llamaindex" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[44] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
-</div>
-<div id="ref-dspy" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[45] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+<div class="csl-left-margin">[45] </div><div class="csl-right-inline">A. Sarkar and I. Drosos, <span>“Vibe coding: Programming through conversation with artificial intelligence,”</span> Jun. 29, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2506.23253">10.48550/arXiv.2506.23253</a>. Available: <a href="http://arxiv.org/abs/2506.23253">http://arxiv.org/abs/2506.23253</a></div>
 </div>
 <div id="ref-ganguly2024" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[46] </div><div class="csl-right-inline">D. Ganguly, S. Iyengar, V. Chaudhary, and S. Kalyanaraman, <span>“Proof of <span>Thought</span> : <span>Neurosymbolic Program Synthesis</span> allows <span>Robust</span> and <span>Interpretable Reasoning</span>,”</span> Sep. 25, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.17270">10.48550/arXiv.2409.17270</a>. Available: <a href="http://arxiv.org/abs/2409.17270">http://arxiv.org/abs/2409.17270</a></div>

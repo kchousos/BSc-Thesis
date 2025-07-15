@@ -48,54 +48,54 @@ An input given to the PUT that is mutated by the fuzzer to produce new test case
 
 The process of selecting an effective initial corpus is crucial because it directly impacts how quickly and thoroughly the fuzzer can cover the target program's code. This challenge---studied as the *seed-selection problem*---involves identifying seeds that enable rapid discovery of diverse execution paths and is non-trivial [@rebert2014]. A well-chosen seed set often accelerates bug discovery and improves overall fuzzing efficiency.
 
-### Taxonomies of Fuzzing
+<!-- ### Taxonomies of Fuzzing -->
 
-To better understand fuzzers, researchers traditionally classify them along two orthogonal axes: the level of knowledge about the PUT that they possess, and the strategy they use to generate test inputs.
+<!-- To better understand fuzzers, researchers traditionally classify them along two orthogonal axes: the level of knowledge about the PUT that they possess, and the strategy they use to generate test inputs. -->
 
-#### Knowledge of the PUT {.unnumbered}
+<!-- #### Knowledge of the PUT {.unnumbered} -->
 
-Fuzzers differ in how much information they leverage about the program under test:
+<!-- Fuzzers differ in how much information they leverage about the program under test: -->
 
-::: {#def-blackbox}
-###### Black-box fuzzer
-Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations.
-:::
+<!-- ::: {#def-blackbox} -->
+<!-- ###### Black-box fuzzer -->
+<!-- Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations. -->
+<!-- ::: -->
 
-Black-box fuzzers treat the PUT as a black box, generating inputs without insights into program internals. This makes them simple but often less efficient in uncovering deep bugs.
+<!-- Black-box fuzzers treat the PUT as a black box, generating inputs without insights into program internals. This makes them simple but often less efficient in uncovering deep bugs. -->
 
-::: {#def-greybox}
-###### Grey-box fuzzer
-Gains limited insight---typically lightweight coverage metrics---via instrumentation, allowing more informed mutations while retaining scalability.
-:::
+<!-- ::: {#def-greybox} -->
+<!-- ###### Grey-box fuzzer -->
+<!-- Gains limited insight---typically lightweight coverage metrics---via instrumentation, allowing more informed mutations while retaining scalability. -->
+<!-- ::: -->
 
-Grey-box fuzzers strike a balance by collecting partial information, such as execution coverage via lightweight instrumentation, enabling more targeted input mutations that improve effectiveness.
+<!-- Grey-box fuzzers strike a balance by collecting partial information, such as execution coverage via lightweight instrumentation, enabling more targeted input mutations that improve effectiveness. -->
 
-::: {#def-whitebox}
-###### White-box fuzzer
-Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths.
-:::
+<!-- ::: {#def-whitebox} -->
+<!-- ###### White-box fuzzer -->
+<!-- Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths. -->
+<!-- ::: -->
 
-White-box fuzzers exploit full program knowledge, using advanced techniques like symbolic execution to methodically explore program paths, but often at the cost of reduced scalability.
+<!-- White-box fuzzers exploit full program knowledge, using advanced techniques like symbolic execution to methodically explore program paths, but often at the cost of reduced scalability. -->
 
-#### Test-case Generation Strategy {.unnumbered}
+<!-- #### Test-case Generation Strategy {.unnumbered} -->
 
-The second axis concerns how fuzzers generate test inputs:
+<!-- The second axis concerns how fuzzers generate test inputs: -->
 
-::: {#def-generational}
-###### Generational fuzzing
-Produces inputs from a structural model or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse.
-:::
+<!-- ::: {#def-generational} -->
+<!-- ###### Generational fuzzing -->
+<!-- Produces inputs from a structural model or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse. -->
+<!-- ::: -->
 
-Generational fuzzing leverages knowledge of input formats (e.g., a BNF grammar [@backus1959]) to produce well-formed test cases derived from formal specifications or models, improving the likelihood of meaningful program behavior.
+<!-- Generational fuzzing leverages knowledge of input formats (e.g., a BNF grammar [@backus1959]) to produce well-formed test cases derived from formal specifications or models, improving the likelihood of meaningful program behavior. -->
 
-::: {#def-mutational}
-###### Mutational fuzzing
-Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective.
-:::
+<!-- ::: {#def-mutational} -->
+<!-- ###### Mutational fuzzing -->
+<!-- Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective. -->
+<!-- ::: -->
 
-Mutational fuzzing begins with seeds and applies random or guided mutations to explore nearby input space regions. Techniques like coverage-guided fuzzing have greatly enhanced the efficiency of this approach.
+<!-- Mutational fuzzing begins with seeds and applies random or guided mutations to explore nearby input space regions. Techniques like coverage-guided fuzzing have greatly enhanced the efficiency of this approach. -->
 
-These two dimensions are often combined to tailor fuzzers to specific scenarios. For example, AFL [@afl] is a grey-box, mutational fuzzer that uses coverage feedback to guide input mutations, while Honggfuzz [@honggfuzz] can operate as a grey-box generational fuzzer when provided with grammar-based input models. This flexibility allows fuzzers to adapt to varied testing goals and program characteristics.
+<!-- These two dimensions are often combined to tailor fuzzers to specific scenarios. For example, AFL [@afl] is a grey-box, mutational fuzzer that uses coverage feedback to guide input mutations, while Honggfuzz [@honggfuzz] can operate as a grey-box generational fuzzer when provided with grammar-based input models. This flexibility allows fuzzers to adapt to varied testing goals and program characteristics. -->
 
 ### Motivation
 
@@ -204,51 +204,49 @@ Despite its potential for uncovering software vulnerabilities, fuzzing remains a
 
 ## Large Language Models (LLMs)
 
-qqqqqqq
+Natural Language Processing (NLP), a subfield of Artificial Intelligence (AI), has a rich and ongoing history that has evolved significantly since its beginning in the 1990s [@li2022; @wang2025]. Among the most notable---and recent---advancements in this domain are Large Language Models (LLMs), which have transformed the landscape of NLP and AI in general.
 
-Transformers [@vaswani2023], 2017--2025. ChatGPT/OpenAI history & context. Claude, Llama (1--3) etc.
+At the core of many LLMs is the attention mechanism, which was introduced by Bahdanau et al. in 2014 [@bahdanau2016]. This pivotal innovation enabled models to focus on relevant parts of the input sequence when making predictions, significantly improving language understanding and generation tasks. Building on this foundation, the Transformer architecture was proposed by Vaswani et al. in 2017 [@vaswani2023]. This architecture has become the backbone of most contemporary LLMs, as it efficiently processes sequences of data, capturing long-range dependencies without being hindered by sequential processing limitations.
 
-### What are they?
+One of the first major breakthroughs utilizing the Transformer architecture was BERT (Bidirectional Encoder Representations from Transformers), developed by Devlin et al. in 2019 [@devlin2019]. BERT's bi-directional understanding allowed it to capture the context of words from both directions, which improved the accuracy of various NLP tasks. Following this, the Generative Pre-trained Transformer (GPT) series, initiated by OpenAI with the original GPT model in 2018 [@radford2018], further pushed the boundaries. Subsequent iterations, including GPT-2 [@radford2019], GPT-3 [@brown2020], and the most current GPT-4 [@openai2024], have continued to enhance performance by scaling model size, data, and training techniques.
 
-[@li2022] Transformers [@vaswani2023]
+In addition to OpenAI’s contributions, other significant models have emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3) [@claude; @deepseek-ai2025; @grattafiori2024]. The proliferation of LLMs has sparked an active discourse about their capabilities, applications, and implications in various fields.
 
 ### Biggest GPTs
 
-- Closed-source ChatGPT, Claude, Gemini [@chatgpt; @claude; @gemini]
-- Open-source (i.e. open-weights)
-
-Llama{1,..,3}, Deepseek [@grattafiori2024; @deepseek-ai2025]
+User-facing LLMs are generally categorized between closed-source and open-source models. Closed-source LLMs like ChatGPT, Claude, and Gemini [@chatgpt; @claude; @gemini] represent commercially developed systems often optimized for specific tasks without public access to their underlying weights. In contrast, open-source models^[The term "open-source" models is somewhat misleading, since these are better termed as *open-weights* models. While their weights are publicly available, their training data and underlying code are often proprietary. This terminology reflects community usage but fails to capture the limitations of transparency and accessibility inherent in these models.], including the Llama series [@grattafiori2024] and Deepseek [@deepseek-ai2025], provide researchers and practitioners with access to model weights, allowing for greater transparency and adaptability.
 
 ### Prompting {#sec-prompting}
 
-- Zero-shot
-- Few-shot [@brown2020]
-- RAG [@lewis2021]
-- chain of thought [@chainofthought]
-- tree of thought [@yao2023]
-- reAct [@reAct]
+Interaction with LLMs typically occurs through chat-like interfaces, a process commonly referred to as *prompting*. A critical aspect of effective engagement with LLMs is the usage of different prompting strategies, which can significantly influence the quality and relevance of the generated outputs. Various approaches to prompting have been developed and studied, including zero-shot and few-shot prompting. In zero-shot prompting, the model is expected to perform a specific task without any examples, while in few-shot prompting, the user provides a limited number of examples to guide the model's responses [@brown2020].
 
-Comparison, strengths weaknesses etc. [@laban2025].
+To enhance performance on more complex tasks, several advanced prompting techniques have emerged. One notable strategy is the *Chain of Thought* approach [@chainofthought], which entails presenting the model with sample thought processes for solving a given task. This method encourages the model to generate more coherent and logical reasoning by mimicking human-like cognitive pathways. A refined variant of this approach is the *Tree of Thoughts* technique [@yao2023], which enables the LLM to explore multiple lines of reasoning concurrently, thereby facilitating the selection of the most promising train of thought for further exploration.
 
-### For coding
+In addition to these cognitive strategies, Retrieval-Augmented Generation (RAG) [@lewis2021] is another innovative technique that enhances the model's capacity to provide accurate information by incorporating external knowledge not present in its training dataset. RAG operates by integrating the LLM with an external storage system---often a vector store containing relevant documents---that the model can query in real-time. This allows the LLM to pull up pertinent and/or proprietary information in response to user queries, resulting in more comprehensive and accurate answers.
 
-LLM-assisted IDEs [@cursor; @ghcopilot; @chen2021] Vibecoding [@sarkar2025]
+Moreover, the ReAct framework [@reAct], which stands for Reasoning and Acting, empowers LLMs by granting access to external tools. This capability allows LLM instances to function as intelligent agents that can interact meaningfully with their environment through user-defined tools. For instance, a ReAct tool could be a function that returns a weather forecast based on the user's current location. In this scenario, the LLM can provide accurate and truthful predictions, thereby mitigating risks associated with hallucinated responses.
 
-### For fuzzing
+### LLMs for Coding {#sec-llm-coding}
 
-They don\'t work
+The impact of LLMs in software development in recent years is apparent, with hundreds of LLM-assistance extensions and Integrated Development Environments (IDEs) being published. Notable instances include tools like GitHub Copilot and IDEs such as Cursor, which leverage LLM capabilities to provide developers with coding suggestions, auto-completions, and even real-time debugging assistance [@cursor; @ghcopilot]. Such innovations have introduced a layer of interaction that enhances productivity and fosters a more intuitive coding experience. Simultaneously, certain LLMs are trained themselves with the code-generation task in mind [@nijkamp2023a; @nijkamp2023; @openai2025a].
 
-The above problems can be solved with NS AI
+One exemplary product of this innovation is *vibecoding* and the no-code movement, which describe the development of software by only prompting and tasking an LLM, i.e. without any actual programming required by the user. This constitutes a showcase of how LLMs can be harnessed to elevate the coding experience by supporting developers as they navigate complex programming tasks [@sarkar2025]. By analyzing the context of the code being written, these sophisticated models can provide contextualized insights and relevant snippets, effectively streamlining the development process. Developers can benefit from reduced cognitive load, as they receive suggestions that not only cater to immediate coding needs but also promote adherence to best practices and coding standards.
 
-[@perry2023]
+Despite these advancements, it is crucial to recognize the inherent limitations of LLMs when applied to software development. While they can help in many aspects of coding, they are not immune to generating erroneous outputs---a phenomenon often referred to as "hallucination". Hallucinations occur when LLMs produce information that is unfounded or inaccurate, which can stem from several factors, including the limitations of their training data and the constrained context window within which they operate. As LLMs generate code suggestions based on the patterns learned from vast datasets, they may inadvertently propose solutions that do not align with the specific requirements of a task or that utilize outdated programming paradigms.
 
-### LLM Programming Libraries (?)
+Moreover, the challenge of limited context windows can lead to suboptimal suggestions. LLMs generally process a fixed amount of text when generating responses, which can impact their ability to fully grasp the nuances of complex coding scenarios. This may result in outputs that lack the necessary depth and specificity required for successful implementation. As a consequence, developers must exercise caution and critically evaluate the suggestions offered by these models, as reliance on them without due diligence could lead to the introduction of bugs or other issues in the code.
 
-Langchain & LangGraph, LlamaIndex [@langchain;@langgraph;@llamaindex]. DSPy [@dspy].
+### LLMs for Fuzzing
 
-Comparison, relevance to our usecase.
+While large language models (LLMs) demonstrate significant potential in enhancing the software development process, the challenges highlighted in [@sec-llm-coding] become even more pronounced and troublesome when these models are employed to generate fuzzing harnesses. The task of writing a fuzzing harness inherently demands an in-depth comprehension of both the library being tested and the intricate interactions expected among its various components. This level of understanding is often beyond the capabilities of LLMs, primarily due to their context window limitations, which restrict the amount of information they can effectively process and retain during code generation.
+
+In addition to this issue, the risk of error-prone code produced by LLMs further complicates the fuzzing workflow. When a crash occurs during the fuzzing process, it becomes imperative for developers to ascertain that the root cause of the failure is not attributable to deficiencies or bugs within the harness itself. This additional layer of verification adds to the cognitive load placed upon developers, potentially detracting from their ability to focus on testing and improving the underlying software.
+
+To enhance the reliability of LLM-generated harnesses in fuzzing contexts, it is essential that these generated artifacts undergo thorough evaluation and validation through programmatic means. This involves the implementation of systematic techniques that assess the accuracy and robustness of the generated code, ensuring that it aligns with the expected behavior of the components it is intended to interact with. This strategy can be conceptualized within the framework of Neurosymbolic AI, which seeks to integrate the strengths of neural networks with symbolic reasoning capabilities. By marrying these two paradigms, it may be possible to improve the reliability and efficacy of LLMs in the creation of fuzzing harnesses, ultimately leading to a more seamless integration of automated testing methodologies into the software development lifecycle.
 
 ## Neurosymbolic AI
+
+qqqq
 
 [TODO]{.mark} [@ganguly2024; @garcez2020; @gaur2023; @grov2024; @sheth2023; @tilwani2024].
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -39,14 +59,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -235,6 +255,7 @@ ul.task-list li input[type="checkbox"] {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -399,20 +420,35 @@ ul.task-list li input[type="checkbox"] {
 <section id="architecture" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="architecture"><span class="header-section-number">4.1</span> Architecture</h2>
 <ul>
-<li><mark>System diagram</mark></li>
-<li>Main Library Architecture/Structure</li>
-<li>LLM usage
+<li><p><mark>System diagram</mark></p></li>
+<li><p>Main Library Architecture/Structure</p></li>
+<li><p>LLM usage</p>
 <ul>
-<li>Prompting techniques used (callback to <a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.3</span></a>).</li>
+<li>Prompting techniques used (callback to <a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.2</span></a>).</li>
 </ul></li>
-<li>Static analysis</li>
-<li>Code localization(?)</li>
-<li>Fuzzers</li>
-<li>GitHub Workflow/Usage</li>
-<li>“Ieration budget”</li>
+<li><p>Static analysis</p></li>
+<li><p>Code localization(?)</p></li>
+<li><p>Fuzzers</p></li>
+<li><p>GitHub Workflow/Usage</p></li>
+<li><p>“Ieration budget”</p></li>
+<li><p>LLM Programming Libraries (?) Langchain &amp; LangGraph, LlamaIndex <span class="citation" data-cites="langchain langgraph llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-langgraph" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[3]</a></span>. DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[4]</a></span>. Comparison, relevance to our usecase.</p></li>
 </ul>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-langchain" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
+</div>
+<div id="ref-langgraph" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Langchain Project, <span>“Langchain-ai/langgraph.”</span> LangChain, May 21, 2025. Available: <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></div>
+</div>
+<div id="ref-llamaindex" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
+</div>
+<div id="ref-dspy" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
