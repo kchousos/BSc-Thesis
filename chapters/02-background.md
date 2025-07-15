@@ -202,9 +202,9 @@ Although AFL is traditionally utilized for fuzzing standalone programs or binari
 
 Despite its potential for uncovering software vulnerabilities, fuzzing remains a relatively underutilized testing technique compared to more established methodologies such as Test-Driven Development (TDD). This limited adoption can be attributed, in part, to the substantial initial investment required to design and implement appropriate test harnesses that enable effective fuzzing processes. Furthermore, the interpretation of fuzzing outcomes---particularly the identification, diagnostic analysis, and prioritization of program crashes---demands considerable resources and specialized expertise. These factors collectively pose significant barriers to the widespread integration of fuzzing within standard software development and testing practices.
 
-qqqqqqq
-
 ## Large Language Models (LLMs)
+
+qqqqqqq
 
 Transformers [@vaswani2023], 2017--2025. ChatGPT/OpenAI history & context. Claude, Llama (1--3) etc.
 
