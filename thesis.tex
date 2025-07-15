@@ -402,7 +402,7 @@ parturient montes, nascetur ridiculus mus.
 
 \section{Fuzz Testing}\label{fuzz-testing}
 
-\textbf{Fuzzing} is an automated software-testing technique in which a
+\emph{Fuzzing} is an automated software-testing technique in which a
 \emph{Program Under Test} (PUT) is executed with (pseudo-)random inputs
 in the hope of exposing undefined behavior. When such behavior manifests
 as a crash, hang, or memory-safety violation, the corresponding input
@@ -416,8 +416,10 @@ books in 2007--2008 \autocite{takanen2018,sutton2007,rathaus2007}.
 Historically, the term was coined by Miller et al.~in 1990, who used
 ``fuzz'' to describe a program that ``generates a stream of random
 characters to be consumed by a target program'' \autocite{miller1990}.
-More rigorously---borrowing Manes et al.'s definitions
-\autocite{manes2019}:
+This informal usage captured the essence of what fuzzing aims to do:
+stress test software by bombarding it with unexpected inputs to reveal
+bugs. To formalize this concept, we adopt Manes et al.'s rigorous
+definitions \autocite{manes2019}:
 
 \begin{definition}[Fuzzing]\protect\hypertarget{def-fuzzing}{}\label{def-fuzzing}
 
@@ -427,11 +429,13 @@ the expected input space of the PUT.
 
 \end{definition}
 
-An individual execution (or bounded set of executions) that meets this
-definition is a \emph{fuzzing run}. When such runs are performed
-systematically and at scale to test whether the PUT violates a specified
-security policy, we speak of \textbf{fuzz testing} (or simply
-\emph{fuzzing} in common parlance):
+This means fuzzing involves running the target program on inputs that go
+beyond those it is typically designed to handle, aiming to uncover
+hidden issues. An individual instance of such execution---or a bounded
+sequence thereof---is called a \emph{fuzzing run}. When these runs are
+conducted systematically and at scale with the specific goal of
+detecting violations of a security policy, the activity is known as
+\emph{fuzz testing} (or simply \emph{fuzzing}):
 
 \begin{definition}[Fuzz
 Testing]\protect\hypertarget{def-fuzz-testing}{}\label{def-fuzz-testing}
@@ -441,9 +445,12 @@ security policy.
 
 \end{definition}
 
-A \textbf{fuzzer engine} orchestrates a \textbf{fuzz campaign}---one
-concrete instantiation of a fuzzer running against a single PUT under a
-particular policy:
+This distinction highlights that fuzz testing is fuzzing with an
+explicit focus on security properties and policy enforcement. Central to
+managing this process is the \emph{fuzzer engine}, which orchestrates
+the execution of one or more fuzzing runs as part of a \emph{fuzz
+campaign}. A fuzz campaign represents a concrete instance of fuzz
+testing tailored to a particular program and security policy:
 
 \begin{definition}[Fuzzer, Fuzzer
 Engine]\protect\hypertarget{def-fuzzer}{}\label{def-fuzzer}
@@ -460,8 +467,9 @@ specific security policy.
 
 \end{definition}
 
-During each execution the \textbf{bug oracle} decides whether the
-observed behaviour constitutes a policy violation:
+Throughout each execution within a campaign, a \emph{bug oracle} plays a
+critical role in evaluating the program's behavior to determine whether
+it violates the defined security policy:
 
 \begin{definition}[Bug
 Oracle]\protect\hypertarget{def-oracle}{}\label{def-oracle}
@@ -472,17 +480,18 @@ policy.
 
 \end{definition}
 
-In practice, many oracles are based on runtime instrumentation such as
-fatal POSIX signals (e.g., \texttt{SIGSEGV}) or sanitizers like
-AddressSanitizer (ASan) \autocite{serebryany2012}, as used by LibFuzzer
-\autocite{libfuzzer}.
+In practice, bug oracles often rely on runtime instrumentation
+techniques, such as monitoring for fatal POSIX signals (e.g.,
+\texttt{SIGSEGV}) or using sanitizers like AddressSanitizer (ASan)
+\autocite{serebryany2012}. Tools like LibFuzzer \autocite{libfuzzer}
+commonly incorporate such instrumentation to reliably identify crashes
+or memory errors during fuzzing.
 
-\subsection{Seeds, Mutation, and the Seed-Selection
-Problem}\label{seeds-mutation-and-the-seed-selection-problem}
-
-A campaign usually begins with one or more \textbf{seeds}---well-formed
-inputs that belong to the PUT's expected input space. The fuzzer mutates
-these seeds to explore the larger fuzz input space:
+Most fuzz campaigns begin with a set of \emph{seeds}---inputs that are
+well-formed and belong to the PUT's expected input space---called a
+\emph{seed corpus}. These seeds serve as starting points from which the
+fuzzer generates new test cases by applying transformations or
+mutations, thereby exploring a broader input space:
 
 \begin{definition}[Seed]\protect\hypertarget{def-seed}{}\label{def-seed}
 
@@ -492,17 +501,25 @@ seeds are stored in a seed \emph{pool} or \emph{corpus}.
 
 \end{definition}
 
-Selecting an initial corpus that leads to fast, wide code-coverage is
-non-trivial and has been studied as the \emph{seed-selection problem}
-\autocite{rebert2014}.
+The process of selecting an effective initial corpus is crucial because
+it directly impacts how quickly and thoroughly the fuzzer can cover the
+target program's code. This challenge---studied as the
+\emph{seed-selection problem}---involves identifying seeds that enable
+rapid discovery of diverse execution paths and is non-trivial
+\autocite{rebert2014}. A well-chosen seed set often accelerates bug
+discovery and improves overall fuzzing efficiency.
 
 \subsection{Taxonomies of Fuzzing}\label{taxonomies-of-fuzzing}
 
-Fuzzers are traditionally classified along two orthogonal dimensions.
-Namely, in regards to the knowledge of the PUT they have access to and
-the strategy used for the input generation.
+To better understand fuzzers, researchers traditionally classify them
+along two orthogonal axes: the level of knowledge about the PUT that
+they possess, and the strategy they use to generate test inputs.
 
-\subsubsection{Knowledge of the PUT}\label{knowledge-of-the-put}
+\subsubsection*{Knowledge of the PUT}\label{knowledge-of-the-put}
+\addcontentsline{toc}{subsubsection}{Knowledge of the PUT}
+
+Fuzzers differ in how much information they leverage about the program
+under test:
 
 \begin{definition}[Black-box
 fuzzer]\protect\hypertarget{def-blackbox}{}\label{def-blackbox}
@@ -511,6 +528,10 @@ Operates solely on program binaries, with no knowledge of internal
 structure; input generation is guided only by external observations.
 
 \end{definition}
+
+Black-box fuzzers treat the PUT as a black box, generating inputs
+without insights into program internals. This makes them simple but
+often less efficient in uncovering deep bugs.
 
 \begin{definition}[Grey-box
 fuzzer]\protect\hypertarget{def-greybox}{}\label{def-greybox}
@@ -521,6 +542,10 @@ scalability.
 
 \end{definition}
 
+Grey-box fuzzers strike a balance by collecting partial information,
+such as execution coverage via lightweight instrumentation, enabling
+more targeted input mutations that improve effectiveness.
+
 \begin{definition}[White-box
 fuzzer]\protect\hypertarget{def-whitebox}{}\label{def-whitebox}
 
@@ -530,17 +555,29 @@ enumerate paths.
 
 \end{definition}
 
-\subsubsection{Test-case Generation
+White-box fuzzers exploit full program knowledge, using advanced
+techniques like symbolic execution to methodically explore program
+paths, but often at the cost of reduced scalability.
+
+\subsubsection*{Test-case Generation
 Strategy}\label{test-case-generation-strategy}
+\addcontentsline{toc}{subsubsection}{Test-case Generation Strategy}
+
+The second axis concerns how fuzzers generate test inputs:
 
 \begin{definition}[Generational
 fuzzing]\protect\hypertarget{def-generational}{}\label{def-generational}
 
-Produces inputs from a structural model (e.g., a BNF grammar
-\autocite{backus1959}) or protocol description, ensuring that test-cases
-are syntactically valid yet semantically diverse.
+Produces inputs from a structural model or protocol description,
+ensuring that test-cases are syntactically valid yet semantically
+diverse.
 
 \end{definition}
+
+Generational fuzzing leverages knowledge of input formats (e.g., a BNF
+grammar \autocite{backus1959}) to produce well-formed test cases derived
+from formal specifications or models, improving the likelihood of
+meaningful program behavior.
 
 \begin{definition}[Mutational
 fuzzing]\protect\hypertarget{def-mutational}{}\label{def-mutational}
@@ -551,11 +588,20 @@ such as AFL have proved especially effective.
 
 \end{definition}
 
-These axes can be combined: e.g., AFL \autocite{afl} is a grey-box,
-mutational fuzzer; Honggfuzz \autocite{honggfuzz} with a grammar
-description becomes grey-box generational.
+Mutational fuzzing begins with seeds and applies random or guided
+mutations to explore nearby input space regions. Techniques like
+coverage-guided fuzzing have greatly enhanced the efficiency of this
+approach.
 
-\subsection{Why Fuzz?}\label{why-fuzz}
+These two dimensions are often combined to tailor fuzzers to specific
+scenarios. For example, AFL \autocite{afl} is a grey-box, mutational
+fuzzer that uses coverage feedback to guide input mutations, while
+Honggfuzz \autocite{honggfuzz} can operate as a grey-box generational
+fuzzer when provided with grammar-based input models. This flexibility
+allows fuzzers to adapt to varied testing goals and program
+characteristics.
+
+\subsection{Motivation}\label{motivation-1}
 
 \begin{quote}
 The purpose of fuzzing relies on the assumption that there are bugs
@@ -571,37 +617,37 @@ Fuzz testing offers several tangible benefits:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Early vulnerability discovery.} Detecting defects during
+  \textbf{Early vulnerability discovery}: Detecting defects during
   development is cheaper and safer than addressing exploits in
   production.
 \item
-  \textbf{Adversary-parity.} Performing the same randomised stress that
+  \textbf{Adversary-parity}: Performing the same randomised stress that
   attackers employ allows defenders to pre-empt zero-days.
 \item
-  \textbf{Robustness and correctness.} Beyond security, fuzzing exposes
+  \textbf{Robustness and correctness}: Beyond security, fuzzing exposes
   logic errors and stability issues in complex, high-throughput APIs
   (e.g., decompressors) even when inputs are \emph{expected} to be
   well-formed.
 \item
-  \textbf{Regression prevention.} Re-running a corpus of crashing inputs
+  \textbf{Regression prevention}: Re-running a corpus of crashing inputs
   as part of continuous integration ensures that fixed bugs remain
   fixed.
 \end{enumerate}
 
-\subsection{Success Stories}\label{success-stories}
+\subsubsection{Success Stories}\label{success-stories}
 
 \emph{Heartbleed} (CVE-2014-0160) \autocite{heartbleed,heartbleed-cve}
-arose from a buffer over-read in OpenSSL
-\autocite{theopensslproject2025} introduced on 1 February 2012 and
-unnoticed until 1 April 2014. Post-mortem analyses showed that a simple
-fuzz campaign exercising the TLS heartbeat extension would have revealed
-the defect almost immediately \autocite{wheeler2014}.
+arose from a buffer over-read\footnote{\url{https://xkcd.com/1354/}} in
+OpenSSL \autocite{theopensslproject2025} introduced on 1 February 2012
+and unnoticed until 1 April 2014. Post-mortem analyses showed that a
+simple fuzz campaign exercising the TLS heartbeat extension would have
+revealed the defect almost immediately \autocite{wheeler2014}.
 
 Likewise, the \emph{Shellshock} (or \emph{Bashdoor}) family of bugs in
 GNU Bash \autocite{bash} enabled arbitrary command execution on many
 UNIX systems. While the initial flaw was fixed promptly, subsequent bug
-variants were discovered by Google's Michał Zalewski using fuzzing in
-late 2014 \autocite{saarinen2014}.
+variants were discovered by Google's Michał Zalewski using his own
+fuzzer \autocite{afl} in late 2014 \autocite{saarinen2014}.
 
 On the defensive tooling side, the security tool named
 \emph{Mayhem}---developed by the company of the same name---has since
@@ -614,85 +660,64 @@ These cases underscore the central thesis of fuzz testing: exhaustive
 manual review is infeasible, but scalable stochastic exploration
 reliably surfaces the critical few defects that matter most.
 
-qqqqqq
+\subsection{Methodology}\label{methodology}
 
-\subsection{How to Fuzz?}\label{how-to-fuzz}
+As previously discussed, fuzz testing of a program under test (PUT) is
+typically conducted using a dedicated fuzzing engine (see
+Definition~\ref{def-fuzzer}). Among the most widely adopted fuzzers for
+C and C++ projects and libraries are AFL \autocite{afl}---which has
+since evolved into AFL++ \autocite{aflpp}---and LibFuzzer
+\autocite{libfuzzer}. Within the OverHAuL framework, LibFuzzer is
+preferred owing to its superior suitability for library fuzzing, whereas
+AFL++ predominantly targets executables and binary fuzzing.
 
-\subsection{Fuzzer engines}\label{fuzzer-engines}
+\subsubsection{LibFuzzer}\label{libfuzzer}
 
-C/C++: AFL \autocite{afl} \& AFL++ \autocite[++]{afl}. LibFuzzer
-\autocite{libfuzzer}. \autocite{honggfuzz}.
-
-Python: Atheris \autocite{atheris}.
-
-\begin{quote}
-LibFuzzer is an in-process, coverage-guided, evolutionary fuzzing
-engine. LibFuzzer is linked with the library under test, and feeds
-fuzzed inputs to the library via a specific fuzzing entrypoint (fuzz
-target). - In-process, coverage-guided, mutation-based fuzzer.
-\end{quote}
-
-Used to fuzz library functions. The programmer writes a fuzz target to
-test their implementation.
+LibFuzzer \autocite{libfuzzer} is an in-process, coverage-guided
+evolutionary fuzzing engine primarily designed for testing libraries. It
+forms part of the LLVM ecosystem \autocite{llvm} and operates by linking
+directly with the library under evaluation. The fuzzer delivers mutated
+input data to the library through a designated fuzzing entry point,
+commonly referred to as the \emph{fuzz target}.
 
 \begin{definition}[Fuzz
 target]\protect\hypertarget{def-target}{}\label{def-target}
 
-A function that accepts an array of bytes and does something interesting
-with these bytes using the API under test \autocite{libfuzzer}.
-
-AKA fuzz driver, fuzzer entry point, harness.
+A function that accepts a byte array as input and exercises the
+application programming interface (API) under test using these inputs
+\autocite{libfuzzer}. This construct is also known as a \emph{fuzz
+driver}, \emph{fuzzer entry point}, or \emph{fuzzing harness}.
 
 \end{definition}
 
-Fuzz target structure
+For the remainder of this thesis, the terms presented in
+Definition~\ref{def-target} will be used interchangeably.
 
-\begin{itemize}
-\tightlist
-\item
-  Entry point called repeatedly with mutated inputs.
-\item
-  Feedback-driven: uses coverage to guide mutations.
-\item
-  Best for libraries, not full programs.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\AttributeTok{extern} \StringTok{"C"} \DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\AttributeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{Data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ Size}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{  DoSomethingWithData}\OperatorTok{(}\NormalTok{Data}\OperatorTok{,}\NormalTok{ Size}\OperatorTok{);}
-  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-An example of a fuzz target/harness can be seen in
-Listing~\ref{lst-fuzzing-example} \autocite{libfuzzer}.
+To effectively validate an implementation or library, developers are
+required to author a fuzzing harness that invokes the target library's
+API functions utilizing the fuzz-generated inputs. This harness serves
+as the principal interface for the fuzzer and is executed iteratively,
+each time with mutated input designed to maximize code coverage and
+uncover defects. To comply with LibFuzzer's interface requirements, a
+harness must conform to the following function signature:
 
 \begin{codelisting}
 
-\caption{\label{lst-fuzzing-example}A simple function that does
-something interesting if it receives the input ``HI!''.}
+\caption{\label{lst-basic-example}This function receives the fuzzing
+input via a pointer to an array of bytes (\texttt{Data}) and its
+associated size (\texttt{Size}). Efficiency in fuzzing is achieved by
+invoking the API of interest within the body of this function, thereby
+allowing the fuzzer to explore a broad spectrum of behavior through
+systematic input mutation.}
 
 \centering{
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{cat }\OperatorTok{\textless{}\textless{}}\NormalTok{ EOF }\OperatorTok{\textgreater{}}\NormalTok{ test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
-\KeywordTok{extern} \StringTok{"C"} \DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}H\textquotesingle{}}\OperatorTok{)}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{1} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{1}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}I\textquotesingle{}}\OperatorTok{)}
-       \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{2} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{2}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}!\textquotesingle{}}\OperatorTok{)}
-\NormalTok{       \_\_builtin\_trap}\OperatorTok{();}
+\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{Data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ Size}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{  DoSomethingInterestingWithData}\OperatorTok{(}\NormalTok{Data}\OperatorTok{,}\NormalTok{ Size}\OperatorTok{);}
   \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
 \OperatorTok{\}}
-\NormalTok{EOF}
-\PreprocessorTok{\# }\ErrorTok{Build test\_fuzzer.cc with asan and link against libFuzzer.}
-\NormalTok{clang}\OperatorTok{++} \OperatorTok{{-}}\NormalTok{fsanitize}\OperatorTok{=}\NormalTok{address}\OperatorTok{,}\NormalTok{fuzzer test\_fuzzer}\OperatorTok{.}\NormalTok{cc}
-\PreprocessorTok{\# }\ErrorTok{Run the fuzzer with no corpus.}
-\OperatorTok{./}\NormalTok{a}\OperatorTok{.}\NormalTok{out}
 \end{Highlighting}
 \end{Shaded}
 
@@ -700,60 +725,118 @@ something interesting if it receives the input ``HI!''.}
 
 \end{codelisting}%
 
-\begin{itemize}
-\tightlist
-\item
-  \emph{American Fuzzy Lop} (AFL) \autocite{afl}.
+A more illustrative example of such a harness is provided in
+Listing~\ref{lst-fuzzing-example}.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Instrumented binaries for edge coverage.
-  \item
-    Adds more fuzzing strategies, better speed, and QEMU/Unicorn
-    support.
-  \item
-    Superseded by \emph{AFL++} \autocite{aflpp}.
-  \end{itemize}
-\end{itemize}
+\begin{codelisting}
 
-AFL fuzzes programs/binaries. The inputs are taken from the
-\texttt{seeds\_dir} and their mutations.
+\caption{\label{lst-fuzzing-example}This example demonstrates a minimal
+harness that triggers a controlled crash upon receiving \texttt{HI!} as
+input.}
+
+\centering{
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\ExtensionTok{$}\NormalTok{ ./afl{-}fuzz }\AttributeTok{{-}i}\NormalTok{ seeds\_dir }\AttributeTok{{-}o}\NormalTok{ output\_dir }\AttributeTok{{-}{-}}\NormalTok{ /path/to/tested/program}
+\CommentTok{// test\_fuzzer.cpp}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
+
+\AttributeTok{extern} \StringTok{"C"} \DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\AttributeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}H\textquotesingle{}}\OperatorTok{)}
+    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{1} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{1}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}I\textquotesingle{}}\OperatorTok{)}
+      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textgreater{}} \DecValTok{2} \OperatorTok{\&\&}\NormalTok{ data}\OperatorTok{[}\DecValTok{2}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}!\textquotesingle{}}\OperatorTok{)}
+        \FunctionTok{\_\_builtin\_trap}\OperatorTok{();}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  Works on black-box or instrumented binaries.
-\item
-  Uses fork-server model for speed.
-\item
-  Supports persistent mode, QEMU, and Unicorn modes.
-\end{itemize}
+}
 
-Μπορεί επίσης να χρησιμοποιηθεί για fuzzing βιβλιοθηκών κτλ., απλά αντί
-για \texttt{LLVMFuzzerTestOneInput} έχουμε την \texttt{main}.
+\end{codelisting}%
 
-Μπορεί να χρησιμοποιήσει και \texttt{LLVMFuzzerTestOneInput} harnesses.
+To compile and link such a harness with LibFuzzer, the Clang
+compiler---also part of the LLVM project \autocite{llvm}---must be used
+alongside appropriate compiler flags. For instance, compiling the
+harness in Listing~\ref{lst-fuzzing-example} can be achieved as follows:
 
-OSS-Fuzz: 2016, after heartbleed.
+\begin{codelisting}
 
-\subsection{Difficulties}\label{difficulties}
+\caption{\label{lst-harness-compilation}This example illustrates the
+compilation and execution workflow necessary for deploying a
+LibFuzzer-based fuzzing harness.}
 
-\begin{itemize}
-\tightlist
-\item
-  Relatively unknown practice, especially compared to TDD
-\item
-  Upfront cost of writing harnesses
-\item
-  Cost of examining and evaluating crashes
-\end{itemize}
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{\# Compile test\_fuzzer.cc with AddressSanitizer and link against LibFuzzer.}
+\FunctionTok{clang}\NormalTok{++ }\AttributeTok{{-}fsanitize}\OperatorTok{=}\NormalTok{address,fuzzer test\_fuzzer.cc}
+\CommentTok{\# Execute the fuzzer without any pre{-}existing seed corpus.}
+\ExtensionTok{./a.out}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\subsubsection{AFL and AFL++}\label{afl-and-afl}
+
+\emph{American Fuzzy Lop} (AFL) \autocite{afl}, developed by Michał
+Zalewski, is a seminal fuzzer targeting C and C++ applications. Its core
+methodology relies on instrumented binaries to provide edge coverage
+feedback, thereby guiding input mutation towards unexplored program
+paths. AFL supports several emulation backends including QEMU
+\autocite{bellard2025}---an open-source CPU emulator facilitating
+fuzzing on diverse architectures---and Unicorn
+\autocite{unicornengine2025}, a lightweight multi-platform CPU emulator.
+While AFL established itself as a foundational tool within the fuzzing
+community, its successor AFL++ \autocite{aflpp} incorporates numerous
+enhancements and additional features to improve fuzzing efficacy.
+
+AFL operates by ingesting seed inputs from a specified directory
+(\texttt{seeds\_dir}), applying mutations, and then executing the target
+binary to discover novel execution paths. Execution can be initiated
+using the following command-line syntax:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ExtensionTok{./afl{-}fuzz} \AttributeTok{{-}i}\NormalTok{ seeds\_dir }\AttributeTok{{-}o}\NormalTok{ output\_dir }\AttributeTok{{-}{-}}\NormalTok{ /path/to/tested/program}
+\end{Highlighting}
+\end{Shaded}
+
+AFL is capable of fuzzing both black-box and instrumented binaries,
+employing a fork-server mechanism to optimize performance. It
+additionally supports persistent mode execution as well as modes
+leveraging QEMU and Unicorn emulators, thereby providing extensive
+flexibility for different testing environments.
+
+Although AFL is traditionally utilized for fuzzing standalone programs
+or binaries, it is also capable of fuzzing libraries and other software
+components. In such scenarios, rather than implementing the
+\texttt{LLVMFuzzerTestOneInput} style harness, AFL can use the standard
+\texttt{main()} function as the fuzzing entry point. Nonetheless, AFL
+also accommodates integration with \texttt{LLVMFuzzerTestOneInput}-based
+harnesses, underscoring its adaptability across varied fuzzing use
+cases.
+
+\subsection{Challenges in Adoption}\label{challenges-in-adoption}
+
+Despite its potential for uncovering software vulnerabilities, fuzzing
+remains a relatively underutilized testing technique compared to more
+established methodologies such as Test-Driven Development (TDD). This
+limited adoption can be attributed, in part, to the substantial initial
+investment required to design and implement appropriate test harnesses
+that enable effective fuzzing processes. Furthermore, the interpretation
+of fuzzing outcomes---particularly the identification, diagnostic
+analysis, and prioritization of program crashes---demands considerable
+resources and specialized expertise. These factors collectively pose
+significant barriers to the widespread integration of fuzzing within
+standard software development and testing practices.
+
+qqqqqqq
 
 \section{Large Language Models (LLMs)}\label{large-language-models-llms}
 
