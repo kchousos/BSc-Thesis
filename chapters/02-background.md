@@ -149,7 +149,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
 This function receives the fuzzing input via a pointer to an array of bytes (`Data`) and its associated size (`Size`). Efficiency in fuzzing is achieved by invoking the API of interest within the body of this function, thereby allowing the fuzzer to explore a broad spectrum of behavior through systematic input mutation.
 :::
 
-A more illustrative example of such a harness is provided in [@lst-fuzzing-example].
+A more illustrative example of such a harness is provided in @lst-fuzzing-example.
 
 ::: {#lst-fuzzing-example}
 
@@ -170,7 +170,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 This example demonstrates a minimal harness that triggers a controlled crash upon receiving `HI!` as input.
 :::
 
-To compile and link such a harness with LibFuzzer, the Clang compiler---also part of the LLVM project [@llvm]---must be used alongside appropriate compiler flags. For instance, compiling the harness in [@lst-fuzzing-example] can be achieved as follows:
+To compile and link such a harness with LibFuzzer, the Clang compiler---also part of the LLVM project [@llvm]---must be used alongside appropriate compiler flags. For instance, compiling the harness in @lst-fuzzing-example can be achieved as shown in @lst-harness-compilation.
 
 ::: {#lst-harness-compilation}
 
