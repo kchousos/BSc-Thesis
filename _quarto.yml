@@ -40,8 +40,8 @@ book:
     - chapters/09-discussion.md
     - chapters/10-conclusion.md
     - chapters/refs.md # Bibliography
-  # appendices:
-  #   - chapters/appendix.md
+  appendices:
+    - chapters/abandoned.md
   
   page-navigation: true
   page-footer: 

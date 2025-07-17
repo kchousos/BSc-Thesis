@@ -1214,7 +1214,7 @@ Centipede--- with the last two being Google projects
 \autocite{libfuzzer,fuzztest,honggfuzz,aflpp}. C, C++, Rust, Go, Python
 and Java/JVM projects are supported.
 
-\subsection{OSS-Fuzz-Gen}\label{oss-fuzz-gen}
+\subsection{OSS-Fuzz-Gen}\label{sec-ofg}
 
 OSS-Fuzz-Gen (OFG) \autocite{liu2023,oss-fuzz-gen} is Google's current
 State-Of-The-Art (SOTA) project regarding automatic harness generation
@@ -1645,7 +1645,7 @@ making the abstract algorithm simpler and easier to understand.
 \end{algorithmic}
 \end{algorithm}
 
-\section{Installation and Usage}\label{installation-and-usage}
+\section{Installation and Usage}\label{sec-install}
 
 The source code of OverHAuL is available in
 \url{https://github.com/kchousos/OverHAuL}. OverHAuL can be installed by
@@ -1781,110 +1781,106 @@ Lastly, No support for build systems such as Make or CMake
 functionality would exponentially increase the complexity of the build
 step and is beyond the scope of this thesis.
 
-\section{Abandoned Techniques}\label{abandoned-techniques}
-
-During its development, OverHAuL went through several iterations. A
-number of approaches were implemented and evaluated, with some being
-replaced for better alternatives. These are:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{One-shot harness generation}
-
-  Before the iterative feedback loop (Section~\ref{sec-loop}) was
-  implemented, OverHAuL attempted to operate in a straightforward
-  pipeline, with just a ``generator'' agent being tasked to generate the
-  harness. This meant that at either the compilation step or evaluation
-  step, any failure resulted in the execution being terminated. This
-  approach put too much responsibility in the response of a single LLM
-  query, with results more often than not being unsatisfactory.
-\item
-  \textbf{Chain-of-Thought LLM instances}
-
-  The current implementation of ReAct agents has effectively supplanted
-  the less effective Chain of Thought (COT) LLM modules
-  \autocite{chainofthought}. This shift underscores a critical
-  realization in the harness generation process: the primary challenge
-  lies not in the creation of the harness itself, but rather in the
-  necessity for real-time feedback during execution. This is the reason
-  why first employing COT prompting offered limited observed
-  improvements.
-
-  COT techniques are particularly advantageous when the task assigned to
-  the LLM demands a more reflective, in-depth analysis. However, when it
-  comes to tasks such as knowledge extraction from a codebase oracle and
-  taking live feedback from the environment into consideration, ReAct
-  agents demonstrate greater efficiency and effectiveness.
-\item
-  \textbf{Source code concatenation}
-
-  Initially, there was no implementation of a codebase oracle. Instead,
-  the LLM agents operated with a Python string that contained a
-  concatenation of all the collected source code. While this method
-  proved effective for smaller and simpler projects, it encountered
-  significant limitations when applied to more complex codebases. The
-  primary challenge was the excessive consumption of the LLM's context
-  window, which hindered its ability to process and analyze larger
-  codebases effectively. As a result, this approach became increasingly
-  unsustainable as project complexity grew, underscoring the need for a
-  more robust solution.
-\item
-  \textbf{\texttt{\{index,\ read\}\_tool} usage for ReAct agents}
-
-  The predecessor of the oracle comprised a dual-system approach for
-  code exploration, integrating the \texttt{index\_tool} and the
-  \texttt{read\_tool}. The \texttt{index\_tool} offered the LLM agent a
-  structured JSON object that delineated the project's architecture,
-  including all relevant file paths. On the other hand, the
-  \texttt{read\_tool} required a file path as input and returned the
-  file's content, albeit truncated to a maximum of 4000 characters.
-  While this methodology presented an improvement in scalability over
-  earlier systems, several limitations persisted.
-
-  Firstly, the LLM was constrained to searching through the codebase
-  strictly in file-specific terms, which limited its efficacy in
-  understanding the broader context of code relationships. Furthermore,
-  the imposed character limit on the \texttt{read\_tool} meant that
-  certain portions of the codebase remained inaccessible, impeding the
-  agent's analytical capabilities. Even if this character limit were to
-  be lifted, the resultant output would still occupy a significant
-  portion of the context window, particularly in larger and more
-  intricate projects. As such, while this approach offered advancements
-  in code exploration, it still fell short.
-\end{enumerate}
-
 \bookmarksetup{startatroot}
 
 \chapter{Evaluation}\label{evaluation}
 
-\section{Research questions}\label{research-questions}
+To thoroughly assess the performance and effectiveness of OverHAuL, we
+established four \emph{research questions} to direct our investigative
+efforts. These questions are designed to provide a structured framework
+for our inquiry and to ensure that our research remains focused on the
+key aspects of OverHAuL's functionality and impact within its intended
+domain. By addressing these questions, we aim to uncover valuable
+insights that will contribute to a deeper understanding of OverHAuL's
+capabilities and its position in contemporary automatic fuzzing
+applications:
 
-\section{Benchmarks}\label{benchmarks}
+\begin{itemize}
+\item
+  \textbf{RQ1}: Can OverHAuL generate working harnesses for unfuzzed C
+  projects?
+\item
+  \textbf{RQ2}: What characteristics do these harnesses have? Are they
+  similar to man-made harnesses?
+\item
+  \textbf{RQ3}: How do LLM usage patterns influence the generated
+  harnesses?
+\item
+  \textbf{RQ4}: How do different techniques affect the generated
+  harnesses?
+\end{itemize}
 
-10 open-source C/C++ projects.
+\section{Experimental Benchmark}\label{experimental-benchmark}
 
-\section{Performance}\label{performance}
-
-\section{Issues}\label{issues}
-
-\section{Future Work}\label{future-work}
-
-\subsection{Technical Future Work}\label{technical-future-work}
-
-\subsection{Architectural Future
-Work/Extensions}\label{architectural-future-workextensions}
+To evaluate OverHAuL, a benchmarking script was implemented\footnote{\url{https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh}}
+and a corpus of ten open-source C libraries was assembled. This
+collection comprises of: Firstly, GitHub user dhvar's dateparse library,
+which is also used as a running example in OSS-Fuzz-Gen's
+\autocite{oss-fuzz-gen} experimental from-scratch harnessing feature
+(Section~\ref{sec-ofg}). Secondly, nine other libraries chosen
+randomly\footnote{From the subset of libraries that do not have exotic
+  external dependencies, like the X11 development toolchain.} from the
+package catalog of Clib, a ``package manager for the C programming
+language'' \autocite{clibs,clib}. Each library is described below.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Build system
+  \href{https://github.com/dvhar/dateparse}{dvhar/dateparse}: A library
+  that allows parsing dates without knowing the format in advance.
 \item
-  More (static) analysis tolls integrations
+  \href{https://github.com/clibs/buffer}{clibs/buffer}: A string
+  manipulation library.
 \item
-  General \emph{localization} problem
+  \href{https://github.com/jwerle/libbeaufort}{jwerle/libbeaufort}: A
+  library implementation of the Beaufort cipher \autocite{franksen1993}.
+\item
+  \href{https://github.com/jwerle/libbacon}{jwerle/libbacon}: A library
+  implementation of the Baconian cipher \autocite{bacon1861}.
+\item
+  \href{https://github.com/jwerle/chfreq.c}{jwerle/chfreq.c}: A library
+  for computing the character frequency in a string.
+\item
+  \href{https://github.com/jwerle/progress.c}{jwerle/progress.c}: A
+  library for displaying progress bars in the terminal.
+\item
+  \href{https://github.com/willemt/cbuffer}{willemt/cbuffer}: A circular
+  buffer implementation.
+\item
+  \href{https://github.com/willemt/torrent-reader}{willemt/torrent-reader}:
+  A torrent-file reader library.
+\item
+  \href{https://github.com/orangeduck/mpc}{orangeduck/mpc}: A
+  type-generic parser combinator library.
+\item
+  \href{https://github.com/h2non/semver.c}{h2non/semver.c}: A semantic
+  version v2.0 parsing and rendering library \autocite{semver}.
 \end{enumerate}
+
+\subsection{Local Benchmarking}\label{local-benchmarking}
+
+To run the benchmark locally, one would need to follow the installation
+instructions in Section~\ref{sec-install} and then execute the
+benchmarking script, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{$ ./benchmarks/benchmark.sh}
+\end{Highlighting}
+\end{Shaded}
+
+The cloned repositories with their corresponding harnesses will then be
+located in a subdirectory of \texttt{benchmark\_results}, which will
+have the name format of
+\texttt{mini\_\_\textless{}timestamp\textgreater{}\_\_ReAct\_\_\textless{}llm-model\textgreater{}\_\_\textless{}max-exec-time\textgreater{}\_\_\textless{}iter-budget\textgreater{}}.
+``Mini'' corresponds to the benchmark project corpus described above,
+since a 30-project corpus was initially created and is now coined as
+``full'' benchmark. Both the mini and full benchmarks are located in
+\texttt{benchmarks/repos.txt} and \texttt{benchmarks/repos-mini.txt}
+respectively. To execute the benchmark for the ``full'' corpus, users
+can add the \texttt{-b\ full} flag in the script's invocation. Also, the
+LLM model used can be defined with the \texttt{-m} command-line flag.
 
 \bookmarksetup{startatroot}
 
@@ -1943,7 +1939,7 @@ github workflow actions, artifacts, summary
 
 \bookmarksetup{startatroot}
 
-\chapter{Future Work}\label{future-work-1}
+\chapter{Future Work}\label{future-work}
 
 The prototype implementation of OverHAuL offers a compelling
 demonstration of its potential to automate the fuzzing process for
@@ -2079,6 +2075,8 @@ open source libraries might have been in the training data results for
 closed source libraries could be worse this could be mitigated with llm
 fine-tuning
 
+\section{Threats to Validity}\label{threats-to-validity}
+
 \bookmarksetup{startatroot}
 
 \chapter{Conclusion}\label{conclusion}
@@ -2099,6 +2097,84 @@ generative AI disclaimer à la ACM?
 \markboth{Bibliography}{Bibliography}
 
 \printbibliography[heading=none]
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Appendices}
+\appendix
+
+\chapter{Abandoned Techniques}\label{abandoned-techniques}
+
+During its development, OverHAuL went through several iterations. A
+number of approaches were implemented and evaluated, with some being
+replaced for better alternatives. These are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{One-shot harness generation}
+
+  Before the iterative feedback loop (Section~\ref{sec-loop}) was
+  implemented, OverHAuL attempted to operate in a straightforward
+  pipeline, with just a ``generator'' agent being tasked to generate the
+  harness. This meant that at either the compilation step or evaluation
+  step, any failure resulted in the execution being terminated. This
+  approach put too much responsibility in the response of a single LLM
+  query, with results more often than not being unsatisfactory.
+\item
+  \textbf{Chain-of-Thought LLM instances}
+
+  The current implementation of ReAct agents has effectively supplanted
+  the less effective Chain of Thought (COT) LLM modules
+  \autocite{chainofthought}. This shift underscores a critical
+  realization in the harness generation process: the primary challenge
+  lies not in the creation of the harness itself, but rather in the
+  necessity for real-time feedback during execution. This is the reason
+  why first employing COT prompting offered limited observed
+  improvements.
+
+  COT techniques are particularly advantageous when the task assigned to
+  the LLM demands a more reflective, in-depth analysis. However, when it
+  comes to tasks such as knowledge extraction from a codebase oracle and
+  taking live feedback from the environment into consideration, ReAct
+  agents demonstrate greater efficiency and effectiveness.
+\item
+  \textbf{Source code concatenation}
+
+  Initially, there was no implementation of a codebase oracle. Instead,
+  the LLM agents operated with a Python string that contained a
+  concatenation of all the collected source code. While this method
+  proved effective for smaller and simpler projects, it encountered
+  significant limitations when applied to more complex codebases. The
+  primary challenge was the excessive consumption of the LLM's context
+  window, which hindered its ability to process and analyze larger
+  codebases effectively. As a result, this approach became increasingly
+  unsustainable as project complexity grew, underscoring the need for a
+  more robust solution.
+\item
+  \textbf{\texttt{\{index,\ read\}\_tool} usage for ReAct agents}
+
+  The predecessor of the oracle comprised a dual-system approach for
+  code exploration, integrating the \texttt{index\_tool} and the
+  \texttt{read\_tool}. The \texttt{index\_tool} offered the LLM agent a
+  structured JSON object that delineated the project's architecture,
+  including all relevant file paths. On the other hand, the
+  \texttt{read\_tool} required a file path as input and returned the
+  file's content, albeit truncated to a maximum of 4000 characters.
+  While this methodology presented an improvement in scalability over
+  earlier systems, several limitations persisted.
+
+  Firstly, the LLM was constrained to searching through the codebase
+  strictly in file-specific terms, which limited its efficacy in
+  understanding the broader context of code relationships. Furthermore,
+  the imposed character limit on the \texttt{read\_tool} meant that
+  certain portions of the codebase remained inaccessible, impeding the
+  agent's analytical capabilities. Even if this character limit were to
+  be lifted, the resultant output would still occupy a significant
+  portion of the context window, particularly in larger and more
+  intricate projects. As such, while this approach offered advancements
+  in code exploration, it still fell short.
+\end{enumerate}
 
 
 

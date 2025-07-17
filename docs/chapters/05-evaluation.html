@@ -21,7 +21,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -381,6 +436,23 @@ MathJax = {
  <span class="menu-text">Bibliography</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -391,14 +463,9 @@ MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#research-questions" id="toc-research-questions" class="nav-link active" data-scroll-target="#research-questions"><span class="header-section-number">5.1</span> Research questions</a></li>
-  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="header-section-number">5.2</span> Benchmarks</a></li>
-  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5.3</span> Performance</a></li>
-  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues"><span class="header-section-number">5.4</span> Issues</a></li>
-  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work"><span class="header-section-number">5.5</span> Future Work</a>
+  <li><a href="#experimental-benchmark" id="toc-experimental-benchmark" class="nav-link active" data-scroll-target="#experimental-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</a>
   <ul class="collapse">
-  <li><a href="#technical-future-work" id="toc-technical-future-work" class="nav-link" data-scroll-target="#technical-future-work"><span class="header-section-number">5.5.1</span> Technical Future Work</a></li>
-  <li><a href="#architectural-future-workextensions" id="toc-architectural-future-workextensions" class="nav-link" data-scroll-target="#architectural-future-workextensions"><span class="header-section-number">5.5.2</span> Architectural Future Work/Extensions</a></li>
+  <li><a href="#local-benchmarking" id="toc-local-benchmarking" class="nav-link" data-scroll-target="#local-benchmarking"><span class="header-section-number">5.1.1</span> Local Benchmarking</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -426,33 +493,61 @@ MathJax = {
 </header>
 
 
-<section id="research-questions" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="research-questions"><span class="header-section-number">5.1</span> Research questions</h2>
-</section>
-<section id="benchmarks" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">5.2</span> Benchmarks</h2>
-<p>10 open-source C/C++ projects.</p>
-</section>
-<section id="performance" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="performance"><span class="header-section-number">5.3</span> Performance</h2>
-</section>
-<section id="issues" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="issues"><span class="header-section-number">5.4</span> Issues</h2>
-</section>
-<section id="future-work" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="future-work"><span class="header-section-number">5.5</span> Future Work</h2>
-<section id="technical-future-work" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="technical-future-work"><span class="header-section-number">5.5.1</span> Technical Future Work</h3>
-</section>
-<section id="architectural-future-workextensions" class="level3" data-number="5.5.2">
-<h3 data-number="5.5.2" class="anchored" data-anchor-id="architectural-future-workextensions"><span class="header-section-number">5.5.2</span> Architectural Future Work/Extensions</h3>
-<ol type="1">
-<li>Build system</li>
-<li>More (static) analysis tolls integrations</li>
-<li>General <em>localization</em> problem</li>
+<p>To thoroughly assess the performance and effectiveness of OverHAuL, we established four <em>research questions</em> to direct our investigative efforts. These questions are designed to provide a structured framework for our inquiry and to ensure that our research remains focused on the key aspects of OverHAuL’s functionality and impact within its intended domain. By addressing these questions, we aim to uncover valuable insights that will contribute to a deeper understanding of OverHAuL’s capabilities and its position in contemporary automatic fuzzing applications:</p>
+<ul>
+<li><p><strong>RQ1</strong>: Can OverHAuL generate working harnesses for unfuzzed C projects?</p></li>
+<li><p><strong>RQ2</strong>: What characteristics do these harnesses have? Are they similar to man-made harnesses?</p></li>
+<li><p><strong>RQ3</strong>: How do LLM usage patterns influence the generated harnesses?</p></li>
+<li><p><strong>RQ4</strong>: How do different techniques affect the generated harnesses?</p></li>
+</ul>
+<section id="experimental-benchmark" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="experimental-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
+<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar’s dateparse library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="03-related.html#sec-ofg" class="quarto-xref"><span>Section 3.1.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. Each library is described below.</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
+<ol>
+<li id="fn1"><p><a href="https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh" class="uri">https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
+</aside>
+<ol type="1">
+<li><a href="https://github.com/dvhar/dateparse">dvhar/dateparse</a>: A library that allows parsing dates without knowing the format in advance.</li>
+<li><a href="https://github.com/clibs/buffer">clibs/buffer</a>: A string manipulation library.</li>
+<li><a href="https://github.com/jwerle/libbeaufort">jwerle/libbeaufort</a>: A library implementation of the Beaufort cipher <span class="citation" data-cites="franksen1993"><a href="refs.html#ref-franksen1993" role="doc-biblioref">[4]</a></span>.</li>
+<li><a href="https://github.com/jwerle/libbacon">jwerle/libbacon</a>: A library implementation of the Baconian cipher <span class="citation" data-cites="bacon1861"><a href="refs.html#ref-bacon1861" role="doc-biblioref">[5]</a></span>.</li>
+<li><a href="https://github.com/jwerle/chfreq.c">jwerle/chfreq.c</a>: A library for computing the character frequency in a string.</li>
+<li><a href="https://github.com/jwerle/progress.c">jwerle/progress.c</a>: A library for displaying progress bars in the terminal.</li>
+<li><a href="https://github.com/willemt/cbuffer">willemt/cbuffer</a>: A circular buffer implementation.</li>
+<li><a href="https://github.com/willemt/torrent-reader">willemt/torrent-reader</a>: A torrent-file reader library.</li>
+<li><a href="https://github.com/orangeduck/mpc">orangeduck/mpc</a>: A type-generic parser combinator library.</li>
+<li><a href="https://github.com/h2non/semver.c">h2non/semver.c</a>: A semantic version v2.0 parsing and rendering library <span class="citation" data-cites="semver"><a href="refs.html#ref-semver" role="doc-biblioref">[6]</a></span>.</li>
+</ol>
+<section id="local-benchmarking" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="local-benchmarking"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
+<p>To run the benchmark locally, one would need to follow the installation instructions in <a href="04-overhaul.html#sec-install" class="quarto-xref"><span>Section 4.4</span></a> and then execute the benchmarking script, like so:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>$ ./benchmarks/benchmark.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The cloned repositories with their corresponding harnesses will then be located in a subdirectory of <code>benchmark_results</code>, which will have the name format of <code>mini__&lt;timestamp&gt;__ReAct__&lt;llm-model&gt;__&lt;max-exec-time&gt;__&lt;iter-budget&gt;</code>. “Mini” corresponds to the benchmark project corpus described above, since a 30-project corpus was initially created and is now coined as “full” benchmark. Both the mini and full benchmarks are located in <code>benchmarks/repos.txt</code> and <code>benchmarks/repos-mini.txt</code> respectively. To execute the benchmark for the “full” corpus, users can add the <code>-b full</code> flag in the script’s invocation. Also, the LLM model used can be defined with the <code>-m</code> command-line flag.</p>
 
 
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
+</div>
+<div id="ref-clibs" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Clibs Project, <span>“Clib <span>Packages</span>,”</span> 2025. Available: <a href="https://github.com/clibs/clib/wiki/Packages">https://github.com/clibs/clib/wiki/Packages</a></div>
+</div>
+<div id="ref-clib" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Clibs Project, <span>“Clibs/clib.”</span> clibs, Jul. 01, 2025. Available: <a href="https://github.com/clibs/clib">https://github.com/clibs/clib</a></div>
+</div>
+<div id="ref-franksen1993" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">O. I. Franksen, <span>“Babbage and cryptography. <span>Or</span>, the mystery of <span>Admiral Beaufort</span>’s cipher,”</span> <em>Mathematics and Computers in Simulation</em>, vol. 35, no. 4, pp. 327–367, 1993, Available: <a href="https://www.sciencedirect.com/science/article/pii/037847549390063Z">https://www.sciencedirect.com/science/article/pii/037847549390063Z</a></div>
+</div>
+<div id="ref-bacon1861" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">F. Bacon, <em>Of the <span>Proficience</span> and <span>Advancement</span> of <span>Learning</span>... <span>Edited</span> by the <span>Rev</span>. <span>GW Kitchin</span></em>. Bell &amp; Daldy, 1861. Available: <a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=_DVcAAAAcAAJ&amp;oi=fnd&amp;pg=PA1&amp;dq=+Bacon,+Francis+(1605).+The+Proficience+and+Advancement+of+Learning+Divine+and+Humane.+&amp;ots=A-u_4wtoXd&amp;sig=OtPeJlRPbsG5vGNW71xak0G_G84">https://books.google.com/books?hl=en&amp;lr=&amp;id=_DVcAAAAcAAJ&amp;oi=fnd&amp;pg=PA1&amp;dq=+Bacon,+Francis+(1605).+The+Proficience+and+Advancement+of+Learning+Divine+and+Humane.+&amp;ots=A-u_4wtoXd&amp;sig=OtPeJlRPbsG5vGNW71xak0G_G84</a></div>
+</div>
+<div id="ref-semver" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">T. Preston-Werner, <span>“Semantic <span>Versioning</span> 2.0.0.”</span> Available: <a href="https://semver.org/">https://semver.org/</a></div>
+</div>
+</div>
 </section>
 </section>
 

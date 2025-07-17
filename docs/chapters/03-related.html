@@ -401,6 +401,23 @@ MathJax = {
  <span class="menu-text">Bibliography</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -422,7 +439,7 @@ MathJax = {
   <li><a href="#ckgfuzzer" id="toc-ckgfuzzer" class="nav-link" data-scroll-target="#ckgfuzzer"><span class="header-section-number">3.1.7</span> CKGFuzzer</a></li>
   <li><a href="#promptfuzz" id="toc-promptfuzz" class="nav-link" data-scroll-target="#promptfuzz"><span class="header-section-number">3.1.8</span> PromptFuzz</a></li>
   <li><a href="#oss-fuzz" id="toc-oss-fuzz" class="nav-link" data-scroll-target="#oss-fuzz"><span class="header-section-number">3.1.9</span> OSS-Fuzz</a></li>
-  <li><a href="#oss-fuzz-gen" id="toc-oss-fuzz-gen" class="nav-link" data-scroll-target="#oss-fuzz-gen"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</a></li>
+  <li><a href="#sec-ofg" id="toc-sec-ofg" class="nav-link" data-scroll-target="#sec-ofg"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</a></li>
   <li><a href="#autogen" id="toc-autogen" class="nav-link" data-scroll-target="#autogen"><span class="header-section-number">3.1.11</span> AutoGen</a></li>
   </ul></li>
   <li><a href="#sec-differences" id="toc-sec-differences" class="nav-link" data-scroll-target="#sec-differences"><span class="header-section-number">3.2</span> Differences</a></li>
@@ -508,8 +525,8 @@ MathJax = {
 <p>OSS-Fuzz started operating in 2016, an initiative in response to the Heartbleed vulnerability <span class="citation" data-cites="heartbleed-cve wheeler2014 heartbleed"><a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[21]</a>, <a href="refs.html#ref-wheeler2014" role="doc-biblioref">[22]</a>, <a href="refs.html#ref-heartbleed" role="doc-biblioref">[23]</a></span>. Its hope is that through more extensive fuzzing such errors could be caught and corrected before having the chance to be exploited and thus disrupt the public digital infrastructure. So far, it has helped uncover over 10,000 security vulnerabilities and 36,000 bugs across more than 1,000 projects, significantly enhancing the quality and security of major software like Chrome, OpenSSL, and systemd.</p>
 <p>A project that’s part of OSS-Fuzz must have been configured as a ClusterFuzz <span class="citation" data-cites="clusterfuzz"><a href="refs.html#ref-clusterfuzz" role="doc-biblioref">[24]</a></span> project. ClusterFuzz is the fuzzing infrastructure that OSS-Fuzz uses under the hood and depends on Google Cloud Platform services, although it can be hosted locally. Such an integration requires setting up a build pipeline, fuzzing jobs and expects a Google Developer account. Results are accessible through a web interface. ClusterFuzz, and by extension OSS-Fuzz, supports fuzzing through LibFuzzer, AFL++, Honggfuzz and FuzzTest—successor to Centipede— with the last two being Google projects <span class="citation" data-cites="libfuzzer fuzztest honggfuzz aflpp"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[25]</a>, <a href="refs.html#ref-fuzztest" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-honggfuzz" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-aflpp" role="doc-biblioref">[28]</a></span>. C, C++, Rust, Go, Python and Java/JVM projects are supported.</p>
 </section>
-<section id="oss-fuzz-gen" class="level3" data-number="3.1.10">
-<h3 data-number="3.1.10" class="anchored" data-anchor-id="oss-fuzz-gen"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</h3>
+<section id="sec-ofg" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="sec-ofg"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</h3>
 <p>OSS-Fuzz-Gen (OFG) <span class="citation" data-cites="liu2023 oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-liu2023" role="doc-biblioref">[29]</a></span> is Google’s current State-Of-The-Art (SOTA) project regarding automatic harness generation through LLMs. It’s purpose is to improve the fuzzing infrastructure of open-source projects that are already integrated into OSS-Fuzz. Given such a project, OSS-Fuzz-Gen uses its preexisting fuzzing harnesses and modifies them to produce new ones. Its architecture can be described as follows: 1. With an OSS-Fuzz project’s GitHub repository link, OSS-Fuzz-Gen iterates through a set of predefined build templates and generates potential build scripts for the project’s harnesses. 2. If any of them succeed they are once again compiled, this time through fuzz-introspector <span class="citation" data-cites="fuzz-introspector"><a href="refs.html#ref-fuzz-introspector" role="doc-biblioref">[30]</a></span>. The latter constitutes a static analysis tool, with fuzzer developers specifically in mind. 3. Build results, old harness and fuzz-introspector report are included in a template-generated prompt, through which an LLM is called to generate a new harness. 4. The newly generated fuzz target is compiled and if it is done so successfully it begins execution inside OSS-Fuzz’s infrastructure.</p>
 <p>This method proved meaningful, with code coverage in fuzz campaigns increasing thanks to the new generated fuzz drivers. In the case of <span class="citation" data-cites="thomason2025"><a href="refs.html#ref-thomason2025" role="doc-biblioref">[31]</a></span>, line coverage went from 38% to 69% without any manual interventions <span class="citation" data-cites="liu2023"><a href="refs.html#ref-liu2023" role="doc-biblioref">[29]</a></span>.</p>
 <p>In 2024, OSS-Fuzz-Gen introduced an experimental feature for generating harnesses in previously unfuzzed projects <span class="citation" data-cites="oss-fuzzmaintainers2024"><a href="refs.html#ref-oss-fuzzmaintainers2024" role="doc-biblioref">[32]</a></span>. The code for this feature resides in the <code>experimental/from_scratch</code> directory of the project’s GitHub repository <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span>, with the latest known working commit being <code>171aac2</code> and the latest overall commit being four months ago.</p>

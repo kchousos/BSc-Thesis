@@ -482,6 +482,23 @@ window.Quarto = {
  <span class="menu-text">Bibliography</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -505,9 +522,8 @@ window.Quarto = {
   <li><a href="#sec-oracle" id="toc-sec-oracle" class="nav-link" data-scroll-target="#sec-oracle"><span class="header-section-number">4.2.3</span> Codebase Oracle</a></li>
   </ul></li>
   <li><a href="#high-level-algorithm" id="toc-high-level-algorithm" class="nav-link" data-scroll-target="#high-level-algorithm"><span class="header-section-number">4.3</span> High-Level Algorithm</a></li>
-  <li><a href="#installation-and-usage" id="toc-installation-and-usage" class="nav-link" data-scroll-target="#installation-and-usage"><span class="header-section-number">4.4</span> Installation and Usage</a></li>
+  <li><a href="#sec-install" id="toc-sec-install" class="nav-link" data-scroll-target="#sec-install"><span class="header-section-number">4.4</span> Installation and Usage</a></li>
   <li><a href="#sec-scope" id="toc-sec-scope" class="nav-link" data-scroll-target="#sec-scope"><span class="header-section-number">4.5</span> Scope</a></li>
-  <li><a href="#abandoned-techniques" id="toc-abandoned-techniques" class="nav-link" data-scroll-target="#abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned Techniques</a></li>
   </ul>
 </nav>
     </div>
@@ -608,8 +624,8 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 </div>
 </div>
 </section>
-<section id="installation-and-usage" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="installation-and-usage"><span class="header-section-number">4.4</span> Installation and Usage</h2>
+<section id="sec-install" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-install"><span class="header-section-number">4.4</span> Installation and Usage</h2>
 <p>The source code of OverHAuL is available in <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment <span class="citation" data-cites="venv"><a href="refs.html#ref-venv" role="doc-biblioref">[13]</a></span> and installing it inside the environment using Python’s PIP package installer <span class="citation" data-cites="pip"><a href="refs.html#ref-pip" role="doc-biblioref">[14]</a></span>, like in <a href="#lst-install" class="quarto-xref">Listing&nbsp;<span>4.1</span></a>.</p>
 <div id="lst-install" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
@@ -670,22 +686,6 @@ Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing <a href="https:/
 <p>Currently, OverHAuL is designed to generate new harnesses specifically for medium-sized C libraries. Given the inherent complexity of dealing with C++ projects, this is not a feature yet supported within the system.</p>
 <p>The compilation command utilized by OverHAuL is created programmatically. It incorporates the root directory along with all subdirectories that conform to a predefined set of common naming conventions. Additionally, the compilation process uses all C source files identified within these directories. Crucially, it is important that no <code>main()</code> function is present in any of the files to ensure successful compilation. For this reason any files or directories that include “test”, “main”, “example”, “demo”, or “benchmark” in their paths are systematically excluded from the compilation process. This exclusion also decreases the “noise” in the oracle, as these files do not constitute part of the core library and would therefore not contain any functions meaningful to the LLM agents.</p>
 <p>Lastly, No support for build systems such as Make or CMake <span class="citation" data-cites="cedilnik2000 feldman1979"><a href="refs.html#ref-cedilnik2000" role="doc-biblioref">[15]</a>, <a href="refs.html#ref-feldman1979" role="doc-biblioref">[16]</a></span> is yet implemented. Such functionality would exponentially increase the complexity of the build step and is beyond the scope of this thesis.</p>
-</section>
-<section id="abandoned-techniques" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned Techniques</h2>
-<p>During its development, OverHAuL went through several iterations. A number of approaches were implemented and evaluated, with some being replaced for better alternatives. These are:</p>
-<ol type="1">
-<li><p><strong>One-shot harness generation</strong></p>
-<p>Before the iterative feedback loop (<a href="#sec-loop" class="quarto-xref"><span>Section 4.2.1</span></a>) was implemented, OverHAuL attempted to operate in a straightforward pipeline, with just a “generator” agent being tasked to generate the harness. This meant that at either the compilation step or evaluation step, any failure resulted in the execution being terminated. This approach put too much responsibility in the response of a single LLM query, with results more often than not being unsatisfactory.</p></li>
-<li><p><strong>Chain-of-Thought LLM instances</strong></p>
-<p>The current implementation of ReAct agents has effectively supplanted the less effective Chain of Thought (COT) LLM modules <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[17]</a></span>. This shift underscores a critical realization in the harness generation process: the primary challenge lies not in the creation of the harness itself, but rather in the necessity for real-time feedback during execution. This is the reason why first employing COT prompting offered limited observed improvements.</p>
-<p>COT techniques are particularly advantageous when the task assigned to the LLM demands a more reflective, in-depth analysis. However, when it comes to tasks such as knowledge extraction from a codebase oracle and taking live feedback from the environment into consideration, ReAct agents demonstrate greater efficiency and effectiveness.</p></li>
-<li><p><strong>Source code concatenation</strong></p>
-<p>Initially, there was no implementation of a codebase oracle. Instead, the LLM agents operated with a Python string that contained a concatenation of all the collected source code. While this method proved effective for smaller and simpler projects, it encountered significant limitations when applied to more complex codebases. The primary challenge was the excessive consumption of the LLM’s context window, which hindered its ability to process and analyze larger codebases effectively. As a result, this approach became increasingly unsustainable as project complexity grew, underscoring the need for a more robust solution.</p></li>
-<li><p><strong><code>{index, read}_tool</code> usage for ReAct agents</strong></p>
-<p>The predecessor of the oracle comprised a dual-system approach for code exploration, integrating the <code>index_tool</code> and the <code>read_tool</code>. The <code>index_tool</code> offered the LLM agent a structured JSON object that delineated the project’s architecture, including all relevant file paths. On the other hand, the <code>read_tool</code> required a file path as input and returned the file’s content, albeit truncated to a maximum of 4000 characters. While this methodology presented an improvement in scalability over earlier systems, several limitations persisted.</p>
-<p>Firstly, the LLM was constrained to searching through the codebase strictly in file-specific terms, which limited its efficacy in understanding the broader context of code relationships. Furthermore, the imposed character limit on the <code>read_tool</code> meant that certain portions of the codebase remained inaccessible, impeding the agent’s analytical capabilities. Even if this character limit were to be lifted, the resultant output would still occupy a significant portion of the context window, particularly in larger and more intricate projects. As such, while this approach offered advancements in code exploration, it still fell short.</p></li>
-</ol>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
@@ -736,9 +736,6 @@ Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing <a href="https:/
 </div>
 <div id="ref-feldman1979" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[16] </div><div class="csl-right-inline">S. I. Feldman, <span>“Make — a program for maintaining computer programs,”</span> <em>Software: Practice and Experience</em>, vol. 9, no. 4, pp. 255–265, 1979, doi: <a href="https://doi.org/10.1002/spe.4380090402">10.1002/spe.4380090402</a>. Available: <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402">https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402</a></div>
-</div>
-<div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[17] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
 </div>
 </div>
 </section>
