@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -463,19 +498,16 @@ window.Quarto = {
   <li><a href="#sec-creation" id="toc-sec-creation" class="nav-link" data-scroll-target="#sec-creation"><span class="header-section-number">4.1.2</span> Harness Creation</a></li>
   <li><a href="#sec-evaluation" id="toc-sec-evaluation" class="nav-link" data-scroll-target="#sec-evaluation"><span class="header-section-number">4.1.3</span> Harness Evaluation</a></li>
   </ul></li>
-  <li><a href="#sec-techniques" id="toc-sec-techniques" class="nav-link" data-scroll-target="#sec-techniques"><span class="header-section-number">4.2</span> Main techniques</a>
+  <li><a href="#sec-techniques" id="toc-sec-techniques" class="nav-link" data-scroll-target="#sec-techniques"><span class="header-section-number">4.2</span> Main Techniques</a>
   <ul class="collapse">
-  <li><a href="#feedback-loop" id="toc-feedback-loop" class="nav-link" data-scroll-target="#feedback-loop"><span class="header-section-number">4.2.1</span> Feedback loop</a></li>
-  <li><a href="#react-agents-swarm" id="toc-react-agents-swarm" class="nav-link" data-scroll-target="#react-agents-swarm"><span class="header-section-number">4.2.2</span> ReAct agents swarm</a></li>
-  <li><a href="#codebase-oracle" id="toc-codebase-oracle" class="nav-link" data-scroll-target="#codebase-oracle"><span class="header-section-number">4.2.3</span> Codebase oracle</a></li>
+  <li><a href="#sec-loop" id="toc-sec-loop" class="nav-link" data-scroll-target="#sec-loop"><span class="header-section-number">4.2.1</span> Feedback Loop</a></li>
+  <li><a href="#react-agents-swarm" id="toc-react-agents-swarm" class="nav-link" data-scroll-target="#react-agents-swarm"><span class="header-section-number">4.2.2</span> React Agents Swarm</a></li>
+  <li><a href="#sec-oracle" id="toc-sec-oracle" class="nav-link" data-scroll-target="#sec-oracle"><span class="header-section-number">4.2.3</span> Codebase Oracle</a></li>
   </ul></li>
   <li><a href="#high-level-algorithm" id="toc-high-level-algorithm" class="nav-link" data-scroll-target="#high-level-algorithm"><span class="header-section-number">4.3</span> High-Level Algorithm</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">4.4</span> Examples</a></li>
-  <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope"><span class="header-section-number">4.5</span> Scope</a>
-  <ul class="collapse">
-  <li><a href="#sec-assumptions" id="toc-sec-assumptions" class="nav-link" data-scroll-target="#sec-assumptions"><span class="header-section-number">4.5.1</span> Assumptions/Prerequisites</a></li>
-  </ul></li>
-  <li><a href="#abandoned-techniques" id="toc-abandoned-techniques" class="nav-link" data-scroll-target="#abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned techniques</a></li>
+  <li><a href="#installation-and-usage" id="toc-installation-and-usage" class="nav-link" data-scroll-target="#installation-and-usage"><span class="header-section-number">4.4</span> Installation and Usage</a></li>
+  <li><a href="#sec-scope" id="toc-sec-scope" class="nav-link" data-scroll-target="#sec-scope"><span class="header-section-number">4.5</span> Scope</a></li>
+  <li><a href="#abandoned-techniques" id="toc-abandoned-techniques" class="nav-link" data-scroll-target="#abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned Techniques</a></li>
   </ul>
 </nav>
     </div>
@@ -533,7 +565,7 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 <section id="sec-creation" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="sec-creation"><span class="header-section-number">4.1.2</span> Harness Creation</h3>
 <p>Second is the harness creation stage (steps B.1–B.2). In this part, a “generator” ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the vector store. When the agent makes queries like “functions containing <code>strcpy()</code>”, the querying tool turns the question into an embedding and through similarity search returns the top <span class="math inline">k=3</span> most similar results—in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.</p>
-<p>The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in <a href="#sec-assumptions" class="quarto-xref"><span>Section 4.5.1</span></a>. If the compilation fails for any reason, e.g.&nbsp;a missing header include, then the generated faulty harness and its compilation output are passed to a new “fixer” agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command.</p>
+<p>The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in <a href="#sec-scope" class="quarto-xref"><span>Section 4.5</span></a>. If the compilation fails for any reason, e.g.&nbsp;a missing header include, then the generated faulty harness and its compilation output are passed to a new “fixer” agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command.</p>
 </section>
 <section id="sec-evaluation" class="level3" data-number="4.1.3">
 <h3 data-number="4.1.3" class="anchored" data-anchor-id="sec-evaluation"><span class="header-section-number">4.1.3</span> Harness Evaluation</h3>
@@ -547,21 +579,21 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 </section>
 </section>
 <section id="sec-techniques" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="sec-techniques"><span class="header-section-number">4.2</span> Main techniques</h2>
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-techniques"><span class="header-section-number">4.2</span> Main Techniques</h2>
 <p>The fundamental techniques that distinguish OverHAuL in its approach and enhance its effectiveness in achieving its objectives are: The implementation of an iterative feedback loop between the LLM agents, the distribution of responsibility across a swarm of distinct agents and the employment of a “codebase oracle” for interacting with the given project’s source code.</p>
-<section id="feedback-loop" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="feedback-loop"><span class="header-section-number">4.2.1</span> Feedback loop</h3>
+<section id="sec-loop" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="sec-loop"><span class="header-section-number">4.2.1</span> Feedback Loop</h3>
 <p>The initial generated harness produced by OverHAuL is unlikely to be successful from the get-go. The iterative feedback loop implemented facilitates its enhancement, enabling the harness to be tested under real-world conditions and subsequently refined based on the results of these tests. This approach mirrors the typical workflow employed by developers in the process of creating and optimizing fuzz targets.</p>
 <p>In this iterative framework, the development process continues until either an acceptable and functional harness is realized or the defined <em>iteration budget</em> is exhausted. The iteration budget <span class="math inline">N=10</span> is initialized at the onset of OverHAuL’s execution and is shared between both the compilation and evaluation phases of the harness development process. This means that the iteration budget is decremented each time a dashed arrow in the flowchart illustrated in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> is followed. Such an approach allows for targeted improvements while maintaining oversight of resource allocation throughout the harness development cycle.</p>
 </section>
 <section id="react-agents-swarm" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="react-agents-swarm"><span class="header-section-number">4.2.2</span> ReAct agents swarm</h3>
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="react-agents-swarm"><span class="header-section-number">4.2.2</span> React Agents Swarm</h3>
 <p>An integral design decision in our framework is the implementation of each agent as a distinct LLM instance, although all utilizing the same underlying model. This approach yields several advantages, particularly in the context of maintaining separate and independent contexts for each agent throughout each OverHAuL run.</p>
 <p>By assigning individual contexts to the agents, we enable a broader exploration of possibilities during each run. For instance, the “improver” agent can investigate alternative pathways or strategies that the “generator” agent may have potentially overlooked or internally deemed inadequate inaccurately. This separation not only fosters a more diverse range of solutions but also enhances the overall robustness of the system by allowing for iterative refinement based on each agent’s unique insights.</p>
 <p>Furthermore, this design choice effectively addresses the limitations imposed by context window sizes. By distributing the “cognitive” load across multiple agents, we can manage and mitigate the risks associated with exceeding these constraints. As a result, this architecture promotes efficient utilization of available resources while maximizing the potential for innovative outcomes in multi-agent interactions. This layered approach ultimately contributes to a more dynamic and exploratory research environment, facilitating a comprehensive examination of the problem space.</p>
 </section>
-<section id="codebase-oracle" class="level3" data-number="4.2.3">
-<h3 data-number="4.2.3" class="anchored" data-anchor-id="codebase-oracle"><span class="header-section-number">4.2.3</span> Codebase oracle</h3>
+<section id="sec-oracle" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="sec-oracle"><span class="header-section-number">4.2.3</span> Codebase Oracle</h3>
 <p>The third central technique employed is the creation and utilization of a codebase oracle, which is effectively realized through a vector store. This oracle is designed to contain the various functions within the project, enabling it to return the most semantically similar functions upon querying it. Such an approach serves to address the inherent challenges associated with code exploration difficulties faced by LLM agents, particularly in relation to their limited context window.</p>
 <p>By structuring the codebase into chunks at the level of individual functions, LLM agents can engage with the code more effectively by focusing on its functional components. This methodology not only allows for a more nuanced understanding of the codebase but also ensures that the responses generated do not consume an excessive portion of the limited context window available to the agents. In contrast, if the codebase were organized and queried at the file level, the chunks of information would inevitably become larger, leading to an increase in noise and a dilution of meaningful content in each chunk <span class="citation" data-cites="zhao2024"><a href="refs.html#ref-zhao2024" role="doc-biblioref">[11]</a></span>. Given the constant size of the embeddings used in processing, each progressively larger chunk would be less semantically significant, ultimately compromising the quality of the retrieval process.</p>
 <p>Defining the function as the primary unit of analysis represents the most proportionate balance between the size of the code segments and their semantic significance. It serves as the ideal “zoom-in” level for the exploration of code, allowing for greater clarity and precision in understanding the functionality of individual code segments. This same principle is widely recognized in the training of code-specific LLMs, where a function-level approach has been shown to enhance performance and comprehension <span class="citation" data-cites="chen2021"><a href="refs.html#ref-chen2021" role="doc-biblioref">[12]</a></span>. By adopting this methodology, we aim to foster a more robust interaction between LLM agents and the underlying codebase, ultimately facilitating a more effective and efficient exploration process.</p>
@@ -569,57 +601,90 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 </section>
 <section id="high-level-algorithm" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="high-level-algorithm"><span class="header-section-number">4.3</span> High-Level Algorithm</h2>
-<p>A pseudocode version of OverHAuL’s main function can be seen in <a href="#alg-main" class="quarto-xref">Algorithm 1</a>. It represents the workflow presented in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> and uses the techniques described in sections <a href="#sec-architecture" class="quarto-xref"><span>4.1</span></a> and <a href="#sec-techniques" class="quarto-xref"><span>4.2</span></a>. It is important to emphasize that, within the context of this algorithm, the <code>Harnesser()</code> function serves as an interface that bridges the “generator”, “fixer” and “improver” LLM agents. The agent that is used upon each function call depends on the values of the function’s arguments. This results in the <span class="math inline">harness</span> variable representing all generated, fixed or improved harnesses. This approach is adopted for making the abstract algorithm simpler and easier to understand.</p>
-<div id="alg-main" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
+<p>A pseudocode version of OverHAuL’s main function can be seen in <a href="#alg-main" class="quarto-xref">Algorithm 1</a>. It represents the workflow presented in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> and uses the techniques described in sections <a href="#sec-architecture" class="quarto-xref"><span>4.1</span></a> and <a href="#sec-techniques" class="quarto-xref"><span>4.2</span></a>. It is important to emphasize that, within the context of this algorithm, the <code>HarnessAgents()</code> function serves as an interface that bridges the “generator”, “fixer” and “improver” LLM agents. The agent that is used upon each function call depends on the values of the function’s arguments. This results in the <span class="math inline">harness</span> variable representing all generated, fixed or improved harnesses. This approach is adopted for making the abstract algorithm simpler and easier to understand.</p>
+<div id="alg-main" class="pseudocode-container quarto-float" data-pseudocode-number="1" data-caption-prefix="Algorithm">
 <div class="pseudocode">
-\begin{algorithm} \caption{OverHAuL}\begin{algorithmic} \Require $repository$ \Ensure $harness, compilation\_script, crash\_input, execution\_log$ \State $path \gets$ \Call{RepoClone}{repository} \State $report \gets$ \Call{StaticAnalysis}{$path$} \State $vector\_store \gets$ \Call{CreateOracle}{$path$} \State $acceptable \gets$ False \State $compiled \gets$ False \State $error \gets$ None \State $violation \gets$ None \State $output \gets$ None \For{$i = 1$ to $MAX\_ITERATIONS$} \State $harness \gets$ \Call{Harnesser}{$path, report, vector\_store, error, violation, output$} \State $error, compiled \gets$ \Call{BuildHarness}{$harness$} \If{$\neg compiled$} \State \textbf{continue} \Comment{Regenerate harness} \EndIf \State $output, accepted \gets $\Call{EvaluateHarness}{$harness$} \If{$\neg accepted$} \State \textbf{continue} \Comment{Improve harness} \Else \State $acceptable \gets$ True \State \textbf{break} \EndIf \EndFor \State \Return $compiled \land acceptable$ \end{algorithmic} \end{algorithm}
+\begin{algorithm} \caption{OverHAuL}\begin{algorithmic} \Require $repository$ \Ensure $harness, compilation\_script, crash\_input, execution\_log$ \State $path \gets$ \Call{RepoClone}{repository} \State $report \gets$ \Call{StaticAnalysis}{$path$} \State $vector\_store \gets$ \Call{CreateOracle}{$path$} \State $acceptable \gets$ False \State $compiled \gets$ False \State $error \gets$ None \State $violation \gets$ None \State $output \gets$ None \For{$i = 1$ to $MAX\_ITERATIONS$} \State $harness \gets$ \Call{HarnessAgents}{$path, report, vector\_store, error, violation, output$} \State $error, compiled \gets$ \Call{BuildHarness}{$path, harness$} \If{$\neg compiled$} \State \textbf{continue} \Comment{Fix harness} \EndIf \State $output, accepted \gets $\Call{EvaluateHarness}{$path, harness$} \If{$\neg accepted$} \State \textbf{continue} \Comment{Improve harness} \Else \State $acceptable \gets$ True \State \textbf{break} \EndIf \EndFor \State \Return $compiled \land acceptable$ \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </section>
-<section id="examples" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">4.4</span> Examples</h2>
+<section id="installation-and-usage" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="installation-and-usage"><span class="header-section-number">4.4</span> Installation and Usage</h2>
+<p>The source code of OverHAuL is available in <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment <span class="citation" data-cites="venv"><a href="refs.html#ref-venv" role="doc-biblioref">[13]</a></span> and installing it inside the environment using Python’s PIP package installer <span class="citation" data-cites="pip"><a href="refs.html#ref-pip" role="doc-biblioref">[14]</a></span>, like in <a href="#lst-install" class="quarto-xref">Listing&nbsp;<span>4.1</span></a>.</p>
+<div id="lst-install" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-install-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;4.1: OverHAuL’s installation process.
+</figcaption>
+<div aria-describedby="lst-install-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>$ git clone https://github.com/kchousos/overhaul; cd overhaul</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  ...</span>
+<span id="cb1-3"><a href="#cb1-3"></a>$ python3.10 -m venv .venv</span>
+<span id="cb1-4"><a href="#cb1-4"></a>$ source ./.venv/bin/activate</span>
+<span id="cb1-5"><a href="#cb1-5"></a>$ pip install .</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  ...</span>
+<span id="cb1-7"><a href="#cb1-7"></a>$ overhaul --help</span>
+<span id="cb1-8"><a href="#cb1-8"></a>usage: overhaul [-h] [-c COMMIT] [-m MODEL] [-f FILES [FILES ...]] [-o OUTPUT_DIR] repo</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>Generate fuzzing harnesses for C/C++ projects</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>positional arguments:</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  repo                  Link of a project's git repo, for which to generate a harness.</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>options:</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  -h, --help            show this help message and exit</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  -c COMMIT, --commit COMMIT</span>
+<span id="cb1-18"><a href="#cb1-18"></a>                        A specific commit of the project to check out</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  -m MODEL, --model MODEL</span>
+<span id="cb1-20"><a href="#cb1-20"></a>                        LLM model to be used. Available: o3-mini, o3, gpt-4o, gpt-4o-mini,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>                        gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  -f FILES [FILES ...], --files FILES [FILES ...]</span>
+<span id="cb1-23"><a href="#cb1-23"></a>                        File patterns to include in analysis (e.g. *.c *.h)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>  -o OUTPUT_DIR, --output-dir OUTPUT_DIR</span>
+<span id="cb1-25"><a href="#cb1-25"></a>                        Directory to clone the project into. Defaults to "output"</span>
+<span id="cb1-26"><a href="#cb1-26"></a>$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>To use OverHAuL, you need to provide a secret key for using OpenAI’s API service. This key can be either stored in a <code>.env</code> file in the root directory, like so:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a># cat .env</span>
+<span id="cb2-2"><a href="#cb2-2"></a>OPENAI_API_KEY=&lt;API-key-here&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or it can be exported in the shell environment:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>$ export OPENAI_API_KEY=&lt;API-key-here&gt;</span>
+<span id="cb3-2"><a href="#cb3-2"></a>$ overhaul &lt;repo-link&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. A sample successful execution can is presented in <a href="#fig-success" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>.</p>
 <div id="fig-success" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../resources/successful-execution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse library."><img src="../resources/successful-execution.png" class="img-fluid figure-img"></a>
+<a href="../resources/successful-execution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing dvhar’s dateparsing C library, using OpenAI’s gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (sec-oracle)."><img src="../resources/successful-execution.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse library.
+Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing <a href="https://github.com/dvhar/dateparse">dvhar’s dateparsing C library</a>, using OpenAI’s gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (<a href="#sec-oracle" class="quarto-xref"><span>Section 4.2.3</span></a>).
 </figcaption>
 </figure>
 </div>
+<p>In this example, the dateparse repository is cloned into the <code>./output/dateparse</code> directory, which is relative to the root directory of OverHAuL. Following a successful execution, this directory will contain a new folder named <code>harnesses</code>, which will house all the generated harnesses formatted as <code>harness_n.c</code>—where <span class="math inline">n</span> ranges from 1 to <span class="math inline">N-1</span>, with <span class="math inline">N</span> representing the total number of harnesses produced. The most recent and verifiably correct harness will be designated simply as <code>harness.c</code>. Additionally, the dateparse directory will include an executable script named <code>overhaul.sh</code>, which contains the compilation command necessary for the harness. A log file titled <code>harness.out</code> will also be present, documenting the output from the latest harness execution. Lastly and most importantly, there will be at least one non-empty crash file included, serving as a witness to the harness’s correctness.</p>
 </section>
-<section id="scope" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="scope"><span class="header-section-number">4.5</span> Scope</h2>
-<ul>
-<li>Limited to C libraries</li>
-<li>Expects relatively simple project structure
-<ul>
-<li>Code either in root or in common-named subdirs (e.g.&nbsp;src/)</li>
-<li>Any file or directory with main, test or example substring is ignored</li>
-<li>No main() function, or only exists in some file that is ignored by the above</li>
-</ul></li>
-<li>Build systems not supported
-<ul>
-<li>Harness is compiled with a predefined command</li>
-</ul></li>
-</ul>
-<section id="sec-assumptions" class="level3" data-number="4.5.1">
-<h3 data-number="4.5.1" class="anchored" data-anchor-id="sec-assumptions"><span class="header-section-number">4.5.1</span> Assumptions/Prerequisites</h3>
-<ul>
-<li>Project structure</li>
-<li>file/folder naming</li>
-<li>building process</li>
-</ul>
-</section>
+<section id="sec-scope" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-scope"><span class="header-section-number">4.5</span> Scope</h2>
+<p>Currently, OverHAuL is designed to generate new harnesses specifically for medium-sized C libraries. Given the inherent complexity of dealing with C++ projects, this is not a feature yet supported within the system.</p>
+<p>The compilation command utilized by OverHAuL is created programmatically. It incorporates the root directory along with all subdirectories that conform to a predefined set of common naming conventions. Additionally, the compilation process uses all C source files identified within these directories. Crucially, it is important that no <code>main()</code> function is present in any of the files to ensure successful compilation. For this reason any files or directories that include “test”, “main”, “example”, “demo”, or “benchmark” in their paths are systematically excluded from the compilation process. This exclusion also decreases the “noise” in the oracle, as these files do not constitute part of the core library and would therefore not contain any functions meaningful to the LLM agents.</p>
+<p>Lastly, No support for build systems such as Make or CMake <span class="citation" data-cites="cedilnik2000 feldman1979"><a href="refs.html#ref-cedilnik2000" role="doc-biblioref">[15]</a>, <a href="refs.html#ref-feldman1979" role="doc-biblioref">[16]</a></span> is yet implemented. Such functionality would exponentially increase the complexity of the build step and is beyond the scope of this thesis.</p>
 </section>
 <section id="abandoned-techniques" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned techniques</h2>
+<h2 data-number="4.6" class="anchored" data-anchor-id="abandoned-techniques"><span class="header-section-number">4.6</span> Abandoned Techniques</h2>
+<p>During its development, OverHAuL went through several iterations. A number of approaches were implemented and evaluated, with some being replaced for better alternatives. These are:</p>
 <ol type="1">
-<li><p>Zero-shot harness generation</p></li>
-<li><p>ChainOfThought modules for LLM instances <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[13]</a></span></p></li>
-<li><p>Naive source code concatenation</p></li>
-<li><p>manual {index, read}_tool usage for ReAct agents</p></li>
+<li><p><strong>One-shot harness generation</strong></p>
+<p>Before the iterative feedback loop (<a href="#sec-loop" class="quarto-xref"><span>Section 4.2.1</span></a>) was implemented, OverHAuL attempted to operate in a straightforward pipeline, with just a “generator” agent being tasked to generate the harness. This meant that at either the compilation step or evaluation step, any failure resulted in the execution being terminated. This approach put too much responsibility in the response of a single LLM query, with results more often than not being unsatisfactory.</p></li>
+<li><p><strong>Chain-of-Thought LLM instances</strong></p>
+<p>The current implementation of ReAct agents has effectively supplanted the less effective Chain of Thought (COT) LLM modules <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[17]</a></span>. This shift underscores a critical realization in the harness generation process: the primary challenge lies not in the creation of the harness itself, but rather in the necessity for real-time feedback during execution. This is the reason why first employing COT prompting offered limited observed improvements.</p>
+<p>COT techniques are particularly advantageous when the task assigned to the LLM demands a more reflective, in-depth analysis. However, when it comes to tasks such as knowledge extraction from a codebase oracle and taking live feedback from the environment into consideration, ReAct agents demonstrate greater efficiency and effectiveness.</p></li>
+<li><p><strong>Source code concatenation</strong></p>
+<p>Initially, there was no implementation of a codebase oracle. Instead, the LLM agents operated with a Python string that contained a concatenation of all the collected source code. While this method proved effective for smaller and simpler projects, it encountered significant limitations when applied to more complex codebases. The primary challenge was the excessive consumption of the LLM’s context window, which hindered its ability to process and analyze larger codebases effectively. As a result, this approach became increasingly unsustainable as project complexity grew, underscoring the need for a more robust solution.</p></li>
+<li><p><strong><code>{index, read}_tool</code> usage for ReAct agents</strong></p>
+<p>The predecessor of the oracle comprised a dual-system approach for code exploration, integrating the <code>index_tool</code> and the <code>read_tool</code>. The <code>index_tool</code> offered the LLM agent a structured JSON object that delineated the project’s architecture, including all relevant file paths. On the other hand, the <code>read_tool</code> required a file path as input and returned the file’s content, albeit truncated to a maximum of 4000 characters. While this methodology presented an improvement in scalability over earlier systems, several limitations persisted.</p>
+<p>Firstly, the LLM was constrained to searching through the codebase strictly in file-specific terms, which limited its efficacy in understanding the broader context of code relationships. Furthermore, the imposed character limit on the <code>read_tool</code> meant that certain portions of the codebase remained inaccessible, impeding the agent’s analytical capabilities. Even if this character limit were to be lifted, the resultant output would still occupy a significant portion of the context window, particularly in larger and more intricate projects. As such, while this approach offered advancements in code exploration, it still fell short.</p></li>
 </ol>
 
 
@@ -660,8 +725,20 @@ Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse li
 <div id="ref-chen2021" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[12] </div><div class="csl-right-inline">M. Chen <em>et al.</em>, <span>“Evaluating <span>Large Language Models Trained</span> on <span>Code</span>,”</span> Jul. 14, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2107.03374">10.48550/arXiv.2107.03374</a>. Available: <a href="http://arxiv.org/abs/2107.03374">http://arxiv.org/abs/2107.03374</a></div>
 </div>
+<div id="ref-venv" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Python Software Foundation, <span>“Venv — <span>Creation</span> of virtual environments,”</span> Jul. 17, 2025. Available: <a href="https://docs.python.org/3/library/venv.html">https://docs.python.org/3/library/venv.html</a></div>
+</div>
+<div id="ref-pip" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">pip developers, <span>“Pip documentation V25.1.1,”</span> 2025. Available: <a href="https://pip.pypa.io/en/stable/">https://pip.pypa.io/en/stable/</a></div>
+</div>
+<div id="ref-cedilnik2000" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">A. Cedilnik, B. Hoffman, B. King, K. Martin, and A. Neundorf, <span>“<span>CMake</span> - <span>Upgrade Your Software Build System</span>.”</span> 2000. Available: <a href="https://cmake.org/">https://cmake.org/</a></div>
+</div>
+<div id="ref-feldman1979" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">S. I. Feldman, <span>“Make — a program for maintaining computer programs,”</span> <em>Software: Practice and Experience</em>, vol. 9, no. 4, pp. 255–265, 1979, doi: <a href="https://doi.org/10.1002/spe.4380090402">10.1002/spe.4380090402</a>. Available: <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402">https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402</a></div>
+</div>
 <div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
 </div>
 </div>
 </section>
