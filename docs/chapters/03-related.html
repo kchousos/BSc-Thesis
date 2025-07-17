@@ -67,6 +67,8 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -96,6 +98,24 @@ div.csl-indent {
   }
 }</script>
 <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer=""></script>
+<script>
+MathJax = {
+  loader: {
+    load: ['[tex]/boldsymbol']
+  },
+  tex: {
+    tags: "all",
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {
+      '[+]': ['boldsymbol']
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 
 </head>
@@ -341,26 +361,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-results.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05-evaluation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  <a href="../chapters/06-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  <a href="../chapters/07-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  <a href="../chapters/08-future.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -393,9 +425,9 @@ div.csl-indent {
   <li><a href="#oss-fuzz-gen" id="toc-oss-fuzz-gen" class="nav-link" data-scroll-target="#oss-fuzz-gen"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</a></li>
   <li><a href="#autogen" id="toc-autogen" class="nav-link" data-scroll-target="#autogen"><span class="header-section-number">3.1.11</span> AutoGen</a></li>
   </ul></li>
-  <li><a href="#differences" id="toc-differences" class="nav-link" data-scroll-target="#differences"><span class="header-section-number">3.2</span> Differences</a></li>
+  <li><a href="#sec-differences" id="toc-sec-differences" class="nav-link" data-scroll-target="#sec-differences"><span class="header-section-number">3.2</span> Differences</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/kchousos/BSc-Thesis/edit/master/chapters/03-related.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kchousos/BSc-Thesis/blob/master/chapters/03-related.md" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -487,8 +519,8 @@ div.csl-indent {
 <p>AutoGen <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[4]</a></span> is a closed-source tool that generates new fuzzing harnesses, given only the library code and documentation. It works as following: The user specifies the function for which a harness is to be generated. AutoGen gathers information for this function—such as the function body, used header files, function calling examples—from the source code and documentation. Through specific prompt templates containing the above information, an LLM is tasked with generating a new fuzz driver, while another is tasked with generating a compilation command for said driver. If the compilation fails, both LLMs are called again to fix the problem, whether it was on the driver’s or command’s side. This loop iterates until a predefined maximum value or until a fuzz driver is successfully generated and compiled. If the latter is the case, it is then executed. If execution errors exist, the LLM responsible for the driver generation is used to correct them. If not, the pipeline has terminated and a new fuzz driver has been successfully generated.</p>
 </section>
 </section>
-<section id="differences" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="differences"><span class="header-section-number">3.2</span> Differences</h2>
+<section id="sec-differences" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-differences"><span class="header-section-number">3.2</span> Differences</h2>
 <p>OverHAuL differs, in some way, with each of the aforementioned works. Firstly, although KLEE and IRIS <span class="citation" data-cites="iris klee"><a href="refs.html#ref-iris" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-klee" role="doc-biblioref">[13]</a></span> tackle the problem of automated testing and both IRIS and OverHAuL can be considered neurosymbolic AI tools, the similarities end there. None of them utilize LLMs the same way we do—with KLEE not utilizing them by default, as it precedes them chronologically—and neither are automating any part of the fuzzing process.</p>
 <p>When it comes to FUDGE, FuzzGen and UTopia <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[11]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>, all three depend on and demand existing client code and/or unit tests. On the other hand, OverHAuL requires only the bare minimum: the library code itself. Another point of difference is that in contrast with OverHAuL, these tools operate in a linear fashion. No feedback is produced or used in any step and any point failure results in the termination of the entire run.</p>
 <p>OverHAuL challenges a common principle of these tools, stated explicitly in FUDGE’s paper <span class="citation" data-cites="fudge"><a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>: “Choosing a suitable fuzz target (still) requires a human”. OverHAuL chooses to let the LLM, instead of the user, explore the available functions and choose one to target in its fuzz driver.</p>
@@ -1042,7 +1074,7 @@ div.csl-indent {
  © 2025 Konstantinos Chousos
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kchousos/BSc-Thesis/edit/master/chapters/03-related.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kchousos/BSc-Thesis/blob/master/chapters/03-related.md" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
@@ -1069,6 +1101,38 @@ div.csl-indent {
     </div>
   </div>
 </footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
 
 
 

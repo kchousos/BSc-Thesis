@@ -1,8 +1,10 @@
 # Evaluation
 
+## Research questions
+
 ## Benchmarks
 
-Results from integration with 10/100 open-source C/C++ projects.
+10 open-source C/C++ projects.
 
 ## Performance
 

@@ -33,10 +33,12 @@ book:
     - chapters/02-background.md
     - chapters/03-related.md
     - chapters/04-overhaul.md 
-    - chapters/05-results.md
-    - chapters/06-future.md
-    - chapters/07-discussion.md
-    - chapters/08-conclusion.md
+    - chapters/05-evaluation.md
+    - chapters/06-results.md
+    - chapters/07-implementation.md
+    - chapters/08-future.md
+    - chapters/09-discussion.md
+    - chapters/10-conclusion.md
     - chapters/refs.md # Bibliography
   # appendices:
   #   - chapters/appendix.md
@@ -57,12 +59,15 @@ book:
   downloads: [pdf]
   repo-url: https://github.com/kchousos/BSc-Thesis/
   repo-branch: master
-  repo-actions: [edit, source]
+  # repo-actions: [edit, source]
 
 bibliography: "./resources/bibliography.bib"
 csl: "./resources/ieee-with-url.csl"
 
 code-line-numbers: true
+
+filters:
+  - pseudocode
 
 format:
   html:
@@ -84,8 +89,28 @@ format:
     respect-user-color-scheme: true
     highlight-style: arrow
     date-format: long
+    lightbox: true
     include-in-header:
-      text: <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer></script>
+      text: |
+        <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer></script>
+        <script>
+        MathJax = {
+          loader: {
+            load: ['[tex]/boldsymbol']
+          },
+          tex: {
+            tags: "all",
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {
+              '[+]': ['boldsymbol']
+            }
+          }
+        };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   pdf:
     default: true
     date: 07-01-2025

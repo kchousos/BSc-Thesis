@@ -8,7 +8,7 @@
 
 <meta name="description" content="My BSc thesis.">
 
-<title>4&nbsp; OverHAuL – OverHAuL</title>
+<title>8&nbsp; Future Work – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,8 +51,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/05-evaluation.html" rel="next">
-<link href="../chapters/03-related.html" rel="prev">
+<link href="../chapters/09-discussion.html" rel="next">
+<link href="../chapters/07-implementation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -70,9 +70,6 @@ div.csl-indent {
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -120,49 +117,6 @@ MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -345,7 +299,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04-overhaul.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08-future.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -401,7 +355,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-overhaul.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/04-overhaul.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL</span></span></a>
   </div>
 </li>
@@ -425,7 +379,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-future.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08-future.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
@@ -457,19 +411,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#architecture" id="toc-architecture" class="nav-link active" data-scroll-target="#architecture"><span class="header-section-number">4.1</span> Architecture</a>
-  <ul class="collapse">
-  <li><a href="#sec-analysis" id="toc-sec-analysis" class="nav-link" data-scroll-target="#sec-analysis"><span class="header-section-number">4.1.1</span> Project Analysis</a></li>
-  <li><a href="#sec-creation" id="toc-sec-creation" class="nav-link" data-scroll-target="#sec-creation"><span class="header-section-number">4.1.2</span> Harness Creation</a></li>
-  <li><a href="#sec-evaluation" id="toc-sec-evaluation" class="nav-link" data-scroll-target="#sec-evaluation"><span class="header-section-number">4.1.3</span> Harness Evaluation</a></li>
-  </ul></li>
-  <li><a href="#main-techniques" id="toc-main-techniques" class="nav-link" data-scroll-target="#main-techniques"><span class="header-section-number">4.2</span> Main techniques</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">4.3</span> Examples</a></li>
-  <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope"><span class="header-section-number">4.4</span> Scope</a>
-  <ul class="collapse">
-  <li><a href="#sec-assumptions" id="toc-sec-assumptions" class="nav-link" data-scroll-target="#sec-assumptions"><span class="header-section-number">4.4.1</span> Assumptions/Prerequisites</a></li>
-  </ul></li>
-  <li><a href="#abandoned-techniques" id="toc-abandoned-techniques" class="nav-link" data-scroll-target="#abandoned-techniques"><span class="header-section-number">4.5</span> Abandoned techniques</a></li>
+  <li><a href="#enhancements-to-core-features" id="toc-enhancements-to-core-features" class="nav-link active" data-scroll-target="#enhancements-to-core-features"><span class="header-section-number">8.1</span> Enhancements to Core Features</a></li>
+  <li><a href="#experimentation-with-large-language-models-and-data-representation" id="toc-experimentation-with-large-language-models-and-data-representation" class="nav-link" data-scroll-target="#experimentation-with-large-language-models-and-data-representation"><span class="header-section-number">8.2</span> Experimentation with Large Language Models and Data Representation</a></li>
+  <li><a href="#comprehensive-evaluation-and-benchmarking" id="toc-comprehensive-evaluation-and-benchmarking" class="nav-link" data-scroll-target="#comprehensive-evaluation-and-benchmarking"><span class="header-section-number">8.3</span> Comprehensive Evaluation and Benchmarking</a></li>
+  <li><a href="#practical-deployment-and-community-engagement" id="toc-practical-deployment-and-community-engagement" class="nav-link" data-scroll-target="#practical-deployment-and-community-engagement"><span class="header-section-number">8.4</span> Practical Deployment and Community Engagement</a></li>
   </ul>
 </nav>
     </div>
@@ -479,7 +424,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></h1>
 </div>
 
 
@@ -496,154 +441,76 @@ window.Quarto = {
 </header>
 
 
-<p>In this thesis we present <em>OverHAuL</em> (<strong>H</strong>arness <strong>Au</strong>tomation with <strong>L</strong>LMs), a neurosymbolic AI tool that automatically generates fuzzing harnesses for C libraries through LLM agents. In its core, OverHAuL is comprised by three LLM ReAct agents <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[1]</a></span>—each with its own responsibility and scope—and a vector store index reserving the given project’s analyzed codebase. An overview of OverHAuL’s process is presented in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. The objective of OverHAuL is to streamline the process of fuzz testing for C libraries. Given a link to a git repository <span class="citation" data-cites="torvalds2005"><a href="refs.html#ref-torvalds2005" role="doc-biblioref">[2]</a></span> of a C library, OverHAuL automatically generates a new fuzzing harness specifically designed for the project. In addition to the harness, it produces a compilation script to facilitate building the harness, generates a representative input that can trigger crashes, and logs the output from the executed harness.</p>
-<div id="fig-flowchart" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../resources/flowchart.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process."><img src="../resources/flowchart.png" class="img-fluid figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
-</figcaption>
-</figure>
-</div>
-<p>As commented in <a href="03-related.html#sec-differences" class="quarto-xref"><span>Section 3.2</span></a>, OverHAuL does not expect and depend on the existence of client code or unit tests <span class="citation" data-cites="utopia fudge fuzzgen"><a href="refs.html#ref-utopia" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[5]</a></span> <em>nor</em> does it require any preexisting fuzzing harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span> or any documentation present <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[7]</a></span>. Also importantly, OverHAuL is decoupled from other fuzzing projects, thus lowering the barrier to entry for new projects <span class="citation" data-cites="oss-fuzz-gen oss-fuzz"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[8]</a></span>. Lastly, the user isn’t mandated to specify manually the function which the harness-to-be-generated must fuzz. Instead, OverHAuL’s agents examine and assess the provided codebase, choosing after evaluation the most optimal targeted function.</p>
-<p>OverHAuL utilizes autonomous ReAct agents <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[1]</a></span> which inspect and analyze the project’s source code. The latter is stored and interacted with as a set of text embeddings <span class="citation" data-cites="mikolov2013"><a href="refs.html#ref-mikolov2013" role="doc-biblioref">[9]</a></span>, kept in a vector store. Both approaches are, to the best of our knowledge, novel in the field of automatic fuzzing harnesses generation. OverHAuL also implements an evaluation component that assesses in real-time all generated harnesses, making the results tenable, reproducible and well-founded. Ideally, this methodology provides a comprehensive and systematic framework for identifying previously unknown software vulnerabilities in projects that have not yet been fuzz tested.</p>
-<p>Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies—only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
-<ol>
-<li id="fn1"><p>I.e. “research code”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</aside>
-<section id="architecture" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="architecture"><span class="header-section-number">4.1</span> Architecture</h2>
-<p>OverHAuL can be compartmentalized in three stages: First, the project analysis stage (<a href="#sec-analysis" class="quarto-xref"><span>Section 4.1.1</span></a>), the harness creation stage (<a href="#sec-creation" class="quarto-xref"><span>Section 4.1.2</span></a>) and the harness evaluation stage (<a href="#sec-evaluation" class="quarto-xref"><span>Section 4.1.3</span></a>).</p>
-<section id="sec-analysis" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="sec-analysis"><span class="header-section-number">4.1.1</span> Project Analysis</h3>
-<p>In the project analysis stage (steps A.1–A.4), the project to be fuzzed is ran through a static analysis tool and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a static analysis report and a vector store containing embeddings of function-level code chunks, both of which are later available to the LLM agents.</p>
-<p>The static analysis tool Flawfinder <span class="citation" data-cites="flawfinder"><a href="refs.html#ref-flawfinder" role="doc-biblioref">[10]</a></span> is executed with the project directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices.</p>
-<p>The vector store is created in the following manner: The codebase is first chunked in function-level pieces by traversing the code’s Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function’s signature, the corresponding filepath and the function’s body. Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in the LLMs.</p>
+<p>The prototype implementation of OverHAuL offers a compelling demonstration of its potential to automate the fuzzing process for open-source libraries, providing tangible benefits to developers and maintainers alike. This initial version successfully validates the core design principles underpinning OverHAuL, showcasing its ability to streamline and enhance the software testing workflow through automated generation of fuzz drivers using large language models. Nevertheless, while these foundational capabilities lay a solid groundwork, numerous avenues exist for further expansion, refinement, and rigorous evaluation to fully realize the tool’s potential and adapt to evolving challenges in software quality assurance.</p>
+<section id="enhancements-to-core-features" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="enhancements-to-core-features"><span class="header-section-number">8.1</span> Enhancements to Core Features</h2>
+<p>Enhancing OverHAuL’s core functionality represents a primary direction for future development. First, expanding support to encompass a wider array of build systems commonly employed in C and C++ projects—such as GNU Make, CMake, Meson, and Ninja <span class="citation" data-cites="cedilnik2000 feldman1979 martin2025 pakkanen2025"><a href="refs.html#ref-cedilnik2000" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-feldman1979" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-martin2025" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-pakkanen2025" role="doc-biblioref">[4]</a></span>—would significantly broaden the scope of libraries amenable to automated fuzzing using OverHAuL. This advancement would enable OverHAuL to scale effectively and be applied to larger, more complex codebases, thereby increasing its practical utility and impact.</p>
+<p>Second, integrating additional fuzzing engines beyond LibFuzzer stands out as a strategic enhancement. Incorporation of widely adopted fuzzers like AFL++ <span class="citation" data-cites="aflpp"><a href="refs.html#ref-aflpp" role="doc-biblioref">[5]</a></span> could diversify the fuzzing strategies available to OverHAuL, while exploring more experimental tools such as GraphFuzz <span class="citation" data-cites="green2022"><a href="refs.html#ref-green2022" role="doc-biblioref">[6]</a></span> may pioneer specialized approaches for certain code patterns or architectures. Multi-engine support would also facilitate extending language coverage, for instance by incorporating fuzzers tailored to other programming ecosystems—for example, Google’s Atheris for Python projects <span class="citation" data-cites="atheris"><a href="refs.html#ref-atheris" role="doc-biblioref">[7]</a></span>. Such versatility would position OverHAuL as a more universal fuzzing automation platform.</p>
+<p>Third, the evaluation component of OverHAuL presents an opportunity for refinement through more sophisticated analysis techniques. Beyond the current criteria, incorporating dynamic metrics such as differential code coverage tracking between generated fuzz harnesses would yield deeper insights into test quality and coverage completeness. This quantitative evaluation could guide iterative improvements in fuzz driver generation and overall testing effectiveness.</p>
+<p>Finally, OverHAuL’s methodology could be extended to leverage existing client codebases and unit tests in addition to the library source code itself, resources that for now OverHAuL leaves untapped. Inspired by approaches like those found in FUDGE and FuzzGen <span class="citation" data-cites="fuzzgen fudge"><a href="refs.html#ref-fuzzgen" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[9]</a></span>, this enhancement would enable the tool to exploit programmer-written usage scenarios as seeds or contexts, potentially generating more meaningful and targeted fuzz inputs. Incorporating these richer information sources would likely improve the efficacy of fuzzing campaigns and uncover subtler bugs.</p>
 </section>
-<section id="sec-creation" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="sec-creation"><span class="header-section-number">4.1.2</span> Harness Creation</h3>
-<p>Second is the harness creation stage (steps B.1–B.2). In this part, a “generator” ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the vector store. When the agent makes queries like “functions containing <code>strcpy()</code>”, the querying tool turns the question into an embedding and through similarity search returns the top <span class="math inline">k=3</span> most similar results—in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.</p>
-<p>The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in <a href="#sec-assumptions" class="quarto-xref"><span>Section 4.4.1</span></a>. If the compilation fails for any reason, e.g.&nbsp;a missing header include, then the generated faulty harness and its compilation output are passed to a new “fixer” agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command.</p>
+<section id="experimentation-with-large-language-models-and-data-representation" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="experimentation-with-large-language-models-and-data-representation"><span class="header-section-number">8.2</span> Experimentation with Large Language Models and Data Representation</h2>
+<p>OverHAuL’s reliance on large language models (LLMs) invites comprehensive experimentation with different providers and architectures to assess their comparative strengths and limitations. Conducting empirical evaluations across leading models—such as OpenAI’s o1 and o3 families and Anthropic’s Claude Opus 4—will provide valuable insights into their capabilities, cost-efficiency, and suitability for fuzz driver synthesis. Additionally, specialized code-focused LLMs, including generative and fill-in models like Codex-1 and CodeGen <span class="citation" data-cites="nijkamp2023a nijkamp2023 openai2025a"><a href="refs.html#ref-nijkamp2023a" role="doc-biblioref">[10]</a>, <a href="refs.html#ref-nijkamp2023" role="doc-biblioref">[11]</a>, <a href="refs.html#ref-openai2025a" role="doc-biblioref">[12]</a></span>, merit exploration due to their targeted optimization for source code generation and understanding.</p>
+<p>Another dimension worthy of investigation concerns the granularity of code chunking employed during the given project’s code processing stage. Whereas the current approach partitions code at the function level, experimenting with more nuanced segmentation strategies—such as splitting per step inside a function, as a finer-grained technique—could improve the semantic coherence of stored representations and enhance retrieval relevance during fuzz driver generation. This line of inquiry has the potential to optimize model input preparation and ultimately improve output quality.</p>
 </section>
-<section id="sec-evaluation" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="sec-evaluation"><span class="header-section-number">4.1.3</span> Harness Evaluation</h3>
-<p>Third comes the evaluation stage (steps C.1–C.3). During this step, the compiled harness is executed and its results evaluated. Namely, a generated harness passes the evaluation phase if and only if:</p>
-<ol type="1">
-<li>The harness has no memory leaks during its execution This is inferred by the existence of <code>leak-&lt;hash&gt;</code> files.</li>
-<li>A new testcase was created <em>or</em> the harness executed for at least <code>MIN_EXECUTION_TIME</code> (i.e.&nbsp;did not crash on its own) When a crash happens, and thus a testcase is created, it results in a <code>crash-&lt;hash&gt;</code> file.</li>
-<li>The created testcase is not empty This is examined through xxd’s output given the crash-file.</li>
-</ol>
-<p>Similarly to the second stage’s compilation phase (steps B.2–B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an “improver” agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned “fixer” agent is utilized again (steps C.2–C.2.a). All produced crash files and the harness execution output are saved in the project’s directory.</p>
+<section id="comprehensive-evaluation-and-benchmarking" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="comprehensive-evaluation-and-benchmarking"><span class="header-section-number">8.3</span> Comprehensive Evaluation and Benchmarking</h2>
+<p>To thoroughly establish OverHAuL’s effectiveness, extensive large-scale evaluation beyond the initial 10-project corpus is imperative. Applying the tool to repositories indexed in the clib package manager <span class="citation" data-cites="clibs"><a href="refs.html#ref-clibs" role="doc-biblioref">[13]</a></span>, which encompasses hundreds of C libraries, would test scalability and robustness across diverse real-world settings. Such a broad benchmark would also enable systematic comparisons against state-of-the-art automated fuzzing frameworks like OSS-Fuzz-Gen and AutoGen, elucidating OverHAuL’s relative strengths and identifying areas for improvement <span class="citation" data-cites="oss-fuzz-gen sun2024"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[14]</a>, <a href="refs.html#ref-sun2024" role="doc-biblioref">[15]</a></span>.</p>
+<p>Complementing broad benchmarking, detailed ablation studies dissecting the contributions of individual pipeline components and algorithmic choices will yield critical insights into what drives OverHAuL’s performance. Understanding the impact of each module will guide targeted optimizations and support evidence-based design decisions.</p>
+<p>Furthermore, an economic analysis exploring resource consumption—such as API token usage and associated monetary costs—relative to fuzzing effectiveness would be valuable for assessing the practical viability of integrating LLM-based fuzz driver generation into continuous integration processes.</p>
 </section>
-</section>
-<section id="main-techniques" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="main-techniques"><span class="header-section-number">4.2</span> Main techniques</h2>
-<ul>
-<li><p>Feedback loop (improvement + verification) This iterative structure creates a feedback loop which terminates if an acceptable working harness has been achieved or the <em>iteration budget</em> has been depleted. This iteration budget is shared among the compilation and evaluation loops, i.e.&nbsp;it is decreased any time a dashed arrow in the flowchart is followed.</p></li>
-<li><p>Triplet of ReAct agents An important point to stress is that each agent is a separate LLM instance, albeit of the same model. This means that the agents have different and separate contexts during each run. This technique allows more exploration per run, since for example the “improver” agent can explore different search paths regarding the harness that the “generator” agent may have internally rejected. It also keeps context window limitations manageable, since the load is shared between the agents.</p></li>
-<li><p>Code exploration through vector store</p>
-<ul>
-<li>Context window thoughts</li>
-<li>Why RAG? Semantic chunking, most similar to paragraph-level chunking, most used technique. Codex was fine-tuned with functions as input <span class="citation" data-cites="chen2021"><a href="refs.html#ref-chen2021" role="doc-biblioref">[11]</a></span>. The bigger the chunk, the bigger the noise <span class="citation" data-cites="zhao2024"><a href="refs.html#ref-zhao2024" role="doc-biblioref">[12]</a></span>.</li>
-</ul></li>
-</ul>
-<p>The algorithm corresponding to the flowchart in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> can be seen in <a href="#alg-main" class="quarto-xref">Algorithm 1</a>.</p>
-<div id="alg-main" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
-<div class="pseudocode">
-\begin{algorithm} \caption{Test Harness Generation with Iterative Refinement} \begin{algorithmic} \Procedure{Main}{} \State $args \gets$ \Call{ParseArguments}{} \State $project\_path, model \gets args.project\_path, args.model$ \State $analyzer \gets$ \Call{ProjectAnalyzer}{$project\_path$} \State $project\_info \gets analyzer.$\Call{CollectProjectInfo}{} \State \Call{LoadEnvironment}{} \State $embedder \gets$ \Call{CreateEmbedder}{$embedding\_model$} \State $chunks \gets$ \Call{ExtractChunks}{$project\_path$} \State $index, meta \gets$ \Call{EmbedChunks}{$chunks, embedder$} \State $rag\_tool \gets$ \Call{MakeRagTool}{$index, meta, embedder$} \State $harnesser \gets$ \Call{Harnesser}{$model, project\_path, rag\_tool$} \State $file\_manager \gets$ \Call{FileManager}{$project\_path$} \State $builder \gets$ \Call{HarnessBuilder}{$project\_path$} \State $evaluator \gets$ \Call{HarnessEvaluator}{$project\_path$} \State $acceptable \gets false$ \For{$i = 1$ to $MAX\_ITERATIONS$} \State $harness \gets harnesser.$\Call{GenerateHarness}{$project\_info$} \State $file\_manager.$\Call{WriteHarness}{$harness$} \State $error, compiled \gets builder.$\Call{BuildHarness}{} \State $project\_info.compiles \gets compiled$ \If{$\neg compiled$} \State $project\_info.error \gets error$ \State \textbf{continue} \EndIf \State $output, accepted \gets evaluator.$\Call{EvaluateHarness}{} \If{$\neg accepted$} \State $project\_info.output \gets output$ \State \textbf{continue} \Else \State $acceptable \gets true$ \State \textbf{break} \EndIf \EndFor \State \Return $acceptable \land project\_info.compiles$ \EndProcedure \end{algorithmic} \end{algorithm}
-</div>
-</div>
-</section>
-<section id="examples" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="examples"><span class="header-section-number">4.3</span> Examples</h2>
-<div id="fig-success" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../resources/successful-execution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse library."><img src="../resources/successful-execution.png" class="img-fluid figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse library.
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="scope" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="scope"><span class="header-section-number">4.4</span> Scope</h2>
-<ul>
-<li>Limited to C libraries</li>
-<li>Expects relatively simple project structure
-<ul>
-<li>Code either in root or in common-named subdirs (e.g.&nbsp;src/)</li>
-<li>Any file or directory with main, test or example substring is ignored</li>
-<li>No main() function, or only exists in some file that is ignored by the above</li>
-</ul></li>
-<li>Build systems not supported
-<ul>
-<li>Harness is compiled with a predefined command</li>
-</ul></li>
-</ul>
-<section id="sec-assumptions" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-assumptions"><span class="header-section-number">4.4.1</span> Assumptions/Prerequisites</h3>
-<ul>
-<li>Project structure</li>
-<li>file/folder naming</li>
-<li>building process</li>
-</ul>
-</section>
-</section>
-<section id="abandoned-techniques" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="abandoned-techniques"><span class="header-section-number">4.5</span> Abandoned techniques</h2>
-<ol type="1">
-<li><p>Zero-shot harness generation</p></li>
-<li><p>ChainOfThought modules for LLM instances <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[13]</a></span></p></li>
-<li><p>Naive source code concatenation</p></li>
-<li><p>manual {index, read}_tool usage for ReAct agents</p></li>
-</ol>
+<section id="practical-deployment-and-community-engagement" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="practical-deployment-and-community-engagement"><span class="header-section-number">8.4</span> Practical Deployment and Community Engagement</h2>
+<p>From a usability perspective, embedding OverHAuL within a GitHub Actions workflow represents a practical and impactful enhancement, enabling seamless integration with developers’ existing toolchains and continuous integration pipelines. This would promote wider adoption by reducing barriers to entry and fostering real-time feedback during code development cycles.</p>
+<p>Additionally, establishing a mechanism to generate and submit automated pull requests (PRs) to the maintainers of fuzzed libraries—highlighting detected bugs and proposing patches—would not only validate OverHAuL’s findings but also contribute tangible improvements to open-source software quality. This collaborative feedback loop epitomizes the symbiosis between automated testing tools and the open-source community. As an initial step, developing targeted PRs for the projects where bugs were discovered during OverHAuL’s development would help facilitate practical follow-up and improvements.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reAct" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
+<div id="ref-cedilnik2000" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. Cedilnik, B. Hoffman, B. King, K. Martin, and A. Neundorf, <span>“<span>CMake</span> - <span>Upgrade Your Software Build System</span>.”</span> 2000. Available: <a href="https://cmake.org/">https://cmake.org/</a></div>
 </div>
-<div id="ref-torvalds2005" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">L. Torvalds, <span>“Git.”</span> Apr. 07, 2005. Available: <a href="https://git-scm.com/">https://git-scm.com/</a></div>
+<div id="ref-feldman1979" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. I. Feldman, <span>“Make — a program for maintaining computer programs,”</span> <em>Software: Practice and Experience</em>, vol. 9, no. 4, pp. 255–265, 1979, doi: <a href="https://doi.org/10.1002/spe.4380090402">10.1002/spe.4380090402</a>. Available: <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402">https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380090402</a></div>
 </div>
-<div id="ref-utopia" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">B. Jeong <em>et al.</em>, <span>“<span>UTopia</span>: <span>Automatic Generation</span> of <span>Fuzz Driver</span> using <span>Unit Tests</span>,”</span> in <em>2023 <span>IEEE Symposium</span> on <span>Security</span> and <span>Privacy</span> (<span>SP</span>)</em>, May 2023, pp. 2676–2692. doi: <a href="https://doi.org/10.1109/SP46215.2023.10179394">10.1109/SP46215.2023.10179394</a>. Available: <a href="https://ieeexplore.ieee.org/abstract/document/10179394">https://ieeexplore.ieee.org/abstract/document/10179394</a></div>
+<div id="ref-martin2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">E. Martin, <span>“Ninja-build/ninja.”</span> ninja-build, Jul. 14, 2025. Available: <a href="https://github.com/ninja-build/ninja">https://github.com/ninja-build/ninja</a></div>
 </div>
-<div id="ref-fudge" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
+<div id="ref-pakkanen2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">J. Pakkanen, <span>“Mesonbuild/meson.”</span> The Meson Build System, Jul. 14, 2025. Available: <a href="https://github.com/mesonbuild/meson">https://github.com/mesonbuild/meson</a></div>
+</div>
+<div id="ref-aflpp" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
+</div>
+<div id="ref-green2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">H. Green and T. Avgerinos, <span>“<span>GraphFuzz</span>: Library <span>API</span> fuzzing with lifetime-aware dataflow graphs,”</span> in <em>Proceedings of the 44th <span>International Conference</span> on <span>Software Engineering</span></em>, Pittsburgh Pennsylvania: ACM, May 2022, pp. 1070–1081. doi: <a href="https://doi.org/10.1145/3510003.3510228">10.1145/3510003.3510228</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3510003.3510228">https://dl.acm.org/doi/10.1145/3510003.3510228</a></div>
+</div>
+<div id="ref-atheris" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Google, <span>“Google/atheris.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/atheris">https://github.com/google/atheris</a></div>
 </div>
 <div id="ref-fuzzgen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
+</div>
+<div id="ref-fudge" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
+</div>
+<div id="ref-nijkamp2023a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">E. Nijkamp, H. Hayashi, C. Xiong, S. Savarese, and Y. Zhou, <span>“<span>CodeGen2</span>: <span>Lessons</span> for training llms on programming and natural languages,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+<div id="ref-nijkamp2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">E. Nijkamp <em>et al.</em>, <span>“<span>CodeGen</span>: <span>An</span> open large language model for code with multi-turn program synthesis,”</span> <em>ICLR</em>, 2023.</div>
+</div>
+<div id="ref-openai2025a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">OpenAI, <span>“Introducing <span>Codex</span>,”</span> May 16, 2025. Available: <a href="https://openai.com/index/introducing-codex/">https://openai.com/index/introducing-codex/</a></div>
+</div>
+<div id="ref-clibs" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Clibs Project, <span>“Clib <span>Packages</span>,”</span> 2025. Available: <a href="https://github.com/clibs/clib/wiki/Packages">https://github.com/clibs/clib/wiki/Packages</a></div>
 </div>
 <div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
 </div>
 <div id="ref-sun2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Y. Sun, <span>“Automated <span>Generation</span> and <span>Compilation</span> of <span>Fuzz Driver Based</span> on <span>Large Language Models</span>,”</span> in <em>Proceedings of the 2024 9th <span>International Conference</span> on <span>Cyber Security</span> and <span>Information Engineering</span></em>, in <span>ICCSIE</span> ’24. New York, NY, USA: Association for Computing Machinery, Dec. 2024, pp. 461–468. doi: <a href="https://doi.org/10.1145/3689236.3689272">10.1145/3689236.3689272</a>. Available: <a href="https://doi.org/10.1145/3689236.3689272">https://doi.org/10.1145/3689236.3689272</a></div>
-</div>
-<div id="ref-oss-fuzz" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">A. Arya, O. Chang, J. Metzman, K. Serebryany, and D. Liu, <span>“<span>OSS-Fuzz</span>.”</span> Apr. 08, 2025. Available: <a href="https://github.com/google/oss-fuzz">https://github.com/google/oss-fuzz</a></div>
-</div>
-<div id="ref-mikolov2013" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">T. Mikolov, K. Chen, G. Corrado, and J. Dean, <span>“Efficient <span>Estimation</span> of <span>Word Representations</span> in <span>Vector Space</span>,”</span> Sep. 06, 2013. doi: <a href="https://doi.org/10.48550/arXiv.1301.3781">10.48550/arXiv.1301.3781</a>. Available: <a href="http://arxiv.org/abs/1301.3781">http://arxiv.org/abs/1301.3781</a></div>
-</div>
-<div id="ref-flawfinder" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">D. A. Wheeler, <span>“Flawfinder <span>Home Page</span>.”</span> Available: <a href="https://dwheeler.com/flawfinder/">https://dwheeler.com/flawfinder/</a></div>
-</div>
-<div id="ref-chen2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">M. Chen <em>et al.</em>, <span>“Evaluating <span>Large Language Models Trained</span> on <span>Code</span>,”</span> Jul. 14, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2107.03374">10.48550/arXiv.2107.03374</a>. Available: <a href="http://arxiv.org/abs/2107.03374">http://arxiv.org/abs/2107.03374</a></div>
-</div>
-<div id="ref-zhao2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">S. Zhao, Y. Yang, Z. Wang, Z. He, L. K. Qiu, and L. Qiu, <span>“Retrieval <span>Augmented Generation</span> (<span>RAG</span>) and <span>Beyond</span>: <span>A Comprehensive Survey</span> on <span>How</span> to <span>Make</span> your <span>LLMs</span> use <span>External Data More Wisely</span>,”</span> Sep. 23, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.14924">10.48550/arXiv.2409.14924</a>. Available: <a href="http://arxiv.org/abs/2409.14924">http://arxiv.org/abs/2409.14924</a></div>
-</div>
-<div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">Y. Sun, <span>“Automated <span>Generation</span> and <span>Compilation</span> of <span>Fuzz Driver Based</span> on <span>Large Language Models</span>,”</span> in <em>Proceedings of the 2024 9th <span>International Conference</span> on <span>Cyber Security</span> and <span>Information Engineering</span></em>, in <span>ICCSIE</span> ’24. New York, NY, USA: Association for Computing Machinery, Dec. 2024, pp. 461–468. doi: <a href="https://doi.org/10.1145/3689236.3689272">10.1145/3689236.3689272</a>. Available: <a href="https://doi.org/10.1145/3689236.3689272">https://doi.org/10.1145/3689236.3689272</a></div>
 </div>
 </div>
 </section>
@@ -1063,13 +930,13 @@ Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse li
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/03-related.html" class="pagination-link" aria-label="Related work">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span>
+      <a href="../chapters/07-implementation.html" class="pagination-link" aria-label="Implementation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/05-evaluation.html" class="pagination-link" aria-label="Evaluation">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/09-discussion.html" class="pagination-link" aria-label="Discussion">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Discussion</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1144,38 +1011,6 @@ Figure&nbsp;4.2: A successful execution of OverHAuL, harnessing the dateparse li
     })(document);
     </script>
   
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

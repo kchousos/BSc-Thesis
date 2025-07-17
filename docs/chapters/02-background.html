@@ -102,6 +102,8 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -131,6 +133,24 @@ div.csl-indent {
   }
 }</script>
 <script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer=""></script>
+<script>
+MathJax = {
+  loader: {
+    load: ['[tex]/boldsymbol']
+  },
+  tex: {
+    tags: "all",
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {
+      '[+]': ['boldsymbol']
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 
 </head>
@@ -376,26 +396,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-results.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05-evaluation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  <a href="../chapters/06-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  <a href="../chapters/07-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  <a href="../chapters/08-future.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -429,7 +461,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#sec-nesy" id="toc-sec-nesy" class="nav-link" data-scroll-target="#sec-nesy"><span class="header-section-number">2.3</span> Neurosymbolic AI</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/kchousos/BSc-Thesis/edit/master/chapters/02-background.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kchousos/BSc-Thesis/blob/master/chapters/02-background.md" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -655,7 +687,7 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
 <p>Neurosymbolic AI (NeSy AI) represents a groundbreaking fusion of neural network methodologies with symbolic execution techniques and tools, providing a multi-faceted approach to overcoming the inherent limitations of traditional AI paradigms <span class="citation" data-cites="sheth2023 garcez2020"><a href="refs.html#ref-sheth2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[47]</a></span>. This innovative synthesis seeks to combine the strengths of both neural networks, which excel in pattern recognition and data-driven learning, and symbolic systems, which offer structured reasoning and interpretability. By integrating these two approaches, NeSy AI aims to create cognitive models that are not only more accurate but also more robust in problem-solving contexts.</p>
 <p>At its core, NeSy AI facilitates the development of AI systems that are capable of understanding and interpreting feedback in real-world scenarios <span class="citation" data-cites="ganguly2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[48]</a></span>. This characteristic is particularly significant in the current landscape of artificial intelligence, where LLMs are predominant. In this context, NeSy AI is increasingly viewed as a critical solution to pressing issues related to explainability, attribution, and reliability in AI systems <span class="citation" data-cites="gaur2023 tilwani2024"><a href="refs.html#ref-gaur2023" role="doc-biblioref">[49]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[50]</a></span>. These challenges are essential for ensuring that AI systems can be trusted and effectively utilized in various applications, from business to healthcare.</p>
 <p>The burgeoning field of neurosymbolic AI is still in its nascent stages, with ongoing research and development actively exploring its potential to enhance attribution methodologies within large language models. By addressing these critical challenges, NeSy AI can significantly contribute to the broader landscape of trustworthy AI systems, allowing for more transparent and accountable decision-making processes <span class="citation" data-cites="sheth2023 gaur2023 tilwani2024"><a href="refs.html#ref-sheth2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[49]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[50]</a></span>.</p>
-<p>Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (<a href="03-related.html" class="quarto-xref"><span>Chapter 3</span></a>). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz’s taxonomy <span class="citation" data-cites="sarker2022 kautz2020"><a href="refs.html#ref-sarker2022" role="doc-biblioref">[51]</a>, <a href="refs.html#ref-kautz2020" role="doc-biblioref">[52]</a></span>. This means that the neural model—specifically the LLM—can leverage symbolic reasoning tools—in this case a source code explorer (<a href="04-overhaul.html#sec-implementation" class="quarto-xref"><span>Section 4.2</span></a>)—to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.</p>
+<p>Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (<a href="03-related.html" class="quarto-xref"><span>Chapter 3</span></a>). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz’s taxonomy <span class="citation" data-cites="sarker2022 kautz2020"><a href="refs.html#ref-sarker2022" role="doc-biblioref">[51]</a>, <a href="refs.html#ref-kautz2020" role="doc-biblioref">[52]</a></span>. This means that the neural model—specifically the LLM—can leverage symbolic reasoning tools—in this case a source code explorer (<a href="07-implementation.html" class="quarto-xref"><span>Chapter 7</span></a>)—to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
@@ -1255,7 +1287,7 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
  © 2025 Konstantinos Chousos
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kchousos/BSc-Thesis/edit/master/chapters/02-background.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kchousos/BSc-Thesis/blob/master/chapters/02-background.md" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
@@ -1282,6 +1314,38 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
     </div>
   </div>
 </footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
 
 
 

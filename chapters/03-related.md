@@ -86,7 +86,7 @@ In 2024, OSS-Fuzz-Gen introduced an experimental feature for generating harnesse
 
 AutoGen [@sun2024] is a closed-source tool that generates new fuzzing harnesses, given only the library code and documentation. It works as following: The user specifies the function for which a harness is to be generated. AutoGen gathers information for this function---such as the function body, used header files, function calling examples---from the source code and documentation. Through specific prompt templates containing the above information, an LLM is tasked with generating a new fuzz driver, while another is tasked with generating a compilation command for said driver. If the compilation fails, both LLMs are called again to fix the problem, whether it was on the driver's or command's side. This loop iterates until a predefined maximum value or until a fuzz driver is successfully generated and compiled. If the latter is the case, it is then executed. If execution errors exist, the LLM responsible for the driver generation is used to correct them. If not, the pipeline has terminated and a new fuzz driver has been successfully generated.
 
-## Differences
+## Differences {#sec-differences}
 
 OverHAuL differs, in some way, with each of the aforementioned works. Firstly, although KLEE and IRIS [@iris; @klee] tackle the problem of automated testing and both IRIS and OverHAuL can be considered neurosymbolic AI tools, the similarities end there. None of them utilize LLMs the same way we do---with KLEE not utilizing them by default, as it precedes them chronologically---and neither are automating any part of the fuzzing process.
 

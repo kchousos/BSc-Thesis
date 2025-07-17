@@ -143,12 +143,6 @@ Serif}
 \def\fps@figure{htbp}
 \makeatother
 
-\ifLuaTeX
-  \usepackage{luacolor}
-  \usepackage[soul]{lua-ul}
-\else
-  \usepackage{soul}
-\fi
 
 
 
@@ -223,6 +217,15 @@ Serif}
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+\makeatletter
+\@ifpackageloaded{algorithm}{}{\usepackage{algorithm}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{algpseudocode}{}{\usepackage{algpseudocode}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\makeatother
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -260,6 +263,10 @@ malesuada ultricies scelerisque. Molestie class tincidunt quis gravida
 ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex.
 Platea eros ullamcorper nullam rutrum facilisis.
 \end{abstract}
+
+\floatname{algorithm}{Algorithm}
+
+\numberwithin{algorithm}{chapter}
 
 
 \bookmarksetup{startatroot}
@@ -972,7 +979,7 @@ OverHAuL constitutes a Neuro{[}Symbolic{]} tool, as classified by Henry
 Kautz's taxonomy \autocite{sarker2022,kautz2020}. This means that the
 neural model---specifically the LLM---can leverage symbolic reasoning
 tools---in this case a source code explorer
-(Section~\ref{sec-implementation})---to augment its reasoning
+(Chapter~\ref{sec-implementation})---to augment its reasoning
 capabilities. This symbiotic relationship enhances the overall efficacy
 and versatility of LLMs for fuzzing harnesses generation, demonstrating
 the profound potential held by the fusion of neural and symbolic
@@ -1295,7 +1302,7 @@ LLM responsible for the driver generation is used to correct them. If
 not, the pipeline has terminated and a new fuzz driver has been
 successfully generated.
 
-\section{Differences}\label{differences}
+\section{Differences}\label{sec-differences}
 
 OverHAuL differs, in some way, with each of the aforementioned works.
 Firstly, although KLEE and IRIS \autocite{iris,klee} tackle the problem
@@ -1387,68 +1394,314 @@ previous work by
 
 \chapter{OverHAuL}\label{overhaul}
 
+In this thesis we present \emph{OverHAuL} (\textbf{H}arness
+\textbf{Au}tomation with \textbf{L}LMs), a neurosymbolic AI tool that
+automatically generates fuzzing harnesses for C libraries through LLM
+agents. In its core, OverHAuL is comprised by three LLM ReAct agents
+\autocite{reAct}---each with its own responsibility and scope---and a
+vector store index reserving the given project's analyzed codebase. An
+overview of OverHAuL's process is presented in
+Figure~\ref{fig-flowchart}. The objective of OverHAuL is to streamline
+the process of fuzz testing for C libraries. Given a link to a git
+repository \autocite{torvalds2005} of a C library, OverHAuL
+automatically generates a new fuzzing harness specifically designed for
+the project. In addition to the harness, it produces a compilation
+script to facilitate building the harness, generates a representative
+input that can trigger crashes, and logs the output from the executed
+harness.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/flowchart.png}}
+
+}
+
+\caption{\label{fig-flowchart}Overview of OverHAuL's automatic
+harnessing process.}
+
+\end{figure}%
+
+As commented in Section~\ref{sec-differences}, OverHAuL does not expect
+and depend on the existence of client code or unit tests
+\autocite{utopia,fudge,fuzzgen} \emph{nor} does it require any
+preexisting fuzzing harnesses \autocite{oss-fuzz-gen} or any
+documentation present \autocite{sun2024}. Also importantly, OverHAuL is
+decoupled from other fuzzing projects, thus lowering the barrier to
+entry for new projects \autocite{oss-fuzz-gen,oss-fuzz}. Lastly, the
+user isn't mandated to specify manually the function which the
+harness-to-be-generated must fuzz. Instead, OverHAuL's agents examine
+and assess the provided codebase, choosing after evaluation the most
+optimal targeted function.
+
+OverHAuL utilizes autonomous ReAct agents \autocite{reAct} which inspect
+and analyze the project's source code. The latter is stored and
+interacted with as a set of text embeddings \autocite{mikolov2013}, kept
+in a vector store. Both approaches are, to the best of our knowledge,
+novel in the field of automatic fuzzing harnesses generation. OverHAuL
+also implements an evaluation component that assesses in real-time all
+generated harnesses, making the results tenable, reproducible and
+well-founded. Ideally, this methodology provides a comprehensive and
+systematic framework for identifying previously unknown software
+vulnerabilities in projects that have not yet been fuzz tested.
+
+Finally, OverHAuL excels in its user-friendliness, as it constitutes a
+simple and easily-installable Python package with minimal external
+dependencies---only real dependency being Clang, a prevalent compiler
+available across all primary operating systems. This contrasts most
+other comparable systems, which are typically characterized by their
+limited documentation, lack of extensive testing, and a focus primarily
+on experimental functionality.\footnote{I.e. ``research code''.}
+
+\section{Architecture}\label{architecture}
+
+OverHAuL can be compartmentalized in three stages: First, the project
+analysis stage (Section~\ref{sec-analysis}), the harness creation stage
+(Section~\ref{sec-creation}) and the harness evaluation stage
+(Section~\ref{sec-evaluation}).
+
+\subsection{Project Analysis}\label{sec-analysis}
+
+In the project analysis stage (steps A.1--A.4), the project to be fuzzed
+is ran through a static analysis tool and is sliced into function-level
+chunks, which are stored in a vector store. The results of this stage
+are a static analysis report and a vector store containing embeddings of
+function-level code chunks, both of which are later available to the LLM
+agents.
+
+The static analysis tool Flawfinder \autocite{flawfinder} is executed
+with the project directory as input and is responsible for the static
+analysis report. This report is considered a meaningful resource, since
+it provides the LLM agent with some starting points to explore,
+regarding the occurrences of potentially vulnerable functions and/or
+unsafe code practices.
+
+The vector store is created in the following manner: The codebase is
+first chunked in function-level pieces by traversing the code's Abstract
+Syntax Tree (AST) through Clang. Each chunk is represented by an object
+with the function's signature, the corresponding filepath and the
+function's body. Afterwards, each function body is turned into a vector
+embedding through an embedding model. Each embedding is stored in the
+vector store. This structure is created and used for easier and more
+semantically meaningful code retrieval, and to also combat context
+window limitations present in the LLMs.
+
+\subsection{Harness Creation}\label{sec-creation}
+
+Second is the harness creation stage (steps B.1--B.2). In this part, a
+``generator'' ReAct LLM agent is tasked with creating a fuzzing harness
+for the project. The agent has access to a querying tool that acts as an
+interface between it and the vector store. When the agent makes queries
+like ``functions containing \texttt{strcpy()}'', the querying tool turns
+the question into an embedding and through similarity search returns the
+top \(k=3\) most similar results---in this case, functions of the
+project. With this approach, the agent is able to explore the codebase
+semantically and pinpoint potentially vulnerable usage patterns easily.
+
+The harness generated by the agent is then compiled using Clang and
+linked with the AddressSanitizer, LeakSanitizer, and
+UndefinedBehaviorSanitizer. The compilation command used is generated
+programmatically, according to the rules described in
+Section~\ref{sec-assumptions}. If the compilation fails for any reason,
+e.g.~a missing header include, then the generated faulty harness and its
+compilation output are passed to a new ``fixer'' agent tasked with
+repairing any errors in the harness (step B.2.a). This results in a
+newly generated harness, presumably free from the previously shown
+flaws. This process is iterated until a compilable harness has been
+obtained. After success, a script is also exported in the project
+directory, containing the generated compilation command.
+
+\subsection{Harness Evaluation}\label{sec-evaluation}
+
+Third comes the evaluation stage (steps C.1--C.3). During this step, the
+compiled harness is executed and its results evaluated. Namely, a
+generated harness passes the evaluation phase if and only if:
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  How is it different?
+  The harness has no memory leaks during its execution This is inferred
+  by the existence of \texttt{leak-\textless{}hash\textgreater{}} files.
 \item
-  What does it offer?
+  A new testcase was created \emph{or} the harness executed for at least
+  \texttt{MIN\_EXECUTION\_TIME} (i.e.~did not crash on its own) When a
+  crash happens, and thus a testcase is created, it results in a
+  \texttt{crash-\textless{}hash\textgreater{}} file.
 \item
-  Example uses
-\item
-  Scope of Usage
-
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \tightlist
-  \item
-    In what contexts does it work?
-  \item
-    Prerequisites
-  \end{enumerate}
+  The created testcase is not empty This is examined through xxd's
+  output given the crash-file.
 \end{enumerate}
 
-\section{Architecture}\label{architecture}
+Similarly to the second stage's compilation phase (steps B.2--B.2.a), if
+a harness does not pass the evaluation for whatever reason it is sent to
+an ``improver'' agent. This agent is instructed to refine it based on
+its code and cause of failing the evaluation. This process is also
+iterative. If any of the improved harness versions fail to compile, the
+aforementioned ``fixer'' agent is utilized again (steps C.2--C.2.a). All
+produced crash files and the harness execution output are saved in the
+project's directory.
+
+\section{Main techniques}\label{main-techniques}
 
 \begin{itemize}
 \item
-  \hl{System diagram}
+  Feedback loop (improvement + verification) This iterative structure
+  creates a feedback loop which terminates if an acceptable working
+  harness has been achieved or the \emph{iteration budget} has been
+  depleted. This iteration budget is shared among the compilation and
+  evaluation loops, i.e.~it is decreased any time a dashed arrow in the
+  flowchart is followed.
 \item
-  Main Library Architecture/Structure
+  Triplet of ReAct agents An important point to stress is that each
+  agent is a separate LLM instance, albeit of the same model. This means
+  that the agents have different and separate contexts during each run.
+  This technique allows more exploration per run, since for example the
+  ``improver'' agent can explore different search paths regarding the
+  harness that the ``generator'' agent may have internally rejected. It
+  also keeps context window limitations manageable, since the load is
+  shared between the agents.
 \item
-  LLM usage
+  Code exploration through vector store
 
   \begin{itemize}
   \tightlist
   \item
-    Prompting techniques used (callback to Section~\ref{sec-prompting}).
+    Context window thoughts
+  \item
+    Why RAG? Semantic chunking, most similar to paragraph-level
+    chunking, most used technique. Codex was fine-tuned with functions
+    as input \autocite{chen2021}. The bigger the chunk, the bigger the
+    noise \autocite{zhao2024}.
   \end{itemize}
-\item
-  Static analysis
-\item
-  Code localization(?)
-\item
-  Fuzzers
-\item
-  GitHub Workflow/Usage
-\item
-  ``Ieration budget''
-\item
-  LLM Programming Libraries (?) Langchain \& LangGraph, LlamaIndex
-  \autocite{langchain,langgraph,llamaindex}. DSPy \autocite{dspy}.
-  Comparison, relevance to our usecase.
 \end{itemize}
 
-\section{Implementation}\label{sec-implementation}
+The algorithm corresponding to the flowchart in
+Figure~\ref{fig-flowchart} can be seen in Algorithm~\ref{alg-main}.
+
+\begin{algorithm}[H]
+\caption{Test Harness Generation with Iterative Refinement}
+\label{alg-main}
+\begin{algorithmic}[1]
+\Procedure{Main}{}
+  \State $args \gets$ \Call{ParseArguments}{}
+  \State $project\_path, model \gets args.project\_path, args.model$
+  \State $analyzer \gets$ \Call{ProjectAnalyzer}{$project\_path$}
+  \State $project\_info \gets analyzer.$\Call{CollectProjectInfo}{}
+  \State \Call{LoadEnvironment}{}
+  \State $embedder \gets$ \Call{CreateEmbedder}{$embedding\_model$}
+  \State $chunks \gets$ \Call{ExtractChunks}{$project\_path$}
+  \State $index, meta \gets$ \Call{EmbedChunks}{$chunks, embedder$}
+  \State $rag\_tool \gets$ \Call{MakeRagTool}{$index, meta, embedder$}
+  \State $harnesser \gets$ \Call{Harnesser}{$model, project\_path, rag\_tool$}
+  \State $file\_manager \gets$ \Call{FileManager}{$project\_path$}
+  \State $builder \gets$ \Call{HarnessBuilder}{$project\_path$}
+  \State $evaluator \gets$ \Call{HarnessEvaluator}{$project\_path$}
+  \State $acceptable \gets false$
+  \For{$i = 1$ to $MAX\_ITERATIONS$}
+    \State $harness \gets harnesser.$\Call{GenerateHarness}{$project\_info$}
+    \State $file\_manager.$\Call{WriteHarness}{$harness$}
+    \State $error, compiled \gets builder.$\Call{BuildHarness}{}
+    \State $project\_info.compiles \gets compiled$
+    \If{$\neg compiled$}
+      \State $project\_info.error \gets error$
+      \State \textbf{continue}
+    \EndIf
+    \State $output, accepted \gets evaluator.$\Call{EvaluateHarness}{}
+    \If{$\neg accepted$}
+      \State $project\_info.output \gets output$
+      \State \textbf{continue}
+    \Else
+      \State $acceptable \gets true$
+      \State \textbf{break}
+    \EndIf
+  \EndFor
+  \State \Return $acceptable \land project\_info.compiles$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\section{Examples}\label{examples}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/successful-execution.png}}
+
+}
+
+\caption{\label{fig-success}A successful execution of OverHAuL,
+harnessing the dateparse library.}
+
+\end{figure}%
+
+\section{Scope}\label{scope}
+
+\begin{itemize}
+\tightlist
+\item
+  Limited to C libraries
+\item
+  Expects relatively simple project structure
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Code either in root or in common-named subdirs (e.g.~src/)
+  \item
+    Any file or directory with main, test or example substring is
+    ignored
+  \item
+    No main() function, or only exists in some file that is ignored by
+    the above
+  \end{itemize}
+\item
+  Build systems not supported
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Harness is compiled with a predefined command
+  \end{itemize}
+\end{itemize}
+
+\subsection{Assumptions/Prerequisites}\label{sec-assumptions}
+
+\begin{itemize}
+\tightlist
+\item
+  Project structure
+\item
+  file/folder naming
+\item
+  building process
+\end{itemize}
+
+\section{Abandoned techniques}\label{abandoned-techniques}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Zero-shot harness generation
+\item
+  ChainOfThought modules for LLM instances \autocite{chainofthought}
+\item
+  Naive source code concatenation
+\item
+  manual \{index, read\}\_tool usage for ReAct agents
+\end{enumerate}
 
 \bookmarksetup{startatroot}
 
 \chapter{Evaluation}\label{evaluation}
 
+\section{Research questions}\label{research-questions}
+
 \section{Benchmarks}\label{benchmarks}
 
-Results from integration with 10/100 open-source C/C++ projects.
+10 open-source C/C++ projects.
 
 \section{Performance}\label{performance}
 
@@ -1471,6 +1724,53 @@ Work/Extensions}\label{architectural-future-workextensions}
 \item
   General \emph{localization} problem
 \end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter{Results}\label{results}
+
+Results from integration with 10/100 open-source C/C++ projects.
+
+\bookmarksetup{startatroot}
+
+\chapter{Implementation}\label{sec-implementation}
+
+--depth 1 output/
+
+embedder model openai Source code is processed and chunked using Clang
+{[}33{]}. The chunks are function-level units, found to be a sweet-spot
+between semantic significance and size \autocite{zhao2024,chen2021}.
+This results in a list of Python dicts, each containing a function's
+body, signature and filepath. Each chunk's function code is then turned
+into an embedding using OpenAI's ``text-embedding-3-small'' model. faiss
+store and index A FAISS {[}36{]} vector store is created. Each function
+embedding is stored in it (with the same order, as to correspond with
+the previous list containing the metadata).
+
+same order code chunks
+
+Prompting techniques used (callback to Section~\ref{sec-prompting}).
+Sample prompt
+
+\autocite{dspy}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Why instead of langchain or llamaindex?
+  \autocite{langchain,llamaindex}
+\end{enumerate}
+
+libclang Python package
+
+\section{Development environment}\label{development-environment}
+
+uv, ruff, mypy, pytest, pdoc
+
+\section{Reproducibility}\label{reproducibility}
+
+github workflow actions, artifacts, summary
 
 \bookmarksetup{startatroot}
 
@@ -1615,6 +1915,8 @@ fine-tuning
 \chapter{Conclusion}\label{conclusion}
 
 Recap
+
+generative AI disclaimer à la ACM?
 
 \bookmarksetup{startatroot}
 
