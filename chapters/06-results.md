@@ -3,8 +3,7 @@
 OverHAuL was evaluated through the experimental benchmark (@sec-benchmark) from 6th of June, 2025 to 18th of July, 2025, using OpenAI's gpt-4.1-mini model.^[<https://platform.openai.com/docs/models/gpt-4.1-mini>] For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow, and the result directory (described in @sec-local) for each is available as a downloadable artifact in the corresponding GitHub Actions entry. In @fig-results, the results of these benchmark runs are showcased.
 
 :::{#fig-results}
-
-![](../resources/results.png){fig-scap='OverHAuL's Benchmark Results'}
+![](../resources/results.png){fig-scap='Benchmark Results'}
 
 The benchmark results for OverHAuL are illustrated with the $y$-axis depicting the ten-project corpus outlined in @sec-benchmark. The $x$-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <https://github.com/kchousos/OverHAuL/actions/runs/HASH>. An overview of all benchmark runs is available at <https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml>. In this plot, a green block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red blocks, which would indicate cases where a compilable harness could not be generated.
 :::
