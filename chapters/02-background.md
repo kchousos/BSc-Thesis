@@ -137,7 +137,7 @@ For the remainder of this thesis, the terms presented in @def-target will be use
 
 To effectively validate an implementation or library, developers are required to author a fuzzing harness that invokes the target library's API functions utilizing the fuzz-generated inputs. This harness serves as the principal interface for the fuzzer and is executed iteratively, each time with mutated input designed to maximize code coverage and uncover defects. To comply with LibFuzzer's interface requirements, a harness must conform to the following function signature:
 
-::: {#lst-basic-example}
+::: {#lst-basic-example fig-scap='Fuzzing harness format'}
 
 ```c
 int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
@@ -151,7 +151,7 @@ This function receives the fuzzing input via a pointer to an array of bytes (`Da
 
 A more illustrative example of such a harness is provided in @lst-fuzzing-example.
 
-::: {#lst-fuzzing-example}
+::: {#lst-fuzzing-example fig-scap='Example fuzzing harness'}
 
 ```cpp
 // test_fuzzer.cpp
@@ -172,7 +172,7 @@ This example demonstrates a minimal harness that triggers a controlled crash upo
 
 To compile and link such a harness with LibFuzzer, the Clang compiler---also part of the LLVM project [@llvm]---must be used alongside appropriate compiler flags. For instance, compiling the harness in @lst-fuzzing-example can be achieved as shown in @lst-harness-compilation.
 
-::: {#lst-harness-compilation}
+::: {#lst-harness-compilation fig-scap='Compilation of harness'}
 
 ```sh
 # Compile test_fuzzer.cc with AddressSanitizer and link against LibFuzzer.

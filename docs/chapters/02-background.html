@@ -600,7 +600,7 @@ MathJax = {
 </div>
 <p>For the remainder of this thesis, the terms presented in <a href="#def-target" class="quarto-xref">Definition&nbsp;<span>2.7</span></a> will be used interchangeably.</p>
 <p>To effectively validate an implementation or library, developers are required to author a fuzzing harness that invokes the target library’s API functions utilizing the fuzz-generated inputs. This harness serves as the principal interface for the fuzzer and is executed iteratively, each time with mutated input designed to maximize code coverage and uncover defects. To comply with LibFuzzer’s interface requirements, a harness must conform to the following function signature:</p>
-<div id="lst-basic-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<div id="lst-basic-example" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Fuzzing harness format">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-basic-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listing&nbsp;2.1: This function receives the fuzzing input via a pointer to an array of bytes (<code>Data</code>) and its associated size (<code>Size</code>). Efficiency in fuzzing is achieved by invoking the API of interest within the body of this function, thereby allowing the fuzzer to explore a broad spectrum of behavior through systematic input mutation.
@@ -614,7 +614,7 @@ Listing&nbsp;2.1: This function receives the fuzzing input via a pointer to an a
 </figure>
 </div>
 <p>A more illustrative example of such a harness is provided in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.2</span></a>.</p>
-<div id="lst-fuzzing-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<div id="lst-fuzzing-example" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Example fuzzing harness">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-fuzzing-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listing&nbsp;2.2: This example demonstrates a minimal harness that triggers a controlled crash upon receiving <code>HI!</code> as input.
@@ -635,7 +635,7 @@ Listing&nbsp;2.2: This example demonstrates a minimal harness that triggers a co
 </figure>
 </div>
 <p>To compile and link such a harness with LibFuzzer, the Clang compiler—also part of the LLVM project <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[19]</a></span>—must be used alongside appropriate compiler flags. For instance, compiling the harness in <a href="#lst-fuzzing-example" class="quarto-xref">Listing&nbsp;<span>2.2</span></a> can be achieved as shown in <a href="#lst-harness-compilation" class="quarto-xref">Listing&nbsp;<span>2.3</span></a>.</p>
-<div id="lst-harness-compilation" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<div id="lst-harness-compilation" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Compilation of harness">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-harness-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listing&nbsp;2.3: This example illustrates the compilation and execution workflow necessary for deploying a LibFuzzer-based fuzzing harness.

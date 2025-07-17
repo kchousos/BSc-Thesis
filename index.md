@@ -15,6 +15,9 @@ date-modified: today
 {{< pagebreak >}}
 
 \tableofcontents
+\listoffigures
+\listoflistings
+\listoftables
 
 {{< pagebreak >}}
 

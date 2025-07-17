@@ -321,6 +321,9 @@ parturient montes, nascetur ridiculus mus.
 \newpage{}
 
 \tableofcontents
+\listoffigures
+\listoflistings
+\listoftables
 
 \newpage{}
 
@@ -583,12 +586,12 @@ harness must conform to the following function signature:
 
 \begin{codelisting}
 
-\caption{\label{lst-basic-example}This function receives the fuzzing
-input via a pointer to an array of bytes (\texttt{Data}) and its
-associated size (\texttt{Size}). Efficiency in fuzzing is achieved by
-invoking the API of interest within the body of this function, thereby
-allowing the fuzzer to explore a broad spectrum of behavior through
-systematic input mutation.}
+\caption[Fuzzing harness format]{\label{lst-basic-example}This function
+receives the fuzzing input via a pointer to an array of bytes
+(\texttt{Data}) and its associated size (\texttt{Size}). Efficiency in
+fuzzing is achieved by invoking the API of interest within the body of
+this function, thereby allowing the fuzzer to explore a broad spectrum
+of behavior through systematic input mutation.}
 
 \centering{
 
@@ -610,9 +613,9 @@ Listing~\ref{lst-fuzzing-example}.
 
 \begin{codelisting}
 
-\caption{\label{lst-fuzzing-example}This example demonstrates a minimal
-harness that triggers a controlled crash upon receiving \texttt{HI!} as
-input.}
+\caption[Example fuzzing harness]{\label{lst-fuzzing-example}This
+example demonstrates a minimal harness that triggers a controlled crash
+upon receiving \texttt{HI!} as input.}
 
 \centering{
 
@@ -644,9 +647,9 @@ Listing~\ref{lst-harness-compilation}.
 
 \begin{codelisting}
 
-\caption{\label{lst-harness-compilation}This example illustrates the
-compilation and execution workflow necessary for deploying a
-LibFuzzer-based fuzzing harness.}
+\caption[Compilation of harness]{\label{lst-harness-compilation}This
+example illustrates the compilation and execution workflow necessary for
+deploying a LibFuzzer-based fuzzing harness.}
 
 \centering{
 
@@ -1382,8 +1385,8 @@ harness.
 
 }
 
-\caption{\label{fig-flowchart}Overview of OverHAuL's automatic
-harnessing process.}
+\caption[OverHAuL Workflow]{\label{fig-flowchart}Overview of OverHAuL's
+automatic harnessing process.}
 
 \end{figure}%
 
@@ -1656,7 +1659,8 @@ Listing~\ref{lst-install}.
 
 \begin{codelisting}
 
-\caption{\label{lst-install}OverHAuL's installation process.}
+\caption[OverHAuL installation]{\label{lst-install}OverHAuL's
+installation process.}
 
 \centering{
 
@@ -1733,11 +1737,12 @@ Figure~\ref{fig-success}.
 
 }
 
-\caption{\label{fig-success}A successful execution of OverHAuL,
-harnessing \href{https://github.com/dvhar/dateparse}{dvhar's dateparsing
-C library}, using OpenAI's gpt-4.1 model. Debug statements are printed
-to showcase the interaction between the LLM agents and the codebase
-oracle (Section~\ref{sec-oracle}).}
+\caption[OverHAuL execution example]{\label{fig-success}A successful
+execution of OverHAuL, harnessing
+\href{https://github.com/dvhar/dateparse}{dvhar's dateparsing C
+library}, using OpenAI's gpt-4.1 model. Debug statements are printed to
+showcase the interaction between the LLM agents and the codebase oracle
+(Section~\ref{sec-oracle}).}
 
 \end{figure}%
 
@@ -1810,7 +1815,7 @@ applications:
   harnesses?
 \end{itemize}
 
-\section{Experimental Benchmark}\label{experimental-benchmark}
+\section{Experimental Benchmark}\label{sec-benchmark}
 
 To evaluate OverHAuL, a benchmarking script was implemented\footnote{\url{https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh}}
 and a corpus of ten open-source C libraries was assembled. This
@@ -1858,7 +1863,7 @@ language'' \autocite{clibs,clib}. Each library is described below.
   version v2.0 parsing and rendering library \autocite{semver}.
 \end{enumerate}
 
-\subsection{Local Benchmarking}\label{local-benchmarking}
+\subsection{Local Benchmarking}\label{sec-local}
 
 To run the benchmark locally, one would need to follow the installation
 instructions in Section~\ref{sec-install} and then execute the
@@ -1886,7 +1891,157 @@ LLM model used can be defined with the \texttt{-m} command-line flag.
 
 \chapter{Results}\label{results}
 
-Results from integration with 10/100 open-source C/C++ projects.
+OverHAuL was evaluated through the experimental benchmark
+(Section~\ref{sec-benchmark}) from 6th of June, 2025 to 18th of July,
+2025, using OpenAI's gpt-4.1-mini model.\footnote{\url{https://platform.openai.com/docs/models/gpt-4.1-mini}}
+For these runs, each OverHAuL execution was configured with a 5 minute
+harness execution timeout and an iteration budget of 10. Each benchmark
+run was executed as a GitHub Actions workflow, and the result directory
+(described in Section~\ref{sec-local}) for each is available as a
+downloadable artifact in the corresponding GitHub Actions entry. In
+Figure~\ref{fig-results}, the results of these benchmark runs are
+showcased.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/results.png}}
+
+}
+
+\caption{\label{fig-results}The benchmark results for OverHAuL are
+illustrated with the \(y\)-axis depicting the ten-project corpus
+outlined in Section~\ref{sec-benchmark}. The \(x\)-axis represents the
+various benchmark runs. Each label constitutes a unique hash identifier
+corresponding to a specific GitHub Actions workflow run, which can be
+accessed at
+\url{https://github.com/kchousos/OverHAuL/actions/runs/HASH}. An
+overview of all benchmark runs is available at
+\url{https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml}.
+In this plot, a green block indicates that OverHAuL successfully
+generated a new harness for the project and was able to find a crash
+input. On the other hand, a yellow block indicates that while a
+compilable harness was produced, no crash input was found within the
+five-minute execution period. Importantly, there are no red blocks,
+which would indicate cases where a compilable harness could not be
+generated.}
+
+\end{figure}%
+
+We can deduce the following facts from Figure~\ref{fig-results}:
+Firstly, OverHAuL has a very high success rate in finding crash inputs
+for the given programs, specifically one of \emph{92.5\%}. Secondly,
+although according strictly to these results OverHAuL never generates an
+un-compilable harness, we can err on the side of caution and infer that
+OverHAuL not being able to generate a compilable harness is a rare
+occurrence. These conclusions can safely answer RQ1 with a resounding
+yes.
+
+From sampling OverHAuL's generated harnesses, the answer to RQ2 remains
+unclear. Most of the time, the fuzz targets that are produced are
+understandable and similar to something a software engineer might
+program. Take for example Listing~\ref{lst-sample-dateparse}.
+Nonetheless, sometimes generated harnesses contain usage of inexplicable
+or arbitrary constants and peculiar control flow checks. This makes them
+harder to understand and quite possibly incorrect in many cases, thus
+diverging from seeming human-written. RQ2's answer remains an unclear
+``it depends'', given the variance in OverHAuL's results.
+
+\begin{codelisting}
+
+\caption[Sample harness for
+dateparse]{\label{lst-sample-dateparse}Sample harness for dateparse,
+generated by OverHAuL.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{"dateparse.h"}
+
+\CommentTok{// No artificial size limit to allow fuzzer to explore full input size for boundaries}
+
+\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+    \CommentTok{// Allocate buffer with extra byte for null termination}
+    \DataTypeTok{char} \OperatorTok{*}\NormalTok{input\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
+    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{input\_str}\OperatorTok{)} \OperatorTok{\{}
+        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+
+\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
+\NormalTok{    input\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
+
+\NormalTok{    date\_t parsed\_date }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \DataTypeTok{int}\NormalTok{ offset }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+
+    \CommentTok{// Array of string lengths targeting boundary conditions (including 0 = internal strlen)}
+    \DataTypeTok{size\_t}\NormalTok{ test\_lens}\OperatorTok{[]} \OperatorTok{=} \OperatorTok{\{}\DecValTok{0}\OperatorTok{,}\NormalTok{ size}\OperatorTok{,}\NormalTok{ size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{?}\NormalTok{ size }\OperatorTok{{-}} \DecValTok{1} \OperatorTok{:} \DecValTok{0}\OperatorTok{,} \DecValTok{12}\OperatorTok{,} \DecValTok{13}\OperatorTok{,} \DecValTok{14}\OperatorTok{\};}
+
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{size\_t}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{)} \OperatorTok{/} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
+        \DataTypeTok{size\_t}\NormalTok{ len }\OperatorTok{=}\NormalTok{ test\_lens}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
+        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{len }\OperatorTok{\textless{}=}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{            dateparse}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,} \OperatorTok{\&}\NormalTok{parsed\_date}\OperatorTok{,} \OperatorTok{\&}\NormalTok{offset}\OperatorTok{,} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{len}\OperatorTok{);}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+\NormalTok{    free}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+When it comes to LLM usage, two dimensions can be explored. First, the
+LLM model used. Second, the prompting techniques implemented. When it
+comes to LLM models, all benchmark runs in GitHub's infrastructure were
+executed using OpenAI's gpt-4.1-mini. However, local tests were also
+conducted with gpt-4.1, gpt-4o, gpt-4 and gpt-3.5-turbo. gpt-4.1 and
+gpt-4.1-mini had comparable positive results, with gpt-4o following.
+However, gpt-4 and gpt-3.5-turbo models had considerably worse
+performance, averaging at about 2/10 successfully harnessed projects per
+benchmark run. This points to a considerable qqqqq
+
+RQ3
+
+\begin{itemize}
+\tightlist
+\item
+  Different prompting techniques were a lot more impactful
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Zero-shot prompting had expectedly unremarkable results
+  \item
+    Chain of Thought prompting showed little improvement
+  \item
+    ReAct yielded the most results, mainly due to the more sophisticated
+    code exploration accompanying it by definition
+  \end{itemize}
+\end{itemize}
+
+RQ4
+
+\begin{itemize}
+\tightlist
+\item
+  Simple source code concatenation has obvious drawbacks, mainly due to
+  context window limitations
+\item
+  Access to tools that return file contents is a step forward, but still
+  suffers with small context windows
+\item
+  A function-level vector store is the most scalable approach, both when
+  scaling in file or project size
+\end{itemize}
 
 \bookmarksetup{startatroot}
 
@@ -1924,10 +2079,6 @@ libclang Python package
 \section{Development environment}\label{development-environment}
 
 uv, ruff, mypy, pytest, pdoc
-
-\section{Equipment}\label{equipment}
-
-desktop pc cpu, memory
 
 \section{models used}\label{models-used}
 
@@ -2033,11 +2184,12 @@ state-of-the-art automated fuzzing frameworks like OSS-Fuzz-Gen and
 AutoGen, elucidating OverHAuL's relative strengths and identifying areas
 for improvement \autocite{oss-fuzz-gen,sun2024}.
 
-Complementing broad benchmarking, detailed ablation studies dissecting
-the contributions of individual pipeline components and algorithmic
-choices will yield critical insights into what drives OverHAuL's
-performance. Understanding the impact of each module will guide targeted
-optimizations and support evidence-based design decisions.
+Complementing broad benchmarking, detailed ablation and matrix studies
+dissecting the contributions of individual pipeline components and
+algorithmic choices will yield critical insights into what drives
+OverHAuL's performance. Understanding the impact of each module will
+guide targeted optimizations and support evidence-based design
+decisions.
 
 Furthermore, an economic analysis exploring resource consumption---such
 as API token usage and associated monetary costs---relative to fuzzing

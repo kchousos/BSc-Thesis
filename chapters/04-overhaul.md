@@ -3,7 +3,7 @@
 In this thesis we present *OverHAuL* (**H**arness **Au**tomation with **L**LMs), a neurosymbolic AI tool that automatically generates fuzzing harnesses for C libraries through LLM agents. In its core, OverHAuL is comprised by three LLM ReAct agents [@reAct]---each with its own responsibility and scope---and a vector store index reserving the given project's analyzed codebase. An overview of OverHAuL's process is presented in @fig-flowchart. The objective of OverHAuL is to streamline the process of fuzz testing for C libraries. Given a link to a git repository [@torvalds2005] of a C library, OverHAuL automatically generates a new fuzzing harness specifically designed for the project. In addition to the harness, it produces a compilation script to facilitate building the harness, generates a representative input that can trigger crashes, and logs the output from the executed harness.
 
 :::{#fig-flowchart}
-![](../resources/flowchart.png)
+![](../resources/flowchart.png){fig-scap='OverHAuL Workflow'}
 
 Overview of OverHAuL's automatic harnessing process.
 :::
@@ -114,7 +114,7 @@ A pseudocode version of OverHAuL's main function can be seen in @alg-main. It re
 
 The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.
 
-::: {#lst-install}
+::: {#lst-install fig-scap='OverHAuL installation'}
 ``` text
 $ git clone https://github.com/kchousos/overhaul; cd overhaul
   ...
@@ -164,7 +164,7 @@ $ overhaul <repo-link>
 Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. A sample successful execution can is presented in @fig-success.
 
 ::: {#fig-success}
-![](../resources/successful-execution.png)
+![](../resources/successful-execution.png){fig-scap='OverHAuL execution example'}
 
 A successful execution of OverHAuL, harnessing [dvhar's dateparsing C library](https://github.com/dvhar/dateparse), using OpenAI's gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (@sec-oracle).
 :::

@@ -10,7 +10,7 @@ To thoroughly assess the performance and effectiveness of OverHAuL, we establish
 
 - **RQ4**: How do different techniques affect the generated harnesses?
 
-## Experimental Benchmark
+## Experimental Benchmark {#sec-benchmark}
 
 To evaluate OverHAuL, a benchmarking script was implemented^[<https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh>] and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar's dateparse library, which is also used as a running example in OSS-Fuzz-Gen's [@oss-fuzz-gen] experimental from-scratch harnessing feature (@sec-ofg). Secondly, nine other libraries chosen randomly^[From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.] from the package catalog of Clib, a "package manager for the C programming language" [@clibs; @clib]. Each library is described below.
 
@@ -25,7 +25,7 @@ To evaluate OverHAuL, a benchmarking script was implemented^[<https://github.com
 9.  [orangeduck/mpc](https://github.com/orangeduck/mpc): A type-generic parser combinator library.
 10. [h2non/semver.c](https://github.com/h2non/semver.c): A semantic version v2.0 parsing and rendering library [@semver].
 
-### Local Benchmarking
+### Local Benchmarking {#sec-local}
 
 To run the benchmark locally, one would need to follow the installation instructions in @sec-install and then execute the benchmarking script, like so:
 

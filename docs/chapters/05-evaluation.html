@@ -463,9 +463,9 @@ MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#experimental-benchmark" id="toc-experimental-benchmark" class="nav-link active" data-scroll-target="#experimental-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</a>
+  <li><a href="#sec-benchmark" id="toc-sec-benchmark" class="nav-link active" data-scroll-target="#sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</a>
   <ul class="collapse">
-  <li><a href="#local-benchmarking" id="toc-local-benchmarking" class="nav-link" data-scroll-target="#local-benchmarking"><span class="header-section-number">5.1.1</span> Local Benchmarking</a></li>
+  <li><a href="#sec-local" id="toc-sec-local" class="nav-link" data-scroll-target="#sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -500,8 +500,8 @@ MathJax = {
 <li><p><strong>RQ3</strong>: How do LLM usage patterns influence the generated harnesses?</p></li>
 <li><p><strong>RQ4</strong>: How do different techniques affect the generated harnesses?</p></li>
 </ul>
-<section id="experimental-benchmark" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="experimental-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
+<section id="sec-benchmark" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
 <p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar’s dateparse library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="03-related.html#sec-ofg" class="quarto-xref"><span>Section 3.1.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. Each library is described below.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
 <ol>
@@ -521,8 +521,8 @@ MathJax = {
 <li><a href="https://github.com/orangeduck/mpc">orangeduck/mpc</a>: A type-generic parser combinator library.</li>
 <li><a href="https://github.com/h2non/semver.c">h2non/semver.c</a>: A semantic version v2.0 parsing and rendering library <span class="citation" data-cites="semver"><a href="refs.html#ref-semver" role="doc-biblioref">[6]</a></span>.</li>
 </ol>
-<section id="local-benchmarking" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="local-benchmarking"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
+<section id="sec-local" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
 <p>To run the benchmark locally, one would need to follow the installation instructions in <a href="04-overhaul.html#sec-install" class="quarto-xref"><span>Section 4.4</span></a> and then execute the benchmarking script, like so:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>$ ./benchmarks/benchmark.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The cloned repositories with their corresponding harnesses will then be located in a subdirectory of <code>benchmark_results</code>, which will have the name format of <code>mini__&lt;timestamp&gt;__ReAct__&lt;llm-model&gt;__&lt;max-exec-time&gt;__&lt;iter-budget&gt;</code>. “Mini” corresponds to the benchmark project corpus described above, since a 30-project corpus was initially created and is now coined as “full” benchmark. Both the mini and full benchmarks are located in <code>benchmarks/repos.txt</code> and <code>benchmarks/repos-mini.txt</code> respectively. To execute the benchmark for the “full” corpus, users can add the <code>-b full</code> flag in the script’s invocation. Also, the LLM model used can be defined with the <code>-m</code> command-line flag.</p>

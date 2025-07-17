@@ -145,6 +145,7 @@ format:
     keywords: [LLMs, Fuzzing, Automation, Security, Neurosymbolic AI]
     highlight-style: a11y
     include-in-header: ./resources/preamble.tex
+    fig-scap: true
 
 pdf-engine: lualatex
 pdf-engine-opts:
