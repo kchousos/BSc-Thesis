@@ -1,4 +1,4 @@
-# OverHAuL
+# OverHAuL's Design
 
 In this thesis we present *OverHAuL* (**H**arness **Au**tomation with **L**LMs), a neurosymbolic AI tool that automatically generates fuzzing harnesses for C libraries through LLM agents. In its core, OverHAuL is comprised by three LLM ReAct agents [@reAct]---each with its own responsibility and scope---and a vector store index reserving the given project's analyzed codebase. An overview of OverHAuL's process is presented in @fig-flowchart. The objective of OverHAuL is to streamline the process of fuzz testing for C libraries. Given a link to a git repository [@torvalds2005] of a C library, OverHAuL automatically generates a new fuzzing harness specifically designed for the project. In addition to the harness, it produces a compilation script to facilitate building the harness, generates a representative input that can trigger crashes, and logs the output from the executed harness.
 
