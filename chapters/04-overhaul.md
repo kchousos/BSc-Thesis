@@ -14,7 +14,7 @@ OverHAuL utilizes autonomous ReAct agents [@reAct] which inspect and analyze the
 
 Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies---only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality.^[I.e. "research code".]
 
-## Architecture
+## Architecture {#sec-architecture}
 
 OverHAuL can be compartmentalized in three stages: First, the project analysis stage (@sec-analysis), the harness creation stage (@sec-creation) and the harness evaluation stage (@sec-evaluation).
 
@@ -27,7 +27,7 @@ The static analysis tool Flawfinder [@flawfinder] is executed with the project d
 
 The vector store is created in the following manner: The codebase is first chunked in function-level pieces by traversing the code's Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function's signature, the corresponding filepath and the function's body. Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in the LLMs.
 
-### Harness Creation{#sec-creation}
+### Harness Creation {#sec-creation}
 
 Second is the harness creation stage (steps B.1--B.2). In this part, a "generator" ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the vector store. When the agent makes queries like "functions containing `strcpy()`", the querying tool turns the question into an embedding and through similarity search returns the top $k=3$ most similar results---in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.
 
@@ -46,59 +46,62 @@ Third comes the evaluation stage (steps C.1--C.3). During this step, the compile
 
 Similarly to the second stage's compilation phase (steps B.2--B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an "improver" agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned "fixer" agent is utilized again (steps C.2--C.2.a). All produced crash files and the harness execution output are saved in the project's directory.
 
-## Main techniques
+## Main techniques {#sec-techniques}
 
-- Feedback loop (improvement + verification)
-  This iterative structure creates a feedback loop which terminates if an acceptable working harness has been achieved or the *iteration budget* has been depleted. This iteration budget is shared among the compilation and evaluation loops, i.e. it is decreased any time a dashed arrow in the flowchart is followed.
-- Triplet of ReAct agents
-    An important point to stress is that each agent is a separate LLM instance, albeit of the same model. This means that the agents have different and separate contexts during each run. This technique allows more exploration per run, since for example the "improver" agent can explore different search paths regarding the harness that the "generator" agent may have internally rejected. It also keeps context window limitations manageable, since the load is shared between the agents.
+The fundamental techniques that distinguish OverHAuL in its approach and enhance its effectiveness in achieving its objectives are: The implementation of an iterative feedback loop between the LLM agents, the distribution of responsibility across a swarm of distinct agents and the employment of a "codebase oracle" for interacting with the given project's source code.
 
-- Code exploration through vector store
-  - Context window thoughts
-  - Why RAG? Semantic chunking, most similar to paragraph-level chunking, most used technique. Codex was fine-tuned with functions as input [@chen2021]. The bigger the chunk, the bigger the noise [@zhao2024].
-  
-The algorithm corresponding to the flowchart in @fig-flowchart can be seen in @alg-main.
+### Feedback loop
+
+The initial generated harness produced by OverHAuL is unlikely to be successful from the get-go. The iterative feedback loop implemented facilitates its enhancement, enabling the harness to be tested under real-world conditions and subsequently refined based on the results of these tests. This approach mirrors the typical workflow employed by developers in the process of creating and optimizing fuzz targets. 
+
+In this iterative framework, the development process continues until either an acceptable and functional harness is realized or the defined *iteration budget* is exhausted. The iteration budget $N=10$ is initialized at the onset of OverHAuL's execution and is shared between both the compilation and evaluation phases of the harness development process. This means that the iteration budget is decremented each time a dashed arrow in the flowchart illustrated in @fig-flowchart is followed. Such an approach allows for targeted improvements while maintaining oversight of resource allocation throughout the harness development cycle.
+
+### ReAct agents swarm
+
+An integral design decision in our framework is the implementation of each agent as a distinct LLM instance, although all utilizing the same underlying model. This approach yields several advantages, particularly in the context of maintaining separate and independent contexts for each agent throughout each OverHAuL run. 
+
+By assigning individual contexts to the agents, we enable a broader exploration of possibilities during each run. For instance, the "improver" agent can investigate alternative pathways or strategies that the "generator" agent may have potentially overlooked or internally deemed inadequate inaccurately. This separation not only fosters a more diverse range of solutions but also enhances the overall robustness of the system by allowing for iterative refinement based on each agent's unique insights. 
+
+Furthermore, this design choice effectively addresses the limitations imposed by context window sizes. By distributing the "cognitive" load across multiple agents, we can manage and mitigate the risks associated with exceeding these constraints. As a result, this architecture promotes efficient utilization of available resources while maximizing the potential for innovative outcomes in multi-agent interactions. This layered approach ultimately contributes to a more dynamic and exploratory research environment, facilitating a comprehensive examination of the problem space.
+
+### Codebase oracle
+
+The third central technique employed is the creation and utilization of a codebase oracle, which is effectively realized through a vector store. This oracle is designed to contain the various functions within the project, enabling it to return the most semantically similar functions upon querying it. Such an approach serves to address the inherent challenges associated with code exploration difficulties faced by LLM agents, particularly in relation to their limited context window.
+
+By structuring the codebase into chunks at the level of individual functions, LLM agents can engage with the code more effectively by focusing on its functional components. This methodology not only allows for a more nuanced understanding of the codebase but also ensures that the responses generated do not consume an excessive portion of the limited context window available to the agents. In contrast, if the codebase were organized and queried at the file level, the chunks of information would inevitably become larger, leading to an increase in noise and a dilution of meaningful content in each chunk [@zhao2024]. Given the constant size of the embeddings used in processing, each progressively larger chunk would be less semantically significant, ultimately compromising the quality of the retrieval process.
+
+Defining the function as the primary unit of analysis represents the most proportionate balance between the size of the code segments and their semantic significance. It serves as the ideal "zoom-in" level for the exploration of code, allowing for greater clarity and precision in understanding the functionality of individual code segments. This same principle is widely recognized in the training of code-specific LLMs, where a function-level approach has been shown to enhance performance and comprehension [@chen2021]. By adopting this methodology, we aim to foster a more robust interaction between LLM agents and the underlying codebase, ultimately facilitating a more effective and efficient exploration process.
+    
+## High-Level Algorithm
+
+A pseudocode version of OverHAuL's main function can be seen in @alg-main. It represents the workflow presented in @fig-flowchart and the techniques described in sections -@sec-architecture and -@sec-techniques.
 
 ```pseudocode
 #| label: alg-main
 \begin{algorithm}
-\caption{Test Harness Generation with Iterative Refinement}
-\begin{algorithmic}
-\Procedure{Main}{}
-  \State $args \gets$ \Call{ParseArguments}{}
-  \State $project\_path, model \gets args.project\_path, args.model$
-  \State $analyzer \gets$ \Call{ProjectAnalyzer}{$project\_path$}
-  \State $project\_info \gets analyzer.$\Call{CollectProjectInfo}{}
-  \State \Call{LoadEnvironment}{}
-  \State $embedder \gets$ \Call{CreateEmbedder}{$embedding\_model$}
-  \State $chunks \gets$ \Call{ExtractChunks}{$project\_path$}
-  \State $index, meta \gets$ \Call{EmbedChunks}{$chunks, embedder$}
-  \State $rag\_tool \gets$ \Call{MakeRagTool}{$index, meta, embedder$}
-  \State $harnesser \gets$ \Call{Harnesser}{$model, project\_path, rag\_tool$}
-  \State $file\_manager \gets$ \Call{FileManager}{$project\_path$}
-  \State $builder \gets$ \Call{HarnessBuilder}{$project\_path$}
-  \State $evaluator \gets$ \Call{HarnessEvaluator}{$project\_path$}
-  \State $acceptable \gets false$
+\caption{OverHAuL}
+\begin{algorithmic}[1]
+\Require $repository$
+\Ensure $harness, compilation\_script, crash\_input, execution\_log$
+  \State $path \gets$ \Call{RepoClone}{repository}
+  \State $report \gets$ \Call{StaticAnalysis}{$path$}
+  \State $vector\_store \gets$ \Call{CreateOracle}{$path$}
+  \State $acceptable \gets$ False
   \For{$i = 1$ to $MAX\_ITERATIONS$}
-    \State $harness \gets harnesser.$\Call{GenerateHarness}{$project\_info$}
-    \State $file\_manager.$\Call{WriteHarness}{$harness$}
-    \State $error, compiled \gets builder.$\Call{BuildHarness}{}
-    \State $project\_info.compiles \gets compiled$
+    \State $harness \gets$ \Call{GenerateHarness}{$path, report, vector\_store$}
+    \State $error, compiled \gets$ \Call{BuildHarness}{$harness$}
     \If{$\neg compiled$}
-      \State $project\_info.error \gets error$
-      \State \textbf{continue}
+      \State \textbf{continue} \Comment{Regenerate harness}
     \EndIf
-    \State $output, accepted \gets evaluator.$\Call{EvaluateHarness}{}
+    \State $output, accepted \gets $\Call{EvaluateHarness}{$harness$}
     \If{$\neg accepted$}
-      \State $project\_info.output \gets output$
-      \State \textbf{continue}
+      \State \textbf{continue} \Comment{Improve harness}
     \Else
       \State $acceptable \gets true$
       \State \textbf{break}
     \EndIf
   \EndFor
-  \State \Return $acceptable \land project\_info.compiles$
-\EndProcedure
+  \State \Return $compiled \land acceptable$
 \end{algorithmic}
 \end{algorithm}
 ```

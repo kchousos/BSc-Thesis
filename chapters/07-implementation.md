@@ -25,6 +25,14 @@ libclang Python package
 
 uv, ruff, mypy, pytest, pdoc
 
+## Equipment
+
+desktop pc cpu, memory
+
+## models used
+
+gpt-4.1
+
 ## Reproducibility
 
 github workflow actions, artifacts, summary
