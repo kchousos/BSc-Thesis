@@ -412,7 +412,8 @@ MathJax = {
    
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1.1</span> Motivation</a></li>
-  <li><a href="#preview-of-following-sections-rename" id="toc-preview-of-following-sections-rename" class="nav-link" data-scroll-target="#preview-of-following-sections-rename"><span class="header-section-number">1.2</span> Preview of following sections (rename)</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">1.2</span> Goal</a></li>
+  <li><a href="#preview-of-following-sections-rename" id="toc-preview-of-following-sections-rename" class="nav-link" data-scroll-target="#preview-of-following-sections-rename"><span class="header-section-number">1.3</span> Preview of following sections (rename)</a></li>
   </ul>
 </nav>
     </div>
@@ -440,17 +441,29 @@ MathJax = {
 
 
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-<p>Nunc ac dignissim magna. Vestibulum vitae egestas elit. Proin feugiat leo quis ante condimentum, eu ornare mauris feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris cursus laoreet ex, dignissim bibendum est posuere iaculis. Suspendisse et maximus elit. In fringilla gravida ornare. Aenean id lectus pulvinar, sagittis felis nec, rutrum risus. Nam vel neque eu arcu blandit fringilla et in quam. Aliquam luctus est sit amet vestibulum eleifend. Phasellus elementum sagittis molestie. Proin tempor lorem arcu, at condimentum purus volutpat eu. Fusce et pellentesque ligula. Pellentesque id tellus at erat luctus fringilla. Suspendisse potenti.</p>
 <section id="motivation" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1.1</span> Motivation</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-<p>Nunc ac dignissim magna. Vestibulum vitae egestas elit. Proin feugiat leo quis ante condimentum, eu ornare mauris feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris cursus laoreet ex, dignissim bibendum est posuere iaculis. Suspendisse et maximus elit. In fringilla gravida ornare. Aenean id lectus pulvinar, sagittis felis nec, rutrum risus. Nam vel neque eu arcu blandit fringilla et in quam. Aliquam luctus est sit amet vestibulum eleifend. Phasellus elementum sagittis molestie. Proin tempor lorem arcu, at condimentum purus volutpat eu. Fusce et pellentesque ligula. Pellentesque id tellus at erat luctus fringilla. Suspendisse potenti.</p>
-<p><span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[1]</a></span></p>
+<ul>
+<li>Memory unsafety is and will be prevalent</li>
+<li>Software is safe until it’s not</li>
+<li>Humans make mistakes</li>
+<li>Humans now use Large Language Models (LLMs) to write software</li>
+<li>LLMs make mistakes <span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[1]</a></span></li>
+</ul>
+<p>Result: Bugs exist</p>
 </section>
-<section id="preview-of-following-sections-rename" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="preview-of-following-sections-rename"><span class="header-section-number">1.2</span> Preview of following sections (rename)</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+<section id="goal" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="goal"><span class="header-section-number">1.2</span> Goal</h2>
+<p>A system that:</p>
+<ol type="1">
+<li>Takes a bare C project as input</li>
+<li>Generates a new fuzzing harness from scratch using LLMs</li>
+<li>Compiles it</li>
+<li>Executes it and evaluates it</li>
+</ol>
+</section>
+<section id="preview-of-following-sections-rename" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="preview-of-following-sections-rename"><span class="header-section-number">1.3</span> Preview of following sections (rename)</h2>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">

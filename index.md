@@ -4,7 +4,7 @@ date-modified: today
 ---
 # Preface {.unlisted .unnumbered}
 
-{{< lipsum 3 >}}
+{{< lipsum 2 >}}
 
 {{< pagebreak >}}
 
