@@ -1,4 +1,4 @@
-# Abandoned Techniques
+# Abandoned Techniques {#sec-abandoned}
 
 During its development, OverHAuL went through several iterations. A number of approaches were implemented and evaluated, with some being replaced for better alternatives. These are:
 

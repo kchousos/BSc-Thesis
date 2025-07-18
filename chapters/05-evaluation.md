@@ -8,7 +8,7 @@ To thoroughly assess the performance and effectiveness of OverHAuL, we establish
 
 - **RQ3**: How do LLM usage patterns influence the generated harnesses?
 
-- **RQ4**: How do different techniques affect the generated harnesses?
+- **RQ4**: How do different symbolic techniques affect the generated harnesses?
 
 ## Experimental Benchmark {#sec-benchmark}
 
