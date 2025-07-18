@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -59,14 +94,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -275,6 +310,7 @@ MathJax = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -434,7 +470,7 @@ MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#development-environment" id="toc-development-environment" class="nav-link active" data-scroll-target="#development-environment"><span class="header-section-number">7.1</span> Development environment</a></li>
+  <li><a href="#development-tools" id="toc-development-tools" class="nav-link active" data-scroll-target="#development-tools"><span class="header-section-number">7.1</span> Development Tools</a></li>
   <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">7.2</span> Reproducibility</a></li>
   </ul>
 </nav>
@@ -462,45 +498,81 @@ MathJax = {
 </header>
 
 
-<p>Repository cloning is performed using the <code>--depth 1</code> flag for less usage of disk storage and smaller artifacts size.</p>
-<p>When creating the codebase oracle, the “libclang” Python package is utilized <span class="citation" data-cites="he2025"><a href="refs.html#ref-he2025" role="doc-biblioref">[1]</a></span> for slicing the functions based on the AST provided by Clang. As elaborated in <a href="04-overhaul.html#sec-oracle" class="quarto-xref"><span>Section 4.2.3</span></a>, the intermediate result is a list of Python dictionaries, each containing a function’s body, signature, and corresponding file-path. Each chunk’s function code is then turned into an embedding using OpenAI’s “text-embedding-3-small” model<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and stored in a FAISS vector store index <span class="citation" data-cites="faiss"><a href="refs.html#ref-faiss" role="doc-biblioref">[2]</a></span>. This index is ID mapped to a metadata structure which contains the aforementioned function data—actual function body, signature, file-path. When a search is performed upon the index, the returned results are embeddings. The answers that the LLM agent receives are coming from each embedding’s corresponding metadata entry.</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
-<ol>
-<li id="fn1"><p><a href="https://platform.openai.com/docs/models/text-embedding-3-small" class="uri">https://platform.openai.com/docs/models/text-embedding-3-small</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</aside>
-<p>Prompting techniques used (callback to <a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.2</span></a>). Sample prompt</p>
-<p><span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[3]</a></span></p>
-<ol type="1">
-<li>Why instead of langchain or llamaindex? <span class="citation" data-cites="langchain llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[5]</a></span></li>
-</ol>
-<ul>
-<li>models used gpt-4.1</li>
-</ul>
-<section id="development-environment" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="development-environment"><span class="header-section-number">7.1</span> Development environment</h2>
-<p>uv, ruff, mypy, pytest, pdoc</p>
+<p>In creating the codebase oracle, we employ the “libclang” Python package <span class="citation" data-cites="he2025"><a href="refs.html#ref-he2025" role="doc-biblioref">[1]</a></span> to slice functions based on the AST capability provided by Clang. As detailed in <a href="04-overhaul.html#sec-oracle" class="quarto-xref"><span>Section 4.2.3</span></a>, the intermediate output consists of a list of Python dictionaries, with each dictionary storing a function’s body, signature, and corresponding file path. Each chunk of function code is then converted into an embedding using OpenAI’s “text-embedding-3-small” model <span class="citation" data-cites="openaidocs2025a"><a href="refs.html#ref-openaidocs2025a" role="doc-biblioref">[2]</a></span> and stored in a FAISS vector store index <span class="citation" data-cites="faiss"><a href="refs.html#ref-faiss" role="doc-biblioref">[3]</a></span>. This index is mapped to a metadata structure that contains the aforementioned function data—specifically the actual function body, signature, and file path. When a search is conducted on the index, the results returned are the embeddings. The responses that the LLM agent receives are derived from the corresponding metadata entries of each embedding.</p>
+<p>All LLM agents and components are developed using the DSPy library, a declarative Python framework for LLM programming created by Stanford’s NLP research team <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[4]</a></span>. DSPy offers built-in modules and abstractions that facilitate the composition of LLMs and prompting techniques, such as Chain of Thought and ReAct (<a href="#lst-dspy" class="quarto-xref">Listing&nbsp;<span>7.1</span></a>). Each agent within OverHAuL is an instance of DSPy’s ReAct module <span class="citation" data-cites="stanfordnlpteam2025"><a href="refs.html#ref-stanfordnlpteam2025" role="doc-biblioref">[5]</a></span>, accompanied by a custom Signature <span class="citation" data-cites="stanfordnlpteam2025a"><a href="refs.html#ref-stanfordnlpteam2025a" role="doc-biblioref">[6]</a></span>—displayed in <a href="prompts.html" class="quarto-xref"><span>Appendix B</span></a>. DSPy was selected over other contemporary LLM libraries, such as LangChain and Llamaindex <span class="citation" data-cites="langchain llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[7]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[8]</a></span>, because of its user-friendliness, logical abstractions, and efficient development process—qualities that are often lacking in these alternative libraries <span class="citation" data-cites="both2024 woolf2023 woyera2023"><a href="refs.html#ref-both2024" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-woolf2023" role="doc-biblioref">[10]</a>, <a href="refs.html#ref-woyera2023" role="doc-biblioref">[11]</a></span>.</p>
+<div id="lst-dspy" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="DSPy example">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-dspy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;7.1: Sample DSPy program.
+</figcaption>
+<div aria-describedby="lst-dspy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> dspy</span>
+<span id="cb1-2"><a href="#cb1-2"></a>lm <span class="op">=</span> dspy.LM(<span class="st">'openai/gpt-4o-mini'</span>, api_key<span class="op">=</span><span class="st">'YOUR_OPENAI_API_KEY'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>dspy.configure(lm<span class="op">=</span>lm)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>math <span class="op">=</span> dspy.ChainOfThought(<span class="st">"question -&gt; answer: float"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>math(question<span class="op">=</span><span class="st">"Two dice are tossed. What is the probability that the sum equals two?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>Repository cloning is executed using the <code>--depth 1</code> flag to minimize disk storage usage and reduce the size of artifacts.</p>
+<section id="development-tools" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="development-tools"><span class="header-section-number">7.1</span> Development Tools</h2>
+<p>The development of OverHAuL incorporates a variety of tools aimed at enhancing functionality and efficiency. Notably, “uv” is a Python package and project manager written in Rust that serves as a replacement for Poetry. Additionally, “Ruff,” a code linter and formatter also developed in Rust, contributes to code quality by enforcing consistent formatting standards. The project also employs “MyPy,” the widely-used static type checker for Python, to ensure type correctness. Testing is facilitated through “PyTest,” a robust Python testing framework. Lastly, “pdoc” is utilized as a Static Site Generator (SSG) to automate the creation of API documentation <span class="citation" data-cites="astral2025 astral2025a cortesi2025 pytestdevteam2025 pythonsoftwarefoundation2025"><a href="refs.html#ref-astral2025" role="doc-biblioref">[12]</a>, <a href="refs.html#ref-astral2025a" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-cortesi2025" role="doc-biblioref">[14]</a>, <a href="refs.html#ref-pytestdevteam2025" role="doc-biblioref">[15]</a>, <a href="refs.html#ref-pythonsoftwarefoundation2025" role="doc-biblioref">[16]</a></span>.</p>
 </section>
 <section id="reproducibility" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">7.2</span> Reproducibility</h2>
-<p>github workflow actions, artifacts, summary</p>
+<p>OverHAuL’s source code is available at <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a>. Each benchmark run was conducted within the framework of a GitHub Actions workflow, resulting in a detailed summary accompanied by an artifact containing all cloned repositories. These artifacts are the compressed result directories described in <a href="05-evaluation.html#sec-local" class="quarto-xref"><span>Section 5.1.1</span></a> and provide the essential components necessary for the reproducibility each project’s results, as described in <a href="04-overhaul.html#sec-install" class="quarto-xref"><span>Section 4.4</span></a>. All benchmark runs can be conveniently accessed at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-he2025" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">T. He, <span>“Sighingnow/libclang.”</span> Jul. 03, 2025. Available: <a href="https://github.com/sighingnow/libclang">https://github.com/sighingnow/libclang</a></div>
 </div>
+<div id="ref-openaidocs2025a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">OpenAI Docs, <span>“Text-embedding-3-small - <span>OpenAI API</span>,”</span> 2025. Available: <a href="https://platform.openai.com">https://platform.openai.com</a></div>
+</div>
 <div id="ref-faiss" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">M. Douze <em>et al.</em>, <span>“The <span>Faiss</span> library,”</span> Feb. 11, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2401.08281">10.48550/arXiv.2401.08281</a>. Available: <a href="http://arxiv.org/abs/2401.08281">http://arxiv.org/abs/2401.08281</a></div>
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">M. Douze <em>et al.</em>, <span>“The <span>Faiss</span> library,”</span> Feb. 11, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2401.08281">10.48550/arXiv.2401.08281</a>. Available: <a href="http://arxiv.org/abs/2401.08281">http://arxiv.org/abs/2401.08281</a></div>
 </div>
 <div id="ref-dspy" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+</div>
+<div id="ref-stanfordnlpteam2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Stanford NLP Team, <span>“Signatures - <span>DSPy Documentation</span>,”</span> 2025. Available: <a href="https://dspy.ai/learn/programming/signatures/">https://dspy.ai/learn/programming/signatures/</a></div>
+</div>
+<div id="ref-stanfordnlpteam2025a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Stanford NLP Team, <span>“<span>ReAct</span> - <span>DSPy Documentation</span>,”</span> 2025. Available: <a href="https://dspy.ai/api/modules/ReAct/">https://dspy.ai/api/modules/ReAct/</a></div>
 </div>
 <div id="ref-langchain" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">H. Chase, <span>“<span>LangChain</span>.”</span> Oct. 2022. Available: <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a></div>
 </div>
 <div id="ref-llamaindex" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">J. Liu, <span>“<span>LlamaIndex</span>.”</span> Nov. 2022. doi: <a href="https://doi.org/10.5281/zenodo.1234">10.5281/zenodo.1234</a>. Available: <a href="https://github.com/jerryjliu/llama_index">https://github.com/jerryjliu/llama_index</a></div>
+</div>
+<div id="ref-both2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">F. Both, <span>“Why we no longer use <span>LangChain</span> for building our <span>AI</span> agents,”</span> 2024. Available: <a href="https://octomind.dev/blog/why-we-no-longer-use-langchain-for-building-our-ai-agents">https://octomind.dev/blog/why-we-no-longer-use-langchain-for-building-our-ai-agents</a></div>
+</div>
+<div id="ref-woolf2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">M. Woolf, <span>“The <span>Problem With LangChain</span>,”</span> Jul. 14, 2023. Available: <a href="https://minimaxir.com/2023/07/langchain-problem/">https://minimaxir.com/2023/07/langchain-problem/</a></div>
+</div>
+<div id="ref-woyera2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Woyera, <span>“6 <span>Reasons</span> why <span>Langchain Sucks</span>,”</span> Sep. 08, 2023. Available: <a href="https://medium.com/@woyera/6-reasons-why-langchain-sucks-b6c99c98efbe">https://medium.com/@woyera/6-reasons-why-langchain-sucks-b6c99c98efbe</a></div>
+</div>
+<div id="ref-astral2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">Astral, <span>“Astral-sh/uv.”</span> Astral, Jul. 18, 2025. Available: <a href="https://github.com/astral-sh/uv">https://github.com/astral-sh/uv</a></div>
+</div>
+<div id="ref-astral2025a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Astral, <span>“Astral-sh/ruff.”</span> Astral, Jul. 18, 2025. Available: <a href="https://github.com/astral-sh/ruff">https://github.com/astral-sh/ruff</a></div>
+</div>
+<div id="ref-cortesi2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">A. Cortesi, M. Hils, and T. Kriechbaumer, <span>“Mitmproxy/pdoc.”</span> mitmproxy, Jul. 18, 2025. Available: <a href="https://github.com/mitmproxy/pdoc">https://github.com/mitmproxy/pdoc</a></div>
+</div>
+<div id="ref-pytestdevteam2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">PyTest Dev Team, <span>“Pytest-dev/pytest.”</span> pytest-dev, Jul. 18, 2025. Available: <a href="https://github.com/pytest-dev/pytest">https://github.com/pytest-dev/pytest</a></div>
+</div>
+<div id="ref-pythonsoftwarefoundation2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">Python Software Foundation, <span>“Python/mypy.”</span> Python, Jul. 18, 2025. Available: <a href="https://github.com/python/mypy">https://github.com/python/mypy</a></div>
 </div>
 </div>
 </section>
