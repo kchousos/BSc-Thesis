@@ -4,7 +4,7 @@ date-modified: today
 ---
 # Preface {.unlisted .unnumbered}
 
-{{< lipsum 2 >}}
+This thesis was written as part of the requirements for the Bachelor of Science program in the Department of Informatics and Telecommunications at the National and Kapodistrian University of Athens during the academic year 2024--2025. The research was conducted under the supervision of Prof. Thanassis Avgerinos. The completed thesis is also available through the university's digital repository Pergamos. ~~A refined version of this work is currently being prepared for publication~~.
 
 {{< pagebreak >}}
 
@@ -24,7 +24,7 @@ To my beloved parents who, through their example, taught me patience, resilience
 
 # Acknowledgments {.unlisted .unnumbered}
 
-I would like to express my heartfelt gratitude to my supervisor, Prof. Thanassis Avgerinos, for his insightful guidance, patience, and unwavering encouragement throughout this journey. His openness and our shared passion for the subject greatly enhanced my enjoyment of the thesis process.
+I would like to express my gratitude to my supervisor, Prof. Thanassis Avgerinos, for his insightful guidance, patience, and unwavering encouragement throughout this journey. His openness and our shared passion for the subject greatly enhanced my enjoyment of the thesis process.
 
 I am also thankful to my fellow group members in Prof. Avgerinos' weekly meetings, whose willingness to exchange ideas and offer support was invaluable. My appreciation extends to Jorgen and Phaedon, friends who provided thoughtful input and advice along the way.
 
