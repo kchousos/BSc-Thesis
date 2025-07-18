@@ -1,4 +1,4 @@
-# Results
+# Results {#sec-results}
 
 OverHAuL was evaluated through the experimental benchmark (@sec-benchmark) from 6th of June, 2025 to 18th of July, 2025, using OpenAI's gpt-4.1-mini model [@openaidocs2025]. For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow, and the result directory (described in @sec-local) for each is available as a downloadable artifact in the corresponding GitHub Actions entry. In @fig-results, the results of these benchmark runs are showcased.
 

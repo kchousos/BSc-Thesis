@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,14 +59,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -275,7 +275,6 @@ MathJax = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -380,14 +379,14 @@ MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  <a href="../chapters/08-discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09-discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  <a href="../chapters/09-future.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -503,26 +502,23 @@ MathJax = {
 </section>
 <section id="intelligen" class="level3" data-number="3.1.6">
 <h3 data-number="3.1.6" class="anchored" data-anchor-id="intelligen"><span class="header-section-number">3.1.6</span> IntelliGen</h3>
-<p><strong>SAMPLE</strong></p>
-<p>Zhang et al.&nbsp;present IntelliGen <span class="citation" data-cites="zhang2021"><a href="refs.html#ref-zhang2021" role="doc-biblioref">[17]</a></span>, a system for automatically synthesizing fuzz drivers by statically identifying potentially vulnerable entry-point functions within C projects. Implemented using LLVM, IntelliGen focuses on improving fuzzing efficiency by targeting code more likely to contain memory safety issues, rather than exhaustively fuzzing all available functions.</p>
-<p>The system comprises two main components: the <strong>Entry Function Locator</strong> and the <strong>Fuzz Driver Synthesizer</strong>. The Entry Function Locator analyzes the project’s abstract syntax tree (AST) and classifies functions based on heuristics that indicate vulnerability. These include pointer dereferencing, calls to memory-related functions (e.g., <code>memcpy</code>, <code>memset</code>), and invocation of other internal functions. Functions that score highly on these metrics are prioritized for fuzz driver generation. The guiding insight is that entry points with fewer argument checks and more direct memory operations expose more useful program logic for fuzz testing.</p>
-<p>The Fuzz Driver Synthesizer then generates harnesses for these entry points. For each target function, it synthesizes a <code>LLVMFuzzerTestOneInput</code> function that invokes the target with arguments derived from the fuzzer input. This process involves inferring argument types from the source code and ensuring that runtime behavior does not violate memory safety—thus avoiding invalid inputs that would cause crashes unrelated to genuine bugs.</p>
+<p>IntelliGen <span class="citation" data-cites="zhang2021"><a href="refs.html#ref-zhang2021" role="doc-biblioref">[17]</a></span> is a system for automatically synthesizing fuzz drivers by statically identifying potentially vulnerable entry-point functions within C projects. Implemented using LLVM <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[14]</a></span>, IntelliGen focuses on Improving fuzzing efficiency by targeting code more likely to contain memory safety issues, rather than exhaustively fuzzing all available functions.</p>
+<p>The system comprises two main components: the <em>Entry Function Locator</em> and the <em>Fuzz Driver Synthesizer</em>. The Entry Function Locator analyzes the project’s abstract syntax tree (AST) and classifies functions based on heuristics that indicate vulnerability. These include pointer dereferencing, calls to memory-related functions (e.g., <code>memcpy</code>, <code>memset</code>), and invocation of other internal functions. Functions that score highly on these metrics are prioritized for fuzz driver generation. The guiding insight is that entry points with fewer argument checks and more direct memory operations expose more useful program logic for fuzz testing.</p>
+<p>The Fuzz Driver Synthesizer then generates harnesses for these entry points. For each target function, it synthesizes an <code>LLVMFuzzerTestOneInput</code> function that invokes the target with arguments derived from the fuzz input. This process involves inferring argument types from the source code and ensuring that runtime behavior does not violate memory safety—thus avoiding invalid inputs that would cause crashes unrelated to genuine bugs.</p>
 <p>IntelliGen stands out by integrating static vulnerability estimation into the driver generation pipeline. Compared to prior tools like FuzzGen and FUDGE, it uses a more targeted, heuristic-based selection of functions, increasing the likelihood that fuzzing will exercise meaningful and vulnerable code paths.</p>
 </section>
 <section id="ckgfuzzer" class="level3" data-number="3.1.7">
 <h3 data-number="3.1.7" class="anchored" data-anchor-id="ckgfuzzer"><span class="header-section-number">3.1.7</span> CKGFuzzer</h3>
-<p><strong>SAMPLE</strong></p>
-<p>CKGFuzzer <span class="citation" data-cites="xu2024"><a href="refs.html#ref-xu2024" role="doc-biblioref">[18]</a></span> is a fuzzing framework designed to automate the generation of effective fuzz drivers for C/C++ libraries by leveraging static analysis and large language models. Its workflow begins by parsing the target project along with any associated library APIs to construct a code knowledge graph. This involves two primary steps: first, parsing the abstract syntax tree (AST), and second, performing interprocedural program analysis. Through this process, CKGFuzzer extracts essential program elements such as data structures, function signatures, function implementations, and call relationships.</p>
+<p>CKGFuzzer <span class="citation" data-cites="xu2024"><a href="refs.html#ref-xu2024" role="doc-biblioref">[18]</a></span> is a fuzzing framework designed to automate the generation of effective fuzz drivers for C/C++ libraries by leveraging static analysis and large language models. Its workflow begins by parsing the target project along with any associated library APIs to construct a code knowledge graph. This involves two primary steps: first, parsing the abstract syntax tree (AST), and second, performing inter-procedural program analysis. Through this process, CKGFuzzer extracts essential program elements such as data structures, function signatures, function implementations, and call relationships.</p>
 <p>Using the knowledge graph, CKGFuzzer then identifies and queries meaningful API combinations, focusing on those that are either frequently invoked together or exhibit functional similarity. It generates candidate fuzz drivers for these combinations and attempts to compile them. Any compilation errors encountered during this phase are automatically repaired using heuristics and domain knowledge. A dynamically updated knowledge base, constructed from prior library usage patterns, guides both the generation and repair processes.</p>
 <p>Once the drivers are successfully compiled, CKGFuzzer executes them while monitoring code coverage at the file level. It uses coverage feedback to iteratively mutate underperforming API combinations, refining them until new execution paths are discovered or a preset mutation budget is exhausted.</p>
-<p>Finally, any crashes triggered during fuzzing are subjected to a reasoning process based on chain-of-thought prompting. To help determine their severity and root cause, CKGFuzzer consults an LLM-generated knowledge base containing real-world examples of vulnerabilities mapped to known Common Weakness Enumeration (CWE) entries.</p>
+<p>Finally, any crashes triggered during fuzzing are subjected to a reasoning process based on chain-of-thought prompting (<a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.2</span></a>). To help determine their severity and root cause, CKGFuzzer consults an LLM-generated knowledge base containing real-world examples of vulnerabilities mapped to known Common Weakness Enumeration (CWE) entries.</p>
 </section>
 <section id="promptfuzz" class="level3" data-number="3.1.8">
 <h3 data-number="3.1.8" class="anchored" data-anchor-id="promptfuzz"><span class="header-section-number">3.1.8</span> PromptFuzz</h3>
-<p><strong>SAMPLE</strong></p>
-<p>Lyu et al.&nbsp;(2024) introduce PromptFuzz <span class="citation" data-cites="lyu2024"><a href="refs.html#ref-lyu2024" role="doc-biblioref">[19]</a></span>, a system for automatically generating fuzz drivers using LLMs, with a novel focus on <strong>prompt mutation</strong> to improve coverage. The system is implemented in Rust and targets C libraries, aiming to explore more of the API surface with each iteration.</p>
-<p>The workflow begins with the random selection of API functions, extracted from header file declarations. These functions are used to construct initial prompts that instruct the LLM to generate a simple program utilizing the API. Each generated program is compiled, executed, and monitored for code coverage. Programs that fail to compile or violate runtime checks (e.g., sanitizers) are discarded.</p>
-<p>A key innovation in PromptFuzz is <strong>coverage-guided prompt mutation</strong>. Instead of mutating generated code directly, PromptFuzz mutates the LLM prompts—selecting new combinations of API functions to target unexplored code paths. This process is guided by a <strong>power scheduling</strong> strategy that prioritizes underused or promising API functions based on feedback from previous runs.</p>
+<p>PromptFuzz <span class="citation" data-cites="lyu2024"><a href="refs.html#ref-lyu2024" role="doc-biblioref">[19]</a></span> constitutes a framework for automatically generating fuzz drivers using LLMs, with a novel focus on <em>prompt mutation</em> to improve coverage. The system is implemented in Rust and targets C libraries, aiming to explore more of the API surface with each iteration.</p>
+<p>The workflow begins with the random selection of API functions, extracted from header file declarations. These functions are used to construct initial prompts that instruct the LLM to generate a simple program utilizing the API. Each generated program is compiled, executed, and monitored for code coverage. Programs that fail to compile or violate runtime checks (e.g.&nbsp;sanitizers) are discarded.</p>
+<p>A key innovation in PromptFuzz is <em>coverage-guided prompt mutation</em>. Instead of mutating generated code directly, PromptFuzz mutates the LLM prompts—selecting new combinations of API functions to target unexplored code paths. This process is guided by a <em>power scheduling</em> strategy that prioritizes underused or promising API functions based on feedback from previous runs.</p>
 <p>Once an effective program is produced, it is transformed into a fuzz driver by replacing constants and arguments with variables derived from the fuzzer input. Multiple such drivers are embedded into a single harness, where the input determines which program variant to execute, typically via a case-switch construct.</p>
 <p>Overall, PromptFuzz demonstrates that prompt-level mutation enables more effective exploration of complex APIs and achieves better coverage than direct code mutations, offering a compelling direction for LLM-based automated fuzzing systems.</p>
 </section>

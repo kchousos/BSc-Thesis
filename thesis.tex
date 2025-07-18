@@ -302,22 +302,37 @@ potenti.
 
 \newpage{}
 
+\clearpage
+\thispagestyle{empty}
+\vspace*{0.3\textheight}
+\begin{flushright}
+\itshape
+ 
+To my beloved parents who, through their example, taught me patience, resilience and perseverance.
+
+\end{flushright}
+\newpage
+
 \bookmarksetup{startatroot}
 
 \chapter*{Acknowledgments}\label{acknowledgments}
 
 \markboth{Acknowledgments}{Acknowledgments}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis
-posuere ligula sit amet lacinia. Duis dignissim pellentesque magna,
-rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum
-in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit
-amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit,
-non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante
-volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit
-amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim,
-at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
+I would like to express my heartfelt gratitude to my supervisor,
+Prof.~Thanassis Avgerinos, for his insightful guidance, patience, and
+unwavering encouragement throughout this journey. His openness and our
+shared passion for the subject greatly enhanced my enjoyment of the
+thesis process.
+
+I am also thankful to my fellow group members in Prof.~Avgerinos' weekly
+meetings, whose willingness to exchange ideas and offer support was
+invaluable. My appreciation extends to Jorgen and Phaedon, friends who
+provided thoughtful input and advice along the way.
+
+A special \emph{thank you} goes to my parents, Christina, and my friends
+for their constant support and understanding. Their patience and
+encouragement helped me persevere through this challenging period.
 
 \newpage{}
 
@@ -1083,17 +1098,15 @@ API usage.
 
 \subsection{IntelliGen}\label{intelligen}
 
-\textbf{SAMPLE}
+IntelliGen \autocite{zhang2021} is a system for automatically
+synthesizing fuzz drivers by statically identifying potentially
+vulnerable entry-point functions within C projects. Implemented using
+LLVM \autocite{llvm}, IntelliGen focuses on Improving fuzzing efficiency
+by targeting code more likely to contain memory safety issues, rather
+than exhaustively fuzzing all available functions.
 
-Zhang et al.~present IntelliGen \autocite{zhang2021}, a system for
-automatically synthesizing fuzz drivers by statically identifying
-potentially vulnerable entry-point functions within C projects.
-Implemented using LLVM, IntelliGen focuses on improving fuzzing
-efficiency by targeting code more likely to contain memory safety
-issues, rather than exhaustively fuzzing all available functions.
-
-The system comprises two main components: the \textbf{Entry Function
-Locator} and the \textbf{Fuzz Driver Synthesizer}. The Entry Function
+The system comprises two main components: the \emph{Entry Function
+Locator} and the \emph{Fuzz Driver Synthesizer}. The Entry Function
 Locator analyzes the project's abstract syntax tree (AST) and classifies
 functions based on heuristics that indicate vulnerability. These include
 pointer dereferencing, calls to memory-related functions (e.g.,
@@ -1104,9 +1117,9 @@ with fewer argument checks and more direct memory operations expose more
 useful program logic for fuzz testing.
 
 The Fuzz Driver Synthesizer then generates harnesses for these entry
-points. For each target function, it synthesizes a
+points. For each target function, it synthesizes an
 \texttt{LLVMFuzzerTestOneInput} function that invokes the target with
-arguments derived from the fuzzer input. This process involves inferring
+arguments derived from the fuzz input. This process involves inferring
 argument types from the source code and ensuring that runtime behavior
 does not violate memory safety---thus avoiding invalid inputs that would
 cause crashes unrelated to genuine bugs.
@@ -1119,15 +1132,13 @@ meaningful and vulnerable code paths.
 
 \subsection{CKGFuzzer}\label{ckgfuzzer}
 
-\textbf{SAMPLE}
-
 CKGFuzzer \autocite{xu2024} is a fuzzing framework designed to automate
 the generation of effective fuzz drivers for C/C++ libraries by
 leveraging static analysis and large language models. Its workflow
 begins by parsing the target project along with any associated library
 APIs to construct a code knowledge graph. This involves two primary
 steps: first, parsing the abstract syntax tree (AST), and second,
-performing interprocedural program analysis. Through this process,
+performing inter-procedural program analysis. Through this process,
 CKGFuzzer extracts essential program elements such as data structures,
 function signatures, function implementations, and call relationships.
 
@@ -1147,32 +1158,31 @@ refining them until new execution paths are discovered or a preset
 mutation budget is exhausted.
 
 Finally, any crashes triggered during fuzzing are subjected to a
-reasoning process based on chain-of-thought prompting. To help determine
-their severity and root cause, CKGFuzzer consults an LLM-generated
-knowledge base containing real-world examples of vulnerabilities mapped
-to known Common Weakness Enumeration (CWE) entries.
+reasoning process based on chain-of-thought prompting
+(Section~\ref{sec-prompting}). To help determine their severity and root
+cause, CKGFuzzer consults an LLM-generated knowledge base containing
+real-world examples of vulnerabilities mapped to known Common Weakness
+Enumeration (CWE) entries.
 
 \subsection{PromptFuzz}\label{promptfuzz}
 
-\textbf{SAMPLE}
-
-Lyu et al.~(2024) introduce PromptFuzz \autocite{lyu2024}, a system for
-automatically generating fuzz drivers using LLMs, with a novel focus on
-\textbf{prompt mutation} to improve coverage. The system is implemented
-in Rust and targets C libraries, aiming to explore more of the API
-surface with each iteration.
+PromptFuzz \autocite{lyu2024} constitutes a framework for automatically
+generating fuzz drivers using LLMs, with a novel focus on \emph{prompt
+mutation} to improve coverage. The system is implemented in Rust and
+targets C libraries, aiming to explore more of the API surface with each
+iteration.
 
 The workflow begins with the random selection of API functions,
 extracted from header file declarations. These functions are used to
 construct initial prompts that instruct the LLM to generate a simple
 program utilizing the API. Each generated program is compiled, executed,
 and monitored for code coverage. Programs that fail to compile or
-violate runtime checks (e.g., sanitizers) are discarded.
+violate runtime checks (e.g.~sanitizers) are discarded.
 
-A key innovation in PromptFuzz is \textbf{coverage-guided prompt
+A key innovation in PromptFuzz is \emph{coverage-guided prompt
 mutation}. Instead of mutating generated code directly, PromptFuzz
 mutates the LLM prompts---selecting new combinations of API functions to
-target unexplored code paths. This process is guided by a \textbf{power
+target unexplored code paths. This process is guided by a \emph{power
 scheduling} strategy that prioritizes underused or promising API
 functions based on feedback from previous runs.
 
@@ -1909,7 +1919,7 @@ LLM model used can be defined with the \texttt{-m} command-line flag.
 
 \bookmarksetup{startatroot}
 
-\chapter{Results}\label{results}
+\chapter{Results}\label{sec-results}
 
 OverHAuL was evaluated through the experimental benchmark
 (Section~\ref{sec-benchmark}) from 6th of June, 2025 to 18th of July,
@@ -2158,6 +2168,54 @@ conveniently accessed at
 
 \bookmarksetup{startatroot}
 
+\chapter{Discussion}\label{discussion}
+
+As discussed in Section Chapter~\ref{sec-results}, the capabilities and
+effectiveness of OverHAuL are closely tied to the choice of the
+underlying large language model. OverHAuL's modular architecture ensures
+that advances in LLM research will directly enhance its performance.
+Each release of a new, more capable model can be readily integrated,
+thereby amplifying OverHAuL's effectiveness without the need for
+substantial redesign.
+
+A noteworthy consideration in our benchmarking setup is the possibility
+that some of the open-source libraries evaluated may have been included
+in the LLM's training data. This introduces a risk of overestimating
+OverHAuL's performance on code that is unseen or proprietary. Results
+for closed-source or less widely available libraries could therefore be
+weaker. Nonetheless, this potential limitation can theoretically be
+addressed through targeted fine-tuning of the LLM
+\autocite{openaidocs2025b}.
+
+\section{Threats to Validity}\label{threats-to-validity}
+
+Our evaluation of OverHAuL was conducted on ten relatively obscure
+open-source C libraries representing a range of application domains and
+functionalities. While this selection reduces the likelihood that these
+projects were used in LLM training and thus minimizes potential bias, it
+remains uncertain how transferable our results are to larger, more
+complex, or structurally different codebases. Factors such as varying
+design paradigms, architectural patterns, or real-world deployment
+contexts may pose new challenges for OverHAuL's scalability and
+effectiveness.
+
+Additionally, the risk that LLMs could hallucinate constitutes an
+internal threat to validity. Such hallucinations may require multiple
+attempts or occasional manual adjustments to produce valid and useful
+fuzz drivers. However, because LLMs---and thus OverHAuL---operate in a
+non-deterministic manner, it is possible to rerun the process and obtain
+alternative results. The inherent stochasticity of the underlying LLMs
+thus allows users to recover from initial failures, ensuring that the
+impact of hallucinations remains limited to efficiency rather than
+undermining the core applicability of the approach.
+
+In summary, while our findings demonstrate the potential of OverHAuL,
+they also highlight important limitations and directions for future
+work, especially in improving robustness and evaluating performance
+across a broader spectrum of software projects.
+
+\bookmarksetup{startatroot}
+
 \chapter{Future Work}\label{future-work}
 
 The prototype implementation of OverHAuL offers a compelling
@@ -2284,18 +2342,6 @@ feedback loop epitomizes the symbiosis between automated testing tools
 and the open-source community. As an initial step, developing targeted
 PRs for the projects where bugs were discovered during OverHAuL's
 development would help facilitate practical follow-up and improvements.
-
-\bookmarksetup{startatroot}
-
-\chapter{Discussion}\label{discussion}
-
-more powerful llms -\textgreater{} better results
-
-open source libraries might have been in the training data results for
-closed source libraries could be worse this could be mitigated with llm
-fine-tuning
-
-\section{Threats to Validity}\label{threats-to-validity}
 
 \bookmarksetup{startatroot}
 

@@ -36,8 +36,8 @@ book:
     - chapters/05-evaluation.md
     - chapters/06-results.md
     - chapters/07-implementation.md
-    - chapters/08-future.md
-    - chapters/09-discussion.md
+    - chapters/08-discussion.md
+    - chapters/09-future.md
     - chapters/10-conclusion.md
     - chapters/refs.md # Bibliography
   appendices:

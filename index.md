@@ -8,9 +8,27 @@ date-modified: today
 
 {{< pagebreak >}}
 
+<!-- Inscription/dedication -->
+::: {.content-visible when-format="latex"}
+\clearpage
+\thispagestyle{empty}
+\vspace*{0.3\textheight}
+\begin{flushright}
+\itshape
+ 
+To my beloved parents who, through their example, taught me patience, resilience and perseverance.
+
+\end{flushright}
+\newpage
+:::
+
 # Acknowledgments {.unlisted .unnumbered}
 
-{{< lipsum 1 >}}
+I would like to express my heartfelt gratitude to my supervisor, Prof. Thanassis Avgerinos, for his insightful guidance, patience, and unwavering encouragement throughout this journey. His openness and our shared passion for the subject greatly enhanced my enjoyment of the thesis process.
+
+I am also thankful to my fellow group members in Prof. Avgerinos' weekly meetings, whose willingness to exchange ideas and offer support was invaluable. My appreciation extends to Jorgen and Phaedon, friends who provided thoughtful input and advice along the way.
+
+A special *thank you* goes to my parents, Christina, and my friends for their constant support and understanding. Their patience and encouragement helped me persevere through this challenging period.
 
 {{< pagebreak >}}
 
