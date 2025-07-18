@@ -251,7 +251,7 @@ Serif}
 \makeatother
 \subtitle{Harnessing Automation for C Libraries via LLMs}
 \author{Konstantinos Chousos}
-\date{July, 2025}
+\date{July 27, 2025}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -1463,7 +1463,7 @@ for the project. The agent has access to a querying tool that acts as an
 interface between it and the vector store. When the agent makes queries
 like ``functions containing \texttt{strcpy()}'', the querying tool turns
 the question into an embedding and through similarity search returns the
-top \(k=3\) most similar results---in this case, functions of the
+top \(k=5\) most similar results---in this case, functions of the
 project. With this approach, the agent is able to explore the codebase
 semantically and pinpoint potentially vulnerable usage patterns easily.
 
@@ -1827,42 +1827,61 @@ which is also used as a running example in OSS-Fuzz-Gen's
 randomly\footnote{From the subset of libraries that do not have exotic
   external dependencies, like the X11 development toolchain.} from the
 package catalog of Clib, a ``package manager for the C programming
-language'' \autocite{clibs,clib}. Each library is described below.
+language'' \autocite{clibs,clib}. All libraries can be seen
+Table~\ref{tbl-projects}, along with their descriptions.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \href{https://github.com/dvhar/dateparse}{dvhar/dateparse}: A library
-  that allows parsing dates without knowing the format in advance.
-\item
-  \href{https://github.com/clibs/buffer}{clibs/buffer}: A string
-  manipulation library.
-\item
-  \href{https://github.com/jwerle/libbeaufort}{jwerle/libbeaufort}: A
-  library implementation of the Beaufort cipher \autocite{franksen1993}.
-\item
-  \href{https://github.com/jwerle/libbacon}{jwerle/libbacon}: A library
-  implementation of the Baconian cipher \autocite{bacon1861}.
-\item
-  \href{https://github.com/jwerle/chfreq.c}{jwerle/chfreq.c}: A library
-  for computing the character frequency in a string.
-\item
-  \href{https://github.com/jwerle/progress.c}{jwerle/progress.c}: A
-  library for displaying progress bars in the terminal.
-\item
-  \href{https://github.com/willemt/cbuffer}{willemt/cbuffer}: A circular
-  buffer implementation.
-\item
-  \href{https://github.com/willemt/torrent-reader}{willemt/torrent-reader}:
-  A torrent-file reader library.
-\item
-  \href{https://github.com/orangeduck/mpc}{orangeduck/mpc}: A
-  type-generic parser combinator library.
-\item
-  \href{https://github.com/h2non/semver.c}{h2non/semver.c}: A semantic
-  version v2.0 parsing and rendering library \autocite{semver}.
-\end{enumerate}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4539}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0461}}@{}}
+\caption{The benchmark project corpus. Each project name links to its
+corresponding GitHub repository. Each is followed by a short description
+and its GitHub stars count, as of July 18th,
+2025.}\label{tbl-projects}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Project
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Stars
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Project
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Stars
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\href{https://github.com/dvhar/dateparse}{dvhar/dateparse} & A library
+that allows parsing dates without knowing the format in advance. & 2 \\
+\href{https://github.com/clibs/buffer}{clibs/buffer} & A string
+manipulation library. & 204 \\
+\href{https://github.com/jwerle/libbeaufort}{jwerle/libbeaufort} & A
+library implementation of the Beaufort cipher \autocite{franksen1993}. &
+13 \\
+\href{https://github.com/jwerle/libbacon}{jwerle/libbacon} & A library
+implementation of the Baconian cipher \autocite{bacon1861}. & 8 \\
+\href{https://github.com/jwerle/chfreq.c}{jwerle/chfreq.c} & A library
+for computing the character frequency in a string. & 5 \\
+\href{https://github.com/jwerle/progress.c}{jwerle/progress.c} & A
+library for displaying progress bars in the terminal. & 76 \\
+\href{https://github.com/willemt/cbuffer}{willemt/cbuffer} & A circular
+buffer implementation. & 261 \\
+\href{https://github.com/willemt/torrent-reader}{willemt/torrent-reader}
+& A torrent-file reader library. & 6 \\
+\href{https://github.com/orangeduck/mpc}{orangeduck/mpc} & A
+type-generic parser combinator library. & 2,753 \\
+\href{https://github.com/h2non/semver.c}{h2non/semver.c} & A semantic
+version v2.0 parsing and rendering library \autocite{semver}. & 190 \\
+\end{longtable}
 
 \subsection{Local Benchmarking}\label{sec-local}
 
@@ -1920,7 +1939,7 @@ which can be accessed at
 \url{https://github.com/kchousos/OverHAuL/actions/runs/HASH}. An
 overview of all benchmark runs is available at
 \url{https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml}.
-In this plot, a green block indicates that OverHAuL successfully
+In this matrix, a green block indicates that OverHAuL successfully
 generated a new harness for the project and was able to find a crash
 input. On the other hand, a yellow block indicates that while a
 compilable harness was produced, no crash input was found within the
@@ -2056,19 +2075,22 @@ examination.
 
 \chapter{Implementation}\label{sec-implementation}
 
---depth 1 output/
+Repository cloning is performed using the \texttt{-\/-depth\ 1} flag for
+less usage of disk storage and smaller artifacts size.
 
-embedder model openai Source code is processed and chunked using Clang
-{[}33{]}. The chunks are function-level units, found to be a sweet-spot
-between semantic significance and size \autocite{zhao2024,chen2021}.
-This results in a list of Python dicts, each containing a function's
-body, signature and filepath. Each chunk's function code is then turned
-into an embedding using OpenAI's ``text-embedding-3-small'' model. faiss
-store and index A FAISS {[}36{]} vector store is created. Each function
-embedding is stored in it (with the same order, as to correspond with
-the previous list containing the metadata).
-
-same order code chunks
+When creating the codebase oracle, the ``libclang'' Python package is
+utilized \autocite{he2025} for slicing the functions based on the AST
+provided by Clang. As elaborated in Section~\ref{sec-oracle}, the
+intermediate result is a list of Python dictionaries, each containing a
+function's body, signature, and corresponding file-path. Each chunk's
+function code is then turned into an embedding using OpenAI's
+``text-embedding-3-small'' model\footnote{\url{https://platform.openai.com/docs/models/text-embedding-3-small}}
+and stored in a FAISS vector store index \autocite{faiss}. This index is
+ID mapped to a metadata structure which contains the aforementioned
+function data---actual function body, signature, file-path. When a
+search is performed upon the index, the returned results are embeddings.
+The answers that the LLM agent receives are coming from each embedding's
+corresponding metadata entry.
 
 Prompting techniques used (callback to Section~\ref{sec-prompting}).
 Sample prompt
@@ -2083,15 +2105,15 @@ Sample prompt
   \autocite{langchain,llamaindex}
 \end{enumerate}
 
-libclang Python package
+\begin{itemize}
+\tightlist
+\item
+  models used gpt-4.1
+\end{itemize}
 
 \section{Development environment}\label{development-environment}
 
 uv, ruff, mypy, pytest, pdoc
-
-\section{models used}\label{models-used}
-
-gpt-4.1
 
 \section{Reproducibility}\label{reproducibility}
 
@@ -2336,6 +2358,122 @@ replaced for better alternatives. These are:
   intricate projects. As such, while this approach offered advancements
   in code exploration, it still fell short.
 \end{enumerate}
+
+\chapter{DSPy Custom Signatures}\label{sec-signatures}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\KeywordTok{class}\NormalTok{ GenerateHarness(dspy.Signature):}
+    \CommentTok{"""}
+\CommentTok{    You are an experienced C/C++ security testing engineer. You must write a}
+\CommentTok{    libFuzzer{-}compatible \textasciigrave{}int LLVMFuzzerTestOneInput(const uint8\_t *data, size\_t}
+\CommentTok{    size)\textasciigrave{} harness for a function of the given C project. Your goal is for the}
+\CommentTok{    harness to be ready for compilation and for it to find successfully a bug in}
+\CommentTok{    the function{-}under{-}test. Write verbose (within reason) and helpful comments}
+\CommentTok{    on each step/decision you take/make, especially if you use "weird" constants}
+\CommentTok{    or values that have something to do with the project.}
+
+\CommentTok{    You have access to a rag\_tool, which contains a vector store of}
+\CommentTok{    function{-}level chunks of the project. Use it to write better harnesses. Keep}
+\CommentTok{    in mind that it can only reply with function chunks, do not ask it to}
+\CommentTok{    combine stuff.}
+
+\CommentTok{    The rag\_tool does not store any information on which lines the functions}
+\CommentTok{    are. So do not ask questions based on lines.}
+
+\CommentTok{    Make sure that you only fuzz an existing function. You will know that a}
+\CommentTok{    functions exists when the rag\_tool returns to you its signature and body.}
+\CommentTok{    """}
+
+\NormalTok{    static: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.InputField(}
+\NormalTok{        desc}\OperatorTok{=}\StringTok{""" Output of static analysis tools for the project. If you find it}
+\StringTok{        helpful, write your harness so that it leverages some of the potential}
+\StringTok{        vulnerabilities described below.  """}
+\NormalTok{    )}
+\NormalTok{    new\_harness: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.OutputField(}
+\NormalTok{        desc}\OperatorTok{=}\StringTok{""" C code for a libFuzzer{-}compatible harness. Output only the C}
+\StringTok{        code, **DO NOT format it in a markdown code cell with backticks**, so}
+\StringTok{        that it will be ready for compilation.}
+
+\StringTok{        \textless{}important\textgreater{}}
+\StringTok{        }
+\StringTok{        Add **all** the necessary includes, either project{-}specific or standard}
+\StringTok{        libraries like \textless{}string.h\textgreater{}, \textless{}stdint.h\textgreater{} and \textless{}stdlib.h\textgreater{}. Also include any}
+\StringTok{        header files that are part of the project and are probably useful. Most}
+\StringTok{        projects have a header file with the same name as the project at the}
+\StringTok{        root.}
+
+\StringTok{        **The function to be fuzzed absolutely must be part of the source}
+\StringTok{        code**, do not write a harness for your own functions or speculate about}
+\StringTok{        existing ones. You must be sure that the function that is fuzzed exists}
+\StringTok{        in the source code. Use your rag tool to query the source code.}
+
+\StringTok{        Do not try to fuzz functions of the project that are static, since they}
+\StringTok{        are only visible in the file that they were declared. Choose other}
+\StringTok{        user{-}facing functions instead.}
+
+\StringTok{        \textless{}/important\textgreater{}}
+
+\StringTok{        **Do not truncate the input to a smaller size that the original**,}
+\StringTok{        e.g. for avoiding large stack usage or to avoid excessive buffers. Opt}
+\StringTok{        to using the heap when possible to increase the chance of exposing}
+\StringTok{        memory errors of the library, e.g. mmap instead of declaring}
+\StringTok{        buf[1024]. Any edge cases should be handled by the library itself, not}
+\StringTok{        the harness. On the other hand, do not write code that will most}
+\StringTok{        probably crash irregardless of the library under test. The point is for}
+\StringTok{        a function of the library under test to crash, not the harness}
+\StringTok{        itself. Use and take advantage of any custom structs that the library}
+\StringTok{        declares.}
+
+\StringTok{        Do not copy function declarations inside the harness. The harness will}
+\StringTok{        be compiled in the root directory of the project.  """}
+\NormalTok{    )}
+
+
+\KeywordTok{class}\NormalTok{ FixHarness(dspy.Signature):}
+    \CommentTok{"""}
+\CommentTok{    You are an experienced C/C++ security testing engineer. Given a}
+\CommentTok{    libFuzzer{-}compatible harness that fails to compile and its compilation}
+\CommentTok{    errors, rewrite it so that it compiles successfully. Analyze the compilation}
+\CommentTok{    errors carefully and find the root causes. Add any missing \#includes like}
+\CommentTok{    \textless{}string.h\textgreater{}, \textless{}stdint.h\textgreater{} and \textless{}stdlib.h\textgreater{} and \#define required macros or}
+\CommentTok{    constants in the fuzz target. If needed, re{-}declare functions or struct}
+\CommentTok{    types. Add verbose comments to explain what you changed and why.}
+\CommentTok{    """}
+
+\NormalTok{    old\_harness: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.InputField(desc}\OperatorTok{=}\StringTok{"The harness to be fixed."}\NormalTok{)}
+\NormalTok{    error: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.InputField(desc}\OperatorTok{=}\StringTok{"The compilaton error of the harness."}\NormalTok{)}
+\NormalTok{    new\_harness: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.OutputField(}
+\NormalTok{        desc}\OperatorTok{=}\StringTok{"""The newly created harness with the necessary modifications for}
+\StringTok{        correct compilation."""}
+\NormalTok{    )}
+
+
+\KeywordTok{class}\NormalTok{ ImproveHarness(dspy.Signature):}
+    \SpecialStringTok{f"""}
+\SpecialStringTok{    You are an experienced C/C++ security testing engineer. Given a}
+\SpecialStringTok{    libFuzzer{-}compatible harness that does not find any bug/does not crash (even}
+\SpecialStringTok{    after running for }\SpecialCharTok{\{}\NormalTok{Config}\SpecialCharTok{.}\NormalTok{EXECUTION\_TIMEOUT}\SpecialCharTok{\}}\SpecialStringTok{ seconds) or has memory leaks}
+\SpecialStringTok{    (generates leak files), you are called to rewrite it and improve it so that}
+\SpecialStringTok{    a bug can be found more easily and/or memory is managed correctly. Determine}
+\SpecialStringTok{    the information you need to write an effective fuzz target and understand}
+\SpecialStringTok{    constraints and edge cases in the source code to do it more}
+\SpecialStringTok{    effectively. Reply only with the source code {-}{-}{-} without backticks.  Add}
+\SpecialStringTok{    verbose comments to explain what you changed and why.}
+\SpecialStringTok{    """}
+
+\NormalTok{    old\_harness: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.InputField(}
+\NormalTok{        desc}\OperatorTok{=}\StringTok{"The harness to be improved so it can find a bug more quickly."}
+\NormalTok{    )}
+\NormalTok{    output: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.InputField(desc}\OperatorTok{=}\StringTok{"The output of the harness\textquotesingle{} execution."}\NormalTok{)}
+\NormalTok{    new\_harness: }\BuiltInTok{str} \OperatorTok{=}\NormalTok{ dspy.OutputField(}
+\NormalTok{        desc}\OperatorTok{=}\StringTok{"""The newly created harness with the necessary modifications for}
+\StringTok{        quicker bug{-}finding. If the provided harness has unnecessary input}
+\StringTok{        limitations regarding size or format etc., remove them."""}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
 
 
 

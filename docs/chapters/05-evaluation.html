@@ -451,6 +451,12 @@ MathJax = {
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -502,25 +508,83 @@ MathJax = {
 </ul>
 <section id="sec-benchmark" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
-<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar’s dateparse library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="03-related.html#sec-ofg" class="quarto-xref"><span>Section 3.1.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. Each library is described below.</p>
+<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar’s dateparse library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="03-related.html#sec-ofg" class="quarto-xref"><span>Section 3.1.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. All libraries can be seen <a href="#tbl-projects" class="quarto-xref">Table&nbsp;<span>5.1</span></a>, along with their descriptions.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
 <ol>
 <li id="fn1"><p><a href="https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh" class="uri">https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
-<ol type="1">
-<li><a href="https://github.com/dvhar/dateparse">dvhar/dateparse</a>: A library that allows parsing dates without knowing the format in advance.</li>
-<li><a href="https://github.com/clibs/buffer">clibs/buffer</a>: A string manipulation library.</li>
-<li><a href="https://github.com/jwerle/libbeaufort">jwerle/libbeaufort</a>: A library implementation of the Beaufort cipher <span class="citation" data-cites="franksen1993"><a href="refs.html#ref-franksen1993" role="doc-biblioref">[4]</a></span>.</li>
-<li><a href="https://github.com/jwerle/libbacon">jwerle/libbacon</a>: A library implementation of the Baconian cipher <span class="citation" data-cites="bacon1861"><a href="refs.html#ref-bacon1861" role="doc-biblioref">[5]</a></span>.</li>
-<li><a href="https://github.com/jwerle/chfreq.c">jwerle/chfreq.c</a>: A library for computing the character frequency in a string.</li>
-<li><a href="https://github.com/jwerle/progress.c">jwerle/progress.c</a>: A library for displaying progress bars in the terminal.</li>
-<li><a href="https://github.com/willemt/cbuffer">willemt/cbuffer</a>: A circular buffer implementation.</li>
-<li><a href="https://github.com/willemt/torrent-reader">willemt/torrent-reader</a>: A torrent-file reader library.</li>
-<li><a href="https://github.com/orangeduck/mpc">orangeduck/mpc</a>: A type-generic parser combinator library.</li>
-<li><a href="https://github.com/h2non/semver.c">h2non/semver.c</a>: A semantic version v2.0 parsing and rendering library <span class="citation" data-cites="semver"><a href="refs.html#ref-semver" role="doc-biblioref">[6]</a></span>.</li>
-</ol>
+<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark corpus">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.1: The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
+</figcaption>
+<div aria-describedby="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Project</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: right;">Stars</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/dvhar/dateparse">dvhar/dateparse</a></td>
+<td style="text-align: left;">A library that allows parsing dates without knowing the format in advance.</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/clibs/buffer">clibs/buffer</a></td>
+<td style="text-align: left;">A string manipulation library.</td>
+<td style="text-align: right;">204</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/jwerle/libbeaufort">jwerle/libbeaufort</a></td>
+<td style="text-align: left;">A library implementation of the Beaufort cipher <span class="citation" data-cites="franksen1993"><a href="refs.html#ref-franksen1993" role="doc-biblioref">[4]</a></span>.</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/jwerle/libbacon">jwerle/libbacon</a></td>
+<td style="text-align: left;">A library implementation of the Baconian cipher <span class="citation" data-cites="bacon1861"><a href="refs.html#ref-bacon1861" role="doc-biblioref">[5]</a></span>.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/jwerle/chfreq.c">jwerle/chfreq.c</a></td>
+<td style="text-align: left;">A library for computing the character frequency in a string.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/jwerle/progress.c">jwerle/progress.c</a></td>
+<td style="text-align: left;">A library for displaying progress bars in the terminal.</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/willemt/cbuffer">willemt/cbuffer</a></td>
+<td style="text-align: left;">A circular buffer implementation.</td>
+<td style="text-align: right;">261</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/willemt/torrent-reader">willemt/torrent-reader</a></td>
+<td style="text-align: left;">A torrent-file reader library.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/orangeduck/mpc">orangeduck/mpc</a></td>
+<td style="text-align: left;">A type-generic parser combinator library.</td>
+<td style="text-align: right;">2,753</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/h2non/semver.c">h2non/semver.c</a></td>
+<td style="text-align: left;">A semantic version v2.0 parsing and rendering library <span class="citation" data-cites="semver"><a href="refs.html#ref-semver" role="doc-biblioref">[6]</a></span>.</td>
+<td style="text-align: right;">190</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 <section id="sec-local" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
 <p>To run the benchmark locally, one would need to follow the installation instructions in <a href="04-overhaul.html#sec-install" class="quarto-xref"><span>Section 4.4</span></a> and then execute the benchmarking script, like so:</p>

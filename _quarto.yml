@@ -42,6 +42,7 @@ book:
     - chapters/refs.md # Bibliography
   appendices:
     - chapters/abandoned.md
+    - chapters/prompts.md
   
   page-navigation: true
   page-footer: 
@@ -114,7 +115,7 @@ format:
   pdf:
     default: true
     date: 2025-07-27
-    date-format: MMMM, YYYY
+    date-format: long
     documentclass: scrreprt
     standalone: true
     number-sections: true

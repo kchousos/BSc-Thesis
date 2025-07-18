@@ -416,6 +416,12 @@ MathJax = {
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -429,8 +435,7 @@ MathJax = {
    
   <ul>
   <li><a href="#development-environment" id="toc-development-environment" class="nav-link active" data-scroll-target="#development-environment"><span class="header-section-number">7.1</span> Development environment</a></li>
-  <li><a href="#models-used" id="toc-models-used" class="nav-link" data-scroll-target="#models-used"><span class="header-section-number">7.2</span> models used</a></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">7.3</span> Reproducibility</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">7.2</span> Reproducibility</a></li>
   </ul>
 </nav>
     </div>
@@ -457,34 +462,36 @@ MathJax = {
 </header>
 
 
-<p>–depth 1 output/<repo-name></repo-name></p>
-<p>embedder model openai Source code is processed and chunked using Clang [33]. The chunks are function-level units, found to be a sweet-spot between semantic significance and size <span class="citation" data-cites="zhao2024 chen2021"><a href="refs.html#ref-zhao2024" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-chen2021" role="doc-biblioref">[2]</a></span>. This results in a list of Python dicts, each containing a function’s body, signature and filepath. Each chunk’s function code is then turned into an embedding using OpenAI’s “text-embedding-3-small” model. faiss store and index A FAISS [36] vector store is created. Each function embedding is stored in it (with the same order, as to correspond with the previous list containing the metadata).</p>
-<p>same order code chunks</p>
+<p>Repository cloning is performed using the <code>--depth 1</code> flag for less usage of disk storage and smaller artifacts size.</p>
+<p>When creating the codebase oracle, the “libclang” Python package is utilized <span class="citation" data-cites="he2025"><a href="refs.html#ref-he2025" role="doc-biblioref">[1]</a></span> for slicing the functions based on the AST provided by Clang. As elaborated in <a href="04-overhaul.html#sec-oracle" class="quarto-xref"><span>Section 4.2.3</span></a>, the intermediate result is a list of Python dictionaries, each containing a function’s body, signature, and corresponding file-path. Each chunk’s function code is then turned into an embedding using OpenAI’s “text-embedding-3-small” model<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and stored in a FAISS vector store index <span class="citation" data-cites="faiss"><a href="refs.html#ref-faiss" role="doc-biblioref">[2]</a></span>. This index is ID mapped to a metadata structure which contains the aforementioned function data—actual function body, signature, file-path. When a search is performed upon the index, the returned results are embeddings. The answers that the LLM agent receives are coming from each embedding’s corresponding metadata entry.</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
+<ol>
+<li id="fn1"><p><a href="https://platform.openai.com/docs/models/text-embedding-3-small" class="uri">https://platform.openai.com/docs/models/text-embedding-3-small</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 <p>Prompting techniques used (callback to <a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.2</span></a>). Sample prompt</p>
 <p><span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[3]</a></span></p>
 <ol type="1">
 <li>Why instead of langchain or llamaindex? <span class="citation" data-cites="langchain llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[5]</a></span></li>
 </ol>
-<p>libclang Python package</p>
+<ul>
+<li>models used gpt-4.1</li>
+</ul>
 <section id="development-environment" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="development-environment"><span class="header-section-number">7.1</span> Development environment</h2>
 <p>uv, ruff, mypy, pytest, pdoc</p>
 </section>
-<section id="models-used" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="models-used"><span class="header-section-number">7.2</span> models used</h2>
-<p>gpt-4.1</p>
-</section>
-<section id="reproducibility" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">7.3</span> Reproducibility</h2>
+<section id="reproducibility" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">7.2</span> Reproducibility</h2>
 <p>github workflow actions, artifacts, summary</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-zhao2024" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. Zhao, Y. Yang, Z. Wang, Z. He, L. K. Qiu, and L. Qiu, <span>“Retrieval <span>Augmented Generation</span> (<span>RAG</span>) and <span>Beyond</span>: <span>A Comprehensive Survey</span> on <span>How</span> to <span>Make</span> your <span>LLMs</span> use <span>External Data More Wisely</span>,”</span> Sep. 23, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2409.14924">10.48550/arXiv.2409.14924</a>. Available: <a href="http://arxiv.org/abs/2409.14924">http://arxiv.org/abs/2409.14924</a></div>
+<div id="ref-he2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">T. He, <span>“Sighingnow/libclang.”</span> Jul. 03, 2025. Available: <a href="https://github.com/sighingnow/libclang">https://github.com/sighingnow/libclang</a></div>
 </div>
-<div id="ref-chen2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">M. Chen <em>et al.</em>, <span>“Evaluating <span>Large Language Models Trained</span> on <span>Code</span>,”</span> Jul. 14, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2107.03374">10.48550/arXiv.2107.03374</a>. Available: <a href="http://arxiv.org/abs/2107.03374">http://arxiv.org/abs/2107.03374</a></div>
+<div id="ref-faiss" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">M. Douze <em>et al.</em>, <span>“The <span>Faiss</span> library,”</span> Feb. 11, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2401.08281">10.48550/arXiv.2401.08281</a>. Available: <a href="http://arxiv.org/abs/2401.08281">http://arxiv.org/abs/2401.08281</a></div>
 </div>
 <div id="ref-dspy" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>

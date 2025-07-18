@@ -12,18 +12,25 @@ To thoroughly assess the performance and effectiveness of OverHAuL, we establish
 
 ## Experimental Benchmark {#sec-benchmark}
 
-To evaluate OverHAuL, a benchmarking script was implemented^[<https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh>] and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar's dateparse library, which is also used as a running example in OSS-Fuzz-Gen's [@oss-fuzz-gen] experimental from-scratch harnessing feature (@sec-ofg). Secondly, nine other libraries chosen randomly^[From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.] from the package catalog of Clib, a "package manager for the C programming language" [@clibs; @clib]. Each library is described below.
+To evaluate OverHAuL, a benchmarking script was implemented^[<https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh>] and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar's dateparse library, which is also used as a running example in OSS-Fuzz-Gen's [@oss-fuzz-gen] experimental from-scratch harnessing feature (@sec-ofg). Secondly, nine other libraries chosen randomly^[From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.] from the package catalog of Clib, a "package manager for the C programming language" [@clibs; @clib]. All libraries can be seen @tbl-projects, along with their descriptions.
 
-1.  [dvhar/dateparse](https://github.com/dvhar/dateparse): A library that allows parsing dates without knowing the format in advance.
-2.  [clibs/buffer](https://github.com/clibs/buffer): A string manipulation library.
-3.  [jwerle/libbeaufort](https://github.com/jwerle/libbeaufort): A library implementation of the Beaufort cipher [@franksen1993].
-4.  [jwerle/libbacon](https://github.com/jwerle/libbacon): A library implementation of the Baconian cipher [@bacon1861].
-5.  [jwerle/chfreq.c](https://github.com/jwerle/chfreq.c): A library for computing the character frequency in a string.
-6.  [jwerle/progress.c](https://github.com/jwerle/progress.c): A library for displaying progress bars in the terminal.
-7.  [willemt/cbuffer](https://github.com/willemt/cbuffer): A circular buffer implementation.
-8.  [willemt/torrent-reader](https://github.com/willemt/torrent-reader): A torrent-file reader library.
-9.  [orangeduck/mpc](https://github.com/orangeduck/mpc): A type-generic parser combinator library.
-10. [h2non/semver.c](https://github.com/h2non/semver.c): A semantic version v2.0 parsing and rendering library [@semver].
+::: {#tbl-projects fig-scap='Benchmark corpus'}
+
+| Project                                                             | Description                                                                | Stars |
+|:--------------------------------------------------------------------|:---------------------------------------------------------------------------|------:|
+| [dvhar/dateparse](https://github.com/dvhar/dateparse)               | A library that allows parsing dates without knowing the format in advance. |     2 |
+| [clibs/buffer](https://github.com/clibs/buffer)                     | A string manipulation library.                                             |   204 |
+| [jwerle/libbeaufort](https://github.com/jwerle/libbeaufort)         | A library implementation of the Beaufort cipher [@franksen1993].           |    13 |
+| [jwerle/libbacon](https://github.com/jwerle/libbacon)               | A library implementation of the Baconian cipher [@bacon1861].              |     8 |
+| [jwerle/chfreq.c](https://github.com/jwerle/chfreq.c)               | A library for computing the character frequency in a string.               |     5 |
+| [jwerle/progress.c](https://github.com/jwerle/progress.c)           | A library for displaying progress bars in the terminal.                    |    76 |
+| [willemt/cbuffer](https://github.com/willemt/cbuffer)               | A circular buffer implementation.                                          |   261 |
+| [willemt/torrent-reader](https://github.com/willemt/torrent-reader) | A torrent-file reader library.                                             |     6 |
+| [orangeduck/mpc](https://github.com/orangeduck/mpc)                 | A type-generic parser combinator library.                                  | 2,753 |
+| [h2non/semver.c](https://github.com/h2non/semver.c)                 | A semantic version v2.0 parsing and rendering library [@semver].           |   190 |
+
+The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
+:::
 
 ### Local Benchmarking {#sec-local}
 
