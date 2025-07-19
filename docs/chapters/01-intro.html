@@ -428,16 +428,8 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1.1</span> Motivation</a></li>
-  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">1.2</span> Goal</a></li>
-  <li><a href="#preview-of-following-sections-rename" id="toc-preview-of-following-sections-rename" class="nav-link" data-scroll-target="#preview-of-following-sections-rename"><span class="header-section-number">1.3</span> Preview of following sections (rename)</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -463,37 +455,95 @@ MathJax = {
 
 
 
-<section id="motivation" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1.1</span> Motivation</h2>
+<p>Memory-safe languages, like Ada or Rust <span class="citation" data-cites="adadevelopers2022 rustprojectdevelopers2025"><a href="refs.html#ref-adadevelopers2022" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-rustprojectdevelopers2025" role="doc-biblioref">[2]</a></span>—not absolutely safe themselves</p>
+<p>NASA safety-critical code guidelines <span class="citation" data-cites="holzmann2006"><a href="refs.html#ref-holzmann2006" role="doc-biblioref">[3]</a></span></p>
+<p>C by Dennis Ritchie in 1972 <span class="citation" data-cites="kernighan1978 ritchie1978"><a href="refs.html#ref-kernighan1978" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-ritchie1978" role="doc-biblioref">[5]</a></span></p>
+<ul>
+<li>Motivation
 <ul>
 <li>Memory unsafety is and will be prevalent</li>
 <li>Software is safe until it’s not</li>
 <li>Humans make mistakes</li>
+</ul></li>
+<li>LLMs have become very powerful
+<ul>
+<li>They are used more and more</li>
 <li>Humans now use Large Language Models (LLMs) to write software</li>
-<li>LLMs make mistakes <span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[1]</a></span></li>
-</ul>
-<p>Result: Bugs exist</p>
-</section>
-<section id="goal" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="goal"><span class="header-section-number">1.2</span> Goal</h2>
-<p>A system that:</p>
+<li>LLMs make mistakes <span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[6]</a></span></li>
+</ul></li>
+<li>Result: Bugs exist</li>
+<li>Fuzzing is a popular software testing strategy
+<ul>
+<li>LLM applications and capabilities are still explored
+<ul>
+<li>One of which is automatic harnessing</li>
+</ul></li>
+</ul></li>
+<li>Goal
+<ul>
+<li>A system that:
 <ol type="1">
 <li>Takes a bare C project as input</li>
 <li>Generates a new fuzzing harness from scratch using LLMs</li>
 <li>Compiles it</li>
 <li>Executes it and evaluates it</li>
-</ol>
-</section>
-<section id="preview-of-following-sections-rename" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="preview-of-following-sections-rename"><span class="header-section-number">1.3</span> Preview of following sections (rename)</h2>
+</ol></li>
+</ul></li>
+<li>Thesis Structure
+<ul>
+<li>We examine the state of automatic fuzzing projects
+<ul>
+<li>Most automatic fuzzers rely on existings harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[7]</a></span> or preexisting client code <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[10]</a></span></li>
+<li>No evaluation step, it is left to the developer/user</li>
+</ul></li>
+<li>To address these challenges, we introduce OverHAuL
+<ul>
+<li>We explain its design architecture, the techniques that emerged in its development and how they are implemented</li>
+<li>We construct a dataset of 10 open-source projects and evaluate OverHAuL with them</li>
+<li>We examine the results and try to answer our research questions <!-- Insert here? --></li>
+</ul></li>
+</ul></li>
+<li>Summary of Contributions
+<ul>
+<li>We propose OverHAuL, a new automatic fuzzing framework</li>
+<li>Experimental benchmarks show a 92.5% chance of successful harness generation</li>
+<li>Code and artifacts are available in the project’s repo <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a></li>
+</ul></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-adadevelopers2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Ada Developers, <span>“Ada <span>Reference Manual</span>, 2022 <span>Edition</span>,”</span> 2022. Available: <a href="https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html">https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html</a></div>
+</div>
+<div id="ref-rustprojectdevelopers2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Rust Project Developers, <span>“Rust <span>Programming Language</span>,”</span> 2025. Available: <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></div>
+</div>
+<div id="ref-holzmann2006" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">G. J. Holzmann, <span>“The <span>Power</span> of 10: <span>Rules</span> for <span>Developing Safety-Critical Code</span>,”</span> Jun. 2006, Available: <a href="https://web.eecs.umich.edu/~imarkov/10rules.pdf">https://web.eecs.umich.edu/~imarkov/10rules.pdf</a></div>
+</div>
+<div id="ref-kernighan1978" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B. W. Kernighan and D. M. Ritchie, <em>The <span>C</span> programming language</em>. in Prentice-<span>Hall</span> software series. Englewood Cliffs, N.J: Prentice-Hall, 1978.</div>
+</div>
+<div id="ref-ritchie1978" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D. M. Ritchie, S. C. Johnson, M. E. Lesk, and B. W. Kernighan, <span>“The <span>C</span> programming language,”</span> <em>Bell Sys. Tech. J</em>, vol. 57, no. 6, pp. 1991–2019, 1978, Available: <a href="https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85">https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85</a></div>
+</div>
 <div id="ref-perry2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
+</div>
+<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
+</div>
+<div id="ref-utopia" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">B. Jeong <em>et al.</em>, <span>“<span>UTopia</span>: <span>Automatic Generation</span> of <span>Fuzz Driver</span> using <span>Unit Tests</span>,”</span> in <em>2023 <span>IEEE Symposium</span> on <span>Security</span> and <span>Privacy</span> (<span>SP</span>)</em>, May 2023, pp. 2676–2692. doi: <a href="https://doi.org/10.1109/SP46215.2023.10179394">10.1109/SP46215.2023.10179394</a>. Available: <a href="https://ieeexplore.ieee.org/abstract/document/10179394">https://ieeexplore.ieee.org/abstract/document/10179394</a></div>
+</div>
+<div id="ref-fuzzgen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
+</div>
+<div id="ref-fudge" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
 </div>
 </div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

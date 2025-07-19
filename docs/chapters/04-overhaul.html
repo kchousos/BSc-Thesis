@@ -623,7 +623,7 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 <section id="high-level-algorithm" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="high-level-algorithm"><span class="header-section-number">4.3</span> High-Level Algorithm</h2>
 <p>A pseudocode version of OverHAuL’s main function can be seen in <a href="#alg-main" class="quarto-xref">Algorithm 1</a>. It represents the workflow presented in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> and uses the techniques described in sections <a href="#sec-architecture" class="quarto-xref"><span>4.1</span></a> and <a href="#sec-techniques" class="quarto-xref"><span>4.2</span></a>. It is important to emphasize that, within the context of this algorithm, the <code>HarnessAgents()</code> function serves as an interface that bridges the “generator”, “fixer” and “improver” LLM agents. The agent that is used upon each function call depends on the values of the function’s arguments. This results in the <span class="math inline">harness</span> variable representing all generated, fixed or improved harnesses. This approach is adopted for making the abstract algorithm simpler and easier to understand.</p>
-<div id="alg-main" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
+<div id="alg-main" class="pseudocode-container quarto-float" data-pseudocode-number="1" data-caption-prefix="Algorithm">
 <div class="pseudocode">
 \begin{algorithm} \caption{OverHAuL}\begin{algorithmic} \Require $repository$ \Ensure $harness, compilation\_script, crash\_input, execution\_log$ \State $path \gets$ \Call{RepoClone}{repository} \State $report \gets$ \Call{StaticAnalysis}{$path$} \State $vector\_store \gets$ \Call{CreateOracle}{$path$} \State $acceptable \gets$ False \State $compiled \gets$ False \State $error \gets$ None \State $violation \gets$ None \State $output \gets$ None \For{$i = 1$ to $MAX\_ITERATIONS$} \State $harness \gets$ \Call{HarnessAgents}{$path, report, vector\_store, error, violation, output$} \State $error, compiled \gets$ \Call{BuildHarness}{$path, harness$} \If{$\neg compiled$} \State \textbf{continue} \Comment{Fix harness} \EndIf \State $output, accepted \gets $\Call{EvaluateHarness}{$path, harness$} \If{$\neg accepted$} \State \textbf{continue} \Comment{Improve harness} \Else \State $acceptable \gets$ True \State \textbf{break} \EndIf \EndFor \State \Return $compiled \land acceptable$ \end{algorithmic} \end{algorithm}
 </div>
@@ -657,8 +657,8 @@ Listing&nbsp;4.1: OverHAuL’s installation process.
 <span id="cb1-17"><a href="#cb1-17"></a>  -c COMMIT, --commit COMMIT</span>
 <span id="cb1-18"><a href="#cb1-18"></a>                        A specific commit of the project to check out</span>
 <span id="cb1-19"><a href="#cb1-19"></a>  -m MODEL, --model MODEL</span>
-<span id="cb1-20"><a href="#cb1-20"></a>                        LLM model to be used. Available: o3-mini, o3, gpt-4o, gpt-4o-mini,</span>
-<span id="cb1-21"><a href="#cb1-21"></a>                        gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4</span>
+<span id="cb1-20"><a href="#cb1-20"></a>                        LLM model to be used. Available: o3-mini, o3, gpt-4o,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>                        gpt-4o-mini, gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4</span>
 <span id="cb1-22"><a href="#cb1-22"></a>  -f FILES [FILES ...], --files FILES [FILES ...]</span>
 <span id="cb1-23"><a href="#cb1-23"></a>                        File patterns to include in analysis (e.g. *.c *.h)</span>
 <span id="cb1-24"><a href="#cb1-24"></a>  -o OUTPUT_DIR, --output-dir OUTPUT_DIR</span>

@@ -135,8 +135,8 @@ options:
   -c COMMIT, --commit COMMIT
                         A specific commit of the project to check out
   -m MODEL, --model MODEL
-                        LLM model to be used. Available: o3-mini, o3, gpt-4o, gpt-4o-mini,
-                        gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4
+                        LLM model to be used. Available: o3-mini, o3, gpt-4o,
+                        gpt-4o-mini, gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4
   -f FILES [FILES ...], --files FILES [FILES ...]
                         File patterns to include in analysis (e.g. *.c *.h)
   -o OUTPUT_DIR, --output-dir OUTPUT_DIR

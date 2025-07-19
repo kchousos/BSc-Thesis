@@ -143,12 +143,6 @@ Serif}
 \def\fps@figure{htbp}
 \makeatother
 
-\ifLuaTeX
-  \usepackage{luacolor}
-  \usepackage[soul]{lua-ul}
-\else
-  \usepackage{soul}
-\fi
 
 
 
@@ -258,7 +252,7 @@ Serif}
 \subtitle{Harnessing Automation for C Libraries with Large Language
 Models}
 \author{Konstantinos Chousos}
-\date{July 27, 2025}
+\date{July, 2025}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -270,7 +264,6 @@ rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor;
 malesuada ultricies scelerisque. Molestie class tincidunt quis gravida
 ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex.
 Platea eros ullamcorper nullam rutrum facilisis.
-\url{https://github.com/kchousos/OverHAuL}.
 \end{abstract}
 
 \floatname{algorithm}{Algorithm}
@@ -284,14 +277,15 @@ Platea eros ullamcorper nullam rutrum facilisis.
 
 \markboth{Preface}{Preface}
 
-This thesis was written as part of the requirements for the Bachelor of
-Science program in the Department of Informatics and Telecommunications
-at the National and Kapodistrian University of Athens during the
-academic year 2024--2025. The research was conducted under the
-supervision of Prof.~Thanassis Avgerinos. The completed thesis is also
-available through the university's digital repository Pergamos. \st{A
-refined version of this work is currently being prepared for
-publication}.
+This thesis was written in Athens, Greece during the academic year
+2024--2025. It is part of the requirements for the Bachelor of Science
+program in the \href{https://www.di.uoa.gr/en}{Department of Informatics
+and Telecommunications} at the \href{https://en.uoa.gr/}{National and
+Kapodistrian University of Athens}. The research was conducted under the
+supervision of Prof.~\href{https://cgi.di.uoa.gr/~thanassis/}{Thanassis
+Avgerinos}. The completed thesis is also available through the
+university's digital repository
+\href{https://pergamos.lib.uoa.gr/}{Pergamos}.
 
 \newpage{}
 
@@ -342,43 +336,124 @@ encouragement helped me persevere through this challenging period.
 
 \pagenumbering{arabic}
 
-\section{Motivation}\label{motivation}
+Memory-safe languages, like Ada or Rust
+\autocite{adadevelopers2022,rustprojectdevelopers2025}---not absolutely
+safe themselves
+
+NASA safety-critical code guidelines \autocite{holzmann2006}
+
+C by Dennis Ritchie in 1972 \autocite{kernighan1978,ritchie1978}
 
 \begin{itemize}
 \tightlist
 \item
-  Memory unsafety is and will be prevalent
+  Motivation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Memory unsafety is and will be prevalent
+  \item
+    Software is safe until it's not
+  \item
+    Humans make mistakes
+  \end{itemize}
 \item
-  Software is safe until it's not
+  LLMs have become very powerful
+
+  \begin{itemize}
+  \tightlist
+  \item
+    They are used more and more
+  \item
+    Humans now use Large Language Models (LLMs) to write software
+  \item
+    LLMs make mistakes \autocite{perry2023}
+  \end{itemize}
 \item
-  Humans make mistakes
+  Result: Bugs exist
 \item
-  Humans now use Large Language Models (LLMs) to write software
+  Fuzzing is a popular software testing strategy
+
+  \begin{itemize}
+  \tightlist
+  \item
+    LLM applications and capabilities are still explored
+
+    \begin{itemize}
+    \tightlist
+    \item
+      One of which is automatic harnessing
+    \end{itemize}
+  \end{itemize}
 \item
-  LLMs make mistakes \autocite{perry2023}
+  Goal
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A system that:
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \tightlist
+    \item
+      Takes a bare C project as input
+    \item
+      Generates a new fuzzing harness from scratch using LLMs
+    \item
+      Compiles it
+    \item
+      Executes it and evaluates it
+    \end{enumerate}
+  \end{itemize}
+\item
+  Thesis Structure
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We examine the state of automatic fuzzing projects
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Most automatic fuzzers rely on existings harnesses
+      \autocite{oss-fuzz-gen} or preexisting client code
+      \autocite{utopia,fuzzgen,fudge}
+    \item
+      No evaluation step, it is left to the developer/user
+    \end{itemize}
+  \item
+    To address these challenges, we introduce OverHAuL
+
+    \begin{itemize}
+    \tightlist
+    \item
+      We explain its design architecture, the techniques that emerged in
+      its development and how they are implemented
+    \item
+      We construct a dataset of 10 open-source projects and evaluate
+      OverHAuL with them
+    \item
+      We examine the results and try to answer our research questions
+    \end{itemize}
+  \end{itemize}
+\item
+  Summary of Contributions
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We propose OverHAuL, a new automatic fuzzing framework
+  \item
+    Experimental benchmarks show a 92.5\% chance of successful harness
+    generation
+  \item
+    Code and artifacts are available in the project's repo
+    \url{https://github.com/kchousos/OverHAuL}
+  \end{itemize}
 \end{itemize}
-
-Result: Bugs exist
-
-\section{Goal}\label{goal}
-
-A system that:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Takes a bare C project as input
-\item
-  Generates a new fuzzing harness from scratch using LLMs
-\item
-  Compiles it
-\item
-  Executes it and evaluates it
-\end{enumerate}
-
-\section{Preview of following sections
-(rename)}\label{preview-of-following-sections-rename}
 
 \bookmarksetup{startatroot}
 
@@ -493,7 +568,7 @@ rapid discovery of diverse execution paths and is non-trivial
 \autocite{rebert2014}. A well-chosen seed set often accelerates bug
 discovery and improves overall fuzzing efficiency.
 
-\subsection{Motivation}\label{motivation-1}
+\subsection{Motivation}\label{motivation}
 
 \begin{quote}
 The purpose of fuzzing relies on the assumption that there are bugs
@@ -1025,12 +1100,12 @@ Google's OSS-Fuzz \autocite{oss-fuzz}. Being deployed inside Google's
 infrastructure, FUDGE continuously examines Google's internal code
 repository, searching for code that uses external libraries in a
 meaningful and ``fuzzable'' way (i.e.~predominantly for parsing). If
-found, such code is \textbf{sliced} \autocite{sasirekha2011Slicing}, per
+found, such code is \emph{sliced} \autocite{sasirekha2011Slicing}, per
 FUDGE, based on its Abstract Syntax Tree (AST) using LLVM's Clang tool
 \autocite{llvm}. The above process results in a set of abstracted
 mostly-self-contained code snippets that make use of a library's calls
-and/or API. These snippets are later \textbf{synthesized} into the body
-of a fuzz driver, with variables being replaced and the fuzz input being
+and/or API. These snippets are later \emph{synthesized} into the body of
+a fuzz driver, with variables being replaced and the fuzz input being
 utilized. Each is then injected in an \texttt{LLVMFuzzerTestOneInput}
 function and finalized as a fuzzing harness. A building and evaluation
 phase follows for each harness, where they are executed and examined.
@@ -1065,13 +1140,13 @@ needs to provide both client code and/or tests for the API and the API
 library's source code as well. FuzzGen uses the client code to infer the
 \emph{correct usage} of the API and not its general structure, in
 contrast to FUDGE. FuzzGen's workflow can be divided into three phases:
-\textbf{1. API usage inference}. By consuming and analyzing client code
+\emph{1. API usage inference}. By consuming and analyzing client code
 and tests that concern the library under test, FuzzGen recognizes which
 functions belong to the library and learns its correct API usage
 patterns. This process is done with the help of Clang. To test if a
 function is actually a part of the library, a sample program is created
 that uses it. If the program compiles successfully, then the function is
-indeed a valid API call. \textbf{2. A\textsuperscript{2}DG construction
+indeed a valid API call. \emph{2. A\textsuperscript{2}DG construction
 mechanism}. For all the existing API calls, FuzzGen builds an
 A\textsuperscript{2}DG to record the API usages and infers its intended
 structure. After completion, this directed graph contains all the valid
@@ -1081,7 +1156,7 @@ created, one for each root function per client code snippet. Once such
 graphs have been created for all the available client code instances,
 they are combined to formulate the master A\textsuperscript{2}DG. This
 graph can be seen as a template for correct usage of the library.
-\textbf{3. Fuzzer generator}. Through the A\textsuperscript{2}DG, a
+\emph{3. Fuzzer generator}. Through the A\textsuperscript{2}DG, a
 fuzzing harness is created. Contrary to FUDGE, FuzzGen does not create
 multiple ``simple'' harnesses but a single complex one with the goal of
 covering the whole of the A\textsuperscript{2}DG. In other words, while
@@ -1689,8 +1764,8 @@ installation process.}
 \NormalTok{  {-}c COMMIT, {-}{-}commit COMMIT}
 \NormalTok{                        A specific commit of the project to check out}
 \NormalTok{  {-}m MODEL, {-}{-}model MODEL}
-\NormalTok{                        LLM model to be used. Available: o3{-}mini, o3, gpt{-}4o, gpt{-}4o{-}mini,}
-\NormalTok{                        gpt{-}4.1, gpt{-}4.1{-}mini, gpt{-}3.5{-}turbo, gpt{-}4}
+\NormalTok{                        LLM model to be used. Available: o3{-}mini, o3, gpt{-}4o,}
+\NormalTok{                        gpt{-}4o{-}mini, gpt{-}4.1, gpt{-}4.1{-}mini, gpt{-}3.5{-}turbo, gpt{-}4}
 \NormalTok{  {-}f FILES [FILES ...], {-}{-}files FILES [FILES ...]}
 \NormalTok{                        File patterns to include in analysis (e.g. *.c *.h)}
 \NormalTok{  {-}o OUTPUT\_DIR, {-}{-}output{-}dir OUTPUT\_DIR}
