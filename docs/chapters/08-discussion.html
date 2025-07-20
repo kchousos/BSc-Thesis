@@ -462,7 +462,7 @@ MathJax = {
 
 
 <p>As discussed in Section <a href="06-results.html" class="quarto-xref"><span>Chapter 6</span></a>, the capabilities and effectiveness of OverHAuL are closely tied to the choice of the underlying large language model. OverHAuL’s modular architecture ensures that advances in LLM research will directly enhance its performance. Each release of a new, more capable model can be readily integrated, thereby amplifying OverHAuL’s effectiveness without the need for substantial redesign.</p>
-<p>A noteworthy consideration in our benchmarking setup is the possibility that some of the open-source libraries evaluated may have been included in the LLM’s training data. This introduces a risk of overestimating OverHAuL’s performance on code that is unseen or proprietary. Results for closed-source or less widely available libraries could therefore be weaker. Nonetheless, this potential limitation can theoretically be addressed through targeted fine-tuning of the LLM <span class="citation" data-cites="openaidocs2025b"><a href="refs.html#ref-openaidocs2025b" role="doc-biblioref">[1]</a></span>.</p>
+<p>A noteworthy consideration in our benchmarking setup is the possibility that some of the open-source libraries evaluated may have been included in the LLM’s training data. This introduces a risk of overestimating OverHAuL’s performance on code that is unseen or proprietary. Results for closed-source or less widely available libraries could therefore be weaker. Nonetheless, this potential limitation can theoretically be addressed through targeted fine-tuning of the LLM <span class="citation" data-cites="openaidocs2025b kim2025"><a href="refs.html#ref-openaidocs2025b" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-kim2025" role="doc-biblioref">[2]</a></span>.</p>
 <section id="threats-to-validity" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="threats-to-validity"><span class="header-section-number">8.1</span> Threats to Validity</h2>
 <p>Our evaluation of OverHAuL was conducted on ten relatively obscure open-source C libraries representing a range of application domains and functionalities. While this selection reduces the likelihood that these projects were used in LLM training and thus minimizes potential bias, it remains uncertain how transferable our results are to larger, more complex, or structurally different codebases. Factors such as varying design paradigms, architectural patterns, or real-world deployment contexts may pose new challenges for OverHAuL’s scalability and effectiveness.</p>
@@ -473,6 +473,9 @@ MathJax = {
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-openaidocs2025b" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">OpenAI Docs, <span>“Model optimization - <span>OpenAI API</span>,”</span> 2025. Available: <a href="https://platform.openai.com">https://platform.openai.com</a></div>
+</div>
+<div id="ref-kim2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. Kim and S. Lee, <span>“Performance <span>Comparison</span> of <span>Prompt Engineering</span> and <span>Fine-Tuning Approaches</span> for <span>Fuzz Driver Generation Using Large Language Models</span>,”</span> in <em>Innovative <span>Mobile</span> and <span>Internet Services</span> in <span>Ubiquitous Computing</span></em>, L. Barolli, H.-C. Chen, and K. Yim, Eds., Cham: Springer Nature Switzerland, 2025, pp. 111–120. doi: <a href="https://doi.org/10.1007/978-3-031-96093-2_12">10.1007/978-3-031-96093-2_12</a></div>
 </div>
 </div>
 </section>

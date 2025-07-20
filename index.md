@@ -3,7 +3,7 @@ keywords: [LLMs, Fuzzing, Automation, Security, Neurosymbolic AI]
 ---
 # Preface {.unlisted .unnumbered}
 
-This thesis was prepared in Athens, Greece, during the academic year 2024–2025, fulfilling a requirement for the Bachelor of Science degree at the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) of the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research presented herein was carried out under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/) and in accordance with the guidelines stipulated by the department. All processes and methodologies adopted during the research adhere to the academic and ethical standards of the university. The final version of this thesis is archived in the department’s records and made publicly accessible through the university’s digital repository, [Pergamos](https://pergamos.lib.uoa.gr/).
+This thesis was prepared in Athens, Greece, during the academic year 2024--2025, fulfilling a requirement for the Bachelor of Science degree at the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) of the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research presented herein was carried out under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/) and in accordance with the guidelines stipulated by the department. All processes and methodologies adopted during the research adhere to the academic and ethical standards of the university. The final version of this thesis is [hosted online](https://kchousos.github.io/BSc-Thesis/) and is also archived in the department's records, made publicly accessible through the university’s digital repository [Pergamos](https://pergamos.lib.uoa.gr/).
 
 {{< pagebreak >}}
 
@@ -27,7 +27,7 @@ I would like to express my gratitude to my supervisor, Prof. Thanassis Avgerinos
 
 I am also thankful to my fellow group members in Prof. Avgerinos' weekly meetings, whose willingness to exchange ideas and offer support was invaluable. My appreciation extends to Jorgen and Phaedon, friends who provided thoughtful input and advice along the way.
 
-A special *thank you* goes to my parents, Christina, and my friends for their constant support and understanding. Their patience and encouragement helped me persevere through this challenging period.
+A special *thank you* goes to my parents Giannis and Gianna, Christina, and my friends for their constant support and understanding. Their patience and encouragement helped me persevere through this challenging period.
 
 {{< pagebreak >}}
 

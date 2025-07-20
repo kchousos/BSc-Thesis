@@ -110,6 +110,28 @@ A pseudocode version of OverHAuL's main function can be seen in @alg-main. It re
 \end{algorithm}
 ```
 
+## Differences {#sec-differences}
+
+OverHAuL differs, in some way, with each of the aforementioned works in @sec-related. Firstly, although KLEE and IRIS [@iris; @klee] tackle the problem of automated testing and both IRIS and OverHAuL can be considered neurosymbolic AI tools, the similarities end there. None of them utilize LLMs the same way we do---with KLEE not utilizing them by default, as it precedes them chronologically---and neither are automating any part of the fuzzing process.
+
+When it comes to FUDGE, FuzzGen and UTopia [@utopia; @fuzzgen; @fudge], all three depend on and demand existing client code and/or unit tests. On the other hand, OverHAuL requires only the bare minimum: the library code itself. Another point of difference is that in contrast with OverHAuL, these tools operate in a linear fashion. No feedback is produced or used in any step and any point failure results in the termination of the entire run.
+
+OverHAuL challenges a common principle of these tools, stated explicitly in FUDGE's paper [@fudge]: "Choosing a suitable fuzz target (still) requires a human". OverHAuL chooses to let the LLM, instead of the user, explore the available functions and choose one to target in its fuzz driver.
+
+OSS-Fuzz-Gen [@oss-fuzz-gen] can be considered a close counterpart of OverHAuL, and in some ways it is. A lot of inspiration was gathered from it, like for example the inclusion of static analysis and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of disadvantages that make it in some cases an inferior option.
+For one, OFG is tightly coupled with the OSS-Fuzz platform [@oss-fuzz], which even on its own creates a plethora of issues for the common developer. To integrate their project into OSS-Fuzz, they would need to: Transform it into a ClusterFuzz project [@clusterfuzz] and take time to write harnesses for it. Even if these prerequisites are carried out, it probably would not be enough. Per OSS-Fuzz's documentation [@ossfuzzdocs2025]: "To be accepted to OSS-Fuzz, an open-source project must have a significant user base and/or be critical to the global IT infrastructure". This means that OSS-Fuzz is a viable option only for a small minority of open-source developers and maintainers.
+One countermeasure of the above shortcoming would be for a developer to run OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task. As it is not meant to be used standalone, OFG is not packaged in the form of a self-contained application. This makes it hard to setup and difficult to use interactively.
+Like in the case of FUDGE, OFG's actions are performed linearly. No feedback is utilized nor is there graceful error handling in the case of a step's failure.
+Even in the case of the experimental feature for bootstrapping unfuzzed projects, OFG's performance varies heavily. During experimentation, a lot of generated harnesses were still wrapped either in Markdown backticks or `<code>` tags, or were accompanied with explanations inside the generated `.c` source file. Even if code was formatted correctly, in many cases it missed necessary headers for compilation or used undeclared functions.
+
+Lastly, the closest counterpart to OverHAuL is AutoGen [@sun2024]. Their similarity stands in the implementation of a feedback loop between LLM and generated harness. However, most other implementation decisions remain distinct. One difference regards the fuzzed function. While AutoGen requires a target function to be specified by the user in which it narrows during its whole run, OverHAuL delegates this to the LLM, letting it explore the codebase and decide by itself the best candidate. Another difference lies in the need---and the lack of---of documentation. While AutoGen requires it to gather information for the given function, OverHAuL leans into the role of a developer by reading the related code and comments and thus avoiding any mismatches between documentation and code. Finally, the LLMs' input is built based on predefined prompt templates, a technique also present in OSS-Fuzz-Gen. OverHAuL operates one abstraction level higher, leveraging DSPy [@dspy] for programming instead of prompting the LLMs used.
+
+In conclusion, OverHAuL constitutes an *open-source* tool that offers new functionality by offering a straightforward installation process, packaged as a self-contained Python package with minimal external dependencies. It also introduces novel approaches compared to previous work by
+
+1. Implementing a feedback mechanism between harness generation, compilation, and evaluation phases,
+2. Using autonomous ReAct agents capable of codebase exploration,
+3. Leveraging a vector store for code consumption and retrieval.
+
 ## Installation and Usage {#sec-install}
 
 The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.

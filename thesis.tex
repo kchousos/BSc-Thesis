@@ -300,8 +300,9 @@ Prof.~\href{https://cgi.di.uoa.gr/~thanassis/}{Thanassis Avgerinos} and
 in accordance with the guidelines stipulated by the department. All
 processes and methodologies adopted during the research adhere to the
 academic and ethical standards of the university. The final version of
-this thesis is archived in the department's records and made publicly
-accessible through the university's digital repository,
+this thesis is \href{https://kchousos.github.io/BSc-Thesis/}{hosted
+online} and is also archived in the department's records, made publicly
+accessible through the university's digital repository
 \href{https://pergamos.lib.uoa.gr/}{Pergamos}.
 
 \newpage{}
@@ -334,9 +335,10 @@ meetings, whose willingness to exchange ideas and offer support was
 invaluable. My appreciation extends to Jorgen and Phaedon, friends who
 provided thoughtful input and advice along the way.
 
-A special \emph{thank you} goes to my parents, Christina, and my friends
-for their constant support and understanding. Their patience and
-encouragement helped me persevere through this challenging period.
+A special \emph{thank you} goes to my parents Giannis and Gianna,
+Christina, and my friends for their constant support and understanding.
+Their patience and encouragement helped me persevere through this
+challenging period.
 
 \newpage{}
 
@@ -360,65 +362,77 @@ systems is crucial---failures or vulnerabilities can lead to severe
 financial losses and even endanger lives. A significant portion of this
 foundational software is still written in C, a language created by
 Dennis Ritchie in 1972 \autocite{kernighan1978,ritchie1978}. Although C
-has been instrumental in the evolution of software, its minimal
-safeguards---especially around memory management---are notorious. Memory
+has been instrumental in the evolution of software, its lack of
+safeguards---especially around memory management---is notorious. Memory
 safety bugs remain a persistent vulnerability, and producing provably
-safe code in C is exceptionally challenging, as evidenced by the
-stringent guidelines required by organizations like NASA for
+and verifiably safe code in C is exceptionally challenging---take for
+example the stringent guidelines required by organizations like NASA for
 safety-critical applications \autocite{holzmann2006}.
 
 To address these challenges, programming languages with built-in memory
 safety features, such as Ada and Rust, have been introduced
 \autocite{adadevelopers2022,rustprojectdevelopers2025}. Nevertheless, no
-language offers absolute immunity from vulnerabilities. In addition,
-much of the global software infrastructure remains written in
+language offers absolute immunity from such vulnerabilities. In
+addition, much of the global software infrastructure remains written in
 memory-unsafe languages, with C-based codebases unlikely to disappear in
 the near future. Ultimately, the potential for human error grows in
 tandem with increasing software complexity, meaning software is only as
 safe as its weakest link.
 
 The advent of Large Language Models (LLMs) has profoundly influenced
-software development. Developers now regularly use LLMs for code
-generation, refactoring, and documentation assistance. While these
-models exhibit impressive capabilities, they can still introduce subtle
-mistakes \autocite{perry2023}. As LLM-generated code becomes more
-pervasive, so does the likelihood of unnoticed software errors escaping
-traditional human review.
+software development. Developers have began to regularly use LLMs for
+code generation, refactoring, and documentation assistance. These models
+at large demonstrate remarkable programming capabilities. Still, they
+can often introduce subtle errors that may go unnoticed by even
+experienced developers. Many researchers argue that the use of such
+technologies inherently contributes to the generation of insecure code
+\autocite{perry2023,kosmyna2025,lee2025}. As LLM-generated code becomes
+more pervasive, so does the likelihood of unnoticed software errors
+escaping traditional human review.
 
 Within this landscape, the need to detect vulnerabilities and ensure
-software quality is more urgent than ever. Fuzzing---a technique that
-generates and executes large numbers of test cases to find bugs---has
-become a critical method for discovering memory safety violations.
-Despite extensive advances in automating fuzzing, significant hurdles
-remain. Most current fuzzers require pre-existing test harnesses
-\autocite{oss-fuzz-gen} or depend on sample client code to exercise the
-target program \autocite{utopia,fuzzgen,fudge}. Often, these tools still
-rely on developers for integration or final evaluation, leaving parts of
-the process manual and incomplete. The application of LLMs to harness
-generation and end-to-end fuzzing remains a developing field.
+software quality is more urgent than ever. Fuzzing, a technique that
+generates and executes a vast array of test cases to identify potential
+bugs, has emerged as a vital approach for detecting memory safety
+violations. However, the necessity of manually-written
+harnesses---programs designed to exercise the Application Programming
+Interface (API) of the software under examination---poses a significant
+barrier to its broader adoption. As a result, the field of fuzzing
+automation through LLMs has gained considerable traction in recent
+years. Despite extensive advances in automating fuzzing, significant
+hurdles remain. Most current automatic-fuzzing systems require
+pre-existing fuzz harnesses \autocite{oss-fuzz-gen} or depend on sample
+client code to exercise the target program
+\autocite{utopia,fuzzgen,fudge}. Often, these tools still rely on
+developers for integration or final evaluation, leaving parts of the
+process manual and incomplete. Consequently, the application of LLMs to
+harness generation and end-to-end fuzzing remains a developing field.
 
 This thesis aims to push the boundaries of fuzzing automation by
-harnessing the code synthesis and reasoning strengths of modern LLMs. We
-introduce OverHAuL, a system that accepts a bare and previously unfuzzed
-C project, utilizes LLM agents to author a new fuzzing harness from
-scratch, and evaluates its efficacy in a closed iterative feedback loop.
-This end-to-end approach is designed to minimize manual effort and
-accelerate vulnerability detection in C codebases.
+leveraging the code synthesis and most importantly reasoning strengths
+of modern LLMs. We introduce OverHAuL, a system that accepts a bare and
+previously unfuzzed C project, utilizes LLM agents to author a new
+fuzzing harness from scratch and evaluates its efficacy in a closed
+iterative feedback loop. In this loop, said feedback is constantly
+utilized to improve the generated harness. This end-to-end approach is
+designed to minimize manual effort and accelerate vulnerability
+detection in C codebases.
 
 \section{Thesis Structure}\label{thesis-structure}
 
-The thesis first presents foundational concepts
-(Chapter~\ref{sec-background}), followed by a comprehensive survey of
-existing work in automated fuzzing (Chapter~\ref{sec-related}). We
-demonstrate that most current fuzzing systems either rely on
-pre-existing harnesses or employ client code, often leaving validation
-and integration tasks to the user. We then introduce the OverHAuL
-system, detailing its architecture, the novel techniques used in its
-implementation, and their contributions to advancing automated harness
-generation (Chapter~\ref{sec-overhaul}). Finally, we assemble a
-benchmark dataset of ten open-source C projects and rigorously evaluate
-OverHAuL's performance
-(Chapter~\ref{sec-eval}, Chapter~\ref{sec-results}).
+This thesis begins by outlining the foundational concepts necessary to
+understand its context (Chapter~\ref{sec-background}) and progresses to
+a thorough survey of existing research in the field of automated fuzzing
+(Chapter~\ref{sec-related}). We illustrate that the majority of
+contemporary fuzzing systems either depend on pre-existing harnesses or
+utilize client code, frequently placing the burden of validation and
+integration on the user. Next, we present the OverHAuL system, detailing
+its architecture and the innovative techniques that underpin its
+implementation, as well as their contributions to the advancement of
+automated harness generation (Chapter~\ref{sec-overhaul}). Lastly, we
+compile a benchmark dataset consisting of ten open-source C projects and
+rigorously assess OverHAuL's performance
+(Chapter~\ref{sec-eval}, \ref{sec-results}).
 
 \section{Summary of Contributions}\label{summary-of-contributions}
 
@@ -432,12 +446,11 @@ This thesis presents the following key contributions:
   fuzzing tools, detailing their respective strengths and limitations.
 \item
   The introduction of OverHAuL, a novel framework that enables fully
-  automated, end-to-end fuzzing harness generation using large language
-  models (LLMs).
+  automated, end-to-end fuzzing harness generation using LLMs.
 \item
-  Empirical validation through benchmark experiments, demonstrating that
-  OverHAuL successfully generates effective fuzzing harnesses in 92.5\%
-  of tested cases.
+  Empirical validation through benchmarking experiments, demonstrating
+  that OverHAuL successfully generates effective fuzzing harnesses in
+  92.5\% of tested cases.
 \item
   Full open sourcing of all research artifacts, datasets, and code at
   \url{https://github.com/kchousos/OverHAuL} to encourage further
@@ -454,19 +467,20 @@ security and reliability in sectors where correctness is imperative.
 \chapter{Background}\label{sec-background}
 
 This chapter provides the foundational and necessary background for this
-thesis by exploring the core concepts and technological advances central
-to modern fuzzing and Large Language Models (LLMs). It begins with an
-in-depth overview of fuzz testing, an automated technique for uncovering
-software bugs and vulnerabilities through randomized input generation,
-highlighting its methodology, tools, and impact. What follows is a
-discussion on LLMs and their transformative influence on natural
-language processing, programming, and code generation. Challenges and
-opportunities in applying LLMs to tasks such as fuzzing harness
-generation are examined, leading to a discussion of Neurosymbolic AI, an
-emerging approach that combines neural and symbolic reasoning to address
-the limitations of current AI systems. This multifaceted background
-establishes the context necessary for understanding the research and
-innovations presented in subsequent chapters.
+thesis, by exploring the core concepts and technological advances
+central to modern fuzzing and Large Language Models (LLMs). It begins
+with an in-depth definition and overview of fuzz testing---an automated
+technique for uncovering software bugs and vulnerabilities through
+randomized input generation---highlighting its methodology, tools, and
+impact. What follows is a discussion on LLMs and their transformative
+influence on natural language processing, programming, and code
+generation. Challenges and opportunities in applying LLMs to tasks such
+as fuzzing harness generation are examined, leading to a discussion of
+Neurosymbolic AI, an emerging approach that combines neural and symbolic
+reasoning to address the limitations of current AI systems. This
+multifaceted background establishes the context necessary for
+understanding the research and innovations presented in subsequent
+chapters.
 
 \section{Fuzz Testing}\label{fuzz-testing}
 
@@ -475,11 +489,12 @@ innovations presented in subsequent chapters.
 in the hope of exposing undefined behavior. When such behavior manifests
 as a crash, hang, or memory-safety violation, the corresponding input
 constitutes a \emph{test-case} that reveals a bug and often a
-vulnerability \autocite{manes2019}. In essence, fuzzing is a form of
-adversarial, penetration-style testing carried out by the defender
-before the adversary has an opportunity to do so. Interest in the
-technique surged after the publication of three practitioner-oriented
-books in 2007--2008 \autocite{takanen2018,sutton2007,rathaus2007}.
+vulnerability \autocite{manes2019}. In a certain sense, fuzzing is a
+form of adversarial, penetration-style testing carried out by the
+defender before the adversary has an opportunity to do so. Interest in
+the technique surged after the publication of three
+practitioner-oriented books in 2007--2008
+\autocite{takanen2018,sutton2007,rathaus2007}.
 
 Historically, the term was coined by Miller et al.~in 1990, who used
 ``fuzz'' to describe a program that ``generates a stream of random
@@ -587,50 +602,53 @@ systematic approach should find them sooner or later.
 --- OWASP Foundation \autocite{owaspfoundation}
 \end{quote}
 
-Fuzz testing offers several tangible benefits:
+Fuzz testing provides several key advantages that contribute
+substantially to software quality and security. First, by uncovering
+vulnerabilities early in the development cycle, fuzzing reduces both the
+cost and risk associated with addressing security flaws after
+deployment. This proactive approach not only minimizes potential
+exposure but also streamlines the remediation process. Additionally, by
+subjecting software to the same randomized, adversarial inputs that
+malicious actors might use, fuzz testing puts defenders on equal footing
+with attackers, enhancing preparedness against emerging zero-day
+threats.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Early vulnerability discovery}: Detecting defects during
-  development is cheaper and safer than addressing exploits in
-  production.
-\item
-  \textbf{Adversary-parity}: Performing the same randomised stress that
-  attackers employ allows defenders to pre-empt zero-days.
-\item
-  \textbf{Robustness and correctness}: Beyond security, fuzzing exposes
-  logic errors and stability issues in complex, high-throughput APIs
-  (e.g., decompressors) even when inputs are \emph{expected} to be
-  well-formed.
-\item
-  \textbf{Regression prevention}: Re-running a corpus of crashing inputs
-  as part of continuous integration ensures that fixed bugs remain
-  fixed.
-\end{enumerate}
+Beyond security, fuzzing plays a crucial role in improving the
+robustness and correctness of software systems. It is particularly
+effective at identifying logical errors and stability issues in complex,
+high-throughput APIs---such as decompressors and parsers---especially
+when these systems are expected to handle only well-formed inputs.
+Moreover, the integration of fuzz testing into continuous integration
+pipelines provides an effective guard against regressions. By
+systematically re-executing a corpus of previously discovered crashing
+inputs, developers can ensure that resolved bugs do not resurface in
+subsequent releases, thereby maintaining a consistent level of software
+reliability over time.
 
 \subsubsection{Success Stories}\label{success-stories}
 
 \emph{Heartbleed} (CVE-2014-0160) \autocite{heartbleed,heartbleed-cve}
 arose from a buffer over-read\footnote{\url{https://xkcd.com/1354/}} in
-OpenSSL \autocite{theopensslproject2025} introduced on 1 February 2012
-and unnoticed until 1 April 2014. Post-mortem analyses showed that a
-simple fuzz campaign exercising the TLS heartbeat extension would have
-revealed the defect almost immediately \autocite{wheeler2014}.
+the TLS implementation of the OpenSSL library
+\autocite{theopensslproject2025}, introduced on 1st of February 2012 and
+unnoticed until 1st of April 2014. Later analysis showed that a simple
+fuzz campaign exercising the TLS heartbeat extension would have revealed
+the defect almost immediately \autocite{wheeler2014}.
 
 Likewise, the \emph{Shellshock} (or \emph{Bashdoor}) family of bugs in
 GNU Bash \autocite{bash} enabled arbitrary command execution on many
 UNIX systems. While the initial flaw was fixed promptly, subsequent bug
 variants were discovered by Google's Michał Zalewski using his own
-fuzzer \autocite{afl} in late 2014 \autocite{saarinen2014}.
+fuzzer---the now ubiquitous AFL fuzzer \autocite{afl}---in late 2014
+\autocite{saarinen2014}.
 
 On the defensive tooling side, the security tool named
-\emph{Mayhem}---developed by the company of the same name---has since
-been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous
-open-source communities. It has found and facilitated the remediation of
-thousands of previously unknown vulnerabilities
-\autocite{simonite2020mayhem}.
+\emph{Mayhem}---developed by the company of the same name, formerly
+known as ForAllSecure---has since been adopted by the US Air Force, the
+Pentagon, Cloudflare, and numerous open-source communities. It has found
+and facilitated the remediation of thousands of previously unknown
+vulnerabilities, from errors in Cloudflare's infrastructure to bugs in
+open-source projects like OpenWRT \autocite{simonite2020mayhem}.
 
 These cases underscore the central thesis of fuzz testing: exhaustive
 manual review is infeasible, but scalable stochastic exploration
@@ -638,14 +656,14 @@ reliably surfaces the critical few defects that matter most.
 
 \subsection{Methodology}\label{methodology}
 
-As previously discussed, fuzz testing of a program under test (PUT) is
-typically conducted using a dedicated fuzzing engine (see
-Definition~\ref{def-fuzzer}). Among the most widely adopted fuzzers for
-C and C++ projects and libraries are AFL \autocite{afl}---which has
-since evolved into AFL++ \autocite{aflpp}---and LibFuzzer
-\autocite{libfuzzer}. Within the OverHAuL framework, LibFuzzer is
-preferred owing to its superior suitability for library fuzzing, whereas
-AFL++ predominantly targets executables and binary fuzzing.
+As previously discussed, fuzz testing of a PUT is typically conducted
+using a dedicated fuzzing engine (Definition~\ref{def-fuzzer}). Among
+the most widely adopted fuzzers for C and C++ projects and libraries are
+AFL \autocite{afl}---which has since evolved into AFL++
+\autocite{aflpp}---and LibFuzzer \autocite{libfuzzer}. Within the
+OverHAuL framework, LibFuzzer is preferred due to its superior
+suitability for library fuzzing, whereas AFL++ predominantly targets
+executables and binary fuzzing.
 
 \subsubsection{LibFuzzer}\label{libfuzzer}
 
@@ -654,7 +672,7 @@ evolutionary fuzzing engine primarily designed for testing libraries. It
 forms part of the LLVM ecosystem \autocite{llvm} and operates by linking
 directly with the library under evaluation. The fuzzer delivers mutated
 input data to the library through a designated fuzzing entry point,
-commonly referred to as the \emph{fuzz target}.
+commonly referred to as the \emph{fuzz target} or \emph{harness}.
 
 \begin{definition}[Fuzz
 target]\protect\hypertarget{def-target}{}\label{def-target}
@@ -675,7 +693,9 @@ API functions utilizing the fuzz-generated inputs. This harness serves
 as the principal interface for the fuzzer and is executed iteratively,
 each time with mutated input designed to maximize code coverage and
 uncover defects. To comply with LibFuzzer's interface requirements, a
-harness must conform to the following function signature:
+harness must conform to the function signature shown in
+Listing~\ref{lst-basic-example}. A more illustrative example of such a
+harness is provided in Listing~\ref{lst-fuzzing-example}.
 
 \begin{codelisting}
 
@@ -700,9 +720,6 @@ of behavior through systematic input mutation.}
 }
 
 \end{codelisting}%
-
-A more illustrative example of such a harness is provided in
-Listing~\ref{lst-fuzzing-example}.
 
 \begin{codelisting}
 
@@ -815,12 +832,11 @@ standard software development and testing practices.
 
 \section{Large Language Models}\label{large-language-models}
 
-Natural Language Processing (NLP), a subfield of Artificial Intelligence
-(AI), has a rich and ongoing history that has evolved significantly
-since its beginning in the 1990s \autocite{li2022,wang2025}. Among the
-most notable---and recent---advancements in this domain are Large
-Language Models (LLMs), which have transformed the landscape of NLP and
-AI in general.
+Natural Language Processing (NLP), a subfield of AI, has a rich and
+ongoing history that has evolved significantly since its beginning in
+the 1990s \autocite{li2022,wang2025}. Among the most notable---and
+recent---advancements in this domain are LLMs, which have transformed
+the landscape of NLP and AI in general.
 
 At the core of many LLMs is the attention mechanism, which was
 introduced by Bahdanau et al.~in 2014 \autocite{bahdanau2016}. This
@@ -1357,94 +1373,6 @@ LLM responsible for the driver generation is used to correct them. If
 not, the pipeline has terminated and a new fuzz driver has been
 successfully generated.
 
-\section{Differences}\label{sec-differences}
-
-OverHAuL differs, in some way, with each of the aforementioned works.
-Firstly, although KLEE and IRIS \autocite{iris,klee} tackle the problem
-of automated testing and both IRIS and OverHAuL can be considered
-neurosymbolic AI tools, the similarities end there. None of them utilize
-LLMs the same way we do---with KLEE not utilizing them by default, as it
-precedes them chronologically---and neither are automating any part of
-the fuzzing process.
-
-When it comes to FUDGE, FuzzGen and UTopia
-\autocite{utopia,fuzzgen,fudge}, all three depend on and demand existing
-client code and/or unit tests. On the other hand, OverHAuL requires only
-the bare minimum: the library code itself. Another point of difference
-is that in contrast with OverHAuL, these tools operate in a linear
-fashion. No feedback is produced or used in any step and any point
-failure results in the termination of the entire run.
-
-OverHAuL challenges a common principle of these tools, stated explicitly
-in FUDGE's paper \autocite{fudge}: ``Choosing a suitable fuzz target
-(still) requires a human''. OverHAuL chooses to let the LLM, instead of
-the user, explore the available functions and choose one to target in
-its fuzz driver.
-
-OSS-Fuzz-Gen \autocite{oss-fuzz-gen} can be considered a close
-counterpart of OverHAuL, and in some ways it is. A lot of inspiration
-was gathered from it, like for example the inclusion of static analysis
-and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of
-disadvantages that make it in some cases an inferior option. For one,
-OFG is tightly coupled with the OSS-Fuzz platform \autocite{oss-fuzz},
-which even on its own creates a plethora of issues for the common
-developer. To integrate their project into OSS-Fuzz, they would need to:
-Transform it into a ClusterFuzz project \autocite{clusterfuzz} and take
-time to write harnesses for it. Even if these prerequisites are carried
-out, it probably would not be enough. Per OSS-Fuzz's documentation
-\autocite{ossfuzzdocs2025}: ``To be accepted to OSS-Fuzz, an open-source
-project must have a significant user base and/or be critical to the
-global IT infrastructure''. This means that OSS-Fuzz is a viable option
-only for a small minority of open-source developers and maintainers. One
-countermeasure of the above shortcoming would be for a developer to run
-OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task.
-As it is not meant to be used standalone, OFG is not packaged in the
-form of a self-contained application. This makes it hard to setup and
-difficult to use interactively. Like in the case of FUDGE, OFG's actions
-are performed linearly. No feedback is utilized nor is there graceful
-error handling in the case of a step's failure. Even in the case of the
-experimental feature for bootstrapping unfuzzed projects, OFG's
-performance varies heavily. During experimentation, a lot of generated
-harnesses were still wrapped either in Markdown backticks or
-\texttt{\textless{}code\textgreater{}} tags, or were accompanied with
-explanations inside the generated \texttt{.c} source file. Even if code
-was formatted correctly, in many cases it missed necessary headers for
-compilation or used undeclared functions.
-
-Lastly, the closest counterpart to OverHAuL is AutoGen
-\autocite{sun2024}. Their similarity stands in the implementation of a
-feedback loop between LLM and generated harness. However, most other
-implementation decisions remain distinct. One difference regards the
-fuzzed function. While AutoGen requires a target function to be
-specified by the user in which it narrows during its whole run, OverHAuL
-delegates this to the LLM, letting it explore the codebase and decide by
-itself the best candidate. Another difference lies in the need---and the
-lack of---of documentation. While AutoGen requires it to gather
-information for the given function, OverHAuL leans into the role of a
-developer by reading the related code and comments and thus avoiding any
-mismatches between documentation and code. Finally, the LLMs' input is
-built based on predefined prompt templates, a technique also present in
-OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
-DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
-
-In conclusion, OverHAuL constitutes an \emph{open-source} tool that
-offers new functionality by offering a straightforward installation
-process, packaged as a self-contained Python package with minimal
-external dependencies. It also introduces novel approaches compared to
-previous work by
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Implementing a feedback mechanism between harness generation,
-  compilation, and evaluation phases,
-\item
-  Using autonomous ReAct agents capable of codebase exploration,
-\item
-  Leveraging a vector store for code consumption and retrieval.
-\end{enumerate}
-
 \bookmarksetup{startatroot}
 
 \chapter{OverHAuL's Design}\label{sec-overhaul}
@@ -1735,6 +1663,95 @@ making the abstract algorithm simpler and easier to understand.
   \State \Return $compiled \land acceptable$
 \end{algorithmic}
 \end{algorithm}
+
+\section{Differences}\label{sec-differences}
+
+OverHAuL differs, in some way, with each of the aforementioned works in
+Chapter~\ref{sec-related}. Firstly, although KLEE and IRIS
+\autocite{iris,klee} tackle the problem of automated testing and both
+IRIS and OverHAuL can be considered neurosymbolic AI tools, the
+similarities end there. None of them utilize LLMs the same way we
+do---with KLEE not utilizing them by default, as it precedes them
+chronologically---and neither are automating any part of the fuzzing
+process.
+
+When it comes to FUDGE, FuzzGen and UTopia
+\autocite{utopia,fuzzgen,fudge}, all three depend on and demand existing
+client code and/or unit tests. On the other hand, OverHAuL requires only
+the bare minimum: the library code itself. Another point of difference
+is that in contrast with OverHAuL, these tools operate in a linear
+fashion. No feedback is produced or used in any step and any point
+failure results in the termination of the entire run.
+
+OverHAuL challenges a common principle of these tools, stated explicitly
+in FUDGE's paper \autocite{fudge}: ``Choosing a suitable fuzz target
+(still) requires a human''. OverHAuL chooses to let the LLM, instead of
+the user, explore the available functions and choose one to target in
+its fuzz driver.
+
+OSS-Fuzz-Gen \autocite{oss-fuzz-gen} can be considered a close
+counterpart of OverHAuL, and in some ways it is. A lot of inspiration
+was gathered from it, like for example the inclusion of static analysis
+and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of
+disadvantages that make it in some cases an inferior option. For one,
+OFG is tightly coupled with the OSS-Fuzz platform \autocite{oss-fuzz},
+which even on its own creates a plethora of issues for the common
+developer. To integrate their project into OSS-Fuzz, they would need to:
+Transform it into a ClusterFuzz project \autocite{clusterfuzz} and take
+time to write harnesses for it. Even if these prerequisites are carried
+out, it probably would not be enough. Per OSS-Fuzz's documentation
+\autocite{ossfuzzdocs2025}: ``To be accepted to OSS-Fuzz, an open-source
+project must have a significant user base and/or be critical to the
+global IT infrastructure''. This means that OSS-Fuzz is a viable option
+only for a small minority of open-source developers and maintainers. One
+countermeasure of the above shortcoming would be for a developer to run
+OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task.
+As it is not meant to be used standalone, OFG is not packaged in the
+form of a self-contained application. This makes it hard to setup and
+difficult to use interactively. Like in the case of FUDGE, OFG's actions
+are performed linearly. No feedback is utilized nor is there graceful
+error handling in the case of a step's failure. Even in the case of the
+experimental feature for bootstrapping unfuzzed projects, OFG's
+performance varies heavily. During experimentation, a lot of generated
+harnesses were still wrapped either in Markdown backticks or
+\texttt{\textless{}code\textgreater{}} tags, or were accompanied with
+explanations inside the generated \texttt{.c} source file. Even if code
+was formatted correctly, in many cases it missed necessary headers for
+compilation or used undeclared functions.
+
+Lastly, the closest counterpart to OverHAuL is AutoGen
+\autocite{sun2024}. Their similarity stands in the implementation of a
+feedback loop between LLM and generated harness. However, most other
+implementation decisions remain distinct. One difference regards the
+fuzzed function. While AutoGen requires a target function to be
+specified by the user in which it narrows during its whole run, OverHAuL
+delegates this to the LLM, letting it explore the codebase and decide by
+itself the best candidate. Another difference lies in the need---and the
+lack of---of documentation. While AutoGen requires it to gather
+information for the given function, OverHAuL leans into the role of a
+developer by reading the related code and comments and thus avoiding any
+mismatches between documentation and code. Finally, the LLMs' input is
+built based on predefined prompt templates, a technique also present in
+OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
+DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
+
+In conclusion, OverHAuL constitutes an \emph{open-source} tool that
+offers new functionality by offering a straightforward installation
+process, packaged as a self-contained Python package with minimal
+external dependencies. It also introduces novel approaches compared to
+previous work by
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implementing a feedback mechanism between harness generation,
+  compilation, and evaluation phases,
+\item
+  Using autonomous ReAct agents capable of codebase exploration,
+\item
+  Leveraging a vector store for code consumption and retrieval.
+\end{enumerate}
 
 \section{Installation and Usage}\label{sec-install}
 
@@ -2262,7 +2279,7 @@ OverHAuL's performance on code that is unseen or proprietary. Results
 for closed-source or less widely available libraries could therefore be
 weaker. Nonetheless, this potential limitation can theoretically be
 addressed through targeted fine-tuning of the LLM
-\autocite{openaidocs2025b}.
+\autocite{openaidocs2025b,kim2025}.
 
 \section{Threats to Validity}\label{threats-to-validity}
 

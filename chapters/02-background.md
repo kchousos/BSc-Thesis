@@ -1,10 +1,10 @@
 # Background {#sec-background}
 
-This chapter provides the foundational and necessary background for this thesis by exploring the core concepts and technological advances central to modern fuzzing and Large Language Models (LLMs). It begins with an in-depth overview of fuzz testing, an automated technique for uncovering software bugs and vulnerabilities through randomized input generation, highlighting its methodology, tools, and impact. What follows is a discussion on LLMs and their transformative influence on natural language processing, programming, and code generation. Challenges and opportunities in applying LLMs to tasks such as fuzzing harness generation are examined, leading to a discussion of Neurosymbolic AI, an emerging approach that combines neural and symbolic reasoning to address the limitations of current AI systems. This multifaceted background establishes the context necessary for understanding the research and innovations presented in subsequent chapters.
+This chapter provides the foundational and necessary background for this thesis, by exploring the core concepts and technological advances central to modern fuzzing and Large Language Models (LLMs). It begins with an in-depth definition and overview of fuzz testing---an automated technique for uncovering software bugs and vulnerabilities through randomized input generation---highlighting its methodology, tools, and impact. What follows is a discussion on LLMs and their transformative influence on natural language processing, programming, and code generation. Challenges and opportunities in applying LLMs to tasks such as fuzzing harness generation are examined, leading to a discussion of Neurosymbolic AI, an emerging approach that combines neural and symbolic reasoning to address the limitations of current AI systems. This multifaceted background establishes the context necessary for understanding the research and innovations presented in subsequent chapters.
 
 ## Fuzz Testing
 
-*Fuzzing* is an automated software-testing technique in which a *Program Under Test* (PUT) is executed with (pseudo-)random inputs in the hope of exposing undefined behavior. When such behavior manifests as a crash, hang, or memory-safety violation, the corresponding input constitutes a *test-case* that reveals a bug and often a vulnerability [@manes2019]. In essence, fuzzing is a form of adversarial, penetration-style testing carried out by the defender before the adversary has an opportunity to do so. Interest in the technique surged after the publication of three practitioner-oriented books in 2007--2008 [@takanen2018; @sutton2007; @rathaus2007].
+*Fuzzing* is an automated software-testing technique in which a *Program Under Test* (PUT) is executed with (pseudo-)random inputs in the hope of exposing undefined behavior. When such behavior manifests as a crash, hang, or memory-safety violation, the corresponding input constitutes a *test-case* that reveals a bug and often a vulnerability [@manes2019]. In a certain sense, fuzzing is a form of adversarial, penetration-style testing carried out by the defender before the adversary has an opportunity to do so. Interest in the technique surged after the publication of three practitioner-oriented books in 2007--2008 [@takanen2018; @sutton2007; @rathaus2007].
 
 Historically, the term was coined by Miller et al. in 1990, who used "fuzz" to describe a program that "generates a stream of random characters to be consumed by a target program" [@miller1990]. This informal usage captured the essence of what fuzzing aims to do: stress test software by bombarding it with unexpected inputs to reveal bugs. To formalize this concept, we adopt Manes et al.'s rigorous definitions [@manes2019]:
 
@@ -50,85 +50,33 @@ An input given to the PUT that is mutated by the fuzzer to produce new test case
 
 The process of selecting an effective initial corpus is crucial because it directly impacts how quickly and thoroughly the fuzzer can cover the target program's code. This challenge---studied as the *seed-selection problem*---involves identifying seeds that enable rapid discovery of diverse execution paths and is non-trivial [@rebert2014]. A well-chosen seed set often accelerates bug discovery and improves overall fuzzing efficiency.
 
-<!-- ### Taxonomies of Fuzzing -->
-
-<!-- To better understand fuzzers, researchers traditionally classify them along two orthogonal axes: the level of knowledge about the PUT that they possess, and the strategy they use to generate test inputs. -->
-
-<!-- #### Knowledge of the PUT {.unnumbered} -->
-
-<!-- Fuzzers differ in how much information they leverage about the program under test: -->
-
-<!-- ::: {#def-blackbox} -->
-<!-- ###### Black-box fuzzer -->
-<!-- Operates solely on program binaries, with no knowledge of internal structure; input generation is guided only by external observations. -->
-<!-- ::: -->
-
-<!-- Black-box fuzzers treat the PUT as a black box, generating inputs without insights into program internals. This makes them simple but often less efficient in uncovering deep bugs. -->
-
-<!-- ::: {#def-greybox} -->
-<!-- ###### Grey-box fuzzer -->
-<!-- Gains limited insight---typically lightweight coverage metrics---via instrumentation, allowing more informed mutations while retaining scalability. -->
-<!-- ::: -->
-
-<!-- Grey-box fuzzers strike a balance by collecting partial information, such as execution coverage via lightweight instrumentation, enabling more targeted input mutations that improve effectiveness. -->
-
-<!-- ::: {#def-whitebox} -->
-<!-- ###### White-box fuzzer -->
-<!-- Has full source-level visibility and employs heavy program analysis (symbolic execution, constraint solving, etc.) to systematically enumerate paths. -->
-<!-- ::: -->
-
-<!-- White-box fuzzers exploit full program knowledge, using advanced techniques like symbolic execution to methodically explore program paths, but often at the cost of reduced scalability. -->
-
-<!-- #### Test-case Generation Strategy {.unnumbered} -->
-
-<!-- The second axis concerns how fuzzers generate test inputs: -->
-
-<!-- ::: {#def-generational} -->
-<!-- ###### Generational fuzzing -->
-<!-- Produces inputs from a structural model or protocol description, ensuring that test-cases are syntactically valid yet semantically diverse. -->
-<!-- ::: -->
-
-<!-- Generational fuzzing leverages knowledge of input formats (e.g., a BNF grammar [@backus1959]) to produce well-formed test cases derived from formal specifications or models, improving the likelihood of meaningful program behavior. -->
-
-<!-- ::: {#def-mutational} -->
-<!-- ###### Mutational fuzzing -->
-<!-- Starts from existing seeds and applies stochastic mutations (bit-flips, block insertions, splice operations). Coverage-guided mutational fuzzers such as AFL have proved especially effective. -->
-<!-- ::: -->
-
-<!-- Mutational fuzzing begins with seeds and applies random or guided mutations to explore nearby input space regions. Techniques like coverage-guided fuzzing have greatly enhanced the efficiency of this approach. -->
-
-<!-- These two dimensions are often combined to tailor fuzzers to specific scenarios. For example, AFL [@afl] is a grey-box, mutational fuzzer that uses coverage feedback to guide input mutations, while Honggfuzz [@honggfuzz] can operate as a grey-box generational fuzzer when provided with grammar-based input models. This flexibility allows fuzzers to adapt to varied testing goals and program characteristics. -->
-
 ### Motivation
 
 > The purpose of fuzzing relies on the assumption that there are bugs within every program, which are waiting to be discovered. Therefore, a systematic approach should find them sooner or later.
 >
 > --- OWASP Foundation [@owaspfoundation]
 
-Fuzz testing offers several tangible benefits:
+Fuzz testing provides several key advantages that contribute substantially to software quality and security. First, by uncovering vulnerabilities early in the development cycle, fuzzing reduces both the cost and risk associated with addressing security flaws after deployment. This proactive approach not only minimizes potential exposure but also streamlines the remediation process. Additionally, by subjecting software to the same randomized, adversarial inputs that malicious actors might use, fuzz testing puts defenders on equal footing with attackers, enhancing preparedness against emerging zero-day threats.
 
-1. **Early vulnerability discovery**: Detecting defects during development is cheaper and safer than addressing exploits in production.
-2. **Adversary-parity**: Performing the same randomised stress that attackers employ allows defenders to pre-empt zero-days.
-3. **Robustness and correctness**: Beyond security, fuzzing exposes logic errors and stability issues in complex, high-throughput APIs (e.g., decompressors) even when inputs are *expected* to be well-formed.
-4. **Regression prevention**: Re-running a corpus of crashing inputs as part of continuous integration ensures that fixed bugs remain fixed.
+Beyond security, fuzzing plays a crucial role in improving the robustness and correctness of software systems. It is particularly effective at identifying logical errors and stability issues in complex, high-throughput APIs---such as decompressors and parsers---especially when these systems are expected to handle only well-formed inputs. Moreover, the integration of fuzz testing into continuous integration pipelines provides an effective guard against regressions. By systematically re-executing a corpus of previously discovered crashing inputs, developers can ensure that resolved bugs do not resurface in subsequent releases, thereby maintaining a consistent level of software reliability over time.
 
 #### Success Stories
 
-*Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read^[<https://xkcd.com/1354/>] in OpenSSL [@theopensslproject2025] introduced on 1 February 2012 and unnoticed until 1 April 2014. Post-mortem analyses showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
+*Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read^[<https://xkcd.com/1354/>] in the TLS implementation of the OpenSSL library [@theopensslproject2025], introduced on 1st of February 2012 and unnoticed until 1st of April 2014. Later analysis showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
 
-Likewise, the *Shellshock* (or *Bashdoor*) family of bugs in GNU Bash [@bash] enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google's Michał Zalewski using his own fuzzer [@afl] in late 2014 [@saarinen2014].
+Likewise, the *Shellshock* (or *Bashdoor*) family of bugs in GNU Bash [@bash] enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google's Michał Zalewski using his own fuzzer---the now ubiquitous AFL fuzzer  [@afl]---in late 2014 [@saarinen2014].
 
-On the defensive tooling side, the security tool named *Mayhem*---developed by the company of the same name---has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities [@simonite2020mayhem].
+On the defensive tooling side, the security tool named *Mayhem*---developed by the company of the same name, formerly known as ForAllSecure---has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities, from errors in Cloudflare's infrastructure to bugs in open-source projects like OpenWRT [@simonite2020mayhem].
 
 These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.
 
 ### Methodology
 
-As previously discussed, fuzz testing of a program under test (PUT) is typically conducted using a dedicated fuzzing engine (see [@def-fuzzer]). Among the most widely adopted fuzzers for C and C++ projects and libraries are AFL [@afl]---which has since evolved into AFL++ [@aflpp]---and LibFuzzer [@libfuzzer]. Within the OverHAuL framework, LibFuzzer is preferred owing to its superior suitability for library fuzzing, whereas AFL++ predominantly targets executables and binary fuzzing.
+As previously discussed, fuzz testing of a PUT is typically conducted using a dedicated fuzzing engine ([@def-fuzzer]). Among the most widely adopted fuzzers for C and C++ projects and libraries are AFL [@afl]---which has since evolved into AFL++ [@aflpp]---and LibFuzzer [@libfuzzer]. Within the OverHAuL framework, LibFuzzer is preferred due to its superior suitability for library fuzzing, whereas AFL++ predominantly targets executables and binary fuzzing.
 
 #### LibFuzzer
 
-LibFuzzer [@libfuzzer] is an in-process, coverage-guided evolutionary fuzzing engine primarily designed for testing libraries. It forms part of the LLVM ecosystem [@llvm] and operates by linking directly with the library under evaluation. The fuzzer delivers mutated input data to the library through a designated fuzzing entry point, commonly referred to as the *fuzz target*.
+LibFuzzer [@libfuzzer] is an in-process, coverage-guided evolutionary fuzzing engine primarily designed for testing libraries. It forms part of the LLVM ecosystem [@llvm] and operates by linking directly with the library under evaluation. The fuzzer delivers mutated input data to the library through a designated fuzzing entry point, commonly referred to as the *fuzz target* or *harness*.
 
 :::{#def-target}
 ###### Fuzz target
@@ -137,7 +85,7 @@ A function that accepts a byte array as input and exercises the application prog
 
 For the remainder of this thesis, the terms presented in @def-target will be used interchangeably.
 
-To effectively validate an implementation or library, developers are required to author a fuzzing harness that invokes the target library's API functions utilizing the fuzz-generated inputs. This harness serves as the principal interface for the fuzzer and is executed iteratively, each time with mutated input designed to maximize code coverage and uncover defects. To comply with LibFuzzer's interface requirements, a harness must conform to the following function signature:
+To effectively validate an implementation or library, developers are required to author a fuzzing harness that invokes the target library's API functions utilizing the fuzz-generated inputs. This harness serves as the principal interface for the fuzzer and is executed iteratively, each time with mutated input designed to maximize code coverage and uncover defects. To comply with LibFuzzer's interface requirements, a harness must conform to the function signature shown in @lst-basic-example. A more illustrative example of such a harness is provided in @lst-fuzzing-example.
 
 ::: {#lst-basic-example fig-scap='Fuzzing harness format'}
 
@@ -150,8 +98,6 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
 
 This function receives the fuzzing input via a pointer to an array of bytes (`Data`) and its associated size (`Size`). Efficiency in fuzzing is achieved by invoking the API of interest within the body of this function, thereby allowing the fuzzer to explore a broad spectrum of behavior through systematic input mutation.
 :::
-
-A more illustrative example of such a harness is provided in @lst-fuzzing-example.
 
 ::: {#lst-fuzzing-example fig-scap='Example fuzzing harness'}
 
@@ -206,13 +152,13 @@ Despite its potential for uncovering software vulnerabilities, fuzzing remains a
 
 ## Large Language Models
 
-Natural Language Processing (NLP), a subfield of Artificial Intelligence (AI), has a rich and ongoing history that has evolved significantly since its beginning in the 1990s [@li2022; @wang2025]. Among the most notable---and recent---advancements in this domain are Large Language Models (LLMs), which have transformed the landscape of NLP and AI in general.
+Natural Language Processing (NLP), a subfield of AI, has a rich and ongoing history that has evolved significantly since its beginning in the 1990s [@li2022; @wang2025]. Among the most notable---and recent---advancements in this domain are LLMs, which have transformed the landscape of NLP and AI in general.
 
 At the core of many LLMs is the attention mechanism, which was introduced by Bahdanau et al. in 2014 [@bahdanau2016]. This pivotal innovation enabled models to focus on relevant parts of the input sequence when making predictions, significantly improving language understanding and generation tasks. Building on this foundation, the Transformer architecture was proposed by Vaswani et al. in 2017 [@vaswani2023]. This architecture has become the backbone of most contemporary LLMs, as it efficiently processes sequences of data, capturing long-range dependencies without being hindered by sequential processing limitations.
 
 One of the first major breakthroughs utilizing the Transformer architecture was BERT (Bidirectional Encoder Representations from Transformers), developed by Devlin et al. in 2019 [@devlin2019]. BERT's bi-directional understanding allowed it to capture the context of words from both directions, which improved the accuracy of various NLP tasks. Following this, the Generative Pre-trained Transformer (GPT) series, initiated by OpenAI with the original GPT model in 2018 [@radford2018], further pushed the boundaries. Subsequent iterations, including GPT-2 [@radford2019], GPT-3 [@brown2020], and the most current GPT-4 [@openai2024], have continued to enhance performance by scaling model size, data, and training techniques.
 
-In addition to OpenAI’s contributions, other significant models have emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3) [@claude; @deepseek-ai2025; @grattafiori2024]. The proliferation of LLMs has sparked an active discourse about their capabilities, applications, and implications in various fields.
+In addition to OpenAI's contributions, other significant models have emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3) [@claude; @deepseek-ai2025; @grattafiori2024]. The proliferation of LLMs has sparked an active discourse about their capabilities, applications, and implications in various fields.
 
 ### Biggest GPTs
 
