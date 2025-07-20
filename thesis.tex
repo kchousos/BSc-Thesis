@@ -243,6 +243,13 @@ Serif}
 
 \title{OverHAuL: Harnessing Automation for C Libraries with Large
 Language Models}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+	\apptocmd{\@title}{\par {\Large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{BSc Thesis}
 \author{
 	%
 	Konstantinos Chousos \orcidlink{0009-0008-6063-7915}
@@ -402,15 +409,16 @@ accelerate vulnerability detection in C codebases.
 
 The thesis first presents foundational concepts
 (Chapter~\ref{sec-background}), followed by a comprehensive survey of
-existing work in automated fuzzing (\#sec-related). We demonstrate that
-most current fuzzing systems either rely on pre-existing harnesses or
-employ client code, often leaving validation and integration tasks to
-the user. We then introduce the OverHAuL system, detailing its
-architecture, the novel techniques used in its implementation, and their
-contributions to advancing automated harness generation
-(Chapter~\ref{sec-overhaul}). Finally, we assemble a benchmark dataset
-of ten open-source C projects and rigorously evaluate OverHAuL's
-performance (Chapter~\ref{sec-eval}-\ref{sec-results}).
+existing work in automated fuzzing (Chapter~\ref{sec-related}). We
+demonstrate that most current fuzzing systems either rely on
+pre-existing harnesses or employ client code, often leaving validation
+and integration tasks to the user. We then introduce the OverHAuL
+system, detailing its architecture, the novel techniques used in its
+implementation, and their contributions to advancing automated harness
+generation (Chapter~\ref{sec-overhaul}). Finally, we assemble a
+benchmark dataset of ten open-source C projects and rigorously evaluate
+OverHAuL's performance
+(Chapter~\ref{sec-eval}, Chapter~\ref{sec-results}).
 
 \section{Summary of Contributions}\label{summary-of-contributions}
 

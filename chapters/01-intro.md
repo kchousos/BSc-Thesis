@@ -14,7 +14,7 @@ This thesis aims to push the boundaries of fuzzing automation by harnessing the 
 
 ## Thesis Structure
 
-The thesis first presents foundational concepts (@sec-background), followed by a comprehensive survey of existing work in automated fuzzing (#sec-related). We demonstrate that most current fuzzing systems either rely on pre-existing harnesses or employ client code, often leaving validation and integration tasks to the user. We then introduce the OverHAuL system, detailing its architecture, the novel techniques used in its implementation, and their contributions to advancing automated harness generation (@sec-overhaul). Finally, we assemble a benchmark dataset of ten open-source C projects and rigorously evaluate OverHAuL's performance (@sec-eval\--@sec-results).
+The thesis first presents foundational concepts (@sec-background), followed by a comprehensive survey of existing work in automated fuzzing (@sec-related). We demonstrate that most current fuzzing systems either rely on pre-existing harnesses or employ client code, often leaving validation and integration tasks to the user. We then introduce the OverHAuL system, detailing its architecture, the novel techniques used in its implementation, and their contributions to advancing automated harness generation (@sec-overhaul). Finally, we assemble a benchmark dataset of ten open-source C projects and rigorously evaluate OverHAuL's performance ([@sec-eval;@sec-results]).
 
 ## Summary of Contributions
 
