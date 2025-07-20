@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Related work – OverHAuL</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/04-overhaul.html" rel="next">
+<link href="../chapters/02-background.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://tinylytics.app/embed/rSbhZ_sMtsVibUKrZtZ2/min.js" defer=""></script>
+<script>
+MathJax = {
+  loader: {
+    load: ['[tex]/boldsymbol']
+  },
+  tex: {
+    tags: "all",
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    packages: {
+      '[+]': ['boldsymbol']
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03-related.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">OverHAuL</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/kchousos/BSc-Thesis/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../thesis.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-related.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04-overhaul.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL’s Design</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07-implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08-discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-future.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/refs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#previous-projects" id="toc-previous-projects" class="nav-link active" data-scroll-target="#previous-projects"><span class="header-section-number">3.1</span> Previous Projects</a>
+  <ul class="collapse">
+  <li><a href="#klee" id="toc-klee" class="nav-link" data-scroll-target="#klee"><span class="header-section-number">3.1.1</span> KLEE</a></li>
+  <li><a href="#iris" id="toc-iris" class="nav-link" data-scroll-target="#iris"><span class="header-section-number">3.1.2</span> IRIS</a></li>
+  <li><a href="#fudge" id="toc-fudge" class="nav-link" data-scroll-target="#fudge"><span class="header-section-number">3.1.3</span> FUDGE</a></li>
+  <li><a href="#utopia" id="toc-utopia" class="nav-link" data-scroll-target="#utopia"><span class="header-section-number">3.1.4</span> UTopia</a></li>
+  <li><a href="#fuzzgen" id="toc-fuzzgen" class="nav-link" data-scroll-target="#fuzzgen"><span class="header-section-number">3.1.5</span> FuzzGen</a></li>
+  <li><a href="#intelligen" id="toc-intelligen" class="nav-link" data-scroll-target="#intelligen"><span class="header-section-number">3.1.6</span> IntelliGen</a></li>
+  <li><a href="#ckgfuzzer" id="toc-ckgfuzzer" class="nav-link" data-scroll-target="#ckgfuzzer"><span class="header-section-number">3.1.7</span> CKGFuzzer</a></li>
+  <li><a href="#promptfuzz" id="toc-promptfuzz" class="nav-link" data-scroll-target="#promptfuzz"><span class="header-section-number">3.1.8</span> PromptFuzz</a></li>
+  <li><a href="#oss-fuzz" id="toc-oss-fuzz" class="nav-link" data-scroll-target="#oss-fuzz"><span class="header-section-number">3.1.9</span> OSS-Fuzz</a></li>
+  <li><a href="#sec-ofg" id="toc-sec-ofg" class="nav-link" data-scroll-target="#sec-ofg"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</a></li>
+  <li><a href="#autogen" id="toc-autogen" class="nav-link" data-scroll-target="#autogen"><span class="header-section-number">3.1.11</span> AutoGen</a></li>
+  </ul></li>
+  <li><a href="#sec-differences" id="toc-sec-differences" class="nav-link" data-scroll-target="#sec-differences"><span class="header-section-number">3.2</span> Differences</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-related" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Automated testing, automated fuzzing and automated harness creation have a long research history. Still, a lot of ground remains to be covered until true automation of these tasks is achieved. Until the introduction of transformers <span class="citation" data-cites="vaswani2023"><a href="refs.html#ref-vaswani2023" role="doc-biblioref">[1]</a></span> and the 2020’s boom of commercial GPTs <span class="citation" data-cites="chatgpt"><a href="refs.html#ref-chatgpt" role="doc-biblioref">[2]</a></span>, automation regarding testing and fuzzing was mainly attempted through static and dynamic program analysis methods. These approaches are still utilized, but the fuzzing community has shifted almost entirely to researching the incorporation and employment of LLMs in the last half decade, in the name of automation <span class="citation" data-cites="iris sun2024 prophetfuzz oss-fuzz-gen green2022 utopia fuzzgpt titanfuzz fuzzgen fudge"><a href="refs.html#ref-iris" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-sun2024" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-prophetfuzz" role="doc-biblioref">[5]</a>, <a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-green2022" role="doc-biblioref">[7]</a>, <a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgpt" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-titanfuzz" role="doc-biblioref">[10]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[11]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>.</p>
+<section id="previous-projects" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="previous-projects"><span class="header-section-number">3.1</span> Previous Projects</h2>
+<section id="klee" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="klee"><span class="header-section-number">3.1.1</span> KLEE</h3>
+<p>KLEE <span class="citation" data-cites="klee"><a href="refs.html#ref-klee" role="doc-biblioref">[13]</a></span> is a seminal and widely cited symbolic execution engine introduced in 2008 by Cadar et al.&nbsp;It was designed to automatically generate high-coverage test cases for programs written in C, using symbolic execution to systematically explore the control flow of a program. KLEE operates on the LLVM <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[14]</a></span> bytecode representation of programs, allowing it to be applied to a wide range of C programs compiled to the LLVM intermediate representation.</p>
+<p>Instead of executing a program on concrete inputs, KLEE performs symbolic execution—that is, it runs the program on symbolic inputs, which represent all possible values simultaneously. At each conditional branch, KLEE explores both paths by forking the execution and accumulating path constraints (i.e., logical conditions on input variables) along each path. This enables it to traverse many feasible execution paths in the program, including corner cases that may be difficult to reach through random testing or manual test creation.</p>
+<p>When an execution path reaches a terminal state (e.g., a program exit, an assertion failure, or a segmentation fault), KLEE uses a constraint solver to compute concrete input values that satisfy the accumulated constraints for that path. These values form a test case that will deterministically drive the program down that specific path when executed concretely.</p>
+</section>
+<section id="iris" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="iris"><span class="header-section-number">3.1.2</span> IRIS</h3>
+<p>IRIS <span class="citation" data-cites="iris"><a href="refs.html#ref-iris" role="doc-biblioref">[3]</a></span> is a 2025 open-source neurosymbolic system for static vulnerability analysis. Given a codebase and a list of user-specified Common Weakness Enumerations (CWEs), it analyzes source code to identify paths that may correspond to known vulnerability classes. IRIS combines symbolic analysis—such as control- and data-flow reasoning—with neural models trained to generalize over code patterns. It outputs candidate vulnerable paths along with explanations and CWE references. The system operates on full repositories and supports extensible CWE definitions.</p>
+</section>
+<section id="fudge" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="fudge"><span class="header-section-number">3.1.3</span> FUDGE</h3>
+<p>FUDGE <span class="citation" data-cites="fudge"><a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span> is a closed-source tool, made by Google, for automatic harness generation of C and C++ projects based on existing client code. It was used in conjunction with and in the improvement of Google’s OSS-Fuzz <span class="citation" data-cites="oss-fuzz"><a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[15]</a></span>. Being deployed inside Google’s infrastructure, FUDGE continuously examines Google’s internal code repository, searching for code that uses external libraries in a meaningful and “fuzzable” way (i.e.&nbsp;predominantly for parsing). If found, such code is <em>sliced</em> <span class="citation" data-cites="sasirekha2011Slicing"><a href="refs.html#ref-sasirekha2011Slicing" role="doc-biblioref">[16]</a></span>, per FUDGE, based on its Abstract Syntax Tree (AST) using LLVM’s Clang tool <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[14]</a></span>. The above process results in a set of abstracted mostly-self-contained code snippets that make use of a library’s calls and/or API. These snippets are later <em>synthesized</em> into the body of a fuzz driver, with variables being replaced and the fuzz input being utilized. Each is then injected in an <code>LLVMFuzzerTestOneInput</code> function and finalized as a fuzzing harness. A building and evaluation phase follows for each harness, where they are executed and examined. Every passing harness along with its evaluation results is stored in FUDGE’s database, reachable to the user through a custom web-based UI.</p>
+</section>
+<section id="utopia" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="utopia"><span class="header-section-number">3.1.4</span> UTopia</h3>
+<p>UTopia <span class="citation" data-cites="utopia"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a></span> (stylized <span class="smallcaps">UTopia</span>) is another open-source automatic harness generation framework. Aside from the library code, It operates solely on user-provided unit tests since, according to <span class="citation" data-cites="utopia"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a></span>, they are a resource of complete and correct API usage examples containing working library set-ups and tear-downs. Additionally, each of them are already close to a fuzz target, in the sense that they already examine a single and self-contained API usage pattern. Each generated harness follows the same data flow of the originating unit test. Static analysis is employed to figure out what fuzz input placement would yield the most results. It is also utilized in abstracting the tests away from the syntactical differences between testing frameworks, along with slicing and AST traversing using Clang.</p>
+</section>
+<section id="fuzzgen" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="fuzzgen"><span class="header-section-number">3.1.5</span> FuzzGen</h3>
+<p>Another project of Google is FuzzGen <span class="citation" data-cites="fuzzgen"><a href="refs.html#ref-fuzzgen" role="doc-biblioref">[11]</a></span>, this time open-source. Like FUDGE, it leverages existing client code of the target library to create fuzz targets for it. FuzzGen uses whole-system analysis, through which it creates an <em>Abstract API Dependence Graph</em> (A<sup>2</sup>DG). It uses the latter to automatically generate LibFuzzer-compatible harnesses. For FuzzGen to work, the user needs to provide both client code and/or tests for the API and the API library’s source code as well. FuzzGen uses the client code to infer the <em>correct usage</em> of the API and not its general structure, in contrast to FUDGE. FuzzGen’s workflow can be divided into three phases: <em>1. API usage inference</em>. By consuming and analyzing client code and tests that concern the library under test, FuzzGen recognizes which functions belong to the library and learns its correct API usage patterns. This process is done with the help of Clang. To test if a function is actually a part of the library, a sample program is created that uses it. If the program compiles successfully, then the function is indeed a valid API call. <em>2. A<sup>2</sup>DG construction mechanism</em>. For all the existing API calls, FuzzGen builds an A<sup>2</sup>DG to record the API usages and infers its intended structure. After completion, this directed graph contains all the valid API call sequences found in the client code corpus. It is built in a two-step process: First, many smaller A<sup>2</sup>DGs are created, one for each root function per client code snippet. Once such graphs have been created for all the available client code instances, they are combined to formulate the master A<sup>2</sup>DG. This graph can be seen as a template for correct usage of the library. <em>3. Fuzzer generator</em>. Through the A<sup>2</sup>DG, a fuzzing harness is created. Contrary to FUDGE, FuzzGen does not create multiple “simple” harnesses but a single complex one with the goal of covering the whole of the A<sup>2</sup>DG. In other words, while FUDGE fuzzes a single API call at a time, FuzzGen’s result is a single harness that tries to fuzz the given library all at once through complex API usage.</p>
+</section>
+<section id="intelligen" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="intelligen"><span class="header-section-number">3.1.6</span> IntelliGen</h3>
+<p>IntelliGen <span class="citation" data-cites="zhang2021"><a href="refs.html#ref-zhang2021" role="doc-biblioref">[17]</a></span> is a system for automatically synthesizing fuzz drivers by statically identifying potentially vulnerable entry-point functions within C projects. Implemented using LLVM <span class="citation" data-cites="llvm"><a href="refs.html#ref-llvm" role="doc-biblioref">[14]</a></span>, IntelliGen focuses on Improving fuzzing efficiency by targeting code more likely to contain memory safety issues, rather than exhaustively fuzzing all available functions.</p>
+<p>The system comprises two main components: the <em>Entry Function Locator</em> and the <em>Fuzz Driver Synthesizer</em>. The Entry Function Locator analyzes the project’s abstract syntax tree (AST) and classifies functions based on heuristics that indicate vulnerability. These include pointer dereferencing, calls to memory-related functions (e.g., <code>memcpy</code>, <code>memset</code>), and invocation of other internal functions. Functions that score highly on these metrics are prioritized for fuzz driver generation. The guiding insight is that entry points with fewer argument checks and more direct memory operations expose more useful program logic for fuzz testing.</p>
+<p>The Fuzz Driver Synthesizer then generates harnesses for these entry points. For each target function, it synthesizes an <code>LLVMFuzzerTestOneInput</code> function that invokes the target with arguments derived from the fuzz input. This process involves inferring argument types from the source code and ensuring that runtime behavior does not violate memory safety—thus avoiding invalid inputs that would cause crashes unrelated to genuine bugs.</p>
+<p>IntelliGen stands out by integrating static vulnerability estimation into the driver generation pipeline. Compared to prior tools like FuzzGen and FUDGE, it uses a more targeted, heuristic-based selection of functions, increasing the likelihood that fuzzing will exercise meaningful and vulnerable code paths.</p>
+</section>
+<section id="ckgfuzzer" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="ckgfuzzer"><span class="header-section-number">3.1.7</span> CKGFuzzer</h3>
+<p>CKGFuzzer <span class="citation" data-cites="xu2024"><a href="refs.html#ref-xu2024" role="doc-biblioref">[18]</a></span> is a fuzzing framework designed to automate the generation of effective fuzz drivers for C/C++ libraries by leveraging static analysis and large language models. Its workflow begins by parsing the target project along with any associated library APIs to construct a code knowledge graph. This involves two primary steps: first, parsing the abstract syntax tree (AST), and second, performing inter-procedural program analysis. Through this process, CKGFuzzer extracts essential program elements such as data structures, function signatures, function implementations, and call relationships.</p>
+<p>Using the knowledge graph, CKGFuzzer then identifies and queries meaningful API combinations, focusing on those that are either frequently invoked together or exhibit functional similarity. It generates candidate fuzz drivers for these combinations and attempts to compile them. Any compilation errors encountered during this phase are automatically repaired using heuristics and domain knowledge. A dynamically updated knowledge base, constructed from prior library usage patterns, guides both the generation and repair processes.</p>
+<p>Once the drivers are successfully compiled, CKGFuzzer executes them while monitoring code coverage at the file level. It uses coverage feedback to iteratively mutate underperforming API combinations, refining them until new execution paths are discovered or a preset mutation budget is exhausted.</p>
+<p>Finally, any crashes triggered during fuzzing are subjected to a reasoning process based on chain-of-thought prompting (<a href="02-background.html#sec-prompting" class="quarto-xref"><span>Section 2.2.2</span></a>). To help determine their severity and root cause, CKGFuzzer consults an LLM-generated knowledge base containing real-world examples of vulnerabilities mapped to known Common Weakness Enumeration (CWE) entries.</p>
+</section>
+<section id="promptfuzz" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="promptfuzz"><span class="header-section-number">3.1.8</span> PromptFuzz</h3>
+<p>PromptFuzz <span class="citation" data-cites="lyu2024"><a href="refs.html#ref-lyu2024" role="doc-biblioref">[19]</a></span> constitutes a framework for automatically generating fuzz drivers using LLMs, with a novel focus on <em>prompt mutation</em> to improve coverage. The system is implemented in Rust and targets C libraries, aiming to explore more of the API surface with each iteration.</p>
+<p>The workflow begins with the random selection of API functions, extracted from header file declarations. These functions are used to construct initial prompts that instruct the LLM to generate a simple program utilizing the API. Each generated program is compiled, executed, and monitored for code coverage. Programs that fail to compile or violate runtime checks (e.g.&nbsp;sanitizers) are discarded.</p>
+<p>A key innovation in PromptFuzz is <em>coverage-guided prompt mutation</em>. Instead of mutating generated code directly, PromptFuzz mutates the LLM prompts—selecting new combinations of API functions to target unexplored code paths. This process is guided by a <em>power scheduling</em> strategy that prioritizes underused or promising API functions based on feedback from previous runs.</p>
+<p>Once an effective program is produced, it is transformed into a fuzz driver by replacing constants and arguments with variables derived from the fuzzer input. Multiple such drivers are embedded into a single harness, where the input determines which program variant to execute, typically via a case-switch construct.</p>
+<p>Overall, PromptFuzz demonstrates that prompt-level mutation enables more effective exploration of complex APIs and achieves better coverage than direct code mutations, offering a compelling direction for LLM-based automated fuzzing systems.</p>
+</section>
+<section id="oss-fuzz" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="oss-fuzz"><span class="header-section-number">3.1.9</span> OSS-Fuzz</h3>
+<p>OSS-Fuzz <span class="citation" data-cites="ossfuzzdocs2025 oss-fuzz"><a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[15]</a>, <a href="refs.html#ref-ossfuzzdocs2025" role="doc-biblioref">[20]</a></span> is a continuous, scalable and distributed cloud fuzzing solution for critical and prominent open-source projects. Developers of such software can submit their projects to OSS-Fuzz’s platform, where its harnesses are built and constantly executed. This results in multiple bug findings that are later disclosed to the primary developers and are later patched.</p>
+<p>OSS-Fuzz started operating in 2016, an initiative in response to the Heartbleed vulnerability <span class="citation" data-cites="heartbleed-cve wheeler2014 heartbleed"><a href="refs.html#ref-heartbleed-cve" role="doc-biblioref">[21]</a>, <a href="refs.html#ref-wheeler2014" role="doc-biblioref">[22]</a>, <a href="refs.html#ref-heartbleed" role="doc-biblioref">[23]</a></span>. Its hope is that through more extensive fuzzing such errors could be caught and corrected before having the chance to be exploited and thus disrupt the public digital infrastructure. So far, it has helped uncover over 10,000 security vulnerabilities and 36,000 bugs across more than 1,000 projects, significantly enhancing the quality and security of major software like Chrome, OpenSSL, and systemd.</p>
+<p>A project that’s part of OSS-Fuzz must have been configured as a ClusterFuzz <span class="citation" data-cites="clusterfuzz"><a href="refs.html#ref-clusterfuzz" role="doc-biblioref">[24]</a></span> project. ClusterFuzz is the fuzzing infrastructure that OSS-Fuzz uses under the hood and depends on Google Cloud Platform services, although it can be hosted locally. Such an integration requires setting up a build pipeline, fuzzing jobs and expects a Google Developer account. Results are accessible through a web interface. ClusterFuzz, and by extension OSS-Fuzz, supports fuzzing through LibFuzzer, AFL++, Honggfuzz and FuzzTest—successor to Centipede— with the last two being Google projects <span class="citation" data-cites="libfuzzer fuzztest honggfuzz aflpp"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[25]</a>, <a href="refs.html#ref-fuzztest" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-honggfuzz" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-aflpp" role="doc-biblioref">[28]</a></span>. C, C++, Rust, Go, Python and Java/JVM projects are supported.</p>
+</section>
+<section id="sec-ofg" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="sec-ofg"><span class="header-section-number">3.1.10</span> OSS-Fuzz-Gen</h3>
+<p>OSS-Fuzz-Gen (OFG) <span class="citation" data-cites="liu2023 oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-liu2023" role="doc-biblioref">[29]</a></span> is Google’s current State-Of-The-Art (SOTA) project regarding automatic harness generation through LLMs. It’s purpose is to improve the fuzzing infrastructure of open-source projects that are already integrated into OSS-Fuzz. Given such a project, OSS-Fuzz-Gen uses its preexisting fuzzing harnesses and modifies them to produce new ones. Its architecture can be described as follows: 1. With an OSS-Fuzz project’s GitHub repository link, OSS-Fuzz-Gen iterates through a set of predefined build templates and generates potential build scripts for the project’s harnesses. 2. If any of them succeed they are once again compiled, this time through fuzz-introspector <span class="citation" data-cites="fuzz-introspector"><a href="refs.html#ref-fuzz-introspector" role="doc-biblioref">[30]</a></span>. The latter constitutes a static analysis tool, with fuzzer developers specifically in mind. 3. Build results, old harness and fuzz-introspector report are included in a template-generated prompt, through which an LLM is called to generate a new harness. 4. The newly generated fuzz target is compiled and if it is done so successfully it begins execution inside OSS-Fuzz’s infrastructure.</p>
+<p>This method proved meaningful, with code coverage in fuzz campaigns increasing thanks to the new generated fuzz drivers. In the case of <span class="citation" data-cites="thomason2025"><a href="refs.html#ref-thomason2025" role="doc-biblioref">[31]</a></span>, line coverage went from 38% to 69% without any manual interventions <span class="citation" data-cites="liu2023"><a href="refs.html#ref-liu2023" role="doc-biblioref">[29]</a></span>.</p>
+<p>In 2024, OSS-Fuzz-Gen introduced an experimental feature for generating harnesses in previously unfuzzed projects <span class="citation" data-cites="oss-fuzzmaintainers2024"><a href="refs.html#ref-oss-fuzzmaintainers2024" role="doc-biblioref">[32]</a></span>. The code for this feature resides in the <code>experimental/from_scratch</code> directory of the project’s GitHub repository <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span>, with the latest known working commit being <code>171aac2</code> and the latest overall commit being four months ago.</p>
+</section>
+<section id="autogen" class="level3" data-number="3.1.11">
+<h3 data-number="3.1.11" class="anchored" data-anchor-id="autogen"><span class="header-section-number">3.1.11</span> AutoGen</h3>
+<p>AutoGen <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[4]</a></span> is a closed-source tool that generates new fuzzing harnesses, given only the library code and documentation. It works as following: The user specifies the function for which a harness is to be generated. AutoGen gathers information for this function—such as the function body, used header files, function calling examples—from the source code and documentation. Through specific prompt templates containing the above information, an LLM is tasked with generating a new fuzz driver, while another is tasked with generating a compilation command for said driver. If the compilation fails, both LLMs are called again to fix the problem, whether it was on the driver’s or command’s side. This loop iterates until a predefined maximum value or until a fuzz driver is successfully generated and compiled. If the latter is the case, it is then executed. If execution errors exist, the LLM responsible for the driver generation is used to correct them. If not, the pipeline has terminated and a new fuzz driver has been successfully generated.</p>
+</section>
+</section>
+<section id="sec-differences" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-differences"><span class="header-section-number">3.2</span> Differences</h2>
+<p>OverHAuL differs, in some way, with each of the aforementioned works. Firstly, although KLEE and IRIS <span class="citation" data-cites="iris klee"><a href="refs.html#ref-iris" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-klee" role="doc-biblioref">[13]</a></span> tackle the problem of automated testing and both IRIS and OverHAuL can be considered neurosymbolic AI tools, the similarities end there. None of them utilize LLMs the same way we do—with KLEE not utilizing them by default, as it precedes them chronologically—and neither are automating any part of the fuzzing process.</p>
+<p>When it comes to FUDGE, FuzzGen and UTopia <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[11]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>, all three depend on and demand existing client code and/or unit tests. On the other hand, OverHAuL requires only the bare minimum: the library code itself. Another point of difference is that in contrast with OverHAuL, these tools operate in a linear fashion. No feedback is produced or used in any step and any point failure results in the termination of the entire run.</p>
+<p>OverHAuL challenges a common principle of these tools, stated explicitly in FUDGE’s paper <span class="citation" data-cites="fudge"><a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>: “Choosing a suitable fuzz target (still) requires a human”. OverHAuL chooses to let the LLM, instead of the user, explore the available functions and choose one to target in its fuzz driver.</p>
+<p>OSS-Fuzz-Gen <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span> can be considered a close counterpart of OverHAuL, and in some ways it is. A lot of inspiration was gathered from it, like for example the inclusion of static analysis and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of disadvantages that make it in some cases an inferior option. For one, OFG is tightly coupled with the OSS-Fuzz platform <span class="citation" data-cites="oss-fuzz"><a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[15]</a></span>, which even on its own creates a plethora of issues for the common developer. To integrate their project into OSS-Fuzz, they would need to: Transform it into a ClusterFuzz project <span class="citation" data-cites="clusterfuzz"><a href="refs.html#ref-clusterfuzz" role="doc-biblioref">[24]</a></span> and take time to write harnesses for it. Even if these prerequisites are carried out, it probably would not be enough. Per OSS-Fuzz’s documentation <span class="citation" data-cites="ossfuzzdocs2025"><a href="refs.html#ref-ossfuzzdocs2025" role="doc-biblioref">[20]</a></span>: “To be accepted to OSS-Fuzz, an open-source project must have a significant user base and/or be critical to the global IT infrastructure”. This means that OSS-Fuzz is a viable option only for a small minority of open-source developers and maintainers. One countermeasure of the above shortcoming would be for a developer to run OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task. As it is not meant to be used standalone, OFG is not packaged in the form of a self-contained application. This makes it hard to setup and difficult to use interactively. Like in the case of FUDGE, OFG’s actions are performed linearly. No feedback is utilized nor is there graceful error handling in the case of a step’s failure. Even in the case of the experimental feature for bootstrapping unfuzzed projects, OFG’s performance varies heavily. During experimentation, a lot of generated harnesses were still wrapped either in Markdown backticks or <code>&lt;code&gt;</code> tags, or were accompanied with explanations inside the generated <code>.c</code> source file. Even if code was formatted correctly, in many cases it missed necessary headers for compilation or used undeclared functions.</p>
+<p>Lastly, the closest counterpart to OverHAuL is AutoGen <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[4]</a></span>. Their similarity stands in the implementation of a feedback loop between LLM and generated harness. However, most other implementation decisions remain distinct. One difference regards the fuzzed function. While AutoGen requires a target function to be specified by the user in which it narrows during its whole run, OverHAuL delegates this to the LLM, letting it explore the codebase and decide by itself the best candidate. Another difference lies in the need—and the lack of—of documentation. While AutoGen requires it to gather information for the given function, OverHAuL leans into the role of a developer by reading the related code and comments and thus avoiding any mismatches between documentation and code. Finally, the LLMs’ input is built based on predefined prompt templates, a technique also present in OSS-Fuzz-Gen.&nbsp;OverHAuL operates one abstraction level higher, leveraging DSPy <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[33]</a></span> for programming instead of prompting the LLMs used.</p>
+<p>In conclusion, OverHAuL constitutes an <em>open-source</em> tool that offers new functionality by offering a straightforward installation process, packaged as a self-contained Python package with minimal external dependencies. It also introduces novel approaches compared to previous work by</p>
+<ol type="1">
+<li>Implementing a feedback mechanism between harness generation, compilation, and evaluation phases,</li>
+<li>Using autonomous ReAct agents capable of codebase exploration,</li>
+<li>Leveraging a vector store for code consumption and retrieval.</li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-vaswani2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention <span>Is All You Need</span>,”</span> Aug. 01, 2023. doi: <a href="https://doi.org/10.48550/arXiv.1706.03762">10.48550/arXiv.1706.03762</a>. Available: <a href="http://arxiv.org/abs/1706.03762">http://arxiv.org/abs/1706.03762</a></div>
+</div>
+<div id="ref-chatgpt" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">OpenAI, <span>“<span>ChatGPT</span>,”</span> 2025. Available: <a href="https://chatgpt.com">https://chatgpt.com</a></div>
+</div>
+<div id="ref-iris" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Z. Li, S. Dutta, and M. Naik, <span>“<span>IRIS</span>: <span>LLM-Assisted Static Analysis</span> for <span>Detecting Security Vulnerabilities</span>,”</span> Apr. 06, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2405.17238">10.48550/arXiv.2405.17238</a>. Available: <a href="http://arxiv.org/abs/2405.17238">http://arxiv.org/abs/2405.17238</a></div>
+</div>
+<div id="ref-sun2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Y. Sun, <span>“Automated <span>Generation</span> and <span>Compilation</span> of <span>Fuzz Driver Based</span> on <span>Large Language Models</span>,”</span> in <em>Proceedings of the 2024 9th <span>International Conference</span> on <span>Cyber Security</span> and <span>Information Engineering</span></em>, in <span>ICCSIE</span> ’24. New York, NY, USA: Association for Computing Machinery, Dec. 2024, pp. 461–468. doi: <a href="https://doi.org/10.1145/3689236.3689272">10.1145/3689236.3689272</a>. Available: <a href="https://doi.org/10.1145/3689236.3689272">https://doi.org/10.1145/3689236.3689272</a></div>
+</div>
+<div id="ref-prophetfuzz" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D. Wang, G. Zhou, L. Chen, D. Li, and Y. Miao, <span>“<span>ProphetFuzz</span>: <span>Fully Automated Prediction</span> and <span>Fuzzing</span> of <span>High-Risk Option Combinations</span> with <span>Only Documentation</span> via <span>Large Language Model</span>,”</span> Sep. 01, 2024. doi: <a href="https://doi.org/10.1145/3658644.3690231">10.1145/3658644.3690231</a>. Available: <a href="http://arxiv.org/abs/2409.00922">http://arxiv.org/abs/2409.00922</a></div>
+</div>
+<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
+</div>
+<div id="ref-green2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">H. Green and T. Avgerinos, <span>“<span>GraphFuzz</span>: Library <span>API</span> fuzzing with lifetime-aware dataflow graphs,”</span> in <em>Proceedings of the 44th <span>International Conference</span> on <span>Software Engineering</span></em>, Pittsburgh Pennsylvania: ACM, May 2022, pp. 1070–1081. doi: <a href="https://doi.org/10.1145/3510003.3510228">10.1145/3510003.3510228</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3510003.3510228">https://dl.acm.org/doi/10.1145/3510003.3510228</a></div>
+</div>
+<div id="ref-utopia" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">B. Jeong <em>et al.</em>, <span>“<span>UTopia</span>: <span>Automatic Generation</span> of <span>Fuzz Driver</span> using <span>Unit Tests</span>,”</span> in <em>2023 <span>IEEE Symposium</span> on <span>Security</span> and <span>Privacy</span> (<span>SP</span>)</em>, May 2023, pp. 2676–2692. doi: <a href="https://doi.org/10.1109/SP46215.2023.10179394">10.1109/SP46215.2023.10179394</a>. Available: <a href="https://ieeexplore.ieee.org/abstract/document/10179394">https://ieeexplore.ieee.org/abstract/document/10179394</a></div>
+</div>
+<div id="ref-fuzzgpt" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Y. Deng, C. S. Xia, C. Yang, S. D. Zhang, S. Yang, and L. Zhang, <span>“Large <span>Language Models</span> are <span>Edge-Case Fuzzers</span>: <span>Testing Deep Learning Libraries</span> via <span>FuzzGPT</span>,”</span> Apr. 04, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2304.02014">10.48550/arXiv.2304.02014</a>. Available: <a href="http://arxiv.org/abs/2304.02014">http://arxiv.org/abs/2304.02014</a></div>
+</div>
+<div id="ref-titanfuzz" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Y. Deng, C. S. Xia, H. Peng, C. Yang, and L. Zhang, <span>“Large <span>Language Models Are Zero-Shot Fuzzers</span>: <span>Fuzzing Deep-Learning Libraries</span> via <span>Large Language Models</span>,”</span> in <em>Proceedings of the 32nd <span>ACM SIGSOFT International Symposium</span> on <span>Software Testing</span> and <span>Analysis</span></em>, in <span>ISSTA</span> 2023. New York, NY, USA: Association for Computing Machinery, Jul. 2023, pp. 423–435. doi: <a href="https://doi.org/10.1145/3597926.3598067">10.1145/3597926.3598067</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3597926.3598067">https://dl.acm.org/doi/10.1145/3597926.3598067</a></div>
+</div>
+<div id="ref-fuzzgen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
+</div>
+<div id="ref-fudge" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
+</div>
+<div id="ref-klee" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">C. Cadar, D. Dunbar, and D. Engler, <span>“<span>KLEE</span>: <span>Unassisted</span> and <span>Automatic Generation</span> of <span>High-Coverage Tests</span> for <span>Complex Systems Programs</span>,”</span> presented at the <span>USENIX Symposium</span> on <span>Operating Systems Design</span> and <span>Implementation</span>, Dec. 2008. Available: <a href="https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8">https://www.semanticscholar.org/paper/KLEE%3A-Unassisted-and-Automatic-Generation-of-Tests-Cadar-Dunbar/0b93657965e506dfbd56fbc1c1d4b9666b1d01c8</a></div>
+</div>
+<div id="ref-llvm" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">LLVM Project, <span>“The <span>LLVM Compiler Infrastructure Project</span>,”</span> 2025. Available: <a href="https://llvm.org/">https://llvm.org/</a></div>
+</div>
+<div id="ref-oss-fuzz" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">A. Arya, O. Chang, J. Metzman, K. Serebryany, and D. Liu, <span>“<span>OSS-Fuzz</span>.”</span> Apr. 08, 2025. Available: <a href="https://github.com/google/oss-fuzz">https://github.com/google/oss-fuzz</a></div>
+</div>
+<div id="ref-sasirekha2011Slicing" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">N. Sasirekha, A. Edwin Robert, and M. Hemalatha, <span>“Program <span>Slicing Techniques</span> and its <span>Applications</span>,”</span> <em>IJSEA</em>, vol. 2, no. 3, pp. 50–64, Jul. 2011, doi: <a href="https://doi.org/10.5121/ijsea.2011.2304">10.5121/ijsea.2011.2304</a>. Available: <a href="http://www.airccse.org/journal/ijsea/papers/0711ijsea04.pdf">http://www.airccse.org/journal/ijsea/papers/0711ijsea04.pdf</a></div>
+</div>
+<div id="ref-zhang2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">M. Zhang, J. Liu, F. Ma, H. Zhang, and Y. Jiang, <span>“<span>IntelliGen</span>: <span>Automatic Driver Synthesis</span> for <span>FuzzTesting</span>,”</span> Mar. 01, 2021. doi: <a href="https://doi.org/10.48550/arXiv.2103.00862">10.48550/arXiv.2103.00862</a>. Available: <a href="http://arxiv.org/abs/2103.00862">http://arxiv.org/abs/2103.00862</a></div>
+</div>
+<div id="ref-xu2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">H. Xu <em>et al.</em>, <span>“<span>CKGFuzzer</span>: <span>LLM-Based Fuzz Driver Generation Enhanced By Code Knowledge Graph</span>,”</span> Dec. 20, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2411.11532">10.48550/arXiv.2411.11532</a>. Available: <a href="http://arxiv.org/abs/2411.11532">http://arxiv.org/abs/2411.11532</a></div>
+</div>
+<div id="ref-lyu2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">Y. Lyu, Y. Xie, P. Chen, and H. Chen, <span>“Prompt <span>Fuzzing</span> for <span>Fuzz Driver Generation</span>,”</span> May 29, 2024. doi: <a href="https://doi.org/10.48550/arXiv.2312.17677">10.48550/arXiv.2312.17677</a>. Available: <a href="http://arxiv.org/abs/2312.17677">http://arxiv.org/abs/2312.17677</a></div>
+</div>
+<div id="ref-ossfuzzdocs2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">OSS-Fuzz, <span>“<span>OSS-Fuzz Documentation</span>,”</span> 2025. Available: <a href="https://google.github.io/oss-fuzz/">https://google.github.io/oss-fuzz/</a></div>
+</div>
+<div id="ref-heartbleed-cve" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">CVE Program, <span>“<span>CVE</span> - <span>CVE-2014-0160</span>,”</span> 2014. Available: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160">https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160</a></div>
+</div>
+<div id="ref-wheeler2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">D. Wheeler, <span>“How to <span>Prevent</span> the next <span>Heartbleed</span>,”</span> 2014. Available: <a href="https://dwheeler.com/essays/heartbleed.html">https://dwheeler.com/essays/heartbleed.html</a></div>
+</div>
+<div id="ref-heartbleed" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">Blackduck, Inc., <span>“Heartbleed <span>Bug</span>,”</span> Mar. 07, 2025. Available: <a href="https://heartbleed.com/">https://heartbleed.com/</a></div>
+</div>
+<div id="ref-clusterfuzz" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">Google, <span>“Google/clusterfuzz.”</span> Google, Apr. 09, 2025. Available: <a href="https://github.com/google/clusterfuzz">https://github.com/google/clusterfuzz</a></div>
+</div>
+<div id="ref-libfuzzer" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">LLVM Project, <span>“<span class="nocase">libFuzzer</span> – a library for coverage-guided fuzz testing. — <span>LLVM</span> 21.0.0git documentation,”</span> 2025. Available: <a href="https://llvm.org/docs/LibFuzzer.html">https://llvm.org/docs/LibFuzzer.html</a></div>
+</div>
+<div id="ref-fuzztest" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">Google, <span>“Google/fuzztest.”</span> Google, Jul. 10, 2025. Available: <a href="https://github.com/google/fuzztest">https://github.com/google/fuzztest</a></div>
+</div>
+<div id="ref-honggfuzz" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">Google, <span>“Google/honggfuzz.”</span> Google, Jul. 10, 2025. Available: <a href="https://github.com/google/honggfuzz">https://github.com/google/honggfuzz</a></div>
+</div>
+<div id="ref-aflpp" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">M. Heuse, H. Eißfeldt, A. Fioraldi, and D. Maier, <span>“<span>AFL</span>++.”</span> Jan. 2022. Available: <a href="https://github.com/AFLplusplus/AFLplusplus">https://github.com/AFLplusplus/AFLplusplus</a></div>
+</div>
+<div id="ref-liu2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">D. Liu, J. Metzman, O. Chang, and G. O. S. S. Team, <span>“<span>AI-Powered Fuzzing</span>: <span>Breaking</span> the <span>Bug Hunting Barrier</span>,”</span> Aug. 16, 2023. Available: <a href="https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html">https://security.googleblog.com/2023/08/ai-powered-fuzzing-breaking-bug-hunting.html</a></div>
+</div>
+<div id="ref-fuzz-introspector" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">Open Source Security Foundation (OpenSSF), <span>“Ossf/fuzz-introspector.”</span> Open Source Security Foundation (OpenSSF), Jun. 30, 2025. Available: <a href="https://github.com/ossf/fuzz-introspector">https://github.com/ossf/fuzz-introspector</a></div>
+</div>
+<div id="ref-thomason2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">L. Thomason, <span>“Leethomason/Tinyxml2.”</span> Jul. 10, 2025. Available: <a href="https://github.com/leethomason/tinyxml2">https://github.com/leethomason/tinyxml2</a></div>
+</div>
+<div id="ref-oss-fuzzmaintainers2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">OSS-Fuzz Maintainers, <span>“Introducing <span class="nocase">LLM-based</span> harness synthesis for unfuzzed projects,”</span> May 27, 2024. Available: <a href="https://blog.oss-fuzz.com/posts/introducing-llm-based-harness-synthesis-for-unfuzzed-projects/">https://blog.oss-fuzz.com/posts/introducing-llm-based-harness-synthesis-for-unfuzzed-projects/</a></div>
+</div>
+<div id="ref-dspy" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">O. Khattab <em>et al.</em>, <span>“<span>DSPy</span>: <span>Compiling Declarative Language Model Calls</span> into <span>Self-Improving Pipelines</span>,”</span> Oct. 05, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2310.03714">10.48550/arXiv.2310.03714</a>. Available: <a href="http://arxiv.org/abs/2310.03714">http://arxiv.org/abs/2310.03714</a></div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/02-background.html" class="pagination-link" aria-label="Background">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/04-overhaul.html" class="pagination-link" aria-label="OverHAuL's Design">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL’s Design</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2025 Konstantinos Chousos
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/kchousos">
+<p><iconify-icon role="img" inline="" icon="fa6-brands:github" aria-label="Icon github from fa6-brands Iconify.design set." title="Icon github from fa6-brands Iconify.design set."></iconify-icon></p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6063-7915">
+<p><iconify-icon role="img" inline="" icon="academicons:orcid" aria-label="Icon orcid from academicons Iconify.design set." title="Icon orcid from academicons Iconify.design set."></iconify-icon></p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kchousos/">
+<p><iconify-icon role="img" inline="" icon="fa6-brands:linkedin" aria-label="Icon linkedin from fa6-brands Iconify.design set." title="Icon linkedin from fa6-brands Iconify.design set."></iconify-icon></p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:sdi2000215@di.uoa.gr">
+<p><iconify-icon role="img" inline="" icon="material-symbols:mail" aria-label="Icon mail from material-symbols Iconify.design set." title="Icon mail from material-symbols Iconify.design set."></iconify-icon></p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize || "1.2em",
+          commentDelimiter: el.dataset.commentDelimiter || "//",
+          lineNumber: el.dataset.lineNumber === "true" ? true : false,
+          lineNumberPunc: el.dataset.lineNumberPunc || ":",
+          noEnd: el.dataset.noEnd === "true" ? true : false,
+          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>
