@@ -1,10 +1,9 @@
 ---
 keywords: [LLMs, Fuzzing, Automation, Security, Neurosymbolic AI]
-date-modified: today
 ---
 # Preface {.unlisted .unnumbered}
 
-This thesis was written in Athens, Greece  during the academic year 2024--2025. It is part of the requirements for the Bachelor of Science program in the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) at the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research was conducted under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/). The completed thesis is also available through the university's digital repository [Pergamos](https://pergamos.lib.uoa.gr/).
+This thesis was prepared in Athens, Greece, during the academic year 2024–2025, fulfilling a requirement for the Bachelor of Science degree at the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) of the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research presented herein was carried out under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/) and in accordance with the guidelines stipulated by the department. All processes and methodologies adopted during the research adhere to the academic and ethical standards of the university. The final version of this thesis is archived in the department’s records and made publicly accessible through the university’s digital repository, [Pergamos](https://pergamos.lib.uoa.gr/).
 
 {{< pagebreak >}}
 

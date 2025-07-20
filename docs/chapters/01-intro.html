@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -58,14 +58,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -274,6 +274,7 @@ MathJax = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -428,8 +429,15 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#thesis-structure" id="toc-thesis-structure" class="nav-link active" data-scroll-target="#thesis-structure"><span class="header-section-number">1.1</span> Thesis Structure</a></li>
+  <li><a href="#summary-of-contributions" id="toc-summary-of-contributions" class="nav-link" data-scroll-target="#summary-of-contributions"><span class="header-section-number">1.2</span> Summary of Contributions</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -455,78 +463,42 @@ MathJax = {
 
 
 
-<p>Memory-safe languages, like Ada or Rust <span class="citation" data-cites="adadevelopers2022 rustprojectdevelopers2025"><a href="refs.html#ref-adadevelopers2022" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-rustprojectdevelopers2025" role="doc-biblioref">[2]</a></span>—not absolutely safe themselves</p>
-<p>NASA safety-critical code guidelines <span class="citation" data-cites="holzmann2006"><a href="refs.html#ref-holzmann2006" role="doc-biblioref">[3]</a></span></p>
-<p>C by Dennis Ritchie in 1972 <span class="citation" data-cites="kernighan1978 ritchie1978"><a href="refs.html#ref-kernighan1978" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-ritchie1978" role="doc-biblioref">[5]</a></span></p>
-<ul>
-<li>Motivation
-<ul>
-<li>Memory unsafety is and will be prevalent</li>
-<li>Software is safe until it’s not</li>
-<li>Humans make mistakes</li>
-</ul></li>
-<li>LLMs have become very powerful
-<ul>
-<li>They are used more and more</li>
-<li>Humans now use Large Language Models (LLMs) to write software</li>
-<li>LLMs make mistakes <span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[6]</a></span></li>
-</ul></li>
-<li>Result: Bugs exist</li>
-<li>Fuzzing is a popular software testing strategy
-<ul>
-<li>LLM applications and capabilities are still explored
-<ul>
-<li>One of which is automatic harnessing</li>
-</ul></li>
-</ul></li>
-<li>Goal
-<ul>
-<li>A system that:
+<p>Modern society’s reliance on software systems continues to grow, particularly in mission-critical environments such as healthcare, aerospace, and industrial infrastructure. The reliability of these systems is crucial—failures or vulnerabilities can lead to severe financial losses and even endanger lives. A significant portion of this foundational software is still written in C, a language created by Dennis Ritchie in 1972 <span class="citation" data-cites="kernighan1978 ritchie1978"><a href="refs.html#ref-kernighan1978" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-ritchie1978" role="doc-biblioref">[2]</a></span>. Although C has been instrumental in the evolution of software, its minimal safeguards—especially around memory management—are notorious. Memory safety bugs remain a persistent vulnerability, and producing provably safe code in C is exceptionally challenging, as evidenced by the stringent guidelines required by organizations like NASA for safety-critical applications <span class="citation" data-cites="holzmann2006"><a href="refs.html#ref-holzmann2006" role="doc-biblioref">[3]</a></span>.</p>
+<p>To address these challenges, programming languages with built-in memory safety features, such as Ada and Rust, have been introduced <span class="citation" data-cites="adadevelopers2022 rustprojectdevelopers2025"><a href="refs.html#ref-adadevelopers2022" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-rustprojectdevelopers2025" role="doc-biblioref">[5]</a></span>. Nevertheless, no language offers absolute immunity from vulnerabilities. In addition, much of the global software infrastructure remains written in memory-unsafe languages, with C-based codebases unlikely to disappear in the near future. Ultimately, the potential for human error grows in tandem with increasing software complexity, meaning software is only as safe as its weakest link.</p>
+<p>The advent of Large Language Models (LLMs) has profoundly influenced software development. Developers now regularly use LLMs for code generation, refactoring, and documentation assistance. While these models exhibit impressive capabilities, they can still introduce subtle mistakes <span class="citation" data-cites="perry2023"><a href="refs.html#ref-perry2023" role="doc-biblioref">[6]</a></span>. As LLM-generated code becomes more pervasive, so does the likelihood of unnoticed software errors escaping traditional human review.</p>
+<p>Within this landscape, the need to detect vulnerabilities and ensure software quality is more urgent than ever. Fuzzing—a technique that generates and executes large numbers of test cases to find bugs—has become a critical method for discovering memory safety violations. Despite extensive advances in automating fuzzing, significant hurdles remain. Most current fuzzers require pre-existing test harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[7]</a></span> or depend on sample client code to exercise the target program <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[10]</a></span>. Often, these tools still rely on developers for integration or final evaluation, leaving parts of the process manual and incomplete. The application of LLMs to harness generation and end-to-end fuzzing remains a developing field.</p>
+<p>This thesis aims to push the boundaries of fuzzing automation by harnessing the code synthesis and reasoning strengths of modern LLMs. We introduce OverHAuL, a system that accepts a bare and previously unfuzzed C project, utilizes LLM agents to author a new fuzzing harness from scratch, and evaluates its efficacy in a closed iterative feedback loop. This end-to-end approach is designed to minimize manual effort and accelerate vulnerability detection in C codebases.</p>
+<section id="thesis-structure" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="thesis-structure"><span class="header-section-number">1.1</span> Thesis Structure</h2>
+<p>The thesis first presents foundational concepts, followed by a comprehensive survey of existing work in automated fuzzing. We demonstrate that most current fuzzing systems either rely on pre-existing harnesses or employ client code, often leaving validation and integration tasks to the user <span class="citation" data-cites="oss-fuzz-gen utopia fuzzgen fudge"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[7]</a>, <a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[10]</a></span>. We then introduce the OverHAuL system, detailing its architecture, the novel techniques used in its implementation, and their contributions to advancing automated harness generation. Finally, we assemble a benchmark dataset of ten open-source C projects and rigorously evaluate OverHAuL’s performance.</p>
+</section>
+<section id="summary-of-contributions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="summary-of-contributions"><span class="header-section-number">1.2</span> Summary of Contributions</h2>
+<p>This thesis presents the following key contributions:</p>
 <ol type="1">
-<li>Takes a bare C project as input</li>
-<li>Generates a new fuzzing harness from scratch using LLMs</li>
-<li>Compiles it</li>
-<li>Executes it and evaluates it</li>
-</ol></li>
-</ul></li>
-<li>Thesis Structure
-<ul>
-<li>We examine the state of automatic fuzzing projects
-<ul>
-<li>Most automatic fuzzers rely on existings harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[7]</a></span> or preexisting client code <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[8]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[9]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[10]</a></span></li>
-<li>No evaluation step, it is left to the developer/user</li>
-</ul></li>
-<li>To address these challenges, we introduce OverHAuL
-<ul>
-<li>We explain its design architecture, the techniques that emerged in its development and how they are implemented</li>
-<li>We construct a dataset of 10 open-source projects and evaluate OverHAuL with them</li>
-<li>We examine the results and try to answer our research questions <!-- Insert here? --></li>
-</ul></li>
-</ul></li>
-<li>Summary of Contributions
-<ul>
-<li>We propose OverHAuL, a new automatic fuzzing framework</li>
-<li>Experimental benchmarks show a 92.5% chance of successful harness generation</li>
-<li>Code and artifacts are available in the project’s repo <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a></li>
-</ul></li>
-</ul>
+<li>A comprehensive, up-to-date survey of leading LLM-driven automated fuzzing tools, detailing their respective strengths and limitations.</li>
+<li>The introduction of OverHAuL, a novel framework that enables fully automated, end-to-end fuzzing harness generation using large language models (LLMs).</li>
+<li>Empirical validation through benchmark experiments, demonstrating that OverHAuL successfully generates effective fuzzing harnesses in 92.5% of tested cases.</li>
+<li>Full open sourcing of all research artifacts, datasets, and code at <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a> to encourage further research and ensure reproducibility.</li>
+</ol>
+<p>This work aims to advance the use of LLMs in automated software testing, particularly for legacy codebases where building harnesses by hand is impractical or costly. By doing so, we strive to enhance software security and reliability in sectors where correctness is imperative.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-adadevelopers2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Ada Developers, <span>“Ada <span>Reference Manual</span>, 2022 <span>Edition</span>,”</span> 2022. Available: <a href="https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html">https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html</a></div>
+<div id="ref-kernighan1978" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">B. W. Kernighan and D. M. Ritchie, <em>The <span>C</span> programming language</em>. in Prentice-<span>Hall</span> software series. Englewood Cliffs, N.J: Prentice-Hall, 1978.</div>
 </div>
-<div id="ref-rustprojectdevelopers2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Rust Project Developers, <span>“Rust <span>Programming Language</span>,”</span> 2025. Available: <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></div>
+<div id="ref-ritchie1978" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D. M. Ritchie, S. C. Johnson, M. E. Lesk, and B. W. Kernighan, <span>“The <span>C</span> programming language,”</span> <em>Bell Sys. Tech. J</em>, vol. 57, no. 6, pp. 1991–2019, 1978, Available: <a href="https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85">https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85</a></div>
 </div>
 <div id="ref-holzmann2006" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">G. J. Holzmann, <span>“The <span>Power</span> of 10: <span>Rules</span> for <span>Developing Safety-Critical Code</span>,”</span> Jun. 2006, Available: <a href="https://web.eecs.umich.edu/~imarkov/10rules.pdf">https://web.eecs.umich.edu/~imarkov/10rules.pdf</a></div>
 </div>
-<div id="ref-kernighan1978" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B. W. Kernighan and D. M. Ritchie, <em>The <span>C</span> programming language</em>. in Prentice-<span>Hall</span> software series. Englewood Cliffs, N.J: Prentice-Hall, 1978.</div>
+<div id="ref-adadevelopers2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Ada Developers, <span>“Ada <span>Reference Manual</span>, 2022 <span>Edition</span>,”</span> 2022. Available: <a href="https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html">https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html</a></div>
 </div>
-<div id="ref-ritchie1978" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D. M. Ritchie, S. C. Johnson, M. E. Lesk, and B. W. Kernighan, <span>“The <span>C</span> programming language,”</span> <em>Bell Sys. Tech. J</em>, vol. 57, no. 6, pp. 1991–2019, 1978, Available: <a href="https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85">https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85</a></div>
+<div id="ref-rustprojectdevelopers2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Rust Project Developers, <span>“Rust <span>Programming Language</span>,”</span> 2025. Available: <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></div>
 </div>
 <div id="ref-perry2023" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[6] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
@@ -544,6 +516,7 @@ MathJax = {
 <div class="csl-left-margin">[10] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

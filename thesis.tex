@@ -6,8 +6,7 @@
 %
 \documentclass[
   a4paper,
-  DIV=11,
-  numbers=noendperiod]{scrreprt}
+]{scrreprt}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \setcounter{secnumdepth}{5}
@@ -164,7 +163,7 @@ Serif}
 \linenumbers
 \renewcommand*{\bibfont}{\small}
 \usepackage[font={footnotesize}, margin=1cm, labelfont=bf, format=plain]{caption}
-\KOMAoption{captions}{tableheading}
+\usepackage{orcidlink}
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
 \makeatother
@@ -242,16 +241,23 @@ Serif}
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{OverHAuL}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+\title{OverHAuL: Harnessing Automation for C Libraries with Large
+Language Models}
+\author{
+	%
+	Konstantinos Chousos \orcidlink{0009-0008-6063-7915}
+	\\\medskip sdi2000215@di.uoa.gr%
+	%
+	\\\medskip
+	\\\medskip
+	%
+	Department of Informatics and Telecommunications
+	\\\medskip
+	%
+	National and Kapodistrian University of Athens
+	%
+	%
 }
-\makeatother
-\subtitle{Harnessing Automation for C Libraries with Large Language
-Models}
-\author{Konstantinos Chousos}
 \date{July, 2025}
 \begin{document}
 \maketitle
@@ -277,14 +283,18 @@ Platea eros ullamcorper nullam rutrum facilisis.
 
 \markboth{Preface}{Preface}
 
-This thesis was written in Athens, Greece during the academic year
-2024--2025. It is part of the requirements for the Bachelor of Science
-program in the \href{https://www.di.uoa.gr/en}{Department of Informatics
-and Telecommunications} at the \href{https://en.uoa.gr/}{National and
-Kapodistrian University of Athens}. The research was conducted under the
-supervision of Prof.~\href{https://cgi.di.uoa.gr/~thanassis/}{Thanassis
-Avgerinos}. The completed thesis is also available through the
-university's digital repository
+This thesis was prepared in Athens, Greece, during the academic year
+2024--2025, fulfilling a requirement for the Bachelor of Science degree
+at the \href{https://www.di.uoa.gr/en}{Department of Informatics and
+Telecommunications} of the \href{https://en.uoa.gr/}{National and
+Kapodistrian University of Athens}. The research presented herein was
+carried out under the supervision of
+Prof.~\href{https://cgi.di.uoa.gr/~thanassis/}{Thanassis Avgerinos} and
+in accordance with the guidelines stipulated by the department. All
+processes and methodologies adopted during the research adhere to the
+academic and ethical standards of the university. The final version of
+this thesis is archived in the department's records and made publicly
+accessible through the university's digital repository,
 \href{https://pergamos.lib.uoa.gr/}{Pergamos}.
 
 \newpage{}
@@ -336,128 +346,118 @@ encouragement helped me persevere through this challenging period.
 
 \pagenumbering{arabic}
 
-Memory-safe languages, like Ada or Rust
-\autocite{adadevelopers2022,rustprojectdevelopers2025}---not absolutely
-safe themselves
+Modern society's reliance on software systems continues to grow,
+particularly in mission-critical environments such as healthcare,
+aerospace, and industrial infrastructure. The reliability of these
+systems is crucial---failures or vulnerabilities can lead to severe
+financial losses and even endanger lives. A significant portion of this
+foundational software is still written in C, a language created by
+Dennis Ritchie in 1972 \autocite{kernighan1978,ritchie1978}. Although C
+has been instrumental in the evolution of software, its minimal
+safeguards---especially around memory management---are notorious. Memory
+safety bugs remain a persistent vulnerability, and producing provably
+safe code in C is exceptionally challenging, as evidenced by the
+stringent guidelines required by organizations like NASA for
+safety-critical applications \autocite{holzmann2006}.
 
-NASA safety-critical code guidelines \autocite{holzmann2006}
+To address these challenges, programming languages with built-in memory
+safety features, such as Ada and Rust, have been introduced
+\autocite{adadevelopers2022,rustprojectdevelopers2025}. Nevertheless, no
+language offers absolute immunity from vulnerabilities. In addition,
+much of the global software infrastructure remains written in
+memory-unsafe languages, with C-based codebases unlikely to disappear in
+the near future. Ultimately, the potential for human error grows in
+tandem with increasing software complexity, meaning software is only as
+safe as its weakest link.
 
-C by Dennis Ritchie in 1972 \autocite{kernighan1978,ritchie1978}
+The advent of Large Language Models (LLMs) has profoundly influenced
+software development. Developers now regularly use LLMs for code
+generation, refactoring, and documentation assistance. While these
+models exhibit impressive capabilities, they can still introduce subtle
+mistakes \autocite{perry2023}. As LLM-generated code becomes more
+pervasive, so does the likelihood of unnoticed software errors escaping
+traditional human review.
 
-\begin{itemize}
+Within this landscape, the need to detect vulnerabilities and ensure
+software quality is more urgent than ever. Fuzzing---a technique that
+generates and executes large numbers of test cases to find bugs---has
+become a critical method for discovering memory safety violations.
+Despite extensive advances in automating fuzzing, significant hurdles
+remain. Most current fuzzers require pre-existing test harnesses
+\autocite{oss-fuzz-gen} or depend on sample client code to exercise the
+target program \autocite{utopia,fuzzgen,fudge}. Often, these tools still
+rely on developers for integration or final evaluation, leaving parts of
+the process manual and incomplete. The application of LLMs to harness
+generation and end-to-end fuzzing remains a developing field.
+
+This thesis aims to push the boundaries of fuzzing automation by
+harnessing the code synthesis and reasoning strengths of modern LLMs. We
+introduce OverHAuL, a system that accepts a bare and previously unfuzzed
+C project, utilizes LLM agents to author a new fuzzing harness from
+scratch, and evaluates its efficacy in a closed iterative feedback loop.
+This end-to-end approach is designed to minimize manual effort and
+accelerate vulnerability detection in C codebases.
+
+\section{Thesis Structure}\label{thesis-structure}
+
+The thesis first presents foundational concepts, followed by a
+comprehensive survey of existing work in automated fuzzing. We
+demonstrate that most current fuzzing systems either rely on
+pre-existing harnesses or employ client code, often leaving validation
+and integration tasks to the user
+\autocite{oss-fuzz-gen,utopia,fuzzgen,fudge}. We then introduce the
+OverHAuL system, detailing its architecture, the novel techniques used
+in its implementation, and their contributions to advancing automated
+harness generation. Finally, we assemble a benchmark dataset of ten
+open-source C projects and rigorously evaluate OverHAuL's performance.
+
+\section{Summary of Contributions}\label{summary-of-contributions}
+
+This thesis presents the following key contributions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Motivation
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Memory unsafety is and will be prevalent
-  \item
-    Software is safe until it's not
-  \item
-    Humans make mistakes
-  \end{itemize}
+  A comprehensive, up-to-date survey of leading LLM-driven automated
+  fuzzing tools, detailing their respective strengths and limitations.
 \item
-  LLMs have become very powerful
-
-  \begin{itemize}
-  \tightlist
-  \item
-    They are used more and more
-  \item
-    Humans now use Large Language Models (LLMs) to write software
-  \item
-    LLMs make mistakes \autocite{perry2023}
-  \end{itemize}
+  The introduction of OverHAuL, a novel framework that enables fully
+  automated, end-to-end fuzzing harness generation using large language
+  models (LLMs).
 \item
-  Result: Bugs exist
+  Empirical validation through benchmark experiments, demonstrating that
+  OverHAuL successfully generates effective fuzzing harnesses in 92.5\%
+  of tested cases.
 \item
-  Fuzzing is a popular software testing strategy
+  Full open sourcing of all research artifacts, datasets, and code at
+  \url{https://github.com/kchousos/OverHAuL} to encourage further
+  research and ensure reproducibility.
+\end{enumerate}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    LLM applications and capabilities are still explored
-
-    \begin{itemize}
-    \tightlist
-    \item
-      One of which is automatic harnessing
-    \end{itemize}
-  \end{itemize}
-\item
-  Goal
-
-  \begin{itemize}
-  \tightlist
-  \item
-    A system that:
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \tightlist
-    \item
-      Takes a bare C project as input
-    \item
-      Generates a new fuzzing harness from scratch using LLMs
-    \item
-      Compiles it
-    \item
-      Executes it and evaluates it
-    \end{enumerate}
-  \end{itemize}
-\item
-  Thesis Structure
-
-  \begin{itemize}
-  \tightlist
-  \item
-    We examine the state of automatic fuzzing projects
-
-    \begin{itemize}
-    \tightlist
-    \item
-      Most automatic fuzzers rely on existings harnesses
-      \autocite{oss-fuzz-gen} or preexisting client code
-      \autocite{utopia,fuzzgen,fudge}
-    \item
-      No evaluation step, it is left to the developer/user
-    \end{itemize}
-  \item
-    To address these challenges, we introduce OverHAuL
-
-    \begin{itemize}
-    \tightlist
-    \item
-      We explain its design architecture, the techniques that emerged in
-      its development and how they are implemented
-    \item
-      We construct a dataset of 10 open-source projects and evaluate
-      OverHAuL with them
-    \item
-      We examine the results and try to answer our research questions
-    \end{itemize}
-  \end{itemize}
-\item
-  Summary of Contributions
-
-  \begin{itemize}
-  \tightlist
-  \item
-    We propose OverHAuL, a new automatic fuzzing framework
-  \item
-    Experimental benchmarks show a 92.5\% chance of successful harness
-    generation
-  \item
-    Code and artifacts are available in the project's repo
-    \url{https://github.com/kchousos/OverHAuL}
-  \end{itemize}
-\end{itemize}
+This work aims to advance the use of LLMs in automated software testing,
+particularly for legacy codebases where building harnesses by hand is
+impractical or costly. By doing so, we strive to enhance software
+security and reliability in sectors where correctness is imperative.
 
 \bookmarksetup{startatroot}
 
 \chapter{Background}\label{background}
+
+This chapter provides the foundational and necessary background for this
+thesis by exploring the core concepts and technological advances central
+to modern fuzzing and Large Language Models (LLMs). It begins with an
+in-depth overview of fuzz testing, an automated technique for uncovering
+software bugs and vulnerabilities through randomized input generation,
+highlighting its methodology, tools, and impact. What follows is a
+discussion on LLMs and their transformative influence on natural
+language processing, programming, and code generation. Challenges and
+opportunities in applying LLMs to tasks such as fuzzing harness
+generation are examined, leading to a discussion of Neurosymbolic AI, an
+emerging approach that combines neural and symbolic reasoning to address
+the limitations of current AI systems. This multifaceted background
+establishes the context necessary for understanding the research and
+innovations presented in subsequent chapters.
 
 \section{Fuzz Testing}\label{fuzz-testing}
 
@@ -1701,7 +1701,7 @@ making the abstract algorithm simpler and easier to understand.
 \begin{algorithmic}[1]
 \Require $repository$
 \Ensure $harness, compilation\_script, crash\_input, execution\_log$
-  \State $path \gets$ \Call{RepoClone}{repository}
+  \State $path \gets$ \Call{RepoClone}{$repository$}
   \State $report \gets$ \Call{StaticAnalysis}{$path$}
   \State $vector\_store \gets$ \Call{CreateOracle}{$path$}
   \State $acceptable \gets$ False

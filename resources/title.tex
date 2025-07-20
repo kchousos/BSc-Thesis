@@ -1,0 +1,19 @@
+$if(title)$
+\title{$title$: $if(subtitle)$$subtitle$$endif$}
+$endif$
+\author{
+	$for(by-author)$%
+	$by-author.name.literal$ \orcidlink{$by-author.orcid$}
+	\\\medskip $by-author.email$%
+	$for(by-author.affiliations)$%
+	\\\medskip
+	\\\medskip
+	$if(it.department)$%
+	Department of $it.department$
+	\\\medskip
+	$endif$%
+	$it.name$
+	$endfor$%
+	$sep$ \and $endfor$%
+}
+\date{$date$}
