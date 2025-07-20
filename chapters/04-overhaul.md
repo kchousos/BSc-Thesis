@@ -83,7 +83,7 @@ A pseudocode version of OverHAuL's main function can be seen in @alg-main. It re
 \begin{algorithmic}[1]
 \Require $repository$
 \Ensure $harness, compilation\_script, crash\_input, execution\_log$
-  \State $path \gets$ \Call{RepoClone}{repository}
+  \State $path \gets$ \Call{RepoClone}{$repository$}
   \State $report \gets$ \Call{StaticAnalysis}{$path$}
   \State $vector\_store \gets$ \Call{CreateOracle}{$path$}
   \State $acceptable \gets$ False
