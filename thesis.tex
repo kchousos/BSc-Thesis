@@ -400,16 +400,17 @@ accelerate vulnerability detection in C codebases.
 
 \section{Thesis Structure}\label{thesis-structure}
 
-The thesis first presents foundational concepts, followed by a
-comprehensive survey of existing work in automated fuzzing. We
-demonstrate that most current fuzzing systems either rely on
-pre-existing harnesses or employ client code, often leaving validation
-and integration tasks to the user
-\autocite{oss-fuzz-gen,utopia,fuzzgen,fudge}. We then introduce the
-OverHAuL system, detailing its architecture, the novel techniques used
-in its implementation, and their contributions to advancing automated
-harness generation. Finally, we assemble a benchmark dataset of ten
-open-source C projects and rigorously evaluate OverHAuL's performance.
+The thesis first presents foundational concepts
+(Chapter~\ref{sec-background}), followed by a comprehensive survey of
+existing work in automated fuzzing (\#sec-related). We demonstrate that
+most current fuzzing systems either rely on pre-existing harnesses or
+employ client code, often leaving validation and integration tasks to
+the user. We then introduce the OverHAuL system, detailing its
+architecture, the novel techniques used in its implementation, and their
+contributions to advancing automated harness generation
+(Chapter~\ref{sec-overhaul}). Finally, we assemble a benchmark dataset
+of ten open-source C projects and rigorously evaluate OverHAuL's
+performance (Chapter~\ref{sec-eval}-\ref{sec-results}).
 
 \section{Summary of Contributions}\label{summary-of-contributions}
 
@@ -442,7 +443,7 @@ security and reliability in sectors where correctness is imperative.
 
 \bookmarksetup{startatroot}
 
-\chapter{Background}\label{background}
+\chapter{Background}\label{sec-background}
 
 This chapter provides the foundational and necessary background for this
 thesis by exploring the core concepts and technological advances central
@@ -1438,7 +1439,7 @@ previous work by
 
 \bookmarksetup{startatroot}
 
-\chapter{OverHAuL's Design}\label{overhauls-design}
+\chapter{OverHAuL's Design}\label{sec-overhaul}
 
 In this thesis we present \emph{OverHAuL} (\textbf{H}arness
 \textbf{Au}tomation with \textbf{L}LMs), a neurosymbolic AI tool that
@@ -1867,7 +1868,7 @@ step and is beyond the scope of this thesis.
 
 \bookmarksetup{startatroot}
 
-\chapter{Evaluation}\label{evaluation}
+\chapter{Evaluation}\label{sec-eval}
 
 To thoroughly assess the performance and effectiveness of OverHAuL, we
 established four \emph{research questions} to direct our investigative

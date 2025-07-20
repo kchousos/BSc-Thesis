@@ -1,4 +1,4 @@
-# Background
+# Background {#sec-background}
 
 This chapter provides the foundational and necessary background for this thesis by exploring the core concepts and technological advances central to modern fuzzing and Large Language Models (LLMs). It begins with an in-depth overview of fuzz testing, an automated technique for uncovering software bugs and vulnerabilities through randomized input generation, highlighting its methodology, tools, and impact. What follows is a discussion on LLMs and their transformative influence on natural language processing, programming, and code generation. Challenges and opportunities in applying LLMs to tasks such as fuzzing harness generation are examined, leading to a discussion of Neurosymbolic AI, an emerging approach that combines neural and symbolic reasoning to address the limitations of current AI systems. This multifaceted background establishes the context necessary for understanding the research and innovations presented in subsequent chapters.
 
