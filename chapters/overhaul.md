@@ -20,8 +20,6 @@ OverHAuL can be compartmentalized in three stages: First, the project analysis s
 
 ### Project Analysis {#sec-analysis}
 
-qqqq
-
 In the project analysis stage (steps A.1--A.4), the project to be fuzzed is ran through a static analysis tool and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a static analysis report and a vector store containing embeddings of function-level code chunks, both of which are later available to the LLM agents.
 
 The static analysis tool Flawfinder [@flawfinder] is executed with the project directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices.
