@@ -126,7 +126,7 @@ format:
       - "Liberation Serif:"
       - "NotoColorEmoji:mode=harf"
     sansfont: "Libertinus Sans"
-    monofont: "Iosevka"
+    monofont: "Roboto Mono"
     mathfont: "Libertinus Math"
     numbersections: true
     biblio-style: ieee
