@@ -160,7 +160,7 @@ One of the first major breakthroughs utilizing the Transformer architecture was 
 
 In addition to OpenAI's contributions, other significant models have emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3) [@claude; @deepseek-ai2025; @grattafiori2024]. The proliferation of LLMs has sparked an active discourse about their capabilities, applications, and implications in various fields.
 
-### Biggest GPTs
+### State-of-the-art GPTs
 
 User-facing LLMs are generally categorized between closed-source and open-source models. Closed-source LLMs like ChatGPT, Claude, and Gemini [@chatgpt; @claude; @gemini] represent commercially developed systems often optimized for specific tasks without public access to their underlying weights. In contrast, open-source models^[The term "open-source" models is somewhat misleading, since these are better termed as *open-weights* models. While their weights are publicly available, their training data and underlying code are often proprietary. This terminology reflects community usage but fails to capture the limitations of transparency and accessibility inherent in these models.], including the Llama series [@grattafiori2024] and Deepseek [@deepseek-ai2025], provide researchers and practitioners with access to model weights, allowing for greater transparency and adaptability.
 
