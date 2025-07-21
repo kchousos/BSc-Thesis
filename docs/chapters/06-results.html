@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -93,14 +93,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -355,7 +355,6 @@ window.Quarto = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -546,10 +545,10 @@ window.Quarto = {
 <div id="fig-results" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark Results">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../resources/results.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the y-axis depicting the ten-project corpus outlined in sec-benchmark. The x-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at https://github.com/kchousos/OverHAuL/actions/runs/HASH. An overview of all benchmark runs is available at https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml. In this matrix, a green block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red blocks, which would indicate cases where a compilable harness could not be generated."><img src="../resources/results.png" class="img-fluid figure-img" data-fig-scap="Benchmark Results"></a>
+<a href="../resources/results.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the y-axis depicting the ten-project corpus outlined in sec-benchmark. The x-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at https://github.com/kchousos/OverHAuL/actions/runs/HASH. An overview of all benchmark runs is available at https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, an orange/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated."><img src="../resources/results.png" class="img-fluid figure-img" data-fig-scap="Benchmark Results"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="05-evaluation.html#sec-benchmark" class="quarto-xref"><span>Section 5.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red blocks, which would indicate cases where a compilable harness could not be generated.
+Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="05-evaluation.html#sec-benchmark" class="quarto-xref"><span>Section 5.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, an orange/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
 </figcaption>
 </figure>
 </div>
