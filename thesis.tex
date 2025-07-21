@@ -32,7 +32,7 @@
   \setmainfont[,RawFeature={fallback=mainfontfallback}]{Libertinus
 Serif}
   \setsansfont[]{Libertinus Sans}
-  \setmonofont[]{Iosevka}
+  \setmonofont[]{Roboto Mono}
   \setmathfont[]{Libertinus Math}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
@@ -442,15 +442,15 @@ This thesis presents the following key contributions:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  A comprehensive, up-to-date survey of leading LLM-driven automated
-  fuzzing tools, detailing their respective strengths and limitations.
+  The introduction of OverHAuL, a framework that enables fully automated
+  end-to-end fuzzing harness generation using LLMs. It introduces novel
+  techniques like an iterative feedback loop between LLM agents and the
+  usage of a codebase oracle for code exploration.
 \item
-  The introduction of OverHAuL, a novel framework that enables fully
-  automated, end-to-end fuzzing harness generation using LLMs.
-\item
-  Empirical validation through benchmarking experiments, demonstrating
-  that OverHAuL successfully generates effective fuzzing harnesses in
-  92.5\% of tested cases.
+  Empirical validation through benchmarking experiments using ten
+  real-world open source projects. We demonstrate that OverHAuL
+  successfully generates effective fuzzing harnesses with a chance of
+  \textbf{92.5\%}.
 \item
   Full open sourcing of all research artifacts, datasets, and code at
   \url{https://github.com/kchousos/OverHAuL} to encourage further
@@ -628,12 +628,13 @@ reliability over time.
 \subsubsection{Success Stories}\label{success-stories}
 
 \emph{Heartbleed} (CVE-2014-0160) \autocite{heartbleed,heartbleed-cve}
-arose from a buffer over-read\footnote{\url{https://xkcd.com/1354/}} in
-the TLS implementation of the OpenSSL library
-\autocite{theopensslproject2025}, introduced on 1st of February 2012 and
-unnoticed until 1st of April 2014. Later analysis showed that a simple
-fuzz campaign exercising the TLS heartbeat extension would have revealed
-the defect almost immediately \autocite{wheeler2014}.
+arose from a buffer over-read\footnote{\url{https://xkcd.com/1354/}
+  provides a concise illustration.} in the TLS implementation of the
+OpenSSL library \autocite{theopensslproject2025}, introduced on 1st of
+February 2012 and unnoticed until 1st of April 2014. Later analysis
+showed that a simple fuzz campaign exercising the TLS heartbeat
+extension would have revealed the defect almost immediately
+\autocite{wheeler2014}.
 
 Likewise, the \emph{Shellshock} (or \emph{Bashdoor}) family of bugs in
 GNU Bash \autocite{bash} enabled arbitrary command execution on many
@@ -828,7 +829,10 @@ of fuzzing outcomes---particularly the identification, diagnostic
 analysis, and prioritization of program crashes---demands considerable
 resources and specialized expertise. These factors collectively pose
 significant barriers to the widespread integration of fuzzing within
-standard software development and testing practices.
+standard software development and testing practices. OverHAuL addresses
+this challenge by facilitating the seamless integration of fuzzing into
+developers' workflows, minimizing initial barriers and reducing upfront
+costs to an almost negligible level.
 
 \section{Large Language Models}\label{large-language-models}
 
@@ -868,7 +872,7 @@ emerged, such as Claude, DeepSeek-R1 and the Llama series (1 through 3)
 LLMs has sparked an active discourse about their capabilities,
 applications, and implications in various fields.
 
-\subsection{Biggest GPTs}\label{biggest-gpts}
+\subsection{State-of-the-art GPTs}\label{state-of-the-art-gpts}
 
 User-facing LLMs are generally categorized between closed-source and
 open-source models. Closed-source LLMs like ChatGPT, Claude, and Gemini
@@ -887,27 +891,29 @@ transparency and adaptability.
 
 \subsection{Prompting}\label{sec-prompting}
 
-Interaction with LLMs typically occurs through chat-like interfaces, a
-process commonly referred to as \emph{prompting}. A critical aspect of
-effective engagement with LLMs is the usage of different prompting
-strategies, which can significantly influence the quality and relevance
-of the generated outputs. Various approaches to prompting have been
-developed and studied, including zero-shot and few-shot prompting. In
-zero-shot prompting, the model is expected to perform a specific task
-without any examples, while in few-shot prompting, the user provides a
-limited number of examples to guide the model's responses
+Interaction with LLMs typically occurs through chat-like interfaces
+where the user gives queries and tasks for the LLM to answer and
+complete, a process commonly referred to as \emph{prompting}. A critical
+aspect of effective engagement with LLMs is the usage of different
+prompting strategies, which can significantly influence the quality and
+relevance of the generated outputs. Various approaches to prompting have
+been developed and studied, including zero-shot and few-shot prompting.
+In zero-shot prompting, the model is expected to perform the given task
+without any provided examples, while in few-shot prompting, the user
+offers a limited number of examples to guide the model's responses
 \autocite{brown2020}.
 
 To enhance performance on more complex tasks, several advanced prompting
 techniques have emerged. One notable strategy is the \emph{Chain of
-Thought} approach \autocite{chainofthought}, which entails presenting
-the model with sample thought processes for solving a given task. This
-method encourages the model to generate more coherent and logical
-reasoning by mimicking human-like cognitive pathways. A refined variant
-of this approach is the \emph{Tree of Thoughts} technique
-\autocite{yao2023}, which enables the LLM to explore multiple lines of
-reasoning concurrently, thereby facilitating the selection of the most
-promising train of thought for further exploration.
+Thought} approach (COT) \autocite{chainofthought}, which entails
+presenting the model with sample thought processes for solving a given
+task. This method encourages the model to generate more coherent and
+logical reasoning by mimicking human-like cognitive pathways. A more
+refined but complex variant of this approach is the \emph{Tree of
+Thoughts} technique \autocite{yao2023}, which enables the LLM to explore
+multiple lines of reasoning concurrently, thereby facilitating the
+selection of the most promising train of thought for further
+exploration.
 
 In addition to these cognitive strategies, Retrieval-Augmented
 Generation (RAG) \autocite{lewis2021} is another innovative technique
@@ -923,37 +929,37 @@ Moreover, the ReAct framework \autocite{reAct}, which stands for
 Reasoning and Acting, empowers LLMs by granting access to external
 tools. This capability allows LLM instances to function as intelligent
 agents that can interact meaningfully with their environment through
-user-defined tools. For instance, a ReAct tool could be a function that
-returns a weather forecast based on the user's current location. In this
-scenario, the LLM can provide accurate and truthful predictions, thereby
-mitigating risks associated with hallucinated responses.
+user-defined functions. For instance, a ReAct tool could be a function
+that returns a weather forecast based on the user's current location. In
+this scenario, the LLM can provide accurate and truthful predictions,
+thereby mitigating risks associated with hallucinated responses.
 
 \subsection{LLMs for Coding}\label{sec-llm-coding}
 
 The impact of LLMs in software development in recent years is apparent,
 with hundreds of LLM-assistance extensions and Integrated Development
 Environments (IDEs) being published. Notable instances include tools
-like GitHub Copilot and IDEs such as Cursor, which leverage LLM
-capabilities to provide developers with coding suggestions,
-auto-completions, and even real-time debugging assistance
-\autocite{cursor,ghcopilot}. Such innovations have introduced a layer of
-interaction that enhances productivity and fosters a more intuitive
-coding experience. Simultaneously, certain LLMs are trained themselves
-with the code-generation task in mind
+like GitHub Copilot and IDEs such as Cursor \autocite{cursor,ghcopilot},
+which leverage LLM capabilities to provide developers with coding
+suggestions, auto-completions, and even real-time debugging assistance.
+Such innovations have introduced a layer of interaction that enhances
+productivity and fosters a more intuitive coding experience.
+Additionally, more and more LLMs are now specifically trained for usage
+in code-generation tasks
 \autocite{nijkamp2023a,nijkamp2023,openai2025a}.
 
 One exemplary product of this innovation is \emph{vibecoding} and the
 no-code movement, which describe the development of software by only
 prompting and tasking an LLM, i.e.~without any actual programming
 required by the user. This constitutes a showcase of how LLMs can be
-harnessed to elevate the coding experience by supporting developers as
-they navigate complex programming tasks \autocite{sarkar2025}. By
-analyzing the context of the code being written, these sophisticated
-models can provide contextualized insights and relevant snippets,
-effectively streamlining the development process. Developers can benefit
-from reduced cognitive load, as they receive suggestions that not only
-cater to immediate coding needs but also promote adherence to best
-practices and coding standards.
+used to elevate the coding experience by supporting developers as they
+navigate complex programming tasks \autocite{sarkar2025}. By analyzing
+the context of the code being written, these sophisticated models can
+provide contextualized insights and relevant snippets, effectively
+streamlining the development process. Developers can benefit from
+reduced cognitive load, as they receive suggestions that not only cater
+to immediate coding needs but also promote adherence to best practices
+and coding standards.
 
 Despite these advancements, it is crucial to recognize the inherent
 limitations of LLMs when applied to software development. While they can
@@ -1016,24 +1022,24 @@ methodologies into the software development lifecycle.
 
 \section{Neurosymbolic AI}\label{sec-nesy}
 
-Neurosymbolic AI (NeSy AI) represents a groundbreaking fusion of neural
-network methodologies with symbolic execution techniques and tools,
-providing a multi-faceted approach to overcoming the inherent
-limitations of traditional AI paradigms \autocite{sheth2023,garcez2020}.
-This innovative synthesis seeks to combine the strengths of both neural
+Neurosymbolic AI represents a groundbreaking fusion of neural network
+methodologies with symbolic execution techniques and tools, providing a
+multi-faceted approach to overcoming the inherent limitations of
+traditional AI paradigms \autocite{sheth2023,garcez2020}. This
+innovative synthesis seeks to combine the strengths of both neural
 networks, which excel in pattern recognition and data-driven learning,
 and symbolic systems, which offer structured reasoning and
-interpretability. By integrating these two approaches, NeSy AI aims to
-create cognitive models that are not only more accurate but also more
-robust in problem-solving contexts.
+interpretability. By integrating these two approaches, neurosymbolic AI
+aims to create cognitive models that are not only more accurate but also
+more robust in problem-solving contexts.
 
-At its core, NeSy AI facilitates the development of AI systems that are
-capable of understanding and interpreting feedback in real-world
-scenarios \autocite{ganguly2024}. This characteristic is particularly
-significant in the current landscape of artificial intelligence, where
-LLMs are predominant. In this context, NeSy AI is increasingly viewed as
-a critical solution to pressing issues related to explainability,
-attribution, and reliability in AI systems
+At its core, Neurosymbolic AI facilitates the development of AI systems
+that are capable of understanding and interpreting feedback in
+real-world scenarios \autocite{ganguly2024}. This characteristic is
+particularly significant in the current landscape of artificial
+intelligence, where LLMs are predominant. In this context, Neurosymbolic
+AI is increasingly viewed as a critical solution to pressing issues
+related to explainability, attribution, and reliability in AI systems
 \autocite{gaur2023,tilwani2024}. These challenges are essential for
 ensuring that AI systems can be trusted and effectively utilized in
 various applications, from business to healthcare.
@@ -1041,7 +1047,7 @@ various applications, from business to healthcare.
 The burgeoning field of neurosymbolic AI is still in its nascent stages,
 with ongoing research and development actively exploring its potential
 to enhance attribution methodologies within large language models. By
-addressing these critical challenges, NeSy AI can significantly
+addressing these critical challenges, Neurosymbolic AI can significantly
 contribute to the broader landscape of trustworthy AI systems, allowing
 for more transparent and accountable decision-making processes
 \autocite{sheth2023,gaur2023,tilwani2024}.
@@ -1063,321 +1069,9 @@ methodologies.
 
 \bookmarksetup{startatroot}
 
-\chapter{Related work}\label{sec-related}
-
-Automated testing, automated fuzzing and automated harness creation have
-a long research history. Still, a lot of ground remains to be covered
-until true automation of these tasks is achieved. Until the introduction
-of transformers \autocite{vaswani2023} and the 2020's boom of commercial
-GPTs \autocite{chatgpt}, automation regarding testing and fuzzing was
-mainly attempted through static and dynamic program analysis methods.
-These approaches are still utilized, but the fuzzing community has
-shifted almost entirely to researching the incorporation and employment
-of LLMs in the last half decade, in the name of automation
-\autocite{iris,sun2024,prophetfuzz,oss-fuzz-gen,green2022,utopia,fuzzgpt,titanfuzz,fuzzgen,fudge}.
-
-\section{Previous Projects}\label{previous-projects}
-
-\subsection{KLEE}\label{klee}
-
-KLEE \autocite{klee} is a seminal and widely cited symbolic execution
-engine introduced in 2008 by Cadar et al.~It was designed to
-automatically generate high-coverage test cases for programs written in
-C, using symbolic execution to systematically explore the control flow
-of a program. KLEE operates on the LLVM \autocite{llvm} bytecode
-representation of programs, allowing it to be applied to a wide range of
-C programs compiled to the LLVM intermediate representation.
-
-Instead of executing a program on concrete inputs, KLEE performs
-symbolic execution---that is, it runs the program on symbolic inputs,
-which represent all possible values simultaneously. At each conditional
-branch, KLEE explores both paths by forking the execution and
-accumulating path constraints (i.e., logical conditions on input
-variables) along each path. This enables it to traverse many feasible
-execution paths in the program, including corner cases that may be
-difficult to reach through random testing or manual test creation.
-
-When an execution path reaches a terminal state (e.g., a program exit,
-an assertion failure, or a segmentation fault), KLEE uses a constraint
-solver to compute concrete input values that satisfy the accumulated
-constraints for that path. These values form a test case that will
-deterministically drive the program down that specific path when
-executed concretely.
-
-\subsection{IRIS}\label{iris}
-
-IRIS \autocite{iris} is a 2025 open-source neurosymbolic system for
-static vulnerability analysis. Given a codebase and a list of
-user-specified Common Weakness Enumerations (CWEs), it analyzes source
-code to identify paths that may correspond to known vulnerability
-classes. IRIS combines symbolic analysis---such as control- and
-data-flow reasoning---with neural models trained to generalize over code
-patterns. It outputs candidate vulnerable paths along with explanations
-and CWE references. The system operates on full repositories and
-supports extensible CWE definitions.
-
-\subsection{FUDGE}\label{fudge}
-
-FUDGE \autocite{fudge} is a closed-source tool, made by Google, for
-automatic harness generation of C and C++ projects based on existing
-client code. It was used in conjunction with and in the improvement of
-Google's OSS-Fuzz \autocite{oss-fuzz}. Being deployed inside Google's
-infrastructure, FUDGE continuously examines Google's internal code
-repository, searching for code that uses external libraries in a
-meaningful and ``fuzzable'' way (i.e.~predominantly for parsing). If
-found, such code is \emph{sliced} \autocite{sasirekha2011Slicing}, per
-FUDGE, based on its Abstract Syntax Tree (AST) using LLVM's Clang tool
-\autocite{llvm}. The above process results in a set of abstracted
-mostly-self-contained code snippets that make use of a library's calls
-and/or API. These snippets are later \emph{synthesized} into the body of
-a fuzz driver, with variables being replaced and the fuzz input being
-utilized. Each is then injected in an \texttt{LLVMFuzzerTestOneInput}
-function and finalized as a fuzzing harness. A building and evaluation
-phase follows for each harness, where they are executed and examined.
-Every passing harness along with its evaluation results is stored in
-FUDGE's database, reachable to the user through a custom web-based UI.
-
-\subsection{UTopia}\label{utopia}
-
-UTopia \autocite{utopia} (stylized \textsc{UTopia}) is another
-open-source automatic harness generation framework. Aside from the
-library code, It operates solely on user-provided unit tests since,
-according to \textcite{utopia}, they are a resource of complete and
-correct API usage examples containing working library set-ups and
-tear-downs. Additionally, each of them are already close to a fuzz
-target, in the sense that they already examine a single and
-self-contained API usage pattern. Each generated harness follows the
-same data flow of the originating unit test. Static analysis is employed
-to figure out what fuzz input placement would yield the most results. It
-is also utilized in abstracting the tests away from the syntactical
-differences between testing frameworks, along with slicing and AST
-traversing using Clang.
-
-\subsection{FuzzGen}\label{fuzzgen}
-
-Another project of Google is FuzzGen \autocite{fuzzgen}, this time
-open-source. Like FUDGE, it leverages existing client code of the target
-library to create fuzz targets for it. FuzzGen uses whole-system
-analysis, through which it creates an \emph{Abstract API Dependence
-Graph} (A\textsuperscript{2}DG). It uses the latter to automatically
-generate LibFuzzer-compatible harnesses. For FuzzGen to work, the user
-needs to provide both client code and/or tests for the API and the API
-library's source code as well. FuzzGen uses the client code to infer the
-\emph{correct usage} of the API and not its general structure, in
-contrast to FUDGE. FuzzGen's workflow can be divided into three phases:
-\emph{1. API usage inference}. By consuming and analyzing client code
-and tests that concern the library under test, FuzzGen recognizes which
-functions belong to the library and learns its correct API usage
-patterns. This process is done with the help of Clang. To test if a
-function is actually a part of the library, a sample program is created
-that uses it. If the program compiles successfully, then the function is
-indeed a valid API call. \emph{2. A\textsuperscript{2}DG construction
-mechanism}. For all the existing API calls, FuzzGen builds an
-A\textsuperscript{2}DG to record the API usages and infers its intended
-structure. After completion, this directed graph contains all the valid
-API call sequences found in the client code corpus. It is built in a
-two-step process: First, many smaller A\textsuperscript{2}DGs are
-created, one for each root function per client code snippet. Once such
-graphs have been created for all the available client code instances,
-they are combined to formulate the master A\textsuperscript{2}DG. This
-graph can be seen as a template for correct usage of the library.
-\emph{3. Fuzzer generator}. Through the A\textsuperscript{2}DG, a
-fuzzing harness is created. Contrary to FUDGE, FuzzGen does not create
-multiple ``simple'' harnesses but a single complex one with the goal of
-covering the whole of the A\textsuperscript{2}DG. In other words, while
-FUDGE fuzzes a single API call at a time, FuzzGen's result is a single
-harness that tries to fuzz the given library all at once through complex
-API usage.
-
-\subsection{IntelliGen}\label{intelligen}
-
-IntelliGen \autocite{zhang2021} is a system for automatically
-synthesizing fuzz drivers by statically identifying potentially
-vulnerable entry-point functions within C projects. Implemented using
-LLVM \autocite{llvm}, IntelliGen focuses on Improving fuzzing efficiency
-by targeting code more likely to contain memory safety issues, rather
-than exhaustively fuzzing all available functions.
-
-The system comprises two main components: the \emph{Entry Function
-Locator} and the \emph{Fuzz Driver Synthesizer}. The Entry Function
-Locator analyzes the project's abstract syntax tree (AST) and classifies
-functions based on heuristics that indicate vulnerability. These include
-pointer dereferencing, calls to memory-related functions (e.g.,
-\texttt{memcpy}, \texttt{memset}), and invocation of other internal
-functions. Functions that score highly on these metrics are prioritized
-for fuzz driver generation. The guiding insight is that entry points
-with fewer argument checks and more direct memory operations expose more
-useful program logic for fuzz testing.
-
-The Fuzz Driver Synthesizer then generates harnesses for these entry
-points. For each target function, it synthesizes an
-\texttt{LLVMFuzzerTestOneInput} function that invokes the target with
-arguments derived from the fuzz input. This process involves inferring
-argument types from the source code and ensuring that runtime behavior
-does not violate memory safety---thus avoiding invalid inputs that would
-cause crashes unrelated to genuine bugs.
-
-IntelliGen stands out by integrating static vulnerability estimation
-into the driver generation pipeline. Compared to prior tools like
-FuzzGen and FUDGE, it uses a more targeted, heuristic-based selection of
-functions, increasing the likelihood that fuzzing will exercise
-meaningful and vulnerable code paths.
-
-\subsection{CKGFuzzer}\label{ckgfuzzer}
-
-CKGFuzzer \autocite{xu2024} is a fuzzing framework designed to automate
-the generation of effective fuzz drivers for C/C++ libraries by
-leveraging static analysis and large language models. Its workflow
-begins by parsing the target project along with any associated library
-APIs to construct a code knowledge graph. This involves two primary
-steps: first, parsing the abstract syntax tree (AST), and second,
-performing inter-procedural program analysis. Through this process,
-CKGFuzzer extracts essential program elements such as data structures,
-function signatures, function implementations, and call relationships.
-
-Using the knowledge graph, CKGFuzzer then identifies and queries
-meaningful API combinations, focusing on those that are either
-frequently invoked together or exhibit functional similarity. It
-generates candidate fuzz drivers for these combinations and attempts to
-compile them. Any compilation errors encountered during this phase are
-automatically repaired using heuristics and domain knowledge. A
-dynamically updated knowledge base, constructed from prior library usage
-patterns, guides both the generation and repair processes.
-
-Once the drivers are successfully compiled, CKGFuzzer executes them
-while monitoring code coverage at the file level. It uses coverage
-feedback to iteratively mutate underperforming API combinations,
-refining them until new execution paths are discovered or a preset
-mutation budget is exhausted.
-
-Finally, any crashes triggered during fuzzing are subjected to a
-reasoning process based on chain-of-thought prompting
-(Section~\ref{sec-prompting}). To help determine their severity and root
-cause, CKGFuzzer consults an LLM-generated knowledge base containing
-real-world examples of vulnerabilities mapped to known Common Weakness
-Enumeration (CWE) entries.
-
-\subsection{PromptFuzz}\label{promptfuzz}
-
-PromptFuzz \autocite{lyu2024} constitutes a framework for automatically
-generating fuzz drivers using LLMs, with a novel focus on \emph{prompt
-mutation} to improve coverage. The system is implemented in Rust and
-targets C libraries, aiming to explore more of the API surface with each
-iteration.
-
-The workflow begins with the random selection of API functions,
-extracted from header file declarations. These functions are used to
-construct initial prompts that instruct the LLM to generate a simple
-program utilizing the API. Each generated program is compiled, executed,
-and monitored for code coverage. Programs that fail to compile or
-violate runtime checks (e.g.~sanitizers) are discarded.
-
-A key innovation in PromptFuzz is \emph{coverage-guided prompt
-mutation}. Instead of mutating generated code directly, PromptFuzz
-mutates the LLM prompts---selecting new combinations of API functions to
-target unexplored code paths. This process is guided by a \emph{power
-scheduling} strategy that prioritizes underused or promising API
-functions based on feedback from previous runs.
-
-Once an effective program is produced, it is transformed into a fuzz
-driver by replacing constants and arguments with variables derived from
-the fuzzer input. Multiple such drivers are embedded into a single
-harness, where the input determines which program variant to execute,
-typically via a case-switch construct.
-
-Overall, PromptFuzz demonstrates that prompt-level mutation enables more
-effective exploration of complex APIs and achieves better coverage than
-direct code mutations, offering a compelling direction for LLM-based
-automated fuzzing systems.
-
-\subsection{OSS-Fuzz}\label{oss-fuzz}
-
-OSS-Fuzz \autocite{ossfuzzdocs2025,oss-fuzz} is a continuous, scalable
-and distributed cloud fuzzing solution for critical and prominent
-open-source projects. Developers of such software can submit their
-projects to OSS-Fuzz's platform, where its harnesses are built and
-constantly executed. This results in multiple bug findings that are
-later disclosed to the primary developers and are later patched.
-
-OSS-Fuzz started operating in 2016, an initiative in response to the
-Heartbleed vulnerability
-\autocite{heartbleed-cve,wheeler2014,heartbleed}. Its hope is that
-through more extensive fuzzing such errors could be caught and corrected
-before having the chance to be exploited and thus disrupt the public
-digital infrastructure. So far, it has helped uncover over 10,000
-security vulnerabilities and 36,000 bugs across more than 1,000
-projects, significantly enhancing the quality and security of major
-software like Chrome, OpenSSL, and systemd.
-
-A project that's part of OSS-Fuzz must have been configured as a
-ClusterFuzz \autocite{clusterfuzz} project. ClusterFuzz is the fuzzing
-infrastructure that OSS-Fuzz uses under the hood and depends on Google
-Cloud Platform services, although it can be hosted locally. Such an
-integration requires setting up a build pipeline, fuzzing jobs and
-expects a Google Developer account. Results are accessible through a web
-interface. ClusterFuzz, and by extension OSS-Fuzz, supports fuzzing
-through LibFuzzer, AFL++, Honggfuzz and FuzzTest---successor to
-Centipede--- with the last two being Google projects
-\autocite{libfuzzer,fuzztest,honggfuzz,aflpp}. C, C++, Rust, Go, Python
-and Java/JVM projects are supported.
-
-\subsection{OSS-Fuzz-Gen}\label{sec-ofg}
-
-OSS-Fuzz-Gen (OFG) \autocite{liu2023,oss-fuzz-gen} is Google's current
-State-Of-The-Art (SOTA) project regarding automatic harness generation
-through LLMs. It's purpose is to improve the fuzzing infrastructure of
-open-source projects that are already integrated into OSS-Fuzz. Given
-such a project, OSS-Fuzz-Gen uses its preexisting fuzzing harnesses and
-modifies them to produce new ones. Its architecture can be described as
-follows: 1. With an OSS-Fuzz project's GitHub repository link,
-OSS-Fuzz-Gen iterates through a set of predefined build templates and
-generates potential build scripts for the project's harnesses. 2. If any
-of them succeed they are once again compiled, this time through
-fuzz-introspector \autocite{fuzz-introspector}. The latter constitutes a
-static analysis tool, with fuzzer developers specifically in mind. 3.
-Build results, old harness and fuzz-introspector report are included in
-a template-generated prompt, through which an LLM is called to generate
-a new harness. 4. The newly generated fuzz target is compiled and if it
-is done so successfully it begins execution inside OSS-Fuzz's
-infrastructure.
-
-This method proved meaningful, with code coverage in fuzz campaigns
-increasing thanks to the new generated fuzz drivers. In the case of
-\autocite{thomason2025}, line coverage went from 38\% to 69\% without
-any manual interventions \autocite{liu2023}.
-
-In 2024, OSS-Fuzz-Gen introduced an experimental feature for generating
-harnesses in previously unfuzzed projects
-\autocite{oss-fuzzmaintainers2024}. The code for this feature resides in
-the \texttt{experimental/from\_scratch} directory of the project's
-GitHub repository \autocite{oss-fuzz-gen}, with the latest known working
-commit being \texttt{171aac2} and the latest overall commit being four
-months ago.
-
-\subsection{AutoGen}\label{autogen}
-
-AutoGen \autocite{sun2024} is a closed-source tool that generates new
-fuzzing harnesses, given only the library code and documentation. It
-works as following: The user specifies the function for which a harness
-is to be generated. AutoGen gathers information for this function---such
-as the function body, used header files, function calling
-examples---from the source code and documentation. Through specific
-prompt templates containing the above information, an LLM is tasked with
-generating a new fuzz driver, while another is tasked with generating a
-compilation command for said driver. If the compilation fails, both LLMs
-are called again to fix the problem, whether it was on the driver's or
-command's side. This loop iterates until a predefined maximum value or
-until a fuzz driver is successfully generated and compiled. If the
-latter is the case, it is then executed. If execution errors exist, the
-LLM responsible for the driver generation is used to correct them. If
-not, the pipeline has terminated and a new fuzz driver has been
-successfully generated.
-
-\bookmarksetup{startatroot}
-
 \chapter{OverHAuL's Design}\label{sec-overhaul}
 
-In this thesis we present \emph{OverHAuL} (\textbf{H}arness
+In this thesis we present \textbf{OverHAuL} (\textbf{H}arness
 \textbf{Au}tomation with \textbf{L}LMs), a neurosymbolic AI tool that
 automatically generates fuzzing harnesses for C libraries through LLM
 agents. In its core, OverHAuL is comprised by three LLM ReAct agents
@@ -1406,28 +1100,28 @@ automatic harnessing process.}
 
 \end{figure}%
 
-As commented in Section~\ref{sec-differences}, OverHAuL does not expect
+As detailed in Section~\ref{sec-differences}, OverHAuL does not expect
 and depend on the existence of client code or unit tests
 \autocite{utopia,fudge,fuzzgen} \emph{nor} does it require any
 preexisting fuzzing harnesses \autocite{oss-fuzz-gen} or any
 documentation present \autocite{sun2024}. Also importantly, OverHAuL is
 decoupled from other fuzzing projects, thus lowering the barrier to
 entry for new projects \autocite{oss-fuzz-gen,oss-fuzz}. Lastly, the
-user isn't mandated to specify manually the function which the
+user isn't mandated to manually specify the function which the
 harness-to-be-generated must fuzz. Instead, OverHAuL's agents examine
 and assess the provided codebase, choosing after evaluation the most
-optimal targeted function.
+optimal target function.
 
-OverHAuL utilizes autonomous ReAct agents \autocite{reAct} which inspect
-and analyze the project's source code. The latter is stored and
-interacted with as a set of text embeddings \autocite{mikolov2013}, kept
-in a vector store. Both approaches are, to the best of our knowledge,
-novel in the field of automatic fuzzing harnesses generation. OverHAuL
-also implements an evaluation component that assesses in real-time all
-generated harnesses, making the results tenable, reproducible and
-well-founded. Ideally, this methodology provides a comprehensive and
-systematic framework for identifying previously unknown software
-vulnerabilities in projects that have not yet been fuzz tested.
+OverHAuL utilizes autonomous ReAct agents which inspect and analyze the
+project's source code. The latter is stored and interacted with as a set
+of text embeddings \autocite{mikolov2013}, kept in a vector store. Both
+approaches are, to the best of our knowledge, novel in the field of
+automatic fuzzing harnesses generation. OverHAuL also implements an
+evaluation component that assesses in real-time all generated harnesses,
+making the results tenable, reproducible and well-founded. Ideally, this
+methodology provides a comprehensive and systematic framework for
+identifying previously unknown software vulnerabilities in projects that
+have not yet been fuzz tested.
 
 Finally, OverHAuL excels in its user-friendliness, as it constitutes a
 simple and easily-installable Python package with minimal external
@@ -1435,7 +1129,7 @@ dependencies---only real dependency being Clang, a prevalent compiler
 available across all primary operating systems. This contrasts most
 other comparable systems, which are typically characterized by their
 limited documentation, lack of extensive testing, and a focus primarily
-on experimental functionality.\footnote{I.e. ``research code''.}
+on experimental functionality.
 
 \section{Architecture}\label{sec-architecture}
 
@@ -1468,7 +1162,7 @@ function's body. Afterwards, each function body is turned into a vector
 embedding through an embedding model. Each embedding is stored in the
 vector store. This structure is created and used for easier and more
 semantically meaningful code retrieval, and to also combat context
-window limitations present in the LLMs.
+window limitations present in LLMs.
 
 \subsection{Harness Creation}\label{sec-creation}
 
@@ -1503,18 +1197,21 @@ generated harness passes the evaluation phase if and only if:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  The harness has no memory leaks during its execution This is inferred
-  by the existence of \texttt{leak-\textless{}hash\textgreater{}} files.
+  The harness has no memory leaks during its execution
+
+  This is inferred by the existence of
+  \texttt{leak-\textless{}hash\textgreater{}} files.
 \item
   A new testcase was created \emph{or} the harness executed for at least
-  \texttt{MIN\_EXECUTION\_TIME} (i.e.~did not crash on its own) When a
-  crash happens, and thus a testcase is created, it results in a
+  \texttt{MIN\_EXECUTION\_TIME} (i.e.~did not crash on its own)
+
+  When a crash happens, and thus a testcase is created, it results in a
   \texttt{crash-\textless{}hash\textgreater{}} file.
 \item
-  The created testcase is not empty This is examined through xxd's
-  output given the crash-file.
+  The created testcase is not empty
+
+  This is examined through xxd's output given the crash-file.
 \end{enumerate}
 
 Similarly to the second stage's compilation phase (steps B.2--B.2.a), if
@@ -1526,13 +1223,13 @@ aforementioned ``fixer'' agent is utilized again (steps C.2--C.2.a). All
 produced crash files and the harness execution output are saved in the
 project's directory.
 
-\section{Main Techniques}\label{sec-techniques}
+\section{OverHAuL Techniques}\label{sec-techniques}
 
 The fundamental techniques that distinguish OverHAuL in its approach and
 enhance its effectiveness in achieving its objectives are: The
 implementation of an iterative feedback loop between the LLM agents, the
-distribution of responsibility across a swarm of distinct agents and the
-employment of a ``codebase oracle'' for interacting with the given
+distribution of responsibility across a triplet of distinct agents and
+the employment of a ``codebase oracle'' for interacting with the given
 project's source code.
 
 \subsection{Feedback Loop}\label{sec-loop}
@@ -1555,7 +1252,7 @@ is followed. Such an approach allows for targeted improvements while
 maintaining oversight of resource allocation throughout the harness
 development cycle.
 
-\subsection{React Agents Swarm}\label{react-agents-swarm}
+\subsection{React Agents Triplet}\label{react-agents-triplet}
 
 An integral design decision in our framework is the implementation of
 each agent as a distinct LLM instance, although all utilizing the same
@@ -1663,95 +1360,6 @@ making the abstract algorithm simpler and easier to understand.
   \State \Return $compiled \land acceptable$
 \end{algorithmic}
 \end{algorithm}
-
-\section{Differences}\label{sec-differences}
-
-OverHAuL differs, in some way, with each of the aforementioned works in
-Chapter~\ref{sec-related}. Firstly, although KLEE and IRIS
-\autocite{iris,klee} tackle the problem of automated testing and both
-IRIS and OverHAuL can be considered neurosymbolic AI tools, the
-similarities end there. None of them utilize LLMs the same way we
-do---with KLEE not utilizing them by default, as it precedes them
-chronologically---and neither are automating any part of the fuzzing
-process.
-
-When it comes to FUDGE, FuzzGen and UTopia
-\autocite{utopia,fuzzgen,fudge}, all three depend on and demand existing
-client code and/or unit tests. On the other hand, OverHAuL requires only
-the bare minimum: the library code itself. Another point of difference
-is that in contrast with OverHAuL, these tools operate in a linear
-fashion. No feedback is produced or used in any step and any point
-failure results in the termination of the entire run.
-
-OverHAuL challenges a common principle of these tools, stated explicitly
-in FUDGE's paper \autocite{fudge}: ``Choosing a suitable fuzz target
-(still) requires a human''. OverHAuL chooses to let the LLM, instead of
-the user, explore the available functions and choose one to target in
-its fuzz driver.
-
-OSS-Fuzz-Gen \autocite{oss-fuzz-gen} can be considered a close
-counterpart of OverHAuL, and in some ways it is. A lot of inspiration
-was gathered from it, like for example the inclusion of static analysis
-and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of
-disadvantages that make it in some cases an inferior option. For one,
-OFG is tightly coupled with the OSS-Fuzz platform \autocite{oss-fuzz},
-which even on its own creates a plethora of issues for the common
-developer. To integrate their project into OSS-Fuzz, they would need to:
-Transform it into a ClusterFuzz project \autocite{clusterfuzz} and take
-time to write harnesses for it. Even if these prerequisites are carried
-out, it probably would not be enough. Per OSS-Fuzz's documentation
-\autocite{ossfuzzdocs2025}: ``To be accepted to OSS-Fuzz, an open-source
-project must have a significant user base and/or be critical to the
-global IT infrastructure''. This means that OSS-Fuzz is a viable option
-only for a small minority of open-source developers and maintainers. One
-countermeasure of the above shortcoming would be for a developer to run
-OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task.
-As it is not meant to be used standalone, OFG is not packaged in the
-form of a self-contained application. This makes it hard to setup and
-difficult to use interactively. Like in the case of FUDGE, OFG's actions
-are performed linearly. No feedback is utilized nor is there graceful
-error handling in the case of a step's failure. Even in the case of the
-experimental feature for bootstrapping unfuzzed projects, OFG's
-performance varies heavily. During experimentation, a lot of generated
-harnesses were still wrapped either in Markdown backticks or
-\texttt{\textless{}code\textgreater{}} tags, or were accompanied with
-explanations inside the generated \texttt{.c} source file. Even if code
-was formatted correctly, in many cases it missed necessary headers for
-compilation or used undeclared functions.
-
-Lastly, the closest counterpart to OverHAuL is AutoGen
-\autocite{sun2024}. Their similarity stands in the implementation of a
-feedback loop between LLM and generated harness. However, most other
-implementation decisions remain distinct. One difference regards the
-fuzzed function. While AutoGen requires a target function to be
-specified by the user in which it narrows during its whole run, OverHAuL
-delegates this to the LLM, letting it explore the codebase and decide by
-itself the best candidate. Another difference lies in the need---and the
-lack of---of documentation. While AutoGen requires it to gather
-information for the given function, OverHAuL leans into the role of a
-developer by reading the related code and comments and thus avoiding any
-mismatches between documentation and code. Finally, the LLMs' input is
-built based on predefined prompt templates, a technique also present in
-OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
-DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
-
-In conclusion, OverHAuL constitutes an \emph{open-source} tool that
-offers new functionality by offering a straightforward installation
-process, packaged as a self-contained Python package with minimal
-external dependencies. It also introduces novel approaches compared to
-previous work by
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Implementing a feedback mechanism between harness generation,
-  compilation, and evaluation phases,
-\item
-  Using autonomous ReAct agents capable of codebase exploration,
-\item
-  Leveraging a vector store for code consumption and retrieval.
-\end{enumerate}
 
 \section{Installation and Usage}\label{sec-install}
 
@@ -1893,6 +1501,94 @@ step and is beyond the scope of this thesis.
 
 \bookmarksetup{startatroot}
 
+\chapter{Implementation}\label{sec-implementation}
+
+In creating the codebase oracle, we employ the ``libclang'' Python
+package \autocite{he2025} to slice functions based on the AST capability
+provided by Clang. As detailed in Section~\ref{sec-oracle}, the
+intermediate output consists of a list of Python dictionaries, with each
+dictionary storing a function's body, signature, and corresponding file
+path. Each chunk of function code is then converted into an embedding
+using OpenAI's ``text-embedding-3-small'' model
+\autocite{openaidocs2025a} and stored in a FAISS vector store index
+\autocite{faiss}. This index is mapped to a metadata structure that
+contains the aforementioned function data---specifically the actual
+function body, signature, and file path. When a search is conducted on
+the index, the results returned are the embeddings. The responses that
+the LLM agent receives are derived from the corresponding metadata
+entries of each embedding.
+
+All LLM agents and components are developed using the DSPy library, a
+declarative Python framework for LLM programming created by Stanford's
+NLP research team \autocite{dspy}. DSPy offers built-in modules and
+abstractions that facilitate the composition of LLMs and prompting
+techniques, such as Chain of Thought and ReAct (Listing~\ref{lst-dspy}).
+Each agent within OverHAuL is an instance of DSPy's ReAct module
+\autocite{stanfordnlpteam2025}, accompanied by a custom Signature
+\autocite{stanfordnlpteam2025a}---displayed in
+Appendix~\ref{sec-signatures}. DSPy was selected over other contemporary
+LLM libraries, such as LangChain and Llamaindex
+\autocite{langchain,llamaindex}, because of its user-friendliness,
+logical abstractions, and efficient development process---qualities that
+are often lacking in these alternative libraries
+\autocite{both2024,woolf2023,woyera2023}.
+
+\begin{codelisting}
+
+\caption[DSPy example]{\label{lst-dspy}Sample DSPy program.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\ImportTok{import}\NormalTok{ dspy}
+\NormalTok{lm }\OperatorTok{=}\NormalTok{ dspy.LM(}\StringTok{\textquotesingle{}openai/gpt{-}4o{-}mini\textquotesingle{}}\NormalTok{, api\_key}\OperatorTok{=}\StringTok{\textquotesingle{}YOUR\_OPENAI\_API\_KEY\textquotesingle{}}\NormalTok{)}
+\NormalTok{dspy.configure(lm}\OperatorTok{=}\NormalTok{lm)}
+
+\NormalTok{math }\OperatorTok{=}\NormalTok{ dspy.ChainOfThought(}\StringTok{"question {-}\textgreater{} answer: float"}\NormalTok{)}
+\NormalTok{math(question}\OperatorTok{=}\StringTok{"Two dice are tossed. What is the probability that the sum equals two?"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+Repository cloning is executed using the \texttt{-\/-depth\ 1} flag to
+minimize disk storage usage and reduce the size of artifacts.
+
+The current implementation of OverHAuL sits at 1,254 source lines of
+Python code.
+
+\section{Development Tools}\label{development-tools}
+
+The development of OverHAuL incorporates a variety of tools aimed at
+enhancing functionality and efficiency. Notably, ``uv'' is a Python
+package and project manager written in Rust that serves as a replacement
+for Poetry. Additionally, ``Ruff,'' a code linter and formatter also
+developed in Rust, contributes to code quality by enforcing consistent
+formatting standards. The project also employs ``MyPy,'' the widely-used
+static type checker for Python, to ensure type correctness. Testing is
+facilitated through ``PyTest,'' a robust Python testing framework.
+Lastly, ``pdoc'' is utilized as a Static Site Generator (SSG) to
+automate the creation of API documentation\footnote{\url{https://kchousos.github.io/OverHAuL/}}
+\autocite{astral2025,astral2025a,cortesi2025,pytestdevteam2025,pythonsoftwarefoundation2025}.
+
+\section{Reproducibility}\label{reproducibility}
+
+OverHAuL's source code is available at
+\url{https://github.com/kchousos/OverHAuL}. Each benchmark run was
+conducted within the framework of a GitHub Actions workflow, resulting
+in a detailed summary accompanied by an artifact containing all cloned
+repositories. These artifacts are the compressed result directories
+described in Section~\ref{sec-local} and provide the essential
+components necessary for the reproducibility each project's results, as
+described in Section~\ref{sec-install}. All benchmark runs can be
+conveniently accessed at
+\url{https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml}.
+
+\bookmarksetup{startatroot}
+
 \chapter{Evaluation}\label{sec-eval}
 
 To thoroughly assess the performance and effectiveness of OverHAuL, we
@@ -1935,9 +1631,10 @@ language'' \autocite{clibs,clib}. All libraries can be seen
 Table~\ref{tbl-projects}, along with their descriptions.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4539}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5000}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0461}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4367}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4810}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0443}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0380}}@{}}
 \caption{The benchmark project corpus. Each project name links to its
 corresponding GitHub repository. Each is followed by a short description
 and its GitHub stars count, as of July 18th,
@@ -1949,6 +1646,8 @@ Project
 Description
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Stars
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+SLOC
 \end{minipage} \\
 \midrule\noalign{}
 \endfirsthead
@@ -1959,32 +1658,36 @@ Project
 Description
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Stars
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+SLOC
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 \href{https://github.com/dvhar/dateparse}{dvhar/dateparse} & A library
-that allows parsing dates without knowing the format in advance. & 2 \\
+that allows parsing dates without knowing the format in advance. & 2 &
+2272 \\
 \href{https://github.com/clibs/buffer}{clibs/buffer} & A string
-manipulation library. & 204 \\
+manipulation library. & 204 & 354 \\
 \href{https://github.com/jwerle/libbeaufort}{jwerle/libbeaufort} & A
 library implementation of the Beaufort cipher \autocite{franksen1993}. &
-13 \\
+13 & 321 \\
 \href{https://github.com/jwerle/libbacon}{jwerle/libbacon} & A library
-implementation of the Baconian cipher \autocite{bacon1861}. & 8 \\
+implementation of the Baconian cipher \autocite{bacon1861}. & 8 & 191 \\
 \href{https://github.com/jwerle/chfreq.c}{jwerle/chfreq.c} & A library
-for computing the character frequency in a string. & 5 \\
+for computing the character frequency in a string. & 5 & 55 \\
 \href{https://github.com/jwerle/progress.c}{jwerle/progress.c} & A
-library for displaying progress bars in the terminal. & 76 \\
+library for displaying progress bars in the terminal. & 76 & 357 \\
 \href{https://github.com/willemt/cbuffer}{willemt/cbuffer} & A circular
-buffer implementation. & 261 \\
+buffer implementation. & 261 & 170 \\
 \href{https://github.com/willemt/torrent-reader}{willemt/torrent-reader}
-& A torrent-file reader library. & 6 \\
+& A torrent-file reader library. & 6 & 294 \\
 \href{https://github.com/orangeduck/mpc}{orangeduck/mpc} & A
-type-generic parser combinator library. & 2,753 \\
+type-generic parser combinator library. & 2,753 & 3632 \\
 \href{https://github.com/h2non/semver.c}{h2non/semver.c} & A semantic
-version v2.0 parsing and rendering library \autocite{semver}. & 190 \\
+version v2.0 parsing and rendering library \autocite{semver}. & 190 &
+608 \\
 \end{longtable}
 
 \subsection{Local Benchmarking}\label{sec-local}
@@ -2128,17 +1831,19 @@ In exploring the utilization of LLMs, two critical dimensions warrant
 examination: the selection of the LLM model itself and the prompting
 techniques employed. Within the context of model selection, all
 benchmark tests conducted on GitHub's infrastructure utilized OpenAI's
-gpt-4.1-mini. Additionally, local testing involved gpt-4.1, gpt-4o,
-gpt-4, and gpt-3.5-turbo. The results indicate that both gpt-4.1 and
-gpt-4.1-mini demonstrated comparable positive outcomes, while gpt-4o
+gpt-4.1-mini. Additionally, early local testing involved gpt-4.1,
+gpt-4o, gpt-4, and gpt-3.5-turbo. The results indicate that both gpt-4.1
+and gpt-4.1-mini demonstrated comparable positive outcomes, while gpt-4o
 produced semi-average results. In contrast, gpt-4 and gpt-3.5-turbo
 exhibited significantly poorer performance, averaging approximately 2
-out of 10 successfully harnessed projects per benchmark run. This
-underscores the considerable impact that the size and capabilities of
-the underlying LLM model have on OverHAuL's effectiveness. Consequently,
-gpt-4o emerges as a contemporary cut-off point in LLM development
-concerning OverHAuL's performance, suggesting that advancements in LLM
-technologies will likely enhance OverHAuL's capabilities rapidly.
+out of 10 successfully harnessed projects per benchmark run. For these
+reasons, subpar-performing models were rejected early in development.
+This underscores the considerable impact that the size and capabilities
+of the underlying LLM model have on OverHAuL's effectiveness.
+Consequently, gpt-4o emerges as a contemporary cut-off point in LLM
+development concerning OverHAuL's performance, suggesting that
+advancements in LLM technologies will likely enhance OverHAuL's
+capabilities rapidly.
 
 Regarding the prompting techniques adopted, ReAct prompting has yielded
 the most favorable outcomes in the current version of OverHAuL
@@ -2177,88 +1882,407 @@ examination.
 
 \bookmarksetup{startatroot}
 
-\chapter{Implementation}\label{sec-implementation}
+\chapter{Related work}\label{sec-related}
 
-In creating the codebase oracle, we employ the ``libclang'' Python
-package \autocite{he2025} to slice functions based on the AST capability
-provided by Clang. As detailed in Section~\ref{sec-oracle}, the
-intermediate output consists of a list of Python dictionaries, with each
-dictionary storing a function's body, signature, and corresponding file
-path. Each chunk of function code is then converted into an embedding
-using OpenAI's ``text-embedding-3-small'' model
-\autocite{openaidocs2025a} and stored in a FAISS vector store index
-\autocite{faiss}. This index is mapped to a metadata structure that
-contains the aforementioned function data---specifically the actual
-function body, signature, and file path. When a search is conducted on
-the index, the results returned are the embeddings. The responses that
-the LLM agent receives are derived from the corresponding metadata
-entries of each embedding.
+Automated testing, automated fuzzing and automated harness creation have
+a long research history. Still, a lot of ground remains to be covered
+until true automation of these tasks is achieved. Until the introduction
+of transformers \autocite{vaswani2023} and the 2020's boom of commercial
+GPTs \autocite{chatgpt}, automation regarding testing and fuzzing was
+mainly attempted through static and dynamic program analysis methods.
+These approaches are still utilized, but the fuzzing community has
+shifted almost entirely to researching the incorporation and employment
+of LLMs in the last half decade
+\autocite{iris,sun2024,prophetfuzz,oss-fuzz-gen,green2022,utopia,fuzzgpt,titanfuzz,fuzzgen,fudge}.
+The following works stand out as the most notable in the field.
 
-All LLM agents and components are developed using the DSPy library, a
-declarative Python framework for LLM programming created by Stanford's
-NLP research team \autocite{dspy}. DSPy offers built-in modules and
-abstractions that facilitate the composition of LLMs and prompting
-techniques, such as Chain of Thought and ReAct (Listing~\ref{lst-dspy}).
-Each agent within OverHAuL is an instance of DSPy's ReAct module
-\autocite{stanfordnlpteam2025}, accompanied by a custom Signature
-\autocite{stanfordnlpteam2025a}---displayed in
-Appendix~\ref{sec-signatures}. DSPy was selected over other contemporary
-LLM libraries, such as LangChain and Llamaindex
-\autocite{langchain,llamaindex}, because of its user-friendliness,
-logical abstractions, and efficient development process---qualities that
-are often lacking in these alternative libraries
-\autocite{both2024,woolf2023,woyera2023}.
+\section{KLEE}\label{klee}
 
-\begin{codelisting}
+KLEE \autocite{klee} is a seminal and widely cited symbolic execution
+engine introduced in 2008 by Cadar et al.~It was designed to
+automatically generate high-coverage test cases for programs written in
+C, using symbolic execution to systematically explore the control flow
+of a program. KLEE operates on the LLVM \autocite{llvm} bytecode
+representation of programs, allowing it to be applied to a wide range of
+C programs compiled to the LLVM intermediate representation.
 
-\caption[DSPy example]{\label{lst-dspy}Sample DSPy program.}
+Instead of executing a program on concrete inputs, KLEE performs
+symbolic execution---that is, it runs the program on symbolic inputs,
+which represent all possible values simultaneously. At each conditional
+branch, KLEE explores both paths by forking the execution and
+accumulating path constraints (i.e., logical conditions on input
+variables) along each path. This enables it to traverse many feasible
+execution paths in the program, including corner cases that may be
+difficult to reach through random testing or manual test creation.
 
-\centering{
+When an execution path reaches a terminal state (e.g., a program exit,
+an assertion failure, or a segmentation fault), KLEE uses a constraint
+solver to compute concrete input values that satisfy the accumulated
+constraints for that path. These values form a test case that will
+deterministically drive the program down that specific path when
+executed concretely.
 
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\ImportTok{import}\NormalTok{ dspy}
-\NormalTok{lm }\OperatorTok{=}\NormalTok{ dspy.LM(}\StringTok{\textquotesingle{}openai/gpt{-}4o{-}mini\textquotesingle{}}\NormalTok{, api\_key}\OperatorTok{=}\StringTok{\textquotesingle{}YOUR\_OPENAI\_API\_KEY\textquotesingle{}}\NormalTok{)}
-\NormalTok{dspy.configure(lm}\OperatorTok{=}\NormalTok{lm)}
+\section{IRIS}\label{iris}
 
-\NormalTok{math }\OperatorTok{=}\NormalTok{ dspy.ChainOfThought(}\StringTok{"question {-}\textgreater{} answer: float"}\NormalTok{)}
-\NormalTok{math(question}\OperatorTok{=}\StringTok{"Two dice are tossed. What is the probability that the sum equals two?"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+IRIS \autocite{iris} is a 2025 open-source neurosymbolic system for
+static vulnerability analysis. Given a codebase and a list of
+user-specified Common Weakness Enumerations (CWEs), it analyzes source
+code to identify paths that may correspond to known vulnerability
+classes. IRIS combines symbolic analysis---such as control- and
+data-flow reasoning---with neural models trained to generalize over code
+patterns. It outputs candidate vulnerable paths along with explanations
+and CWE references. The system operates on full repositories and
+supports extensible CWE definitions.
 
-}
+\section{FUDGE}\label{fudge}
 
-\end{codelisting}%
+FUDGE \autocite{fudge} is a closed-source tool, made by Google, for
+automatic harness generation of C and C++ projects based on existing
+client code. It was used in conjunction with and in the improvement of
+Google's OSS-Fuzz \autocite{oss-fuzz} (Section~\ref{sec-oss-fuzz}).
+Being deployed inside Google's infrastructure, FUDGE continuously
+examines Google's internal code repository, searching for code that uses
+external libraries in a meaningful and ``fuzzable'' way
+(i.e.~predominantly for parsing). If found, such code is \emph{sliced}
+\autocite{sasirekha2011Slicing} based on its Abstract Syntax Tree (AST)
+using LLVM's Clang tool \autocite{llvm}. The above process results in a
+set of abstracted mostly-self-contained code snippets that make use of a
+library's calls and/or API. These snippets are later \emph{synthesized}
+into the body of a fuzz driver, with variables being replaced and the
+fuzz input being utilized. Each is then injected in an
+\texttt{LLVMFuzzerTestOneInput} function and finalized as a fuzzing
+harness. A building and evaluation phase follows for each harness, where
+they are executed and examined. Every passing harness along with its
+evaluation results is stored in FUDGE's database, reachable to the user
+through a custom web-based UI.
 
-Repository cloning is executed using the \texttt{-\/-depth\ 1} flag to
-minimize disk storage usage and reduce the size of artifacts.
+\section{UTopia}\label{utopia}
 
-\section{Development Tools}\label{development-tools}
+UTopia \autocite{utopia} (stylized \textsc{UTopia}) is another
+open-source automatic harness generation framework. Aside from the
+library code, It operates solely on user-provided unit tests since,
+according to Jeong et al. \autocite{utopia}, they are a resource of
+complete and correct API usage examples containing working library
+set-ups and tear-downs. Additionally, each of them are already close to
+a fuzz target, in the sense that they already examine a single and
+self-contained API usage pattern. Each generated harness follows the
+same data flow of the originating unit test. Static analysis is employed
+to figure out what fuzz input placement would yield the most results. It
+is also utilized in abstracting the tests away from the syntactical
+differences between testing frameworks, along with slicing and AST
+traversing using Clang.
 
-The development of OverHAuL incorporates a variety of tools aimed at
-enhancing functionality and efficiency. Notably, ``uv'' is a Python
-package and project manager written in Rust that serves as a replacement
-for Poetry. Additionally, ``Ruff,'' a code linter and formatter also
-developed in Rust, contributes to code quality by enforcing consistent
-formatting standards. The project also employs ``MyPy,'' the widely-used
-static type checker for Python, to ensure type correctness. Testing is
-facilitated through ``PyTest,'' a robust Python testing framework.
-Lastly, ``pdoc'' is utilized as a Static Site Generator (SSG) to
-automate the creation of API documentation\footnote{\url{https://kchousos.github.io/OverHAuL/}}
-\autocite{astral2025,astral2025a,cortesi2025,pytestdevteam2025,pythonsoftwarefoundation2025}.
+\section{FuzzGen}\label{fuzzgen}
 
-\section{Reproducibility}\label{reproducibility}
+Another project of Google is FuzzGen \autocite{fuzzgen}, this time
+open-source. Like FUDGE, it leverages existing client code of the target
+library to create fuzz targets for it. FuzzGen uses whole-system
+analysis, through which it creates an \emph{Abstract API Dependence
+Graph} (A\textsuperscript{2}DG). It uses the latter to automatically
+generate LibFuzzer-compatible harnesses. For FuzzGen to work, the user
+needs to provide both client code and/or tests for the API and the API
+library's source code as well. FuzzGen uses the client code to infer the
+\emph{correct usage} of the API and not its general structure, in
+contrast to FUDGE. FuzzGen's workflow can be divided into three phases:
+\emph{1. API usage inference}. By consuming and analyzing client code
+and tests that concern the library under test, FuzzGen recognizes which
+functions belong to the library and learns its correct API usage
+patterns. This process is done with the help of Clang. To test if a
+function is actually a part of the library, a sample program is created
+that uses it. If the program compiles successfully, then the function is
+indeed a valid API call. \emph{2. A\textsuperscript{2}DG construction
+mechanism}. For all the existing API calls, FuzzGen builds an
+A\textsuperscript{2}DG to record the API usages and infers its intended
+structure. After completion, this directed graph contains all the valid
+API call sequences found in the client code corpus. It is built in a
+two-step process: First, many smaller A\textsuperscript{2}DGs are
+created, one for each root function per client code snippet. Once such
+graphs have been created for all the available client code instances,
+they are combined to formulate the master A\textsuperscript{2}DG. This
+graph can be seen as a template for correct usage of the library.
+\emph{3. Fuzzer generator}. Through the A\textsuperscript{2}DG, a
+fuzzing harness is created. Contrary to FUDGE, FuzzGen does not create
+multiple ``simple'' harnesses but a single complex one with the goal of
+covering the whole A\textsuperscript{2}DG. In other words, while FUDGE
+fuzzes a single API call at a time, FuzzGen's result is a single harness
+that tries to fuzz the given library all at once through complex API
+usage.
 
-OverHAuL's source code is available at
-\url{https://github.com/kchousos/OverHAuL}. Each benchmark run was
-conducted within the framework of a GitHub Actions workflow, resulting
-in a detailed summary accompanied by an artifact containing all cloned
-repositories. These artifacts are the compressed result directories
-described in Section~\ref{sec-local} and provide the essential
-components necessary for the reproducibility each project's results, as
-described in Section~\ref{sec-install}. All benchmark runs can be
-conveniently accessed at
-\url{https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml}.
+\section{IntelliGen}\label{intelligen}
+
+IntelliGen \autocite{zhang2021} is a system for automatically
+synthesizing fuzz drivers by statically identifying potentially
+vulnerable entry-point functions within C projects. Implemented using
+LLVM \autocite{llvm}, IntelliGen focuses on Improving fuzzing efficiency
+by targeting code more likely to contain memory safety issues, rather
+than exhaustively fuzzing all available functions.
+
+The system comprises two main components: the \emph{Entry Function
+Locator} and the \emph{Fuzz Driver Synthesizer}. The Entry Function
+Locator analyzes the project's AST and classifies functions based on
+heuristics that indicate vulnerability. These include pointer
+dereferencing, calls to memory-related functions (e.g., \texttt{memcpy},
+\texttt{memset}), and invocation of other internal functions. Functions
+that score highly on these metrics are prioritized for fuzz driver
+generation. The guiding insight is that entry points with fewer argument
+checks and more direct memory operations expose more useful program
+logic for fuzz testing.
+
+The Fuzz Driver Synthesizer then generates harnesses for these entry
+points. For each target function, it synthesizes an
+\texttt{LLVMFuzzerTestOneInput} function that invokes the target with
+arguments derived from the fuzz input. This process involves inferring
+argument types from the source code and ensuring that runtime behavior
+does not violate memory safety---thus avoiding invalid inputs that would
+cause crashes unrelated to genuine bugs.
+
+IntelliGen stands out by integrating static vulnerability estimation
+into the driver generation pipeline. Compared to prior tools like
+FuzzGen and FUDGE, it uses a more targeted, heuristic-based selection of
+functions, increasing the likelihood that fuzzing will exercise
+meaningful and vulnerable code paths.
+
+\section{CKGFuzzer}\label{ckgfuzzer}
+
+CKGFuzzer \autocite{xu2024} is a fuzzing framework designed to automate
+the generation of effective fuzz drivers for C/C++ libraries by
+leveraging static analysis and large language models. Its workflow
+begins by parsing the target project along with any associated library
+APIs to construct a code knowledge graph. This involves two primary
+steps: first, parsing the AST, and second, performing inter-procedural
+program analysis. Through this process, CKGFuzzer extracts essential
+program elements such as data structures, function signatures, function
+implementations, and call relationships.
+
+Using the knowledge graph, CKGFuzzer then identifies and queries
+meaningful API combinations, focusing on those that are either
+frequently invoked together or exhibit functional similarity. It
+generates candidate fuzz drivers for these combinations and attempts to
+compile them. Any compilation errors encountered during this phase are
+automatically repaired using heuristics and domain knowledge. A
+dynamically updated knowledge base, constructed from prior library usage
+patterns, guides both the generation and repair processes.
+
+Once the drivers are successfully compiled, CKGFuzzer executes them
+while monitoring code coverage at the file level. It uses coverage
+feedback to iteratively mutate underperforming API combinations,
+refining them until new execution paths are discovered or a preset
+mutation budget is exhausted.
+
+Finally, any crashes triggered during fuzzing are subjected to a
+reasoning process based on chain-of-thought prompting
+(Section~\ref{sec-prompting}). To help determine their severity and root
+cause, CKGFuzzer consults an LLM-generated knowledge base containing
+real-world examples of vulnerabilities mapped to known CWE entries.
+
+\section{PromptFuzz}\label{promptfuzz}
+
+PromptFuzz \autocite{lyu2024} constitutes a framework for automatically
+generating fuzz drivers using LLMs, with a novel focus on \emph{prompt
+mutation} to improve coverage. Its aim is to explore more of the API
+surface with each prompt iteration. It is implemented in Rust and
+targets C libraries.
+
+The workflow begins with the random selection of API functions,
+extracted from header file declarations. These functions are used to
+construct initial prompts that instruct the LLM to generate a simple
+program utilizing the API. Each generated program is compiled, executed,
+and monitored for code coverage. Programs that fail to compile or
+violate runtime checks (e.g.~sanitizers) are discarded.
+
+A key innovation in PromptFuzz is \emph{coverage-guided prompt
+mutation}. Instead of mutating generated code directly, PromptFuzz
+mutates the LLM prompts---selecting new combinations of API functions to
+target unexplored code paths. This process is guided by a \emph{power
+scheduling} strategy that prioritizes underused or promising API
+functions based on feedback from previous runs.
+
+Once an effective program is produced, it is transformed into a fuzz
+driver by replacing constants and arguments with variables derived from
+the fuzzer input. Multiple such drivers are embedded into a single
+harness, where the input determines which program variant to execute,
+typically via a case-switch construct.
+
+\section{OSS-Fuzz}\label{sec-oss-fuzz}
+
+OSS-Fuzz \autocite{ossfuzzdocs2025,oss-fuzz} is a continuous, scalable
+and distributed cloud fuzzing solution for critical and prominent
+open-source projects. Developers of such software can submit their
+projects to OSS-Fuzz's platform, where its harnesses are built and
+constantly executed. This results in multiple bug findings that are
+later disclosed to the primary developers and are later patched.
+
+OSS-Fuzz started operating in 2016, an initiative in response to the
+Heartbleed vulnerability
+\autocite{heartbleed-cve,wheeler2014,heartbleed}. Its hope is that
+through more extensive fuzzing such errors could be caught and corrected
+before having the chance to be exploited and thus disrupt the public
+digital infrastructure. So far, it has helped uncover over 10,000
+security vulnerabilities and 36,000 bugs across more than 1,000
+projects, significantly enhancing the quality and security of major
+software like Chrome, OpenSSL, and Systemd.
+
+A project that's part of OSS-Fuzz must have been configured as a
+ClusterFuzz \autocite{clusterfuzz} project. ClusterFuzz is the fuzzing
+infrastructure that OSS-Fuzz uses under the hood and depends on Google
+Cloud Platform services, although it is possible to host it locally.
+Such an integration requires setting up a build pipeline, fuzzing jobs
+and expects a Google Developer account. Results are accessible through a
+web interface. ClusterFuzz, and by extension OSS-Fuzz, supports fuzzing
+through LibFuzzer, AFL++, Honggfuzz and FuzzTest---successor to
+Centipede--- with the last two being Google projects
+\autocite{libfuzzer,fuzztest,honggfuzz,aflpp}. C, C++, Rust, Go, Python
+and Java/JVM projects are supported.
+
+\section{OSS-Fuzz-Gen}\label{sec-ofg}
+
+OSS-Fuzz-Gen (OFG) \autocite{liu2023,oss-fuzz-gen} is Google's current
+state-of-the-art project regarding automatic harness generation through
+LLMs. It's purpose is to improve the fuzzing infrastructure of
+open-source projects that are already integrated into OSS-Fuzz. Given
+such a project, OSS-Fuzz-Gen uses its preexisting fuzzing harnesses and
+modifies them to produce new ones. Its architecture can be described as
+follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  With an OSS-Fuzz project's GitHub repository link, OSS-Fuzz-Gen
+  iterates through a set of predefined build templates and generates
+  potential build scripts for the project's harnesses.
+\item
+  If any of them succeed they are once again compiled, this time through
+  fuzz-introspector \autocite{fuzz-introspector}. The latter constitutes
+  a static analysis tool, with fuzzer developers specifically in mind.
+\item
+  Build results, old harness and fuzz-introspector report are included
+  in a template-generated prompt, through which an LLM is called to
+  generate a new harness.
+\item
+  The newly generated fuzz target is compiled and if it is done so
+  successfully it begins execution inside OSS-Fuzz's infrastructure.
+\end{enumerate}
+
+This method proves to be meaningful, with code coverage in fuzz
+campaigns increasing thanks to the new generated fuzz drivers. In the
+case of the tinyxml2 project \autocite{thomason2025}, line coverage went
+from 38\% to 69\% without any manual interventions \autocite{liu2023}.
+
+In 2024, OSS-Fuzz-Gen introduced an experimental feature for generating
+harnesses in previously unfuzzed projects
+\autocite{oss-fuzzmaintainers2024}. The code for this feature resides in
+the \texttt{experimental/from\_scratch} directory of the project's
+GitHub repository \autocite{oss-fuzz-gen}, with the latest known working
+commit being \texttt{171aac2} and the latest overall commit being four
+months ago.
+
+\section{AutoGen}\label{autogen}
+
+AutoGen \autocite{sun2024} is a closed-source tool that generates new
+fuzzing harnesses, given only the library code and documentation. The
+user specifies the function for which a harness is to be generated.
+AutoGen gathers information for this function---such as the function
+body, used header files, function calling examples---from the source
+code and documentation. Through specific prompt templates containing the
+above information, an LLM is tasked with generating a new fuzz driver,
+while another is tasked with generating a compilation command for said
+driver. If the compilation fails, both LLMs are called again to fix the
+problem, whether it was on the driver's or command's side. This loop
+iterates until a predefined maximum value or until a fuzz driver is
+successfully generated and compiled. If the latter is the case, it is
+then executed. If execution errors exist, the LLM responsible for the
+driver generation is used to correct them. If not, the pipeline has
+terminated and a new fuzz driver has been successfully generated.
+
+\section{Differences}\label{sec-differences}
+
+OverHAuL differs, in some way, with each of the aforementioned works in
+Chapter~\ref{sec-related}. Firstly, although KLEE and IRIS
+\autocite{iris,klee} tackle the problem of automated testing and both
+IRIS and OverHAuL can be considered neurosymbolic AI tools, the
+similarities end there. None of them utilize LLMs the same way we
+do---with KLEE not utilizing them by default, as it precedes them
+chronologically---and neither are automating any part of the fuzzing
+process.
+
+When it comes to FUDGE, FuzzGen and UTopia
+\autocite{utopia,fuzzgen,fudge}, all three depend on and demand existing
+client code and/or unit tests. On the other hand, OverHAuL requires only
+the bare minimum: the library code itself. Another point of difference
+is that in contrast with OverHAuL, these tools operate in a linear
+fashion. No feedback is produced or used in any step and any point
+failure results in the termination of the entire run.
+
+OverHAuL challenges a common principle of these tools, stated explicitly
+in FUDGE's paper \autocite{fudge}: ``Choosing a suitable fuzz target
+(still) requires a human''. OverHAuL chooses to let the LLM, instead of
+the user, explore the available functions and choose one to target in
+its fuzz driver.
+
+OSS-Fuzz-Gen \autocite{oss-fuzz-gen} can be considered a close
+counterpart of OverHAuL, and in some ways it is. A lot of inspiration
+was gathered from it, like for example the inclusion of static analysis
+and its usage in informing the LLM. Yet, OSS-Fuzz-Gen has a number of
+disadvantages that make it in some cases an inferior option. For one,
+OFG is tightly coupled with the OSS-Fuzz platform \autocite{oss-fuzz},
+which even on its own creates a plethora of issues for the common
+developer. To integrate their project into OSS-Fuzz, they would need to:
+Transform it into a ClusterFuzz project \autocite{clusterfuzz} and take
+time to write harnesses for it. Even if these prerequisites are carried
+out, it probably would not be enough. Per OSS-Fuzz's documentation
+\autocite{ossfuzzdocs2025}: ``To be accepted to OSS-Fuzz, an open-source
+project must have a significant user base and/or be critical to the
+global IT infrastructure''. This means that OSS-Fuzz is a viable option
+only for a small minority of open-source developers and maintainers. One
+countermeasure of the above shortcoming would be for a developer to run
+OSS-Fuzz-Gen locally. This unfortunately proves to be an arduous task.
+As it is not meant to be used standalone, OFG is not packaged in the
+form of a self-contained application. This makes it hard to setup and
+difficult to use interactively. Like in the case of FUDGE, OFG's actions
+are performed linearly. No feedback is utilized nor is there graceful
+error handling in the case of a step's failure. Even in the case of the
+experimental feature for bootstrapping unfuzzed projects, OFG's
+performance varies heavily. During experimentation, a lot of generated
+harnesses were still wrapped either in Markdown backticks or
+\texttt{\textless{}code\textgreater{}} tags, or were accompanied with
+explanations inside the generated \texttt{.c} source file. Even if code
+was formatted correctly, in many cases it missed necessary headers for
+compilation or used undeclared functions.
+
+Lastly, the closest counterpart to OverHAuL is AutoGen
+\autocite{sun2024}. Their similarity stands in the implementation of a
+feedback loop between LLM and generated harness. However, most other
+implementation decisions remain distinct. One difference regards the
+fuzzed function. While AutoGen requires a target function to be
+specified by the user in which it narrows during its whole run, OverHAuL
+delegates this to the LLM, letting it explore the codebase and decide by
+itself the best candidate. Another difference lies in the need---and the
+lack of---of documentation. While AutoGen requires it to gather
+information for the given function, OverHAuL leans into the role of a
+developer by reading the related code and comments and thus avoiding any
+mismatches between documentation and code. Finally, the LLMs' input is
+built based on predefined prompt templates, a technique also present in
+OSS-Fuzz-Gen.~OverHAuL operates one abstraction level higher, leveraging
+DSPy \autocite{dspy} for programming instead of prompting the LLMs used.
+
+In conclusion, OverHAuL constitutes an \emph{open-source} tool that
+offers new functionality by offering a straightforward installation
+process, packaged as a self-contained Python package with minimal
+external dependencies. It also introduces novel approaches compared to
+previous work by
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implementing a feedback mechanism between harness generation,
+  compilation, and evaluation phases,
+\item
+  Using autonomous ReAct agents capable of codebase exploration,
+\item
+  Leveraging a vector store for code consumption and retrieval.
+\end{enumerate}
 
 \bookmarksetup{startatroot}
 
@@ -2441,13 +2465,8 @@ development would help facilitate practical follow-up and improvements.
 
 \chapter{Conclusion}\label{conclusion}
 
-Recap
-
-Performed a literature review of similar projects.
-
-Presented the algorithm \emph{and} the implementation.
-
-generative AI disclaimer à la ACM?
+Recap Performed a literature review of similar projects. Presented the
+algorithm \emph{and} the implementation.
 
 \bookmarksetup{startatroot}
 

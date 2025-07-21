@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix A — Abandoned Techniques – OverHAuL</title>
+<title>5&nbsp; Evaluation – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +85,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/prompts.html" rel="next">
-<link href="../chapters/refs.html" rel="prev">
+<link href="../chapters/results.html" rel="next">
+<link href="../chapters/implementation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -298,7 +333,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/abandoned.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/evaluation.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -360,7 +395,7 @@ MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
@@ -411,7 +446,7 @@ MathJax = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/abandoned.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span></a>
   </div>
 </li>
@@ -428,16 +463,25 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-benchmark" id="toc-sec-benchmark" class="nav-link active" data-scroll-target="#sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</a>
+  <ul class="collapse">
+  <li><a href="#sec-local" id="toc-sec-local" class="nav-link" data-scroll-target="#sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/abandoned.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-abandoned" class="quarto-section-identifier">Appendix A — Abandoned Techniques</span></h1>
+<h1 class="title"><span id="sec-eval" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></h1>
 </div>
 
 
@@ -454,26 +498,132 @@ MathJax = {
 </header>
 
 
-<p>During its development, OverHAuL went through several iterations. A number of approaches were implemented and evaluated, with some being replaced for better alternatives. These are:</p>
-<ol type="1">
-<li><p><strong>One-shot harness generation</strong></p>
-<p>Before the iterative feedback loop (<a href="overhaul.html#sec-loop" class="quarto-xref"><span>Section 3.2.1</span></a>) was implemented, OverHAuL attempted to operate in a straightforward pipeline, with just a “generator” agent being tasked to generate the harness. This meant that at either the compilation step or evaluation step, any failure resulted in the execution being terminated. This approach put too much responsibility in the response of a single LLM query, with results more often than not being unsatisfactory.</p></li>
-<li><p><strong>Chain-of-Thought LLM instances</strong></p>
-<p>The current implementation of ReAct agents has effectively supplanted the less effective Chain of Thought (COT) LLM modules <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[1]</a></span>. This shift underscores a critical realization in the harness generation process: the primary challenge lies not in the creation of the harness itself, but rather in the necessity for real-time feedback during execution. This is the reason why first employing COT prompting offered limited observed improvements.</p>
-<p>COT techniques are particularly advantageous when the task assigned to the LLM demands a more reflective, in-depth analysis. However, when it comes to tasks such as knowledge extraction from a codebase oracle and taking live feedback from the environment into consideration, ReAct agents demonstrate greater efficiency and effectiveness.</p></li>
-<li><p><strong>Source code concatenation</strong></p>
-<p>Initially, there was no implementation of a codebase oracle. Instead, the LLM agents operated with a Python string that contained a concatenation of all the collected source code. While this method proved effective for smaller and simpler projects, it encountered significant limitations when applied to more complex codebases. The primary challenge was the excessive consumption of the LLM’s context window, which hindered its ability to process and analyze larger codebases effectively. As a result, this approach became increasingly unsustainable as project complexity grew, underscoring the need for a more robust solution.</p></li>
-<li><p><strong><code>{index, read}_tool</code> usage for ReAct agents</strong></p>
-<p>The predecessor of the oracle comprised a dual-system approach for code exploration, integrating the <code>index_tool</code> and the <code>read_tool</code>. The <code>index_tool</code> offered the LLM agent a structured JSON object that delineated the project’s architecture, including all relevant file paths. On the other hand, the <code>read_tool</code> required a file path as input and returned the file’s content, albeit truncated to a maximum of 4000 characters. While this methodology presented an improvement in scalability over earlier systems, several limitations persisted.</p>
-<p>Firstly, the LLM was constrained to searching through the codebase strictly in file-specific terms, which limited its efficacy in understanding the broader context of code relationships. Furthermore, the imposed character limit on the <code>read_tool</code> meant that certain portions of the codebase remained inaccessible, impeding the agent’s analytical capabilities. Even if this character limit were to be lifted, the resultant output would still occupy a significant portion of the context window, particularly in larger and more intricate projects. As such, while this approach offered advancements in code exploration, it still fell short.</p></li>
+<p>To thoroughly assess the performance and effectiveness of OverHAuL, we established four <em>research questions</em> to direct our investigative efforts. These questions are designed to provide a structured framework for our inquiry and to ensure that our research remains focused on the key aspects of OverHAuL’s functionality and impact within its intended domain. By addressing these questions, we aim to uncover valuable insights that will contribute to a deeper understanding of OverHAuL’s capabilities and its position in contemporary automatic fuzzing applications:</p>
+<ul>
+<li><p><strong>RQ1</strong>: Can OverHAuL generate working harnesses for unfuzzed C projects?</p></li>
+<li><p><strong>RQ2</strong>: What characteristics do these harnesses have? Are they similar to man-made harnesses?</p></li>
+<li><p><strong>RQ3</strong>: How do LLM usage patterns influence the generated harnesses?</p></li>
+<li><p><strong>RQ4</strong>: How do different symbolic techniques affect the generated harnesses?</p></li>
+</ul>
+<section id="sec-benchmark" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
+<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises of: Firstly, GitHub user dhvar’s dateparse library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="related.html#sec-ofg" class="quarto-xref"><span>Section 7.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. All libraries can be seen <a href="#tbl-projects" class="quarto-xref">Table&nbsp;<span>5.1</span></a>, along with their descriptions.</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
+<ol>
+<li id="fn1"><p><a href="https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh" class="uri">https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
+</aside>
+<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark corpus">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.1: The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
+</figcaption>
+<div aria-describedby="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Project</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: right;">Stars</th>
+<th style="text-align: right;">SLOC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/dvhar/dateparse">dvhar/dateparse</a></td>
+<td style="text-align: left;">A library that allows parsing dates without knowing the format in advance.</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/clibs/buffer">clibs/buffer</a></td>
+<td style="text-align: left;">A string manipulation library.</td>
+<td style="text-align: right;">204</td>
+<td style="text-align: right;">354</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/jwerle/libbeaufort">jwerle/libbeaufort</a></td>
+<td style="text-align: left;">A library implementation of the Beaufort cipher <span class="citation" data-cites="franksen1993"><a href="refs.html#ref-franksen1993" role="doc-biblioref">[4]</a></span>.</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">321</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/jwerle/libbacon">jwerle/libbacon</a></td>
+<td style="text-align: left;">A library implementation of the Baconian cipher <span class="citation" data-cites="bacon1861"><a href="refs.html#ref-bacon1861" role="doc-biblioref">[5]</a></span>.</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">191</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/jwerle/chfreq.c">jwerle/chfreq.c</a></td>
+<td style="text-align: left;">A library for computing the character frequency in a string.</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/jwerle/progress.c">jwerle/progress.c</a></td>
+<td style="text-align: left;">A library for displaying progress bars in the terminal.</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">357</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/willemt/cbuffer">willemt/cbuffer</a></td>
+<td style="text-align: left;">A circular buffer implementation.</td>
+<td style="text-align: right;">261</td>
+<td style="text-align: right;">170</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/willemt/torrent-reader">willemt/torrent-reader</a></td>
+<td style="text-align: left;">A torrent-file reader library.</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">294</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://github.com/orangeduck/mpc">orangeduck/mpc</a></td>
+<td style="text-align: left;">A type-generic parser combinator library.</td>
+<td style="text-align: right;">2,753</td>
+<td style="text-align: right;">3632</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/h2non/semver.c">h2non/semver.c</a></td>
+<td style="text-align: left;">A semantic version v2.0 parsing and rendering library <span class="citation" data-cites="semver"><a href="refs.html#ref-semver" role="doc-biblioref">[6]</a></span>.</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">608</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="sec-local" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
+<p>To run the benchmark locally, one would need to follow the installation instructions in <a href="overhaul.html#sec-install" class="quarto-xref"><span>Section 3.4</span></a> and then execute the benchmarking script, like so:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>$ ./benchmarks/benchmark.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The cloned repositories with their corresponding harnesses will then be located in a subdirectory of <code>benchmark_results</code>, which will have the name format of <code>mini__&lt;timestamp&gt;__ReAct__&lt;llm-model&gt;__&lt;max-exec-time&gt;__&lt;iter-budget&gt;</code>. “Mini” corresponds to the benchmark project corpus described above, since a 30-project corpus was initially created and is now coined as “full” benchmark. Both the mini and full benchmarks are located in <code>benchmarks/repos.txt</code> and <code>benchmarks/repos-mini.txt</code> respectively. To execute the benchmark for the “full” corpus, users can add the <code>-b full</code> flag in the script’s invocation. Also, the LLM model used can be defined with the <code>-m</code> command-line flag.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-chainofthought" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
+<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
+</div>
+<div id="ref-clibs" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Clibs Project, <span>“Clib <span>Packages</span>,”</span> 2025. Available: <a href="https://github.com/clibs/clib/wiki/Packages">https://github.com/clibs/clib/wiki/Packages</a></div>
+</div>
+<div id="ref-clib" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Clibs Project, <span>“Clibs/clib.”</span> clibs, Jul. 01, 2025. Available: <a href="https://github.com/clibs/clib">https://github.com/clibs/clib</a></div>
+</div>
+<div id="ref-franksen1993" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">O. I. Franksen, <span>“Babbage and cryptography. <span>Or</span>, the mystery of <span>Admiral Beaufort</span>’s cipher,”</span> <em>Mathematics and Computers in Simulation</em>, vol. 35, no. 4, pp. 327–367, 1993, Available: <a href="https://www.sciencedirect.com/science/article/pii/037847549390063Z">https://www.sciencedirect.com/science/article/pii/037847549390063Z</a></div>
+</div>
+<div id="ref-bacon1861" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">F. Bacon, <em>Of the <span>Proficience</span> and <span>Advancement</span> of <span>Learning</span>... <span>Edited</span> by the <span>Rev</span>. <span>GW Kitchin</span></em>. Bell &amp; Daldy, 1861.</div>
+</div>
+<div id="ref-semver" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">T. Preston-Werner, <span>“Semantic <span>Versioning</span> 2.0.0.”</span> Available: <a href="https://semver.org/">https://semver.org/</a></div>
 </div>
 </div>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -890,13 +1040,13 @@ MathJax = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/refs.html" class="pagination-link" aria-label="Bibliography">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bibliography</span>
+      <a href="../chapters/implementation.html" class="pagination-link" aria-label="Implementation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Implementation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/prompts.html" class="pagination-link" aria-label="DSPy Custom Signatures">
-        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/results.html" class="pagination-link" aria-label="Results">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

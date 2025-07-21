@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Discussion – OverHAuL</title>
+<title>6&nbsp; Results – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +85,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/09-future.html" rel="next">
-<link href="../chapters/07-implementation.html" rel="prev">
+<link href="../chapters/related.html" rel="next">
+<link href="../chapters/evaluation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,6 +104,9 @@ div.csl-indent {
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -116,6 +154,49 @@ MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -298,7 +379,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08-discussion.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/results.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -336,61 +417,61 @@ MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-background.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/background.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03-related.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
+  <a href="../chapters/overhaul.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">OverHAuL’s Design</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-overhaul.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">OverHAuL’s Design</span></span></a>
+  <a href="../chapters/implementation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-evaluation.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-results.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/results.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
+  <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-discussion.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/discussion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09-future.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/future.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10-conclusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
@@ -433,7 +514,7 @@ MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#threats-to-validity" id="toc-threats-to-validity" class="nav-link active" data-scroll-target="#threats-to-validity"><span class="header-section-number">8.1</span> Threats to Validity</a></li>
+  <li><a href="#answers-to-rqs" id="toc-answers-to-rqs" class="nav-link active" data-scroll-target="#answers-to-rqs"><span class="header-section-number">6.1</span> Answers to RQs</a></li>
   </ul>
 </nav>
     </div>
@@ -443,7 +524,7 @@ MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></h1>
+<h1 class="title"><span id="sec-results" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></h1>
 </div>
 
 
@@ -460,21 +541,82 @@ MathJax = {
 </header>
 
 
-<p>As discussed in Section <a href="06-results.html" class="quarto-xref"><span>Chapter 6</span></a>, the capabilities and effectiveness of OverHAuL are closely tied to the choice of the underlying large language model. OverHAuL’s modular architecture ensures that advances in LLM research will directly enhance its performance. Each release of a new, more capable model can be readily integrated, thereby amplifying OverHAuL’s effectiveness without the need for substantial redesign.</p>
-<p>A noteworthy consideration in our benchmarking setup is the possibility that some of the open-source libraries evaluated may have been included in the LLM’s training data. This introduces a risk of overestimating OverHAuL’s performance on code that is unseen or proprietary. Results for closed-source or less widely available libraries could therefore be weaker. Nonetheless, this potential limitation can theoretically be addressed through targeted fine-tuning of the LLM <span class="citation" data-cites="openaidocs2025b kim2025"><a href="refs.html#ref-openaidocs2025b" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-kim2025" role="doc-biblioref">[2]</a></span>.</p>
-<section id="threats-to-validity" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="threats-to-validity"><span class="header-section-number">8.1</span> Threats to Validity</h2>
-<p>Our evaluation of OverHAuL was conducted on ten relatively obscure open-source C libraries representing a range of application domains and functionalities. While this selection reduces the likelihood that these projects were used in LLM training and thus minimizes potential bias, it remains uncertain how transferable our results are to larger, more complex, or structurally different codebases. Factors such as varying design paradigms, architectural patterns, or real-world deployment contexts may pose new challenges for OverHAuL’s scalability and effectiveness.</p>
-<p>Additionally, the risk that LLMs could hallucinate constitutes an internal threat to validity. Such hallucinations may require multiple attempts or occasional manual adjustments to produce valid and useful fuzz drivers. However, because LLMs—and thus OverHAuL—operate in a non-deterministic manner, it is possible to rerun the process and obtain alternative results. The inherent stochasticity of the underlying LLMs thus allows users to recover from initial failures, ensuring that the impact of hallucinations remains limited to efficiency rather than undermining the core applicability of the approach.</p>
-<p>In summary, while our findings demonstrate the potential of OverHAuL, they also highlight important limitations and directions for future work, especially in improving robustness and evaluating performance across a broader spectrum of software projects.</p>
+<p>OverHAuL was evaluated through the experimental benchmark (<a href="evaluation.html#sec-benchmark" class="quarto-xref"><span>Section 5.1</span></a>) from 6th of June, 2025 to 18th of July, 2025, using OpenAI’s gpt-4.1-mini model <span class="citation" data-cites="openaidocs2025"><a href="refs.html#ref-openaidocs2025" role="doc-biblioref">[1]</a></span>. For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow, and the result directory (described in <a href="evaluation.html#sec-local" class="quarto-xref"><span>Section 5.1.1</span></a>) for each is available as a downloadable artifact in the corresponding GitHub Actions entry. In <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, the results of these benchmark runs are showcased.</p>
+<div id="fig-results" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark Results">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="../resources/results.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the y-axis depicting the ten-project corpus outlined in sec-benchmark. The x-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at https://github.com/kchousos/OverHAuL/actions/runs/HASH. An overview of all benchmark runs is available at https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, an orange/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated."><img src="../resources/results.png" class="img-fluid figure-img" data-fig-scap="Benchmark Results"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="evaluation.html#sec-benchmark" class="quarto-xref"><span>Section 5.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, an orange/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Importantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
+</figcaption>
+</figure>
+</div>
+<section id="answers-to-rqs" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="answers-to-rqs"><span class="header-section-number">6.1</span> Answers to RQs</h2>
+<p>We can deduce the following facts from <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>: Firstly, OverHAuL has a very high success rate in finding crash inputs for the given programs, specifically one of <strong>92.5%</strong>. Secondly, although according strictly to these results OverHAuL never generates an un-compilable harness, we can err on the side of caution and infer that OverHAuL not being able to generate a compilable harness is a rare occurrence. These conclusions can safely answer RQ1 with a resounding yes.</p>
+<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="#lst-sample-dateparse" class="quarto-xref">Listing&nbsp;<span>6.1</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
+<div id="lst-sample-dateparse" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;6.1: Sample harness for dateparse, generated by OverHAuL.
+</figcaption>
+<div aria-describedby="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="pp">#include </span><span class="im">"dateparse.h"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">// No artificial size limit to allow fuzzer to explore full input size for boundaries</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="co">// Allocate buffer with extra byte for null termination</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="dt">char</span> <span class="op">*</span>input_str <span class="op">=</span> <span class="op">(</span><span class="dt">char</span> <span class="op">*)</span>malloc<span class="op">(</span>size <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="cf">if</span> <span class="op">(!</span>input_str<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a>    memcpy<span class="op">(</span>input_str<span class="op">,</span> data<span class="op">,</span> size<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    input_str<span class="op">[</span>size<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    date_t parsed_date <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="dt">int</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="co">// Array of string lengths targeting boundary conditions (including 0 = internal strlen)</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="dt">size_t</span> test_lens<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">,</span> size<span class="op">,</span> size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> size <span class="op">-</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">14</span><span class="op">};</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>        <span class="dt">size_t</span> len <span class="op">=</span> test_lens<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>        <span class="cf">if</span> <span class="op">(</span>len <span class="op">&lt;=</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>            dateparse<span class="op">(</span>input_str<span class="op">,</span> <span class="op">&amp;</span>parsed_date<span class="op">,</span> <span class="op">&amp;</span>offset<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>len<span class="op">);</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>        <span class="op">}</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="op">}</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a>    free<span class="op">(</span>input_str<span class="op">);</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>In exploring the utilization of LLMs, two critical dimensions warrant examination: the selection of the LLM model itself and the prompting techniques employed. Within the context of model selection, all benchmark tests conducted on GitHub’s infrastructure utilized OpenAI’s gpt-4.1-mini. Additionally, early local testing involved gpt-4.1, gpt-4o, gpt-4, and gpt-3.5-turbo. The results indicate that both gpt-4.1 and gpt-4.1-mini demonstrated comparable positive outcomes, while gpt-4o produced semi-average results. In contrast, gpt-4 and gpt-3.5-turbo exhibited significantly poorer performance, averaging approximately 2 out of 10 successfully harnessed projects per benchmark run. For these reasons, subpar-performing models were rejected early in development. This underscores the considerable impact that the size and capabilities of the underlying LLM model have on OverHAuL’s effectiveness. Consequently, gpt-4o emerges as a contemporary cut-off point in LLM development concerning OverHAuL’s performance, suggesting that advancements in LLM technologies will likely enhance OverHAuL’s capabilities rapidly.</p>
+<p>Regarding the prompting techniques adopted, ReAct prompting has yielded the most favorable outcomes in the current version of OverHAuL <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[2]</a></span>. As detailed in <a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>, both zero-shot prompting and Chain-of-Thought (COT) prompting <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[3]</a></span> produced similarly unsatisfactory results. A primary challenge in automatic harness generation is ensuring that the generated harness aligns with real-world conditions, particularly in terms of compilation success and effective runtime behavior. This alignment can only be validated through LLM–environment interaction, i.e.&nbsp;within agentic workflows <span class="citation" data-cites="giannone2025"><a href="refs.html#ref-giannone2025" role="doc-biblioref">[4]</a></span>. Furthermore, the superior results associated with ReAct prompting can be attributed to its inherent capacity for more sophisticated code exploration.</p>
+<p>In summary, the response to RQ3 comes to be that ongoing advancements in LLM models will enable systems like OverHAuL to generate increasingly effective outcomes. Additionally, architectures that incorporate agentic modules capable of environment assessment and feedback gathering will surpass more traditional applications of LLMs, particularly in the domain of automatic fuzzing.</p>
+<p>Throughout the development of OverHAuL and its various iterations, numerous programming techniques were assessed in pursuit of answering RQ4 (<a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>). Simple source code concatenation and its subsequent injection into LLM prompts revealed significant limitations, primarily due to the constraints of context windows. Conversely, the usage of tools capable of retrieving file contents marked a meaningful advancement. Nonetheless, this approach still encountered challenges, such as inaccessible code blocks and exploration that lacked semantic relevance. In response to these difficulties, the implementation of a function-level vector store functioning as a codebase oracle is proposed as a highly scalable solution. This strategy not only enhances the organization of larger files but also accommodates expanding project sizes, facilitating more semantically meaningful code examination.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-openaidocs2025b" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">OpenAI Docs, <span>“Model optimization - <span>OpenAI API</span>,”</span> 2025. Available: <a href="https://platform.openai.com">https://platform.openai.com</a></div>
+<div id="ref-openaidocs2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">OpenAI Docs, <span>“<span>GPT-4</span>.1 mini - <span>Open AI API</span>,”</span> 2025. Available: <a href="https://platform.openai.com">https://platform.openai.com</a></div>
 </div>
-<div id="ref-kim2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. Kim and S. Lee, <span>“Performance <span>Comparison</span> of <span>Prompt Engineering</span> and <span>Fine-Tuning Approaches</span> for <span>Fuzz Driver Generation Using Large Language Models</span>,”</span> in <em>Innovative <span>Mobile</span> and <span>Internet Services</span> in <span>Ubiquitous Computing</span></em>, L. Barolli, H.-C. Chen, and K. Yim, Eds., Cham: Springer Nature Switzerland, 2025, pp. 111–120. doi: <a href="https://doi.org/10.1007/978-3-031-96093-2_12">10.1007/978-3-031-96093-2_12</a></div>
+<div id="ref-reAct" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S. Yao <em>et al.</em>, <span>“<span>ReAct</span>: <span>Synergizing Reasoning</span> and <span>Acting</span> in <span>Language Models</span>,”</span> Mar. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2210.03629">10.48550/arXiv.2210.03629</a>. Available: <a href="http://arxiv.org/abs/2210.03629">http://arxiv.org/abs/2210.03629</a></div>
+</div>
+<div id="ref-chainofthought" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">J. Wei <em>et al.</em>, <span>“Chain-of-<span>Thought Prompting Elicits Reasoning</span> in <span>Large Language Models</span>,”</span> Jan. 10, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2201.11903">10.48550/arXiv.2201.11903</a>. Available: <a href="http://arxiv.org/abs/2201.11903">http://arxiv.org/abs/2201.11903</a></div>
+</div>
+<div id="ref-giannone2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">D. Giannone, <span>“Demystifying <span>AI Agents</span>: <span>ReAct-Style Agents</span> vs <span>Agentic Workflows</span>,”</span> Feb. 09, 2025. Available: <a href="https://medium.com/@DanGiannone/demystifying-ai-agents-react-style-agents-vs-agentic-workflows-cedca7e26471">https://medium.com/@DanGiannone/demystifying-ai-agents-react-style-agents-vs-agentic-workflows-cedca7e26471</a></div>
 </div>
 </div>
 </section>
@@ -894,13 +1036,13 @@ MathJax = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/07-implementation.html" class="pagination-link" aria-label="Implementation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Implementation</span></span>
+      <a href="../chapters/evaluation.html" class="pagination-link" aria-label="Evaluation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/09-future.html" class="pagination-link" aria-label="Future Work">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Future Work</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/related.html" class="pagination-link" aria-label="Related work">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Related work</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -975,6 +1117,38 @@ MathJax = {
     })(document);
     </script>
   
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
