@@ -32,9 +32,9 @@ book:
     - chapters/02-background.md
     - chapters/03-related.md
     - chapters/04-overhaul.md 
-    - chapters/05-evaluation.md
-    - chapters/06-results.md
-    - chapters/07-implementation.md
+    - chapters/05-implementation.md
+    - chapters/06-evaluation.md
+    - chapters/07-results.md
     - chapters/08-discussion.md
     - chapters/09-future.md
     - chapters/10-conclusion.md
