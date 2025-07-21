@@ -19,6 +19,8 @@ Sample DSPy program.
 
 Repository cloning is executed using the `--depth 1` flag to minimize disk storage usage and reduce the size of artifacts.
 
+The current implementation of OverHAuL sits at 1,254 source lines of Python code.
+
 ## Development Tools
 
 The development of OverHAuL incorporates a variety of tools aimed at enhancing functionality and efficiency. Notably, "uv" is a Python package and project manager written in Rust that serves as a replacement for Poetry. Additionally, "Ruff," a code linter and formatter also developed in Rust, contributes to code quality by enforcing consistent formatting standards. The project also employs "MyPy," the widely-used static type checker for Python, to ensure type correctness. Testing is facilitated through "PyTest," a robust  Python testing framework. Lastly, "pdoc" is utilized as a Static Site Generator (SSG) to automate the creation of API documentation^[<https://kchousos.github.io/OverHAuL/>] [@astral2025; @astral2025a; @cortesi2025; @pytestdevteam2025; @pythonsoftwarefoundation2025].
