@@ -7,7 +7,7 @@ This thesis was prepared in Athens, Greece, during the academic year 2024--2025,
 
 {{< pagebreak >}}
 
-<!-- Inscription/dedication page for pdf -->
+<!-- Inscription/dedication page for pdf output -->
 ::: {.content-visible when-format="latex"}
 \clearpage
 \thispagestyle{empty}
@@ -50,7 +50,7 @@ A special *thank you* goes to my parents Giannis and Gianna, Christina, and my f
   institution = {{National and Kapodistrian University of Athens}},
   location = {Athens, Greece},
   url = {https://kchousos.github.io/BSc-Thesis/},
-  langid = {en, el}
+  langid = {en}
 }</code></pre>
 <div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas">
 K. Chousos, <span>“OverHAuL: Harnessing Automation for C Libraries with Large Language Models,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://kchousos.github.io/BSc-Thesis/">https://kchousos.github.io/BSc-Thesis/</a>
