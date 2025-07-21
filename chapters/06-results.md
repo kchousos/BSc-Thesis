@@ -10,7 +10,7 @@ The benchmark results for OverHAuL are illustrated with the $y$-axis depicting t
 
 ## Answers to RQs
 
-We can deduce the following facts from @fig-results: Firstly, OverHAuL has a very high success rate in finding crash inputs for the given programs, specifically one of *92.5%*. Secondly, although according strictly to these results OverHAuL never generates an un-compilable harness, we can err on the side of caution and infer that OverHAuL not being able to generate a compilable harness is a rare occurrence. These conclusions can safely answer RQ1 with a resounding yes.
+We can deduce the following facts from @fig-results: Firstly, OverHAuL has a very high success rate in finding crash inputs for the given programs, specifically one of **92.5%**. Secondly, although according strictly to these results OverHAuL never generates an un-compilable harness, we can err on the side of caution and infer that OverHAuL not being able to generate a compilable harness is a rare occurrence. These conclusions can safely answer RQ1 with a resounding yes.
 
 From sampling OverHAuL's generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example @lst-sample-dateparse. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. RQ2's answer remains an unclear "it depends", given the variance in OverHAuL's results.
 
