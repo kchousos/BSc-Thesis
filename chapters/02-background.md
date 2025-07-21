@@ -62,7 +62,7 @@ Beyond security, fuzzing plays a crucial role in improving the robustness and co
 
 #### Success Stories
 
-*Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read^[<https://xkcd.com/1354/>] in the TLS implementation of the OpenSSL library [@theopensslproject2025], introduced on 1st of February 2012 and unnoticed until 1st of April 2014. Later analysis showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
+*Heartbleed* (CVE-2014-0160) [@heartbleed; @heartbleed-cve] arose from a buffer over-read^[<https://xkcd.com/1354/> provides a concise illustration.] in the TLS implementation of the OpenSSL library [@theopensslproject2025], introduced on 1st of February 2012 and unnoticed until 1st of April 2014. Later analysis showed that a simple fuzz campaign exercising the TLS heartbeat extension would have revealed the defect almost immediately [@wheeler2014].
 
 Likewise, the *Shellshock* (or *Bashdoor*) family of bugs in GNU Bash [@bash] enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google's Michał Zalewski using his own fuzzer---the now ubiquitous AFL fuzzer  [@afl]---in late 2014 [@saarinen2014].
 
@@ -148,7 +148,7 @@ Although AFL is traditionally utilized for fuzzing standalone programs or binari
 
 ### Challenges in Adoption
 
-Despite its potential for uncovering software vulnerabilities, fuzzing remains a relatively underutilized testing technique compared to more established methodologies such as Test-Driven Development (TDD). This limited adoption can be attributed, in part, to the substantial initial investment required to design and implement appropriate test harnesses that enable effective fuzzing processes. Furthermore, the interpretation of fuzzing outcomes---particularly the identification, diagnostic analysis, and prioritization of program crashes---demands considerable resources and specialized expertise. These factors collectively pose significant barriers to the widespread integration of fuzzing within standard software development and testing practices.
+Despite its potential for uncovering software vulnerabilities, fuzzing remains a relatively underutilized testing technique compared to more established methodologies such as Test-Driven Development (TDD). This limited adoption can be attributed, in part, to the substantial initial investment required to design and implement appropriate test harnesses that enable effective fuzzing processes. Furthermore, the interpretation of fuzzing outcomes---particularly the identification, diagnostic analysis, and prioritization of program crashes---demands considerable resources and specialized expertise. These factors collectively pose significant barriers to the widespread integration of fuzzing within standard software development and testing practices. OverHAuL addresses this challenge by facilitating the seamless integration of fuzzing into developers' workflows, minimizing initial barriers and reducing upfront costs to an almost negligible level.
 
 ## Large Language Models
 
