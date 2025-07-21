@@ -477,12 +477,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/ai.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Disclaimer on GenAI</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/refs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bibliography</span></a>
   </div>
@@ -630,7 +624,7 @@ Figure&nbsp;4.1: Overview of OverHAuL’s automatic harnessing process.
 <section id="high-level-algorithm" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="high-level-algorithm"><span class="header-section-number">4.3</span> High-Level Algorithm</h2>
 <p>A pseudocode version of OverHAuL’s main function can be seen in <a href="#alg-main" class="quarto-xref">Algorithm 1</a>. It represents the workflow presented in <a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> and uses the techniques described in sections <a href="#sec-architecture" class="quarto-xref"><span>4.1</span></a> and <a href="#sec-techniques" class="quarto-xref"><span>4.2</span></a>. It is important to emphasize that, within the context of this algorithm, the <code>HarnessAgents()</code> function serves as an interface that bridges the “generator”, “fixer” and “improver” LLM agents. The agent that is used upon each function call depends on the values of the function’s arguments. This results in the <span class="math inline">harness</span> variable representing all generated, fixed or improved harnesses. This approach is adopted for making the abstract algorithm simpler and easier to understand.</p>
-<div id="alg-main" class="pseudocode-container quarto-float" data-pseudocode-number="1" data-caption-prefix="Algorithm">
+<div id="alg-main" class="pseudocode-container quarto-float" data-caption-prefix="Algorithm" data-pseudocode-number="1">
 <div class="pseudocode">
 \begin{algorithm} \caption{OverHAuL}\begin{algorithmic} \Require $repository$ \Ensure $harness, compilation\_script, crash\_input, execution\_log$ \State $path \gets$ \Call{RepoClone}{$repository$} \State $report \gets$ \Call{StaticAnalysis}{$path$} \State $vector\_store \gets$ \Call{CreateOracle}{$path$} \State $acceptable \gets$ False \State $compiled \gets$ False \State $error \gets$ None \State $violation \gets$ None \State $output \gets$ None \For{$i = 1$ to $MAX\_ITERATIONS$} \State $harness \gets$ \Call{HarnessAgents}{$path, report, vector\_store, error, violation, output$} \State $error, compiled \gets$ \Call{BuildHarness}{$path, harness$} \If{$\neg compiled$} \State \textbf{continue} \Comment{Fix harness} \EndIf \State $output, accepted \gets $\Call{EvaluateHarness}{$path, harness$} \If{$\neg accepted$} \State \textbf{continue} \Comment{Improve harness} \Else \State $acceptable \gets$ True \State \textbf{break} \EndIf \EndFor \State \Return $compiled \land acceptable$ \end{algorithmic} \end{algorithm}
 </div>

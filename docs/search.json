@@ -300,16 +300,6 @@
     ]
   },
   {
-    "objectID": "chapters/ai.html",
-    "href": "chapters/ai.html",
-    "title": "Disclaimer on GenAI",
-    "section": "",
-    "text": "During the preparation of this work, the authors used OpenAI GPT-4o for grammar and spelling check and simple rephrasing. After using this tool/service, the authors reviewed and edited the content as needed and take full responsibility for the publication’s content.",
-    "crumbs": [
-      "Disclaimer on GenAI"
-    ]
-  },
-  {
     "objectID": "chapters/refs.html",
     "href": "chapters/refs.html",
     "title": "Bibliography",
