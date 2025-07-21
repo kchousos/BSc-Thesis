@@ -30,11 +30,11 @@ book:
     - index.md
     - chapters/intro.md
     - chapters/background.md
-    - chapters/related.md
     - chapters/overhaul.md 
     - chapters/implementation.md
     - chapters/evaluation.md
     - chapters/results.md
+    - chapters/related.md
     - chapters/discussion.md
     - chapters/future.md
     - chapters/conclusion.md
