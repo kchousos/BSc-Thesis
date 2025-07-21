@@ -28,16 +28,16 @@ book:
 
   chapters:
     - index.md
-    - chapters/01-intro.md
-    - chapters/02-background.md
-    - chapters/03-related.md
-    - chapters/04-overhaul.md 
-    - chapters/05-implementation.md
-    - chapters/06-evaluation.md
-    - chapters/07-results.md
-    - chapters/08-discussion.md
-    - chapters/09-future.md
-    - chapters/10-conclusion.md
+    - chapters/intro.md
+    - chapters/background.md
+    - chapters/related.md
+    - chapters/overhaul.md 
+    - chapters/implementation.md
+    - chapters/evaluation.md
+    - chapters/results.md
+    - chapters/discussion.md
+    - chapters/future.md
+    - chapters/conclusion.md
     - chapters/refs.md # Bibliography
   appendices:
     - chapters/abandoned.md
