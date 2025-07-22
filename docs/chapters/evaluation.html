@@ -656,7 +656,7 @@ Table&nbsp;4.1: The benchmark project corpus. Each project name links to its cor
 </section>
 <section id="sec-results" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">4.2</span> Results</h2>
-<p>The outcomes of the benchmark experiments are shown in <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.</p>
+<p>The outcomes of the benchmark experiments are shown in <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. An iteration heatmap was also generated for the verifiably fuzzed projects, displayed in <a href="#fig-iterations" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.</p>
 <div id="fig-results" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark Results">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -664,6 +664,16 @@ Table&nbsp;4.1: The benchmark project corpus. Each project name links to its cor
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="#sec-benchmark" class="quarto-xref"><span>Section 4.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
+</figcaption>
+</figure>
+</div>
+<div id="fig-iterations" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Iterations Heatmap">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iterations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="../resources/iterations.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;4.2: This heatmap illustrates the number of iterations required for each project to be successfully harnessed, as determined by the benchmark results. Higher color intensity corresponds to a greater number of iterations needed for successful harnessing. Cells left blank signify instances where no valid harness was generated."><img src="../resources/iterations.png" class="img-fluid figure-img" data-fig-scap="Iterations Heatmap"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iterations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: This heatmap illustrates the number of iterations required for each project to be successfully harnessed, as determined by the benchmark results. Higher color intensity corresponds to a greater number of iterations needed for successful harnessing. Cells left blank signify instances where no valid harness was generated.
 </figcaption>
 </figure>
 </div>

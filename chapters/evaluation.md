@@ -46,12 +46,18 @@ The cloned repositories with their corresponding harnesses will then be located 
 
 ## Results {#sec-results}
 
-The outcomes of the benchmark experiments are shown in @fig-results. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.
+The outcomes of the benchmark experiments are shown in @fig-results. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. An iteration heatmap was also generated for the verifiably fuzzed projects, displayed in @fig-iterations. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.
 
 :::{#fig-results}
 ![](../resources/results.png){fig-scap='Benchmark Results'}
 
 The benchmark results for OverHAuL are illustrated with the $y$-axis depicting the ten-project corpus outlined in @sec-benchmark. The $x$-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <https://github.com/kchousos/OverHAuL/actions/runs/HASH>. An overview of all benchmark runs is available at <https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
+:::
+
+::: {#fig-iterations}
+![](../resources/iterations.png){fig-scap='Iterations Heatmap'}
+
+This heatmap illustrates the number of iterations required for each project to be successfully harnessed, as determined by the benchmark results. Higher color intensity corresponds to a greater number of iterations needed for successful harnessing. Cells left blank signify instances where no valid harness was generated.
 :::
 
 ### RQ 1: Can OverHAuL generate working harnesses for unfuzzed C projects?
@@ -113,7 +119,7 @@ All benchmark experiments on GitHub's infrastructure were conducted using OpenAI
 
 Prompting methodology is equally crucial. The adoption of ReAct prompting has proven most effective in the current implementation of OverHAuL [@reAct]. Alternative prompting paradigms---including zero-shot and Chain-of-Thought (COT) approaches [@chainofthought]---were empirically evaluated, as detailed in @sec-abandoned, but failed to deliver satisfactory outcomes. A central challenge in automated harness generation involves ensuring that the resulting harness is both compilable and operationally effective. This alignment with real-world constraints necessitates continuous interaction between the LLM and the target environment, best achieved through agentic workflows [@giannone2025]. The superior performance of ReAct prompting likely stems from its structured approach to iterative code exploration and refinement, facilitating a cycle of observation, planning, and action that is particularly well-suited to harness synthesis.
 
-A crucial component of OverHAuL's architecture is its triplet of ReAct agents. Local benchmark results reveal a nearly linear relationship between the number of iteration cycles and the success rate in generating viable fuzzing harnesses. This direct correlation suggests that agentic collaboration and iterative feedback substantially contribute to the improvement of harness quality.
+A central element of OverHAuL's architecture is its triplet of ReAct agents, each contributing a distinct role in the collaborative generation of fuzzing harnesses. Local benchmarking demonstrates an almost linear increase in success rates with the number of iteration cycles, underscoring the efficacy of agentic collaboration and iterative refinement in enhancing harness quality. As illustrated in @fig-iterations, projects such as "dateparse" and "semver.c" exhibit marked improvements when afforded larger iteration budgets. This trend highlights the pivotal roles of the "fixer" and "improver" agents, whose interventions enable the system to surmount challenges present in initial harness generations, ultimately advancing the caliber of the final outputs.
 
 Additionally, the inclusion of a codebase oracle is instrumental in scaling code exploration efficiently. Unlike previously tested methods (see @sec-abandoned), the codebase oracle enables comprehensive traversal and understanding of project code, overcoming the token and context window limitations typically associated with LLMs.
 
