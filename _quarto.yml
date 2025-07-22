@@ -31,7 +31,6 @@ book:
     - chapters/intro.md
     - chapters/background.md
     - chapters/overhaul.md 
-    - chapters/implementation.md
     - chapters/evaluation.md
     - chapters/related.md
     - chapters/future.md
@@ -125,7 +124,7 @@ format:
       - "Liberation Serif:"
       - "NotoColorEmoji:mode=harf"
     sansfont: "Libertinus Sans"
-    monofont: "Iosevka"
+    monofont: "JetBrains Mono"
     mathfont: "Libertinus Math"
     numbersections: true
     biblio-style: ieee

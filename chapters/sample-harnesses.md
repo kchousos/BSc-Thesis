@@ -235,7 +235,7 @@ int cbuf_offer(cbuf_t *me, const unsigned char *data, const int size)
 }
 ```
 
-crash input which triggers an exception in `cbuf_offer()`>`memcpy()`:
+Crash input which triggers an exception in `cbuf_offer()`>`memcpy()`:
 
 ```
 00000000: 0a                                       .
@@ -406,7 +406,7 @@ semver_render (semver_t *x, char *dest)
 }
 ```
 
-crash input that causes a stack buffer overflow in `semver_render()`>`concat_char()`>`sprintf()`:
+Crash input that causes a stack buffer overflow in `semver_render()`>`concat_char()`>`sprintf()`:
 
 ```
 00000000: 392d 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  9-++++++++++++++

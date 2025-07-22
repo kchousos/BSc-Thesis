@@ -389,32 +389,26 @@ MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -508,27 +502,27 @@ MathJax = {
 <p><em>Fuzzing</em> is an automated software-testing technique in which a <em>Program Under Test</em> (PUT) is executed with (pseudo-)random inputs in the hope of exposing undefined behavior. When such behavior manifests as a crash, hang, or memory-safety violation, the corresponding input constitutes a <em>test-case</em> that reveals a bug and often a vulnerability <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>. In a certain sense, fuzzing is a form of adversarial, penetration-style testing carried out by the defender before the adversary has an opportunity to do so. Interest in the technique surged after the publication of three practitioner-oriented books in 2007–2008 <span class="citation" data-cites="takanen2018 sutton2007 rathaus2007"><a href="refs.html#ref-takanen2018" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-sutton2007" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-rathaus2007" role="doc-biblioref">[4]</a></span>.</p>
 <p>Historically, the term was coined by Miller et al.&nbsp;in 1990, who used “fuzz” to describe a program that “generates a stream of random characters to be consumed by a target program” <span class="citation" data-cites="miller1990"><a href="refs.html#ref-miller1990" role="doc-biblioref">[5]</a></span>. This informal usage captured the essence of what fuzzing aims to do: stress test software by bombarding it with unexpected inputs to reveal bugs. To formalize this concept, we adopt Manes et al.’s rigorous definitions <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>:</p>
 <div id="def-fuzzing" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1 (Fuzzing)</strong></span> Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the <em>fuzz input space</em>) that protrudes the expected input space of the PUT.</p>
+<p><span class="theorem-title"><strong>Definition 2.1 (Fuzzing)</strong></span> Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the <em>fuzz input space</em>) that protrudes the expected input space of the PUT <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <p>This means fuzzing involves running the target program on inputs that go beyond those it is typically designed to handle, aiming to uncover hidden issues. An individual instance of such execution—or a bounded sequence thereof—is called a <em>fuzzing run</em>. When these runs are conducted systematically and at scale with the specific goal of detecting violations of a security policy, the activity is known as <em>fuzz testing</em> (or simply <em>fuzzing</em>):</p>
 <div id="def-fuzz-testing" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.2 (Fuzz Testing)</strong></span> Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy.</p>
+<p><span class="theorem-title"><strong>Definition 2.2 (Fuzz Testing)</strong></span> Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <p>This distinction highlights that fuzz testing is fuzzing with an explicit focus on security properties and policy enforcement. Central to managing this process is the <em>fuzzer engine</em>, which orchestrates the execution of one or more fuzzing runs as part of a <em>fuzz campaign</em>. A fuzz campaign represents a concrete instance of fuzz testing tailored to a particular program and security policy:</p>
 <div id="def-fuzzer" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.3 (Fuzzer, Fuzzer Engine)</strong></span> A fuzzer is a program that performs fuzz testing on a PUT.</p>
+<p><span class="theorem-title"><strong>Definition 2.3 (Fuzzer, Fuzzer Engine)</strong></span> A fuzzer is a program that performs fuzz testing on a PUT <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <div id="def-campaign" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.4 (Fuzz Campaign)</strong></span> A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy.</p>
+<p><span class="theorem-title"><strong>Definition 2.4 (Fuzz Campaign)</strong></span> A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <p>Throughout each execution within a campaign, a <em>bug oracle</em> plays a critical role in evaluating the program’s behavior to determine whether it violates the defined security policy:</p>
 <div id="def-oracle" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.5 (Bug Oracle)</strong></span> A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy.</p>
+<p><span class="theorem-title"><strong>Definition 2.5 (Bug Oracle)</strong></span> A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <p>In practice, bug oracles often rely on runtime instrumentation techniques, such as monitoring for fatal POSIX signals (e.g., <code>SIGSEGV</code>) or using sanitizers like AddressSanitizer (ASan) <span class="citation" data-cites="serebryany2012"><a href="refs.html#ref-serebryany2012" role="doc-biblioref">[6]</a></span>. Tools like LibFuzzer <span class="citation" data-cites="libfuzzer"><a href="refs.html#ref-libfuzzer" role="doc-biblioref">[7]</a></span> commonly incorporate such instrumentation to reliably identify crashes or memory errors during fuzzing.</p>
 <p>Most fuzz campaigns begin with a set of <em>seeds</em>—inputs that are well-formed and belong to the PUT’s expected input space—called a <em>seed corpus</em>. These seeds serve as starting points from which the fuzzer generates new test cases by applying transformations or mutations, thereby exploring a broader input space:</p>
 <div id="def-seed" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.6 (Seed)</strong></span> An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign (<a href="#def-campaign" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>) all seeds are stored in a seed <em>pool</em> or <em>corpus</em>.</p>
+<p><span class="theorem-title"><strong>Definition 2.6 (Seed)</strong></span> An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign (<a href="#def-campaign" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>) all seeds are stored in a seed <em>pool</em> or <em>corpus</em> <span class="citation" data-cites="manes2019"><a href="refs.html#ref-manes2019" role="doc-biblioref">[1]</a></span>.</p>
 </div>
 <p>The process of selecting an effective initial corpus is crucial because it directly impacts how quickly and thoroughly the fuzzer can cover the target program’s code. This challenge—studied as the <em>seed-selection problem</em>—involves identifying seeds that enable rapid discovery of diverse execution paths and is non-trivial <span class="citation" data-cites="rebert2014"><a href="refs.html#ref-rebert2014" role="doc-biblioref">[8]</a></span>. A well-chosen seed set often accelerates bug discovery and improves overall fuzzing efficiency.</p>
 <section id="motivation" class="level3" data-number="2.1.1">
@@ -666,7 +660,7 @@ Listing&nbsp;2.3: This example illustrates the compilation and execution workflo
 <p>Neurosymbolic AI represents a groundbreaking fusion of neural network methodologies with symbolic execution techniques and tools, providing a multi-faceted approach to overcoming the inherent limitations of traditional AI paradigms <span class="citation" data-cites="sheth2023 garcez2020"><a href="refs.html#ref-sheth2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-garcez2020" role="doc-biblioref">[47]</a></span>. This innovative synthesis seeks to combine the strengths of both neural networks, which excel in pattern recognition and data-driven learning, and symbolic systems, which offer structured reasoning and interpretability. By integrating these two approaches, neurosymbolic AI aims to create cognitive models that are not only more accurate but also more robust in problem-solving contexts.</p>
 <p>At its core, Neurosymbolic AI facilitates the development of AI systems that are capable of understanding and interpreting feedback in real-world scenarios <span class="citation" data-cites="ganguly2024"><a href="refs.html#ref-ganguly2024" role="doc-biblioref">[48]</a></span>. This characteristic is particularly significant in the current landscape of artificial intelligence, where LLMs are predominant. In this context, Neurosymbolic AI is increasingly viewed as a critical solution to pressing issues related to explainability, attribution, and reliability in AI systems <span class="citation" data-cites="gaur2023 tilwani2024"><a href="refs.html#ref-gaur2023" role="doc-biblioref">[49]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[50]</a></span>. These challenges are essential for ensuring that AI systems can be trusted and effectively utilized in various applications, from business to healthcare.</p>
 <p>The burgeoning field of neurosymbolic AI is still in its nascent stages, with ongoing research and development actively exploring its potential to enhance attribution methodologies within large language models. By addressing these critical challenges, Neurosymbolic AI can significantly contribute to the broader landscape of trustworthy AI systems, allowing for more transparent and accountable decision-making processes <span class="citation" data-cites="sheth2023 gaur2023 tilwani2024"><a href="refs.html#ref-sheth2023" role="doc-biblioref">[46]</a>, <a href="refs.html#ref-gaur2023" role="doc-biblioref">[49]</a>, <a href="refs.html#ref-tilwani2024" role="doc-biblioref">[50]</a></span>.</p>
-<p>Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (<a href="related.html" class="quarto-xref"><span>Chapter 6</span></a>). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz’s taxonomy <span class="citation" data-cites="sarker2022 kautz2020"><a href="refs.html#ref-sarker2022" role="doc-biblioref">[51]</a>, <a href="refs.html#ref-kautz2020" role="doc-biblioref">[52]</a></span>. This means that the neural model—specifically the LLM—can leverage symbolic reasoning tools—in this case a source code explorer (<a href="implementation.html" class="quarto-xref"><span>Chapter 4</span></a>)—to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.</p>
+<p>Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (<a href="related.html" class="quarto-xref"><span>Chapter 5</span></a>). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz’s taxonomy <span class="citation" data-cites="sarker2022 kautz2020"><a href="refs.html#ref-sarker2022" role="doc-biblioref">[51]</a>, <a href="refs.html#ref-kautz2020" role="doc-biblioref">[52]</a></span>. This means that the neural model—specifically the LLM—can leverage symbolic reasoning tools—in this case a source code explorer (<a href="overhaul.html#sec-implementation" class="quarto-xref"><span>Section 3.6</span></a>)—to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.</p>
 
 
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">

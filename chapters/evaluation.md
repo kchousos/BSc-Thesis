@@ -85,7 +85,8 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     date_t parsed_date = 0;
     int offset = 0;
 
-    // Array of string lengths targeting boundary conditions (including 0 = internal strlen)
+    // Array of string lengths targeting boundary 
+    // (including 0 = internal strlen)
     size_t test_lens[] = {0, size, size > 0 ? size - 1 : 0, 12, 13, 14};
 
     for (size_t i = 0; i < sizeof(test_lens) / sizeof(test_lens[0]); i++) {

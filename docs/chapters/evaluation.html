@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Evaluation – OverHAuL</title>
+<title>4&nbsp; Evaluation – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/related.html" rel="next">
-<link href="../chapters/implementation.html" rel="prev">
+<link href="../chapters/overhaul.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -379,7 +379,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/evaluation.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/evaluation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Evaluation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -435,32 +435,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/implementation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Implementation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/evaluation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -508,20 +502,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-benchmark" id="toc-sec-benchmark" class="nav-link active" data-scroll-target="#sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</a>
+  <li><a href="#sec-benchmark" id="toc-sec-benchmark" class="nav-link active" data-scroll-target="#sec-benchmark"><span class="header-section-number">4.1</span> Experimental Benchmark</a>
   <ul class="collapse">
-  <li><a href="#sec-local" id="toc-sec-local" class="nav-link" data-scroll-target="#sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</a></li>
+  <li><a href="#sec-local" id="toc-sec-local" class="nav-link" data-scroll-target="#sec-local"><span class="header-section-number">4.1.1</span> Local Benchmarking</a></li>
   </ul></li>
-  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">5.2</span> Results</a>
+  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">4.2</span> Results</a>
   <ul class="collapse">
-  <li><a href="#rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" id="toc-rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" class="nav-link" data-scroll-target="#rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects"><span class="header-section-number">5.2.1</span> RQ 1: Can OverHAuL generate working harnesses for unfuzzed C projects?</a></li>
-  <li><a href="#rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" id="toc-rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="nav-link" data-scroll-target="#rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">5.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</a></li>
-  <li><a href="#rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" id="toc-rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="nav-link" data-scroll-target="#rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">5.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</a></li>
-  <li><a href="#rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" id="toc-rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" class="nav-link" data-scroll-target="#rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses"><span class="header-section-number">5.2.4</span> RQ4: How do different symbolic techniques affect the generated harnesses?</a></li>
+  <li><a href="#rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" id="toc-rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" class="nav-link" data-scroll-target="#rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects"><span class="header-section-number">4.2.1</span> RQ 1: Can OverHAuL generate working harnesses for unfuzzed C projects?</a></li>
+  <li><a href="#rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" id="toc-rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="nav-link" data-scroll-target="#rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">4.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</a></li>
+  <li><a href="#rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" id="toc-rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="nav-link" data-scroll-target="#rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">4.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</a></li>
+  <li><a href="#rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" id="toc-rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" class="nav-link" data-scroll-target="#rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses"><span class="header-section-number">4.2.4</span> RQ4: How do different symbolic techniques affect the generated harnesses?</a></li>
   </ul></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">5.3</span> Discussion</a>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4.3</span> Discussion</a>
   <ul class="collapse">
-  <li><a href="#threats-to-validity" id="toc-threats-to-validity" class="nav-link" data-scroll-target="#threats-to-validity"><span class="header-section-number">5.3.1</span> Threats to Validity</a></li>
+  <li><a href="#threats-to-validity" id="toc-threats-to-validity" class="nav-link" data-scroll-target="#threats-to-validity"><span class="header-section-number">4.3.1</span> Threats to Validity</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -532,7 +526,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-eval" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Evaluation</span></span></h1>
+<h1 class="title"><span id="sec-eval" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Evaluation</span></span></h1>
 </div>
 
 
@@ -556,20 +550,20 @@ window.Quarto = {
 <li><p><strong>RQ3</strong>: How do LLM usage patterns influence the generated harnesses?</p></li>
 <li><p><strong>RQ4</strong>: How do different symbolic techniques affect the generated harnesses?</p></li>
 </ul>
-<section id="sec-benchmark" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-benchmark"><span class="header-section-number">5.1</span> Experimental Benchmark</h2>
-<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises firstly of user dhvar’s “dateparse” library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="related.html#sec-ofg" class="quarto-xref"><span>Section 6.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. All libraries can be seen <a href="#tbl-projects" class="quarto-xref">Table&nbsp;<span>5.1</span></a>, along with their descriptions.</p>
+<section id="sec-benchmark" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-benchmark"><span class="header-section-number">4.1</span> Experimental Benchmark</h2>
+<p>To evaluate OverHAuL, a benchmarking script was implemented<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and a corpus of ten open-source C libraries was assembled. This collection comprises firstly of user dhvar’s “dateparse” library, which is also used as a running example in OSS-Fuzz-Gen’s <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[1]</a></span> experimental from-scratch harnessing feature (<a href="related.html#sec-ofg" class="quarto-xref"><span>Section 5.10</span></a>). Secondly, nine other libraries chosen randomly<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> from the package catalog of Clib, a “package manager for the C programming language” <span class="citation" data-cites="clibs clib"><a href="refs.html#ref-clibs" role="doc-biblioref">[2]</a>, <a href="refs.html#ref-clib" role="doc-biblioref">[3]</a></span>. All libraries can be seen <a href="#tbl-projects" class="quarto-xref">Table&nbsp;<span>4.1</span></a>, along with their descriptions.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-block" role="doc-footnote">
 <ol>
 <li id="fn1"><p>Available at <a href="https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh" class="uri">https://github.com/kchousos/OverHAuL/blob/master/benchmarks/benchmark.sh</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>From the subset of libraries that do not have exotic external dependencies, like the X11 development toolchain.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
-<p>OverHAuL was evaluated through the experimental benchmark from 6th of June, 2025 to 18th of July, 2025, using OpenAI’s gpt-4.1-mini model <span class="citation" data-cites="openaidocs2025"><a href="refs.html#ref-openaidocs2025" role="doc-biblioref">[4]</a></span>. For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow on Linux virtual machines with 4-vCPUs and 16GiB of memory hosted on Microsoft Azure <span class="citation" data-cites="githubdocs2025a githubdocs2025"><a href="refs.html#ref-githubdocs2025a" role="doc-biblioref">[5]</a>, <a href="refs.html#ref-githubdocs2025" role="doc-biblioref">[6]</a></span>. The result directory (as described in <a href="#sec-local" class="quarto-xref"><span>Section 5.1.1</span></a>) for each is available as a downloadable artifact in the corresponding GitHub Actions entry.</p>
-<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark corpus" data-tbl-colwidths="[25,60,7,8]">
+<p>OverHAuL was evaluated through the experimental benchmark from 6th of June, 2025 to 18th of July, 2025, using OpenAI’s gpt-4.1-mini model <span class="citation" data-cites="openaidocs2025"><a href="refs.html#ref-openaidocs2025" role="doc-biblioref">[4]</a></span>. For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow on Linux virtual machines with 4-vCPUs and 16GiB of memory hosted on Microsoft Azure <span class="citation" data-cites="githubdocs2025a githubdocs2025"><a href="refs.html#ref-githubdocs2025a" role="doc-biblioref">[5]</a>, <a href="refs.html#ref-githubdocs2025" role="doc-biblioref">[6]</a></span>. The result directory (as described in <a href="#sec-local" class="quarto-xref"><span>Section 4.1.1</span></a>) for each is available as a downloadable artifact in the corresponding GitHub Actions entry.</p>
+<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[25,60,7,8]" data-fig-scap="Benchmark corpus">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.1: The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
+Table&nbsp;4.1: The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
 </figcaption>
 <div aria-describedby="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -653,37 +647,37 @@ Table&nbsp;5.1: The benchmark project corpus. Each project name links to its cor
 </div>
 </figure>
 </div>
-<section id="sec-local" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-local"><span class="header-section-number">5.1.1</span> Local Benchmarking</h3>
+<section id="sec-local" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="sec-local"><span class="header-section-number">4.1.1</span> Local Benchmarking</h3>
 <p>To run the benchmark locally, one would need to follow the installation instructions in <a href="overhaul.html#sec-install" class="quarto-xref"><span>Section 3.4</span></a> and then execute the benchmarking script, like so:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>$ ./benchmarks/benchmark.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The cloned repositories with their corresponding harnesses will then be located in a subdirectory of <code>benchmark_results</code>, which will have the name format of <code>mini__&lt;timestamp&gt;__ReAct__&lt;llm-model&gt;__&lt;max-exec-time&gt;__&lt;iter-budget&gt;</code>. “Mini” corresponds to the benchmark project corpus described above, since a 30-project corpus was initially created and is now coined as “full” benchmark. Both the mini and full benchmarks are located in <code>benchmarks/repos.txt</code> and <code>benchmarks/repos-mini.txt</code> respectively. To execute the benchmark for the “full” corpus, users can add the <code>-b full</code> flag in the script’s invocation. Also, the LLM model used can be defined with the <code>-m</code> command-line flag.</p>
 </section>
 </section>
-<section id="sec-results" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">5.2</span> Results</h2>
-<p>The outcomes of the benchmark experiments are shown in <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.</p>
+<section id="sec-results" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">4.2</span> Results</h2>
+<p>The outcomes of the benchmark experiments are shown in <a href="#fig-results" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. To ensure the reliability of these results, each reported crash was manually validated to confirm that it stemmed from genuine defects within the target library, rather than issues of the generated harness. With these validated findings, we are now positioned to address the initial research questions posed in this chapter.</p>
 <div id="fig-results" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark Results">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../resources/results.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;5.1: The benchmark results for OverHAuL are illustrated with the y-axis depicting the ten-project corpus outlined in sec-benchmark. The x-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at https://github.com/kchousos/OverHAuL/actions/runs/HASH. An overview of all benchmark runs is available at https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated."><img src="../resources/results.png" class="img-fluid figure-img" data-fig-scap="Benchmark Results"></a>
+<a href="../resources/results.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;4.1: The benchmark results for OverHAuL are illustrated with the y-axis depicting the ten-project corpus outlined in sec-benchmark. The x-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at https://github.com/kchousos/OverHAuL/actions/runs/HASH. An overview of all benchmark runs is available at https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated."><img src="../resources/results.png" class="img-fluid figure-img" data-fig-scap="Benchmark Results"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="#sec-benchmark" class="quarto-xref"><span>Section 5.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
+Figure&nbsp;4.1: The benchmark results for OverHAuL are illustrated with the <span class="math inline">y</span>-axis depicting the ten-project corpus outlined in <a href="#sec-benchmark" class="quarto-xref"><span>Section 4.1</span></a>. The <span class="math inline">x</span>-axis represents the various benchmark runs. Each label constitutes a unique hash identifier corresponding to a specific GitHub Actions workflow run, which can be accessed at <a href="https://github.com/kchousos/OverHAuL/actions/runs/HASH" class="uri">https://github.com/kchousos/OverHAuL/actions/runs/HASH</a>. An overview of all benchmark runs is available at <a href="https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml" class="uri">https://github.com/kchousos/OverHAuL/actions/workflows/benchmarks.yml</a>. In this matrix, a green/1 block indicates that OverHAuL successfully generated a new harness for the project and was able to find a crash input. On the other hand, a yellow/0 block indicates that while a compilable harness was produced, no crash input was found within the five-minute execution period. Finally, an orange/-2 block means that the crash that was found derives from errors in the harness itself. AImportantly, there are no red/-1 blocks, which would indicate cases where a compilable harness could not be generated.
 </figcaption>
 </figure>
 </div>
-<section id="rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects"><span class="header-section-number">5.2.1</span> RQ 1: Can OverHAuL generate working harnesses for unfuzzed C projects?</h3>
+<section id="rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="rq-1-can-overhaul-generate-working-harnesses-for-unfuzzed-c-projects"><span class="header-section-number">4.2.1</span> RQ 1: Can OverHAuL generate working harnesses for unfuzzed C projects?</h3>
 <p>OverHAuL demonstrates a notably high success rate in generating fuzzing harnesses that effectively uncover crash-inducing inputs for target programs, achieving a rate of <strong>81.25%</strong>. Furthermore, while the collected data indicates that OverHAuL has not produced any non-compilable harnesses, it is prudent to acknowledge the possibility—however unlikely— such occurrences. Taken together, these findings provide a robust and affirmative answer to RQ1.</p>
 </section>
-<section id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">5.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</h3>
-<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="#lst-sample-dateparse" class="quarto-xref">Listing&nbsp;<span>5.1</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
+<section id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">4.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</h3>
+<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="#lst-sample-dateparse" class="quarto-xref">Listing&nbsp;<span>4.1</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (<a href="sample-harnesses.html" class="quarto-xref"><span>Appendix B</span></a>). RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
 <div id="lst-sample-dateparse" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Listing&nbsp;5.1: Sample harness for dateparse, generated by OverHAuL.
+Listing&nbsp;4.1: Sample harness for dateparse, generated by OverHAuL.
 </figcaption>
 <div aria-describedby="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
@@ -707,25 +701,26 @@ Listing&nbsp;5.1: Sample harness for dateparse, generated by OverHAuL.
 <span id="cb2-19"><a href="#cb2-19"></a>    date_t parsed_date <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-20"><a href="#cb2-20"></a>    <span class="dt">int</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co">// Array of string lengths targeting boundary conditions (including 0 = internal strlen)</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a>    <span class="dt">size_t</span> test_lens<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">,</span> size<span class="op">,</span> size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> size <span class="op">-</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">14</span><span class="op">};</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a></span>
-<span id="cb2-25"><a href="#cb2-25"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a>        <span class="dt">size_t</span> len <span class="op">=</span> test_lens<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a>        <span class="cf">if</span> <span class="op">(</span>len <span class="op">&lt;=</span> size<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a>            dateparse<span class="op">(</span>input_str<span class="op">,</span> <span class="op">&amp;</span>parsed_date<span class="op">,</span> <span class="op">&amp;</span>offset<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>len<span class="op">);</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>        <span class="op">}</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a>    <span class="op">}</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a></span>
-<span id="cb2-32"><a href="#cb2-32"></a>    free<span class="op">(</span>input_str<span class="op">);</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co">// Array of string lengths targeting boundary </span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="co">// (including 0 = internal strlen)</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="dt">size_t</span> test_lens<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">,</span> size<span class="op">,</span> size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> size <span class="op">-</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">14</span><span class="op">};</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>        <span class="dt">size_t</span> len <span class="op">=</span> test_lens<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>        <span class="cf">if</span> <span class="op">(</span>len <span class="op">&lt;=</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a>            dateparse<span class="op">(</span>input_str<span class="op">,</span> <span class="op">&amp;</span>parsed_date<span class="op">,</span> <span class="op">&amp;</span>offset<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>len<span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a>        <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>    <span class="op">}</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a>    free<span class="op">(</span>input_str<span class="op">);</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </figure>
 </div>
 </section>
-<section id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">5.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</h3>
+<section id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">4.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</h3>
 <p>The effectiveness of LLM-driven fuzzing harness generation in OverHAuL is heavily influenced by two primary factors: model selection and prompting strategies. The experimental evaluation presents compelling evidence regarding the substantial impact of both dimensions.</p>
 <p>All benchmark experiments on GitHub’s infrastructure were conducted using OpenAI’s <code>gpt-4.1-mini</code>. Preliminary local testing included a spectrum of models—<code>gpt-4.1</code>, <code>gpt-4o</code>, <code>gpt-4</code>, and <code>gpt-3.5-turbo</code>. Notably, both <code>gpt-4.1</code> and <code>gpt-4.1-mini</code> achieved comparable performance, consistently generating robust fuzzing harnesses. In contrast, <code>gpt-4o</code> yielded somewhat average results, while <code>gpt-4</code> and <code>gpt-3.5-turbo</code> exhibited significantly inferior performance, averaging only 2 out of 10 projects successfully harnessed per benchmark run. Models with suboptimal performance were excluded in subsequent development phases. These findings underscore the necessity of selecting advanced LLM architectures to realize OverHAuL’s potential; in particular, <code>gpt-4o</code> represents a recent baseline for acceptable performance. Because LLM model capabilities are evolving rapidly, it is reasonable to anticipate ongoing improvements in OverHAuL’s harness-generation efficacy as newer LLMs become available.</p>
 <p>Prompting methodology is equally crucial. The adoption of ReAct prompting has proven most effective in the current implementation of OverHAuL <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[10]</a></span>. Alternative prompting paradigms—including zero-shot and Chain-of-Thought (COT) approaches <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[11]</a></span>—were empirically evaluated, as detailed in <a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>, but failed to deliver satisfactory outcomes. A central challenge in automated harness generation involves ensuring that the resulting harness is both compilable and operationally effective. This alignment with real-world constraints necessitates continuous interaction between the LLM and the target environment, best achieved through agentic workflows <span class="citation" data-cites="giannone2025"><a href="refs.html#ref-giannone2025" role="doc-biblioref">[12]</a></span>. The superior performance of ReAct prompting likely stems from its structured approach to iterative code exploration and refinement, facilitating a cycle of observation, planning, and action that is particularly well-suited to harness synthesis.</p>
@@ -733,17 +728,17 @@ Listing&nbsp;5.1: Sample harness for dateparse, generated by OverHAuL.
 <p>Additionally, the inclusion of a codebase oracle is instrumental in scaling code exploration efficiently. Unlike previously tested methods (see <a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>), the codebase oracle enables comprehensive traversal and understanding of project code, overcoming the token and context window limitations typically associated with LLMs.</p>
 <p>In summary, the findings for RQ3 indicate that continuous advancements in LLM technology and prompting architectures will further enhance the ability of systems like OverHAuL to automate efficient fuzzing harness generation. Integrating agentic modules that can dynamically assess their environment and incorporate runtime feedback will likely outperform more static LLM applications, particularly within the domain of automated fuzzing.</p>
 </section>
-<section id="rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses"><span class="header-section-number">5.2.4</span> RQ4: How do different symbolic techniques affect the generated harnesses?</h3>
+<section id="rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="rq4-how-do-different-symbolic-techniques-affect-the-generated-harnesses"><span class="header-section-number">4.2.4</span> RQ4: How do different symbolic techniques affect the generated harnesses?</h3>
 <p>Throughout the development of OverHAuL and its various iterations, numerous programming techniques were assessed in pursuit of answering RQ4 (<a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>). Simple source code concatenation and its subsequent injection into LLM prompts revealed significant limitations, primarily due to the constraints of context windows. Conversely, the usage of tools capable of retrieving file contents marked a meaningful advancement. Nonetheless, this approach still encountered challenges, such as inaccessible code blocks and exploration that lacked semantic relevance. In response to these difficulties, the implementation of a function-level vector store functioning as a codebase oracle is proposed as a highly scalable solution. This strategy not only enhances the organization of larger files but also accommodates expanding project sizes, facilitating more semantically meaningful code examination.</p>
 </section>
 </section>
-<section id="discussion" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="discussion"><span class="header-section-number">5.3</span> Discussion</h2>
-<p>As discussed in Section <a href="#sec-results" class="quarto-xref"><span>Section 5.2</span></a>, the capabilities and effectiveness of OverHAuL are closely tied to the choice of the underlying large language model. OverHAuL’s modular architecture ensures that advances in LLM research will directly enhance its performance. Each release of a new, more capable model can be readily integrated, thereby amplifying OverHAuL’s effectiveness without the need for substantial redesign.</p>
+<section id="discussion" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="discussion"><span class="header-section-number">4.3</span> Discussion</h2>
+<p>As discussed in Section <a href="#sec-results" class="quarto-xref"><span>Section 4.2</span></a>, the capabilities and effectiveness of OverHAuL are closely tied to the choice of the underlying large language model. OverHAuL’s modular architecture ensures that advances in LLM research will directly enhance its performance. Each release of a new, more capable model can be readily integrated, thereby amplifying OverHAuL’s effectiveness without the need for substantial redesign.</p>
 <p>A noteworthy consideration in our benchmarking setup is the possibility that some of the open-source libraries evaluated may have been included in the LLM’s training data. This introduces a risk of overestimating OverHAuL’s performance on code that is unseen or proprietary. Results for closed-source or less widely available libraries could therefore be weaker. Nonetheless, this potential limitation can theoretically be addressed through targeted fine-tuning of the LLM <span class="citation" data-cites="openaidocs2025b kim2025"><a href="refs.html#ref-openaidocs2025b" role="doc-biblioref">[13]</a>, <a href="refs.html#ref-kim2025" role="doc-biblioref">[14]</a></span>.</p>
-<section id="threats-to-validity" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="threats-to-validity"><span class="header-section-number">5.3.1</span> Threats to Validity</h3>
+<section id="threats-to-validity" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="threats-to-validity"><span class="header-section-number">4.3.1</span> Threats to Validity</h3>
 <p>Our evaluation of OverHAuL was conducted on ten relatively obscure open-source C libraries representing a range of application domains and functionalities. While this selection reduces the likelihood that these projects were used in LLM training and thus minimizes potential bias, it remains uncertain how transferable our results are to larger, more complex, or structurally different codebases. Factors such as varying design paradigms, architectural patterns, or real-world deployment contexts may pose new challenges for OverHAuL’s scalability and effectiveness.</p>
 <p>Additionally, the risk of LLM hallucination constitutes an internal threat to validity. Such hallucinations may require multiple attempts or occasional manual adjustments to produce valid and useful fuzz drivers. However, because LLMs—and thus OverHAuL—operate in a non-deterministic manner, it is possible to rerun the process and obtain alternative results. The inherent stochasticity of the underlying LLMs thus allows users to recover from initial failures, ensuring that the impact of hallucinations remains limited to efficiency rather than undermining the core applicability of the approach.</p>
 <p>In summary, while our findings demonstrate the potential of OverHAuL, they also highlight important limitations and directions for future work, especially in improving robustness and evaluating performance across a broader spectrum of software projects.</p>
@@ -1211,13 +1206,13 @@ Listing&nbsp;5.1: Sample harness for dateparse, generated by OverHAuL.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/implementation.html" class="pagination-link" aria-label="Implementation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Implementation</span></span>
+      <a href="../chapters/overhaul.html" class="pagination-link" aria-label="OverHAuL's Design">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">OverHAuL’s Design</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/related.html" class="pagination-link" aria-label="Related work">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Related work</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Related work</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

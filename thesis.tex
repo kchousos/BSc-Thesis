@@ -32,7 +32,7 @@
   \setmainfont[,RawFeature={fallback=mainfontfallback}]{Libertinus
 Serif}
   \setsansfont[]{Libertinus Sans}
-  \setmonofont[]{Iosevka}
+  \setmonofont[]{JetBrains Mono}
   \setmathfont[]{Libertinus Math}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
@@ -142,12 +142,6 @@ Serif}
 \def\fps@figure{htbp}
 \makeatother
 
-\ifLuaTeX
-  \usepackage{luacolor}
-  \usepackage[soul]{lua-ul}
-\else
-  \usepackage{soul}
-\fi
 
 
 
@@ -516,7 +510,7 @@ definitions \autocite{manes2019}:
 
 Fuzzing is the execution of a Program Under Test (PUT) using input(s)
 sampled from an input space (the \emph{fuzz input space}) that protrudes
-the expected input space of the PUT.
+the expected input space of the PUT \autocite{manes2019}.
 
 \end{definition}
 
@@ -532,7 +526,7 @@ detecting violations of a security policy, the activity is known as
 Testing]\protect\hypertarget{def-fuzz-testing}{}\label{def-fuzz-testing}
 
 Fuzz testing is the use of fuzzing to test whether a PUT violates a
-security policy.
+security policy \autocite{manes2019}.
 
 \end{definition}
 
@@ -546,7 +540,8 @@ testing tailored to a particular program and security policy:
 \begin{definition}[Fuzzer, Fuzzer
 Engine]\protect\hypertarget{def-fuzzer}{}\label{def-fuzzer}
 
-A fuzzer is a program that performs fuzz testing on a PUT.
+A fuzzer is a program that performs fuzz testing on a PUT
+\autocite{manes2019}.
 
 \end{definition}
 
@@ -554,7 +549,7 @@ A fuzzer is a program that performs fuzz testing on a PUT.
 Campaign]\protect\hypertarget{def-campaign}{}\label{def-campaign}
 
 A fuzz campaign is a specific execution of a fuzzer on a PUT with a
-specific security policy.
+specific security policy \autocite{manes2019}.
 
 \end{definition}
 
@@ -566,8 +561,8 @@ it violates the defined security policy:
 Oracle]\protect\hypertarget{def-oracle}{}\label{def-oracle}
 
 A bug oracle is a component (often inside the fuzzer) that determines
-whether a given execution of the PUT violates a specific security
-policy.
+whether a given execution of the PUT violates a specific security policy
+\autocite{manes2019}.
 
 \end{definition}
 
@@ -588,7 +583,8 @@ mutations, thereby exploring a broader input space:
 
 An input given to the PUT that is mutated by the fuzzer to produce new
 test cases. During a fuzz campaign (Definition~\ref{def-campaign}) all
-seeds are stored in a seed \emph{pool} or \emph{corpus}.
+seeds are stored in a seed \emph{pool} or \emph{corpus}
+\autocite{manes2019}.
 
 \end{definition}
 
@@ -1069,7 +1065,7 @@ OverHAuL constitutes a Neuro{[}Symbolic{]} tool, as classified by Henry
 Kautz's taxonomy \autocite{sarker2022,kautz2020}. This means that the
 neural model---specifically the LLM---can leverage symbolic reasoning
 tools---in this case a source code explorer
-(Chapter~\ref{sec-implementation})---to augment its reasoning
+(Section~\ref{sec-implementation})---to augment its reasoning
 capabilities. This symbiotic relationship enhances the overall efficacy
 and versatility of LLMs for fuzzing harnesses generation, demonstrating
 the profound potential held by the fusion of neural and symbolic
@@ -1137,7 +1133,13 @@ dependencies---only real dependency being Clang, a prevalent compiler
 available across all primary operating systems. This contrasts most
 other comparable systems, which are typically characterized by their
 limited documentation, lack of extensive testing, and a focus primarily
-on experimental functionality.
+on experimental functionality. For instance, both fuzz-introspector and
+OSS-Fuzz-Gen are specifically designed for integration with the OSS-Fuzz
+platform \autocite{fuzz-introspector,oss-fuzz-gen,oss-fuzz}. When
+utilized outside this environment, they require users to operate
+directly from the project's root directory and interact with the tools
+primarily through unrefined Python scripts, thereby limiting their
+accessibility and ease of use.
 
 \section{Architecture}\label{sec-architecture}
 
@@ -1394,12 +1396,14 @@ installation process.}
 \NormalTok{$ pip install .}
 \NormalTok{  ...}
 \NormalTok{$ overhaul {-}{-}help}
-\NormalTok{usage: overhaul [{-}h] [{-}c COMMIT] [{-}m MODEL] [{-}f FILES [FILES ...]] [{-}o OUTPUT\_DIR] repo}
+\NormalTok{usage: overhaul [{-}h] [{-}c COMMIT] [{-}m MODEL] [{-}f FILES [FILES ...]] }
+\NormalTok{[{-}o OUTPUT\_DIR] repo}
 
 \NormalTok{Generate fuzzing harnesses for C/C++ projects}
 
 \NormalTok{positional arguments:}
-\NormalTok{  repo                  Link of a project\textquotesingle{}s git repo, for which to generate a harness.}
+\NormalTok{  repo                  Link of a project\textquotesingle{}s git repo, for which to generate }
+\NormalTok{                        a harness.}
 
 \NormalTok{options:}
 \NormalTok{  {-}h, {-}{-}help            show this help message and exit}
@@ -1507,9 +1511,7 @@ Lastly, No support for build systems such as Make or CMake
 functionality would exponentially increase the complexity of the build
 step and is beyond the scope of this thesis.
 
-\bookmarksetup{startatroot}
-
-\chapter{Implementation}\label{sec-implementation}
+\section{Implementation}\label{sec-implementation}
 
 In creating the codebase oracle, we employ the ``libclang'' Python
 package \autocite{he2025} to slice functions based on the AST capability
@@ -1554,7 +1556,9 @@ are often lacking in these alternative libraries
 \NormalTok{dspy.configure(lm}\OperatorTok{=}\NormalTok{lm)}
 
 \NormalTok{math }\OperatorTok{=}\NormalTok{ dspy.ChainOfThought(}\StringTok{"question {-}\textgreater{} answer: float"}\NormalTok{)}
-\NormalTok{math(question}\OperatorTok{=}\StringTok{"Two dice are tossed. What is the probability that the sum equals two?"}\NormalTok{)}
+\NormalTok{math(question}\OperatorTok{=}\NormalTok{(}
+    \StringTok{"Two dice are tossed. What is the probability that the sum equals two?"}
+\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1568,7 +1572,7 @@ minimize disk storage usage and reduce the size of artifacts.
 The current implementation of OverHAuL sits at 1,254 source lines of
 Python code.
 
-\section{Development Tools}\label{development-tools}
+\subsection{Development Tools}\label{development-tools}
 
 The development of OverHAuL incorporates a variety of tools aimed at
 enhancing functionality and efficiency. Notably, ``uv'' is a Python
@@ -1583,7 +1587,7 @@ automate the creation of API documentation\footnote{Available at
   \url{https://kchousos.github.io/OverHAuL/}.}
 \autocite{astral2025,astral2025a,cortesi2025,pytestdevteam2025,pythonsoftwarefoundation2025}.
 
-\section{Reproducibility}\label{reproducibility}
+\subsection{Reproducibility}\label{reproducibility}
 
 OverHAuL's source code is available at
 \url{https://github.com/kchousos/OverHAuL}. Each benchmark run was
@@ -1796,8 +1800,11 @@ program. Take for example Listing~\ref{lst-sample-dateparse}.
 Nonetheless, sometimes generated harnesses contain usage of inexplicable
 or arbitrary constants and peculiar control flow checks. This makes them
 harder to understand and quite possibly incorrect in many cases, thus
-diverging from seeming human-written. RQ2's answer remains an unclear
-``it depends'', given the variance in OverHAuL's results.
+diverging from seeming human-written. Additionally, the generated
+harnesses differ significantly across projects and executions, both in
+size and complexity (Appendix~\ref{sec-sample-harnesses}). RQ2's answer
+remains an unclear ``it depends'', given the variance in OverHAuL's
+results.
 
 \begin{codelisting}
 
@@ -1829,7 +1836,8 @@ harness for dateparse, generated by OverHAuL.}
 \NormalTok{    date\_t parsed\_date }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
     \DataTypeTok{int}\NormalTok{ offset }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
 
-    \CommentTok{// Array of string lengths targeting boundary conditions (including 0 = internal strlen)}
+    \CommentTok{// Array of string lengths targeting boundary }
+    \CommentTok{// (including 0 = internal strlen)}
     \DataTypeTok{size\_t}\NormalTok{ test\_lens}\OperatorTok{[]} \OperatorTok{=} \OperatorTok{\{}\DecValTok{0}\OperatorTok{,}\NormalTok{ size}\OperatorTok{,}\NormalTok{ size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{?}\NormalTok{ size }\OperatorTok{{-}} \DecValTok{1} \OperatorTok{:} \DecValTok{0}\OperatorTok{,} \DecValTok{12}\OperatorTok{,} \DecValTok{13}\OperatorTok{,} \DecValTok{14}\OperatorTok{\};}
 
     \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{size\_t}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{)} \OperatorTok{/} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
@@ -2603,69 +2611,82 @@ replaced for better alternatives. These are:
   in code exploration, it still fell short.
 \end{enumerate}
 
-\chapter{Sample Generated Harnesses}\label{sample-generated-harnesses}
+\chapter{Sample Generated Harnesses}\label{sec-sample-harnesses}
 
-\section{Buffer}\label{buffer}
+This appendix presents a selection of harnesses generated by OverHAuL,
+originating from the benchmark run
+\href{https://github.com/kchousos/OverHAuL/actions/runs/16351915455}{16351915455}.
+The examples included herein demonstrate a notable diversity, ranging
+from concise and straightforward harnesses to those that are more
+elaborate and complex. The crash inputs are provided in the form of
+their corresponding \texttt{xxd} hexadecimal representations.
 
-harness
+\section{clibs/buffer}\label{clibsbuffer}
+
+Generated harness:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
+\PreprocessorTok{\#include }\ImportTok{"buffer.h"}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"buffer.h"}
 
 \CommentTok{/*}
 \CommentTok{ * LLVMFuzzerTestOneInput harness to fuzz the function buffer\_appendf.}
 \CommentTok{ *}
-\CommentTok{ * The fuzzing input data is treated as a format string argument to buffer\_appendf.}
-\CommentTok{ * This targets potential format string vulnerabilities and buffer resizing issues}
-\CommentTok{ * within buffer\_appendf as flagged by static analysis.}
+\CommentTok{ * The fuzzing input data is treated as a format string argument to}
+\CommentTok{ * buffer\_appendf. This targets potential format string vulnerabilities and}
+\CommentTok{ * buffer resizing issues within buffer\_appendf as flagged by static analysis.}
 \CommentTok{ *}
-\CommentTok{ * We create a fresh buffer\_t instance with buffer\_new(), then call buffer\_appendf()}
-\CommentTok{ * with the fuzz input as the format string. We do not supply additional variadic}
-\CommentTok{ * arguments as the input is a single buffer.}
+\CommentTok{ * We create a fresh buffer\_t instance with buffer\_new(), then call}
+\CommentTok{ * buffer\_appendf() with the fuzz input as the format string. We do not supply}
+\CommentTok{ * additional variadic arguments as the input is a single buffer.}
 \CommentTok{ *}
 \CommentTok{ * After the call, we free the buffer\_t instance to avoid memory leaks.}
 \CommentTok{ */}
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \CommentTok{// No data to test; skip}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\DataTypeTok{int}
+\NormalTok{LLVMFuzzerTestOneInput }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)}
+\OperatorTok{\{}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)}
+    \OperatorTok{\{}
+      \CommentTok{// No data to test; skip}
+      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
     \OperatorTok{\}}
 
-    \CommentTok{// Allocate a writable null{-}terminated string for the format input}
-    \CommentTok{// We add one byte for the null terminator}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{fmt }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{fmt}\OperatorTok{)} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \CommentTok{// Allocation failed, skip}
+  \CommentTok{// Allocate a writable null{-}terminated string for the format input}
+  \CommentTok{// We add one byte for the null terminator}
+  \DataTypeTok{char} \OperatorTok{*}\NormalTok{fmt }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc }\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{fmt}\OperatorTok{)}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \CommentTok{// Allocation failed, skip}
 
-    \CommentTok{// Copy input and null terminate}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    fmt}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
+  \CommentTok{// Copy input and null terminate}
+\NormalTok{  memcpy }\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
+\NormalTok{  fmt}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
 
-    \CommentTok{// Create a new buffer instance}
-\NormalTok{    buffer\_t }\OperatorTok{*}\NormalTok{buf }\OperatorTok{=}\NormalTok{ buffer\_new}\OperatorTok{();}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{buf}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{);}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+  \CommentTok{// Create a new buffer instance}
+\NormalTok{  buffer\_t }\OperatorTok{*}\NormalTok{buf }\OperatorTok{=}\NormalTok{ buffer\_new }\OperatorTok{();}
+  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{buf}\OperatorTok{)}
+    \OperatorTok{\{}
+\NormalTok{      free }\OperatorTok{(}\NormalTok{fmt}\OperatorTok{);}
+      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
     \OperatorTok{\}}
 
-    \CommentTok{// Call buffer\_appendf with user{-}controlled format string}
-    \CommentTok{// No additional arguments are supplied}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{buffer\_appendf}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ fmt}\OperatorTok{);}
+  \CommentTok{// Call buffer\_appendf with user{-}controlled format string}
+  \CommentTok{// No additional arguments are supplied}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{buffer\_appendf }\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ fmt}\OperatorTok{);}
 
-    \CommentTok{// Cleanup}
-\NormalTok{    buffer\_free}\OperatorTok{(}\NormalTok{buf}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{);}
+  \CommentTok{// Cleanup}
+\NormalTok{  buffer\_free }\OperatorTok{(}\NormalTok{buf}\OperatorTok{);}
+\NormalTok{  free }\OperatorTok{(}\NormalTok{fmt}\OperatorTok{);}
 
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
 \OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-function
+Body of function that the harness targets:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -2705,8 +2726,8 @@ function
 \end{Highlighting}
 \end{Shaded}
 
-Crash input (xxd output) which triggers an exception in
-\texttt{buffer\_appendf()}\textgreater{}\texttt{vsnprintf()}.
+Crash input which triggers an exception in
+\texttt{buffer\_appendf()}\textgreater{}\texttt{vsnprintf()}:
 
 \begin{verbatim}
 00000000: 1b2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d  .---------------
@@ -2715,103 +2736,113 @@ Crash input (xxd output) which triggers an exception in
 00000030: 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d         -------------
 \end{verbatim}
 
-\section{Cbuffer}\label{cbuffer}
+\section{willemt/cbuffer}\label{willemtcbuffer}
 
-harness
+Generated harness:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
+\PreprocessorTok{\#include }\ImportTok{"cbuffer.h"}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"cbuffer.h"}
 
-\CommentTok{// New improved fuzzer harness for cbuf\_offer with multiple writes and boundary tests}
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \CommentTok{// allow zero{-}size input to test zero{-}length write}
-\NormalTok{        cbuf\_t }\OperatorTok{*}\NormalTok{cbuf }\OperatorTok{=}\NormalTok{ cbuf\_new}\OperatorTok{(}\DecValTok{12}\OperatorTok{);}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{cbuf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
-            \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-        \CommentTok{// calling offer with zero length should be tested}
-        \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
-\NormalTok{        cbuf\_free}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
+\CommentTok{// New improved fuzzer harness for cbuf\_offer with multiple writes and boundary}
+\CommentTok{// tests}
+\DataTypeTok{int}
+\NormalTok{LLVMFuzzerTestOneInput }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)}
+\OperatorTok{\{}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)}
+    \OperatorTok{\{}
+      \CommentTok{// allow zero{-}size input to test zero{-}length write}
+\NormalTok{      cbuf\_t }\OperatorTok{*}\NormalTok{cbuf }\OperatorTok{=}\NormalTok{ cbuf\_new }\OperatorTok{(}\DecValTok{12}\OperatorTok{);}
+      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{cbuf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
         \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+      \CommentTok{// calling offer with zero length should be tested}
+      \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
+\NormalTok{      cbuf\_free }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
+      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
     \OperatorTok{\}}
 
-\NormalTok{    cbuf\_t }\OperatorTok{*}\NormalTok{cbuf }\OperatorTok{=}\NormalTok{ cbuf\_new}\OperatorTok{(}\DecValTok{12}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{cbuf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Split input roughly into two parts; first fills the buffer partially,}
-    \CommentTok{// second part is used for fuzzing cbuf\_offer calls}
-    \DataTypeTok{size\_t}\NormalTok{ split }\OperatorTok{=}\NormalTok{ size }\OperatorTok{/} \DecValTok{2}\OperatorTok{;}
-    \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{prefix\_data }\OperatorTok{=}\NormalTok{ data}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ prefix\_size }\OperatorTok{=}\NormalTok{ split}\OperatorTok{;}
-    \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{main\_data }\OperatorTok{=}\NormalTok{ data }\OperatorTok{+}\NormalTok{ split}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ main\_size }\OperatorTok{=}\NormalTok{ size }\OperatorTok{{-}}\NormalTok{ split}\OperatorTok{;}
-
-    \CommentTok{// Initially fill the buffer partially with prefix\_data to simulate used space}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{prefix\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \DataTypeTok{int}\NormalTok{ space }\OperatorTok{=}\NormalTok{ cbuf\_unusedspace}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
-        \DataTypeTok{int}\NormalTok{ to\_write }\OperatorTok{=}\NormalTok{ prefix\_size }\OperatorTok{\textless{}} \OperatorTok{(}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{space }\OperatorTok{?} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{prefix\_size }\OperatorTok{:}\NormalTok{ space }\OperatorTok{{-}} \DecValTok{1}\OperatorTok{;}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{to\_write }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-            \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ prefix\_data}\OperatorTok{,}\NormalTok{ to\_write}\OperatorTok{);}
-        \OperatorTok{\}}
-    \OperatorTok{\}}
-
-    \CommentTok{// Now fuzz cbuf\_offer with main\_data}
-    \CommentTok{// Derive write size from first byte of main\_data if available, else zero.}
-    \DataTypeTok{int}\NormalTok{ write\_size }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{main\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        write\_size }\OperatorTok{=}\NormalTok{ main\_data}\OperatorTok{[}\DecValTok{0}\OperatorTok{];}
-        \CommentTok{// Allow write size to be zero (edge case) and up to larger than buffer size to test rejection path}
-        \CommentTok{// Normalize write\_size to a range: 0 to 2 * cbuf{-}\textgreater{}size to test boundary and overflow cases clearly}
-        \DataTypeTok{int}\NormalTok{ max\_test\_size }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)(}\NormalTok{cbuf}\OperatorTok{{-}\textgreater{}}\NormalTok{size }\OperatorTok{*} \DecValTok{2}\OperatorTok{);}
-\NormalTok{        write\_size }\OperatorTok{=} \OperatorTok{(}\NormalTok{write\_size }\OperatorTok{\%} \OperatorTok{(}\NormalTok{max\_test\_size }\OperatorTok{+} \DecValTok{1}\OperatorTok{));} \CommentTok{// allows 0 to max\_test\_size inclusive}
-    \OperatorTok{\}}
-
-    \CommentTok{// Pointer to data for writing is after first byte in main\_data if exists}
-    \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{write\_data }\OperatorTok{=}\NormalTok{ main\_data }\OperatorTok{+} \DecValTok{1}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ write\_data\_len }\OperatorTok{=} \OperatorTok{(}\NormalTok{main\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{?}\NormalTok{ main\_size }\OperatorTok{{-}} \DecValTok{1} \OperatorTok{:} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Clamp write\_size to write\_data\_len but allow write\_size \textgreater{} write\_data\_len to simulate out of bounds sizes}
-    \CommentTok{// by assigning write\_data\_len as is {-}{-} note cbuf\_offer will only read up to write\_size bytes anyway}
-    \CommentTok{// but fuzzing with invalid sizes tests boundary conditions.}
-
-    \ControlFlowTok{if} \OperatorTok{((}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{write\_size }\OperatorTok{\textgreater{}}\NormalTok{ write\_data\_len}\OperatorTok{)} \OperatorTok{\{}
-        \CommentTok{// We keep write\_size as is for boundary fuzzing (even if it overflows input),}
-        \CommentTok{// but avoid buffer overflow by passing smaller data pointer as NULL if no data available}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{write\_data\_len }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{            write\_data }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-        \OperatorTok{\}}
-    \OperatorTok{\}}
-
-    \CommentTok{// Call cbuf\_offer with fuzz parameters (including zero and oversized writes)}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ write\_data}\OperatorTok{,}\NormalTok{ write\_size}\OperatorTok{);}
-
-    \CommentTok{// Additionally try a zero length call explicitly to test that edge case}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
-
-    \CommentTok{// Optionally perform a few repeated calls with no data to simulate further state changes}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
-
-\NormalTok{    cbuf\_free}\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
+\NormalTok{  cbuf\_t }\OperatorTok{*}\NormalTok{cbuf }\OperatorTok{=}\NormalTok{ cbuf\_new }\OperatorTok{(}\DecValTok{12}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{cbuf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
     \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+
+  \CommentTok{// Split input roughly into two parts; first fills the buffer partially,}
+  \CommentTok{// second part is used for fuzzing cbuf\_offer calls}
+  \DataTypeTok{size\_t}\NormalTok{ split }\OperatorTok{=}\NormalTok{ size }\OperatorTok{/} \DecValTok{2}\OperatorTok{;}
+  \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{prefix\_data }\OperatorTok{=}\NormalTok{ data}\OperatorTok{;}
+  \DataTypeTok{size\_t}\NormalTok{ prefix\_size }\OperatorTok{=}\NormalTok{ split}\OperatorTok{;}
+  \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{main\_data }\OperatorTok{=}\NormalTok{ data }\OperatorTok{+}\NormalTok{ split}\OperatorTok{;}
+  \DataTypeTok{size\_t}\NormalTok{ main\_size }\OperatorTok{=}\NormalTok{ size }\OperatorTok{{-}}\NormalTok{ split}\OperatorTok{;}
+
+  \CommentTok{// Initially fill the buffer partially with prefix\_data to simulate used}
+  \CommentTok{// space}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{prefix\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)}
+    \OperatorTok{\{}
+      \DataTypeTok{int}\NormalTok{ space }\OperatorTok{=}\NormalTok{ cbuf\_unusedspace }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
+      \DataTypeTok{int}\NormalTok{ to\_write}
+          \OperatorTok{=}\NormalTok{ prefix\_size }\OperatorTok{\textless{}} \OperatorTok{(}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{space }\OperatorTok{?} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{prefix\_size }\OperatorTok{:}\NormalTok{ space }\OperatorTok{{-}} \DecValTok{1}\OperatorTok{;}
+      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{to\_write }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)}
+        \OperatorTok{\{}
+          \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ prefix\_data}\OperatorTok{,}\NormalTok{ to\_write}\OperatorTok{);}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+  \CommentTok{// Now fuzz cbuf\_offer with main\_data}
+  \CommentTok{// Derive write size from first byte of main\_data if available, else zero.}
+  \DataTypeTok{int}\NormalTok{ write\_size }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{main\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)}
+    \OperatorTok{\{}
+\NormalTok{      write\_size }\OperatorTok{=}\NormalTok{ main\_data}\OperatorTok{[}\DecValTok{0}\OperatorTok{];}
+      \CommentTok{// Allow write size to be zero (edge case) and up to larger than buffer}
+      \CommentTok{// size to test rejection path Normalize write\_size to a range: 0 to 2 *}
+      \CommentTok{// cbuf{-}\textgreater{}size to test boundary and overflow cases clearly}
+      \DataTypeTok{int}\NormalTok{ max\_test\_size }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)(}\NormalTok{cbuf}\OperatorTok{{-}\textgreater{}}\NormalTok{size }\OperatorTok{*} \DecValTok{2}\OperatorTok{);}
+\NormalTok{      write\_size}
+          \OperatorTok{=} \OperatorTok{(}\NormalTok{write\_size}
+             \OperatorTok{\%} \OperatorTok{(}\NormalTok{max\_test\_size }\OperatorTok{+} \DecValTok{1}\OperatorTok{));} \CommentTok{// allows 0 to max\_test\_size inclusive}
+    \OperatorTok{\}}
+
+  \CommentTok{// Pointer to data for writing is after first byte in main\_data if exists}
+  \DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{write\_data }\OperatorTok{=}\NormalTok{ main\_data }\OperatorTok{+} \DecValTok{1}\OperatorTok{;}
+  \DataTypeTok{size\_t}\NormalTok{ write\_data\_len }\OperatorTok{=} \OperatorTok{(}\NormalTok{main\_size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{?}\NormalTok{ main\_size }\OperatorTok{{-}} \DecValTok{1} \OperatorTok{:} \DecValTok{0}\OperatorTok{;}
+
+  \CommentTok{// Clamp write\_size to write\_data\_len but allow write\_size \textgreater{} write\_data\_len}
+  \CommentTok{// to simulate out of bounds sizes by assigning write\_data\_len as is {-}{-} note}
+  \CommentTok{// cbuf\_offer will only read up to write\_size bytes anyway but fuzzing with}
+  \CommentTok{// invalid sizes tests boundary conditions.}
+
+  \ControlFlowTok{if} \OperatorTok{((}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{write\_size }\OperatorTok{\textgreater{}}\NormalTok{ write\_data\_len}\OperatorTok{)}
+    \OperatorTok{\{}
+      \CommentTok{// We keep write\_size as is for boundary fuzzing (even if it overflows}
+      \CommentTok{// input), but avoid buffer overflow by passing smaller data pointer as}
+      \CommentTok{// NULL if no data available}
+      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{write\_data\_len }\OperatorTok{==} \DecValTok{0}\OperatorTok{)}
+        \OperatorTok{\{}
+\NormalTok{          write\_data }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+  \CommentTok{// Call cbuf\_offer with fuzz parameters (including zero and oversized writes)}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ write\_data}\OperatorTok{,}\NormalTok{ write\_size}\OperatorTok{);}
+
+  \CommentTok{// Additionally try a zero length call explicitly to test that edge case}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
+
+  \CommentTok{// Optionally perform a few repeated calls with no data to simulate further}
+  \CommentTok{// state changes}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{cbuf\_offer }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{,} \DecValTok{0}\OperatorTok{);}
+
+\NormalTok{  cbuf\_free }\OperatorTok{(}\NormalTok{cbuf}\OperatorTok{);}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
 \OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-crash input which triggers an exception in
-\texttt{cbuf\_offer()}\textgreater{}\texttt{memcpy()}.
-
-\begin{verbatim}
-00000000: 0a                                       .
-\end{verbatim}
-
-fuzzed function
+Body of function that the harness targets:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -2832,112 +2863,16 @@ fuzzed function
 \end{Highlighting}
 \end{Shaded}
 
-\section{chfreq.c}\label{chfreq.c}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-
-\CommentTok{// Include the project\textquotesingle{}s header file that declares chfreq}
-\PreprocessorTok{\#include }\ImportTok{"chfreq.h"}
-
-\CommentTok{// Helper function to free the matrix returned by chfreq}
-\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ free\_chfreq\_matrix}\OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{**}\NormalTok{mat}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{mat}\OperatorTok{)} \ControlFlowTok{return}\OperatorTok{;}
-    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ mat}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{!=}\NormalTok{ NULL}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{mat}\OperatorTok{[}\NormalTok{i}\OperatorTok{]);}
-    \OperatorTok{\}}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{mat}\OperatorTok{);}
-\OperatorTok{\}}
-
-\CommentTok{// libFuzzer entry point}
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Defensive: If input size is zero, nothing to do}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Allocate a buffer to hold the input as a null{-}terminated string}
-    \CommentTok{// Use heap allocation to avoid stack overflow issues with large inputs}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{input\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{input\_str}\OperatorTok{)} \OperatorTok{\{}
-        \CommentTok{// Allocation failed, return gracefully}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Copy fuzz input into buffer}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-
-    \CommentTok{// Null{-}terminate the input as chfreq expects a C string}
-\NormalTok{    input\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-    \CommentTok{// Call the function under test}
-    \DataTypeTok{uint32\_t} \OperatorTok{**}\NormalTok{result }\OperatorTok{=}\NormalTok{ chfreq}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
-
-    \CommentTok{// Free the dynamically allocated matrix returned by chfreq}
-\NormalTok{    free\_chfreq\_matrix}\OperatorTok{(}\NormalTok{result}\OperatorTok{);}
-
-    \CommentTok{// Free the input buffer}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
-
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input which triggers a heap buffer overflow in
-\texttt{chfreq()}\textgreater{}\texttt{realloc()}.
+Crash input which triggers an exception in
+\texttt{cbuf\_offer()}\textgreater{}\texttt{memcpy()}:
 
 \begin{verbatim}
 00000000: 0a                                       .
 \end{verbatim}
 
-fuzzed function
+\section{dvhar/dateparse}\label{dvhardateparse}
 
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\DataTypeTok{uint32\_t} \OperatorTok{**}
-\NormalTok{chfreq }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{src}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{uint32\_t} \OperatorTok{**}\NormalTok{mat }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-  \DataTypeTok{char}\NormalTok{ ch }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ size }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ pos }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ idx }\OperatorTok{=} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
-
-  \CommentTok{// alloc}
-\NormalTok{  mat }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{**)}\NormalTok{ calloc}\OperatorTok{(}\NormalTok{size}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{*));}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ mat}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\NormalTok{ NULL}\OperatorTok{;} \OperatorTok{\}}
-
-  \CommentTok{// build}
-  \ControlFlowTok{while} \OperatorTok{(}\CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}} \OperatorTok{!=} \OperatorTok{(}\NormalTok{ch }\OperatorTok{=}\NormalTok{ src}\OperatorTok{[}\NormalTok{i}\OperatorTok{++]))} \OperatorTok{\{}
-\NormalTok{    idx }\OperatorTok{=}\NormalTok{ find}\OperatorTok{(}\NormalTok{mat}\OperatorTok{,}\NormalTok{ ch}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{({-}}\DecValTok{1} \OperatorTok{==}\NormalTok{ idx}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      idx }\OperatorTok{=}\NormalTok{ pos}\OperatorTok{++;}
-\NormalTok{      mat }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{**)}\NormalTok{ realloc}\OperatorTok{(}\NormalTok{mat}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{*)} \OperatorTok{*}\NormalTok{ ssize}\OperatorTok{(}\NormalTok{src}\OperatorTok{));}
-\NormalTok{      mat}\OperatorTok{[}\NormalTok{idx}\OperatorTok{]} \OperatorTok{=} \OperatorTok{(}\DataTypeTok{uint32\_t} \OperatorTok{*)}\NormalTok{ calloc}\OperatorTok{(}\DecValTok{2}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{uint32\_t}\OperatorTok{));}
-\NormalTok{      mat}\OperatorTok{[}\NormalTok{idx}\OperatorTok{][}\DecValTok{0}\OperatorTok{]} \OperatorTok{=}\NormalTok{ ch}\OperatorTok{;}
-\NormalTok{      mat}\OperatorTok{[}\NormalTok{idx}\OperatorTok{][}\DecValTok{1}\OperatorTok{]} \OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-\NormalTok{      size}\OperatorTok{++;}
-    \OperatorTok{\}} \ControlFlowTok{else} \OperatorTok{\{}
-\NormalTok{      mat}\OperatorTok{[}\NormalTok{idx}\OperatorTok{][}\DecValTok{1}\OperatorTok{]++;}
-    \OperatorTok{\}}
-  \OperatorTok{\}}
-
-\NormalTok{  mat}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-
-  \ControlFlowTok{return}\NormalTok{ mat}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Dateparse}\label{dateparse}
-
-harness
+Generated harness:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -2960,14 +2895,7 @@ harness
 \end{Highlighting}
 \end{Shaded}
 
-Crash input that causes a heap buffer overflow in
-\texttt{dateparse()}\textgreater{}\texttt{parseTime()}\textgreater{}\texttt{setMonth()}\textgreater{}\texttt{strncpy()}.
-
-\begin{verbatim}
-00000000: 6632 2066                                f2 f
-\end{verbatim}
-
-fuzzed function
+Body of function that the harness targets:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -2983,838 +2911,79 @@ fuzzed function
 \end{Highlighting}
 \end{Shaded}
 
-\section{Libbacon}\label{libbacon}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"bacon.h"}\PreprocessorTok{ }\CommentTok{// assuming this is the main project header defining bacon\_decode and constants}
-
-\CommentTok{// LibFuzzer entry point}
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Defensive: bacon\_decode expects null{-}terminated string, but inputs from fuzzer not guaranteed null{-}terminated.}
-    \CommentTok{// Allocate a buffer one byte larger, copy data and append null terminator to safely create input string.}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{input }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{input}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \CommentTok{// allocation failed, skip this input}
-    \OperatorTok{\}}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{input}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    input}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-    \CommentTok{// Call bacon\_decode with default alphabet by passing NULL}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{decoded }\OperatorTok{=}\NormalTok{ bacon\_decode}\OperatorTok{(}\NormalTok{input}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{);}
-
-    \CommentTok{// Free decoded string if returned}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{decoded}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{decoded}\OperatorTok{);}
-    \OperatorTok{\}}
-
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input}\OperatorTok{);}
-
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input that causes heap buffer overflow in
-\texttt{bacon\_decode()}\textgreater{}\texttt{malloc()}.
+Crash input that causes a heap buffer overflow in
+\texttt{dateparse()}\textgreater{}\texttt{parseTime()}\textgreater{}\texttt{setMonth()}\textgreater{}\texttt{strncpy()}.
 
 \begin{verbatim}
-00000000: 4141 4141 41                             AAAAA
+00000000: 6632 2066                                f2 f
 \end{verbatim}
 
-fuzzed function
+\section{h2non/semver.c}\label{h2nonsemver.c}
+
+Generated harness:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\DataTypeTok{char} \OperatorTok{*}
-\NormalTok{bacon\_decode }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{src}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{alpha}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{dec }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{ malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{));}
-  \DataTypeTok{char}\NormalTok{ buf}\OperatorTok{[}\DecValTok{5}\OperatorTok{];}
-  \DataTypeTok{char}\NormalTok{ ch }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ size }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ len }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{src}\OperatorTok{);}
-  \DataTypeTok{size\_t}\NormalTok{ alen }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ bsize }\OperatorTok{=} \DecValTok{0}\OperatorTok{;} \CommentTok{// buffer size}
-  \DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;} \CommentTok{// source index}
-  \DataTypeTok{int}\NormalTok{ sep }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ idx }\OperatorTok{=} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ custom }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ dec}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\NormalTok{ NULL}\OperatorTok{;} \OperatorTok{\}}
-
-  \CommentTok{// use default}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ alpha}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    alpha }\OperatorTok{=}\NormalTok{ BACON\_ALPHA}\OperatorTok{;}
-  \OperatorTok{\}} \ControlFlowTok{else} \OperatorTok{\{}\NormalTok{ custom }\OperatorTok{=} \DecValTok{1}\OperatorTok{;} \OperatorTok{\}}
-
-  \CommentTok{// alpha length}
-\NormalTok{  alen }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{size\_t}\OperatorTok{)}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{alpha}\OperatorTok{);}
-
-  \CommentTok{// parse and decode}
-  \ControlFlowTok{while} \OperatorTok{((++}\NormalTok{i}\OperatorTok{)} \OperatorTok{\textless{}}\NormalTok{ len}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// read symbol and convert}
-    \CommentTok{// to uppercase just in case}
-\NormalTok{    ch }\OperatorTok{=}\NormalTok{ toupper}\OperatorTok{(}\NormalTok{src}\OperatorTok{[}\NormalTok{i}\OperatorTok{]);}
-
-    \CommentTok{// store symbols in buffer}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{BACON\_A }\OperatorTok{==}\NormalTok{ ch }\OperatorTok{||}\NormalTok{ BACON\_B }\OperatorTok{==}\NormalTok{ ch}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      buf}\OperatorTok{[}\NormalTok{bsize}\OperatorTok{++]} \OperatorTok{=}\NormalTok{ ch}\OperatorTok{;}
-    \OperatorTok{\}} \ControlFlowTok{else} \OperatorTok{\{}
-      \CommentTok{// oob {-} needs space}
-\NormalTok{      sep }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \ControlFlowTok{if} \OperatorTok{(}\DecValTok{5} \OperatorTok{==}\NormalTok{ bsize}\OperatorTok{)} \OperatorTok{\{}
-      \CommentTok{// accumulate}
-\NormalTok{      idx }\OperatorTok{=} \OperatorTok{(}
-          \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{==}\NormalTok{ BACON\_A }\OperatorTok{?} \DecValTok{0} \OperatorTok{:} \BaseNTok{0x10}\OperatorTok{)} \OperatorTok{+}
-          \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\DecValTok{1}\OperatorTok{]} \OperatorTok{==}\NormalTok{ BACON\_A }\OperatorTok{?} \DecValTok{0} \OperatorTok{:} \BaseNTok{0x08}\OperatorTok{)} \OperatorTok{+}
-          \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\DecValTok{2}\OperatorTok{]} \OperatorTok{==}\NormalTok{ BACON\_A }\OperatorTok{?} \DecValTok{0} \OperatorTok{:} \BaseNTok{0x04}\OperatorTok{)} \OperatorTok{+}
-          \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\DecValTok{3}\OperatorTok{]} \OperatorTok{==}\NormalTok{ BACON\_A }\OperatorTok{?} \DecValTok{0} \OperatorTok{:} \BaseNTok{0x02}\OperatorTok{)} \OperatorTok{+}
-          \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\DecValTok{4}\OperatorTok{]} \OperatorTok{==}\NormalTok{ BACON\_A }\OperatorTok{?} \DecValTok{0} \OperatorTok{:} \BaseNTok{0x01}\OperatorTok{)} 
-       \OperatorTok{);}
-
-      \CommentTok{// append space if needed and}
-      \CommentTok{// is not first char yieled}
-      \ControlFlowTok{if} \OperatorTok{(}\DecValTok{1} \OperatorTok{==}\NormalTok{ sep }\OperatorTok{\&\&}\NormalTok{ size }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{++]} \OperatorTok{=} \CharTok{\textquotesingle{} \textquotesingle{}}\OperatorTok{;}
-      \OperatorTok{\}}
-
-      \CommentTok{// append char from alphabet}
-      \CommentTok{// uppercased}
-\NormalTok{      dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{++]} \OperatorTok{=}\NormalTok{ toupper}\OperatorTok{(}\NormalTok{alpha}\OperatorTok{[}\NormalTok{idx}\OperatorTok{]);}
-
-      \CommentTok{// reset}
-\NormalTok{      bsize }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{      sep }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-  \OperatorTok{\}}
-
-  \CommentTok{// cap}
-\NormalTok{  dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-  \ControlFlowTok{return}\NormalTok{ dec}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Libbeaufort}\label{libbeaufort}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"beaufort.h"}
-
-\CommentTok{// libFuzzer entry point for fuzz testing beaufort\_decrypt function.}
-\CommentTok{// This harness splits input bytes into two strings: src and key.}
-\CommentTok{// It calls beaufort\_decrypt with those strings and NULL mat,}
-\CommentTok{// which triggers internal tableau setup.}
-\CommentTok{// The output buffer is freed after use to avoid leaks.}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// If input is zero size, no meaningful test possible, return early.}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Allocate buffer to hold a copy of input plus one byte for null terminator.}
-    \CommentTok{// We\textquotesingle{}ll create two null{-}terminated strings inside this buffer.}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{buf }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{2}\OperatorTok{);} \CommentTok{// +2 to be safe for two terminators.}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{buf}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \CommentTok{// Allocation failure, skip this input.}
-    \OperatorTok{\}}
-
-    \CommentTok{// Copy data to buf and ensure it\textquotesingle{}s not modified outside.}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    buf}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;} \CommentTok{// Null{-}terminate at end for safety.}
-\NormalTok{    buf}\OperatorTok{[}\NormalTok{size}\OperatorTok{+}\DecValTok{1}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-    \CommentTok{// Find split position for src and key strings.}
-    \CommentTok{// Strategy: Find first 0 byte inside input to split; if none, split in half.}
-    \DataTypeTok{size\_t}\NormalTok{ split\_pos }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \ControlFlowTok{for} \OperatorTok{(;}\NormalTok{ split\_pos }\OperatorTok{\textless{}}\NormalTok{ size}\OperatorTok{;}\NormalTok{ split\_pos}\OperatorTok{++)} \OperatorTok{\{}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{buf}\OperatorTok{[}\NormalTok{split\_pos}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{)} \OperatorTok{\{}
-            \ControlFlowTok{break}\OperatorTok{;}
-        \OperatorTok{\}}
-    \OperatorTok{\}}
-
-    \CommentTok{// If no null byte found, split input roughly in half.}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{split\_pos }\OperatorTok{==}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        split\_pos }\OperatorTok{=}\NormalTok{ size }\OperatorTok{/} \DecValTok{2}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Null terminate src at split\_pos, ensure key string starts at split\_pos+1.}
-\NormalTok{    buf}\OperatorTok{[}\NormalTok{split\_pos}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{src }\OperatorTok{=}\NormalTok{ buf}\OperatorTok{;}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{key }\OperatorTok{=}\NormalTok{ buf }\OperatorTok{+}\NormalTok{ split\_pos }\OperatorTok{+} \DecValTok{1}\OperatorTok{;}
-
-    \CommentTok{// To avoid passing a key pointer beyond buffer end, if no key data,}
-    \CommentTok{// set key to empty string.}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{key }\OperatorTok{\textgreater{}=}\NormalTok{ buf }\OperatorTok{+}\NormalTok{ size }\OperatorTok{+} \DecValTok{2}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        key }\OperatorTok{=} \StringTok{""}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Call beaufort\_decrypt with src, key, and NULL mat (default matrix).}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{dec }\OperatorTok{=}\NormalTok{ beaufort\_decrypt}\OperatorTok{(}\NormalTok{src}\OperatorTok{,}\NormalTok{ key}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{);}
-
-    \CommentTok{// Free returned decrypted string buffer if not NULL.}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{dec}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{dec}\OperatorTok{);}
-    \OperatorTok{\}}
-
-    \CommentTok{// Free the duplicated input buffer.}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{buf}\OperatorTok{);}
-
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input that causes a heap buffer overflow in
-\texttt{beaufort\_decrypt()}\textgreater{}\texttt{beaufort\_tableau()}\textgreater{}\texttt{calloc()}.
-
-\begin{verbatim}
-00000000: 0a                                       .
-\end{verbatim}
-
-fuzzed function
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-
-\DataTypeTok{char} \OperatorTok{*}
-\NormalTok{beaufort\_decrypt }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{src}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{key}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{**}\NormalTok{mat}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{dec }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-  \DataTypeTok{char}\NormalTok{ ch }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{char}\NormalTok{ k }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ ksize }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ size }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ rsize }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{size\_t}\NormalTok{ len }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ x }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ y }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ needed }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ mat}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    mat }\OperatorTok{=}\NormalTok{ beaufort\_tableau}\OperatorTok{(}\NormalTok{BEAUFORT\_ALPHA}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ mat}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\NormalTok{ NULL}\OperatorTok{;} \OperatorTok{\}}
-  \OperatorTok{\}}
-
-\NormalTok{  ksize }\OperatorTok{=}\NormalTok{ ssize}\OperatorTok{(}\NormalTok{key}\OperatorTok{);}
-\NormalTok{  len }\OperatorTok{=}\NormalTok{ ssize}\OperatorTok{(}\NormalTok{src}\OperatorTok{);}
-\NormalTok{  rsize }\OperatorTok{=}\NormalTok{ ssize}\OperatorTok{(}\NormalTok{mat}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}
-\NormalTok{  dec }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{ malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{)} \OperatorTok{*}\NormalTok{ len }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{NULL }\OperatorTok{==}\NormalTok{ dec}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\NormalTok{ NULL}\OperatorTok{;} \OperatorTok{\}}
-
-  \ControlFlowTok{for} \OperatorTok{(;} \OperatorTok{(}\NormalTok{ch }\OperatorTok{=}\NormalTok{ src}\OperatorTok{[}\NormalTok{i}\OperatorTok{]);} \OperatorTok{++}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    needed }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-
-    \CommentTok{// find column with char}
-    \ControlFlowTok{for} \OperatorTok{(}\NormalTok{y }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ y }\OperatorTok{\textless{}}\NormalTok{ rsize}\OperatorTok{;} \OperatorTok{++}\NormalTok{y}\OperatorTok{)} \OperatorTok{\{}
-      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{ch }\OperatorTok{==}\NormalTok{ mat}\OperatorTok{[}\NormalTok{y}\OperatorTok{][}\DecValTok{0}\OperatorTok{])} \OperatorTok{\{}\NormalTok{ needed }\OperatorTok{=} \DecValTok{1}\OperatorTok{;} \ControlFlowTok{break}\OperatorTok{;} \OperatorTok{\}}
-      \ControlFlowTok{else} \OperatorTok{\{}\NormalTok{ needed }\OperatorTok{=} \DecValTok{0}\OperatorTok{;} \OperatorTok{\}}
-    \OperatorTok{\}}
-
-    \CommentTok{// if not needed append}
-    \CommentTok{// char and continue}
-    \ControlFlowTok{if} \OperatorTok{(}\DecValTok{0} \OperatorTok{==}\NormalTok{ needed}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{++]} \OperatorTok{=}\NormalTok{ ch}\OperatorTok{;}
-      \ControlFlowTok{continue}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// determine char in \textasciigrave{}key\textquotesingle{}}
-\NormalTok{    k }\OperatorTok{=}\NormalTok{ key}\OperatorTok{[(}\NormalTok{j}\OperatorTok{++)} \OperatorTok{\%}\NormalTok{ ksize}\OperatorTok{];}
-
-    \ControlFlowTok{for} \OperatorTok{(}\NormalTok{x }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ x }\OperatorTok{\textless{}}\NormalTok{ rsize}\OperatorTok{;} \OperatorTok{++}\NormalTok{x}\OperatorTok{)}  \OperatorTok{\{}
-      \ControlFlowTok{if} \OperatorTok{(}\NormalTok{k }\OperatorTok{==}\NormalTok{ mat}\OperatorTok{[}\NormalTok{y}\OperatorTok{][}\NormalTok{x}\OperatorTok{])} \OperatorTok{\{}\NormalTok{ needed }\OperatorTok{=} \DecValTok{1}\OperatorTok{;} \ControlFlowTok{break}\OperatorTok{;} \OperatorTok{\}}
-      \ControlFlowTok{else} \OperatorTok{\{}\NormalTok{ needed }\OperatorTok{=} \DecValTok{0}\OperatorTok{;} \OperatorTok{\}}
-    \OperatorTok{\}}
-
-    \CommentTok{// append current char if not}
-    \CommentTok{// needed and decrement unused}
-    \CommentTok{// modulo index}
-    \ControlFlowTok{if} \OperatorTok{(}\DecValTok{0} \OperatorTok{==}\NormalTok{ needed}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{++]} \OperatorTok{=}\NormalTok{ ch}\OperatorTok{;}
-\NormalTok{      j}\OperatorTok{{-}{-};}
-      \ControlFlowTok{continue}\OperatorTok{;}
-    \OperatorTok{\}}
-
-\NormalTok{    dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{++]} \OperatorTok{=}\NormalTok{ mat}\OperatorTok{[}\DecValTok{0}\OperatorTok{][}\NormalTok{x}\OperatorTok{];}
-  \OperatorTok{\}}
-
-\NormalTok{  dec}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-  \ControlFlowTok{return}\NormalTok{ dec}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Mpc}\label{mpc}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
-
-\CommentTok{// We need these macros from original source; assumed defaults from retrieved code}
-\PreprocessorTok{\#define MPC\_INPUT\_STRING }\DecValTok{1}
-\PreprocessorTok{\#define MPC\_INPUT\_PIPE }\DecValTok{2}
-\PreprocessorTok{\#define MPC\_INPUT\_FILE }\DecValTok{3}
-\PreprocessorTok{\#define MPC\_INPUT\_MARKS\_MIN }\DecValTok{4}
-\PreprocessorTok{\#define MPC\_INPUT\_MEM\_NUM }\DecValTok{256}
-
-\CommentTok{// Minimal mpc\_state\_t for marks array, mirroring original usage (only pos needed)}
-\KeywordTok{typedef} \KeywordTok{struct} \OperatorTok{\{}
-  \DataTypeTok{size\_t}\NormalTok{ pos}\OperatorTok{;}
-\OperatorTok{\}}\NormalTok{ mpc\_state\_t}\OperatorTok{;}
-
-\CommentTok{// Updated definition of mpc\_input\_t struct based on full context and usage.}
-\KeywordTok{typedef} \KeywordTok{struct} \OperatorTok{\{}
-  \DataTypeTok{int}\NormalTok{ type}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ backtrack}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ marks\_num}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ marks\_slots}\OperatorTok{;}
-
-  \CommentTok{// String input data}
-  \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{string}\OperatorTok{;}
-
-  \CommentTok{// State tracking position}
-\NormalTok{  mpc\_state\_t state}\OperatorTok{;}
-
-  \CommentTok{// Memory pool for mpc\_malloc}
-  \DataTypeTok{char}\NormalTok{ mem}\OperatorTok{[}\NormalTok{MPC\_INPUT\_MEM\_NUM}\OperatorTok{];}
-  \DataTypeTok{char}\NormalTok{ mem\_full}\OperatorTok{[}\NormalTok{MPC\_INPUT\_MEM\_NUM}\OperatorTok{];}
-  \DataTypeTok{size\_t}\NormalTok{ mem\_index}\OperatorTok{;}
-
-  \CommentTok{// Marks arrays for backtracking}
-\NormalTok{  mpc\_state\_t }\OperatorTok{*}\NormalTok{marks}\OperatorTok{;}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{lasts}\OperatorTok{;}
-  \DataTypeTok{char}\NormalTok{ last}\OperatorTok{;}
-
-  \CommentTok{// File pointer for FILE/PIPE input type {-} unused here}
-  \DataTypeTok{FILE} \OperatorTok{*}\NormalTok{file}\OperatorTok{;}
-
-  \CommentTok{// Buffer for PIPE input type {-} unused here}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{buffer}\OperatorTok{;}
-
-  \CommentTok{// Filename field used in real input (omitted here as irrelevant)}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{filename}\OperatorTok{;}
-
-  \CommentTok{// Suppress flag (unused, set 0)}
-  \DataTypeTok{int}\NormalTok{ suppress}\OperatorTok{;}
-
-\OperatorTok{\}}\NormalTok{ mpc\_input\_t}\OperatorTok{;}
-
-\CommentTok{// Forward declarations with external linkage; these are adapted from internal static versions}
-
-\CommentTok{// Mark the current input position for backtracking}
-\DataTypeTok{void}\NormalTok{ mpc\_input\_mark}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{backtrack }\OperatorTok{\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\OperatorTok{;} \OperatorTok{\}}
-\NormalTok{  i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{++;}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{\textgreater{}}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{+}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{/}\DecValTok{2}\OperatorTok{;}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks }\OperatorTok{=} \OperatorTok{(}\NormalTok{mpc\_state\_t}\OperatorTok{*)}\NormalTok{realloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{mpc\_state\_t}\OperatorTok{)} \OperatorTok{*}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{);}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{realloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{)} \OperatorTok{*}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{);}
-  \OperatorTok{\}}
-\NormalTok{  i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{{-}}\DecValTok{1}\OperatorTok{]} \OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{;}
-\NormalTok{  i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{{-}}\DecValTok{1}\OperatorTok{]} \OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{last}\OperatorTok{;}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{type }\OperatorTok{==}\NormalTok{ MPC\_INPUT\_PIPE }\OperatorTok{\&\&}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{==} \DecValTok{1}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer }\OperatorTok{=}\NormalTok{ calloc}\OperatorTok{(}\DecValTok{1}\OperatorTok{,} \DecValTok{1}\OperatorTok{);}
-  \OperatorTok{\}}
-\OperatorTok{\}}
-
-\CommentTok{// Undo the last mark (pop backtracking point)}
-\DataTypeTok{void}\NormalTok{ mpc\_input\_unmark}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{backtrack }\OperatorTok{\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\OperatorTok{;} \OperatorTok{\}}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{{-}{-};}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots }\OperatorTok{\textgreater{}}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{+}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num}\OperatorTok{/}\DecValTok{2} \OperatorTok{\&\&}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots }\OperatorTok{\textgreater{}}\NormalTok{ MPC\_INPUT\_MARKS\_MIN}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{\textgreater{}}\NormalTok{ MPC\_INPUT\_MARKS\_MIN }\OperatorTok{?}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{:}\NormalTok{ MPC\_INPUT\_MARKS\_MIN}\OperatorTok{;}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks }\OperatorTok{=} \OperatorTok{(}\NormalTok{mpc\_state\_t}\OperatorTok{*)}\NormalTok{realloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{mpc\_state\_t}\OperatorTok{)} \OperatorTok{*}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{);}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{realloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{)} \OperatorTok{*}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{);}
-  \OperatorTok{\}}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{type }\OperatorTok{==}\NormalTok{ MPC\_INPUT\_PIPE }\OperatorTok{\&\&}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{strlen}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer}\OperatorTok{)} \OperatorTok{{-}} \DecValTok{1}\OperatorTok{;}\NormalTok{ j }\OperatorTok{\textgreater{}=} \DecValTok{0}\OperatorTok{;}\NormalTok{ j}\OperatorTok{{-}{-})}
-\NormalTok{      ungetc}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer}\OperatorTok{[}\NormalTok{j}\OperatorTok{],}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{file}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer}\OperatorTok{);}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-  \OperatorTok{\}}
-\OperatorTok{\}}
-
-\CommentTok{// Rewind input to the last mark, then remove that mark}
-\DataTypeTok{void}\NormalTok{ mpc\_input\_rewind}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{backtrack }\OperatorTok{\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return}\OperatorTok{;} \OperatorTok{\}}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{\textgreater{}} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{state }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{{-}} \DecValTok{1}\OperatorTok{];}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{last }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{{-}} \DecValTok{1}\OperatorTok{];}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{type }\OperatorTok{==}\NormalTok{ MPC\_INPUT\_FILE}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      fseek}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{file}\OperatorTok{,}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{.}\NormalTok{pos}\OperatorTok{,}\NormalTok{ SEEK\_SET}\OperatorTok{);}
-    \OperatorTok{\}}
-  \OperatorTok{\}}
-\NormalTok{  mpc\_input\_unmark}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-\OperatorTok{\}}
-
-\CommentTok{// Provide a small memory allocator using the internal pool or standard malloc}
-\DataTypeTok{void} \OperatorTok{*}\NormalTok{mpc\_malloc}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ n}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{size\_t}\NormalTok{ j}\OperatorTok{;}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{p}\OperatorTok{;}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{n }\OperatorTok{\textgreater{}} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem}\OperatorTok{))} \OperatorTok{\{}
-    \ControlFlowTok{return}\NormalTok{ malloc}\OperatorTok{(}\NormalTok{n}\OperatorTok{);}
-  \OperatorTok{\}}
-\NormalTok{  j }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index}\OperatorTok{;}
-  \ControlFlowTok{do} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_full}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index}\OperatorTok{])} \OperatorTok{\{}
-\NormalTok{      p }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{void}\OperatorTok{*)(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem }\OperatorTok{+}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index}\OperatorTok{);}
-\NormalTok{      i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_full}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index}\OperatorTok{]} \OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-\NormalTok{      i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index }\OperatorTok{=} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index }\OperatorTok{+} \DecValTok{1}\OperatorTok{)} \OperatorTok{\%}\NormalTok{ MPC\_INPUT\_MEM\_NUM}\OperatorTok{;}
-      \ControlFlowTok{return}\NormalTok{ p}\OperatorTok{;}
-    \OperatorTok{\}}
-\NormalTok{    i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index }\OperatorTok{=} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index }\OperatorTok{+} \DecValTok{1}\OperatorTok{)} \OperatorTok{\%}\NormalTok{ MPC\_INPUT\_MEM\_NUM}\OperatorTok{;}
-  \OperatorTok{\}} \ControlFlowTok{while} \OperatorTok{(}\NormalTok{j }\OperatorTok{!=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index}\OperatorTok{);}
-  \ControlFlowTok{return}\NormalTok{ malloc}\OperatorTok{(}\NormalTok{n}\OperatorTok{);}
-\OperatorTok{\}}
-
-\CommentTok{// Check if input is at end (terminated)}
-\DataTypeTok{int}\NormalTok{ mpc\_input\_terminated}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-  \CommentTok{// terminated if current pos points to \textquotesingle{}\textbackslash{}0\textquotesingle{}}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{string }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)} \ControlFlowTok{return} \DecValTok{1}\OperatorTok{;}
-  \ControlFlowTok{return}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{string}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{.}\NormalTok{pos}\OperatorTok{]} \OperatorTok{==} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-\OperatorTok{\}}
-
-\CommentTok{// Get current input character advancing position, or \textquotesingle{}\textbackslash{}0\textquotesingle{} if terminated}
-\DataTypeTok{char}\NormalTok{ mpc\_input\_getc}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{mpc\_input\_terminated}\OperatorTok{(}\NormalTok{i}\OperatorTok{))} \OperatorTok{\{} \ControlFlowTok{return} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;} \OperatorTok{\}}
-  \DataTypeTok{char}\NormalTok{ c }\OperatorTok{=}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{string}\OperatorTok{[}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{.}\NormalTok{pos}\OperatorTok{];}
-\NormalTok{  i}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{.}\NormalTok{pos}\OperatorTok{++;}
-\NormalTok{  i}\OperatorTok{{-}\textgreater{}}\NormalTok{last }\OperatorTok{=}\NormalTok{ c}\OperatorTok{;}
-  \ControlFlowTok{return}\NormalTok{ c}\OperatorTok{;}
-\OperatorTok{\}}
-
-\CommentTok{// On success, optionally output char and return 1}
-\DataTypeTok{int}\NormalTok{ mpc\_input\_success}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{char}\NormalTok{ c}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{**}\NormalTok{o}\OperatorTok{)} \OperatorTok{\{}
-  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{i}\OperatorTok{;} \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{c}\OperatorTok{;} \CommentTok{// unused in this simplified stub}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{o}\OperatorTok{)} \OperatorTok{*}\NormalTok{o }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-  \ControlFlowTok{return} \DecValTok{1}\OperatorTok{;}
-\OperatorTok{\}}
-
-\CommentTok{// On failure, handle ungetc or other cleanup and return 0}
-\DataTypeTok{int}\NormalTok{ mpc\_input\_failure}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{char}\NormalTok{ c}\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{switch} \OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{type}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{case}\NormalTok{ MPC\_INPUT\_STRING}\OperatorTok{:} \OperatorTok{\{}
-      \CommentTok{// Nothing special}
-      \ControlFlowTok{break}\OperatorTok{;}
-    \OperatorTok{\}}
-    \ControlFlowTok{case}\NormalTok{ MPC\_INPUT\_FILE}\OperatorTok{:}
-\NormalTok{      fseek}\OperatorTok{(}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{file}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{,}\NormalTok{ SEEK\_CUR}\OperatorTok{);}
-      \ControlFlowTok{break}\OperatorTok{;}
-    \ControlFlowTok{case}\NormalTok{ MPC\_INPUT\_PIPE}\OperatorTok{:} \OperatorTok{\{}
-      \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{i}\OperatorTok{{-}\textgreater{}}\NormalTok{buffer}\OperatorTok{)} \OperatorTok{\{}\NormalTok{ ungetc}\OperatorTok{(}\NormalTok{c}\OperatorTok{,}\NormalTok{ i}\OperatorTok{{-}\textgreater{}}\NormalTok{file}\OperatorTok{);} \OperatorTok{\}}
-      \ControlFlowTok{else} \OperatorTok{\{}
-        \CommentTok{// Conceptually check range, simplified here just break}
-      \OperatorTok{\}}
-      \ControlFlowTok{break}\OperatorTok{;}
-    \OperatorTok{\}}
-    \ControlFlowTok{default}\OperatorTok{:} \ControlFlowTok{break}\OperatorTok{;}
-  \OperatorTok{\}}
-  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\CommentTok{// Parser a single character c if matches input, else failure}
-\DataTypeTok{int}\NormalTok{ mpc\_input\_char}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{char}\NormalTok{ c}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{**}\NormalTok{o}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{char}\NormalTok{ x}\OperatorTok{;}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{mpc\_input\_terminated}\OperatorTok{(}\NormalTok{i}\OperatorTok{))} \OperatorTok{\{} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \OperatorTok{\}}
-\NormalTok{  x }\OperatorTok{=}\NormalTok{ mpc\_input\_getc}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-  \ControlFlowTok{return} \OperatorTok{(}\NormalTok{x }\OperatorTok{==}\NormalTok{ c}\OperatorTok{)} \OperatorTok{?}\NormalTok{ mpc\_input\_success}\OperatorTok{(}\NormalTok{i}\OperatorTok{,}\NormalTok{ x}\OperatorTok{,}\NormalTok{ o}\OperatorTok{)} \OperatorTok{:}\NormalTok{ mpc\_input\_failure}\OperatorTok{(}\NormalTok{i}\OperatorTok{,}\NormalTok{ x}\OperatorTok{);}
-\OperatorTok{\}}
-
-\CommentTok{// Primary function under test with external linkage}
-\DataTypeTok{int}\NormalTok{ mpc\_input\_string}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{c}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{**}\NormalTok{o}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{x }\OperatorTok{=}\NormalTok{ c}\OperatorTok{;}
-\NormalTok{  mpc\_input\_mark}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-  \ControlFlowTok{while} \OperatorTok{(*}\NormalTok{x}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{mpc\_input\_char}\OperatorTok{(}\NormalTok{i}\OperatorTok{,} \OperatorTok{*}\NormalTok{x}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{))} \OperatorTok{\{}
-\NormalTok{      mpc\_input\_rewind}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-\NormalTok{    x}\OperatorTok{++;}
-  \OperatorTok{\}}
-\NormalTok{  mpc\_input\_unmark}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-  \OperatorTok{*}\NormalTok{o }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{mpc\_malloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{,}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{c}\OperatorTok{)} \OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-\NormalTok{  strcpy}\OperatorTok{(*}\NormalTok{o}\OperatorTok{,}\NormalTok{ c}\OperatorTok{);}
-  \ControlFlowTok{return} \DecValTok{1}\OperatorTok{;}
-\OperatorTok{\}}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-  \CommentTok{// Defensive: ignore if no data to parse}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \OperatorTok{\}}
-
-  \CommentTok{// Allocate and initialize input struct}
-\NormalTok{  mpc\_input\_t }\OperatorTok{*}\NormalTok{input }\OperatorTok{=} \OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*)}\NormalTok{calloc}\OperatorTok{(}\DecValTok{1}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{mpc\_input\_t}\OperatorTok{));}
-  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{input}\OperatorTok{)} \OperatorTok{\{} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;} \OperatorTok{\}}
-
-  \CommentTok{// Initialize fields for string input}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{type }\OperatorTok{=}\NormalTok{ MPC\_INPUT\_STRING}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{backtrack }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_num }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots }\OperatorTok{=}\NormalTok{ MPC\_INPUT\_MARKS\_MIN}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks }\OperatorTok{=} \OperatorTok{(}\NormalTok{mpc\_state\_t }\OperatorTok{*)}\NormalTok{calloc}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{mpc\_state\_t}\OperatorTok{));}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{calloc}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks\_slots}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{));}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{last }\OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_index }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{  memset}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_full}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{mem\_full}\OperatorTok{));}
-
-  \CommentTok{// Copy input data into a null{-}terminated string for safety}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{null\_terminated\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{null\_terminated\_str}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input}\OperatorTok{);}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-  \OperatorTok{\}}
-\NormalTok{  memcpy}\OperatorTok{(}\NormalTok{null\_terminated\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{  null\_terminated\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-  \CommentTok{// Set string field}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{string }\OperatorTok{=}\NormalTok{ null\_terminated\_str}\OperatorTok{;}
-\NormalTok{  input}\OperatorTok{{-}\textgreater{}}\NormalTok{state}\OperatorTok{.}\NormalTok{pos }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{output }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-
-  \CommentTok{// Call the fuzz target function}
-  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{mpc\_input\_string}\OperatorTok{(}\NormalTok{input}\OperatorTok{,}\NormalTok{ null\_terminated\_str}\OperatorTok{,} \OperatorTok{\&}\NormalTok{output}\OperatorTok{);}
-
-  \CommentTok{// Free output if allocated by mpc\_malloc (it uses malloc fallback)}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{output }\OperatorTok{!=}\NormalTok{ NULL}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{output}\OperatorTok{);}
-  \OperatorTok{\}}
-
-\NormalTok{  free}\OperatorTok{(}\NormalTok{null\_terminated\_str}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{marks}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{input}\OperatorTok{{-}\textgreater{}}\NormalTok{lasts}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{input}\OperatorTok{);}
-  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input that causes \texttt{free()} call in non-\texttt{malloc()}-ed
-address in \hl{\mbox{\texttt{LLVMFuzzerTestOneInput}}}!!
-
-\begin{verbatim}
-00000000: 0a                                       .
-\end{verbatim}
-
-fuzzed function
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-
-\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ mpc\_input\_string}\OperatorTok{(}\NormalTok{mpc\_input\_t }\OperatorTok{*}\NormalTok{i}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{c}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{**}\NormalTok{o}\OperatorTok{)} \OperatorTok{\{}
-
-  \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{x }\OperatorTok{=}\NormalTok{ c}\OperatorTok{;}
-
-\NormalTok{  mpc\_input\_mark}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-  \ControlFlowTok{while} \OperatorTok{(*}\NormalTok{x}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{mpc\_input\_char}\OperatorTok{(}\NormalTok{i}\OperatorTok{,} \OperatorTok{*}\NormalTok{x}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{))} \OperatorTok{\{}
-\NormalTok{      mpc\_input\_rewind}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-\NormalTok{    x}\OperatorTok{++;}
-  \OperatorTok{\}}
-\NormalTok{  mpc\_input\_unmark}\OperatorTok{(}\NormalTok{i}\OperatorTok{);}
-
-  \OperatorTok{*}\NormalTok{o }\OperatorTok{=}\NormalTok{ mpc\_malloc}\OperatorTok{(}\NormalTok{i}\OperatorTok{,}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{c}\OperatorTok{)} \OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-\NormalTok{  strcpy}\OperatorTok{(*}\NormalTok{o}\OperatorTok{,}\NormalTok{ c}\OperatorTok{);}
-  \ControlFlowTok{return} \DecValTok{1}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Progress.c}\label{progress.c}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"progress.h"}
-
-\CommentTok{/*}
-\CommentTok{ * LibFuzzer harness for progress\_write(progress\_t *progress).}
-\CommentTok{ *}
-\CommentTok{ * This fuzz target creates a progress\_t structure with fuzz{-}controlled fields:}
-\CommentTok{ * {-} value, total, width, elapsed}
-\CommentTok{ * {-} fmt string, bar\_char string, bg\_bar\_char string}
-\CommentTok{ *}
-\CommentTok{ * These fields influence internal strcpy/strcat calls and replace\_str usage,}
-\CommentTok{ * which may have buffer overflow issues due to lack of bounds checking.}
-\CommentTok{ * }
-\CommentTok{ * The harness carefully extracts varying length strings and numeric values from}
-\CommentTok{ * the input data, ensuring they are plausible and safe to use. Any input length}
-\CommentTok{ * less than required will return early.}
-\CommentTok{ */}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Minimum size needed for minimal fields:}
-    \CommentTok{// reserve some bytes for integers and doubles, then strings}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{size }\OperatorTok{\textless{}} \DecValTok{20}\OperatorTok{)} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Allocate progress struct}
-\NormalTok{    progress\_t }\OperatorTok{*}\NormalTok{progress }\OperatorTok{=} \OperatorTok{(}\NormalTok{progress\_t }\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\NormalTok{progress\_t}\OperatorTok{));}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{progress}\OperatorTok{)} \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Extract integers and double from input safely}
-    \CommentTok{// value: int32\_t (4 bytes)}
-    \DataTypeTok{int32\_t}\NormalTok{ value }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{    memcpy}\OperatorTok{(\&}\NormalTok{value}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{int32\_t}\OperatorTok{));}
-    \CommentTok{// total: int32\_t (4 bytes)}
-    \DataTypeTok{int32\_t}\NormalTok{ total }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{    memcpy}\OperatorTok{(\&}\NormalTok{total}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{4}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{int32\_t}\OperatorTok{));}
-    \CommentTok{// width: int32\_t (4 bytes)}
-    \DataTypeTok{int32\_t}\NormalTok{ width }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{    memcpy}\OperatorTok{(\&}\NormalTok{width}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{8}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{int32\_t}\OperatorTok{));}
-    \CommentTok{// elapsed: double (8 bytes)}
-    \DataTypeTok{double}\NormalTok{ elapsed }\OperatorTok{=} \FloatTok{0.0}\OperatorTok{;}
-\NormalTok{    memcpy}\OperatorTok{(\&}\NormalTok{elapsed}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{12}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{double}\OperatorTok{));}
-
-    \CommentTok{// Clamp total to \textgreater{}= 1 to avoid div by zero}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{total }\OperatorTok{\textless{}=} \DecValTok{0}\OperatorTok{)}\NormalTok{ total }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-    \CommentTok{// Clamp width to [1, 1024]}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{width }\OperatorTok{\textless{}=} \DecValTok{0}\OperatorTok{)}\NormalTok{ width }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{width }\OperatorTok{\textgreater{}} \DecValTok{1024}\OperatorTok{)}\NormalTok{ width }\OperatorTok{=} \DecValTok{1024}\OperatorTok{;}
-    \CommentTok{// Clamp value to [0, total]}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{value }\OperatorTok{\textless{}} \DecValTok{0}\OperatorTok{)}\NormalTok{ value }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{value }\OperatorTok{\textgreater{}}\NormalTok{ total}\OperatorTok{)}\NormalTok{ value }\OperatorTok{=}\NormalTok{ total}\OperatorTok{;}
-    \CommentTok{// Clamp elapsed to a sensible range like [0, 100000] milliseconds}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{elapsed }\OperatorTok{\textless{}} \DecValTok{0}\OperatorTok{)}\NormalTok{ elapsed }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{elapsed }\OperatorTok{\textgreater{}} \DecValTok{100000}\OperatorTok{)}\NormalTok{ elapsed }\OperatorTok{=} \DecValTok{100000}\OperatorTok{;}
-
-    \CommentTok{// Setup progress\_t fields}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{value }\OperatorTok{=}\NormalTok{ value}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{total }\OperatorTok{=}\NormalTok{ total}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{width }\OperatorTok{=}\NormalTok{ width}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{elapsed }\OperatorTok{=}\NormalTok{ elapsed}\OperatorTok{;}
-
-    \CommentTok{// Set started/finished and listener\_count to zero/false}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{started }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{finished }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{listener\_count }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Now extract strings from remaining input for fmt, bar\_char, bg\_bar\_char}
-    \CommentTok{// Split remaining fuzz data into 3 parts approximately}
-    \DataTypeTok{size\_t}\NormalTok{ remaining }\OperatorTok{=}\NormalTok{ size }\OperatorTok{{-}} \DecValTok{20}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ fmt\_len }\OperatorTok{=}\NormalTok{ remaining }\OperatorTok{/} \DecValTok{3}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ bar\_char\_len }\OperatorTok{=}\NormalTok{ remaining }\OperatorTok{/} \DecValTok{3}\OperatorTok{;}
-    \DataTypeTok{size\_t}\NormalTok{ bg\_bar\_char\_len }\OperatorTok{=}\NormalTok{ remaining }\OperatorTok{{-}}\NormalTok{ fmt\_len }\OperatorTok{{-}}\NormalTok{ bar\_char\_len}\OperatorTok{;}
-
-    \CommentTok{// Allocate strings with +1 for null terminator}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{fmt\_str }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\NormalTok{fmt\_len }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{bar\_char\_str }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\NormalTok{bar\_char\_len }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{bg\_bar\_char\_str }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\NormalTok{bg\_bar\_char\_len }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{fmt\_str }\OperatorTok{||} \OperatorTok{!}\NormalTok{bar\_char\_str }\OperatorTok{||} \OperatorTok{!}\NormalTok{bg\_bar\_char\_str}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{progress}\OperatorTok{);}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{fmt\_str}\OperatorTok{);}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{bar\_char\_str}\OperatorTok{);}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{bg\_bar\_char\_str}\OperatorTok{);}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Copy and null terminate}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{fmt\_str}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{20}\OperatorTok{,}\NormalTok{ fmt\_len}\OperatorTok{);}
-\NormalTok{    fmt\_str}\OperatorTok{[}\NormalTok{fmt\_len}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{bar\_char\_str}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{20} \OperatorTok{+}\NormalTok{ fmt\_len}\OperatorTok{,}\NormalTok{ bar\_char\_len}\OperatorTok{);}
-\NormalTok{    bar\_char\_str}\OperatorTok{[}\NormalTok{bar\_char\_len}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{bg\_bar\_char\_str}\OperatorTok{,}\NormalTok{ data }\OperatorTok{+} \DecValTok{20} \OperatorTok{+}\NormalTok{ fmt\_len }\OperatorTok{+}\NormalTok{ bar\_char\_len}\OperatorTok{,}\NormalTok{ bg\_bar\_char\_len}\OperatorTok{);}
-\NormalTok{    bg\_bar\_char\_str}\OperatorTok{[}\NormalTok{bg\_bar\_char\_len}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-    \CommentTok{// Avoid zero{-}length bar\_char or bg\_bar\_char by forcing at least one char}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{bar\_char\_len }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      strcpy}\OperatorTok{(}\NormalTok{bar\_char\_str}\OperatorTok{,} \StringTok{"="}\OperatorTok{);}
-    \OperatorTok{\}}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{bg\_bar\_char\_len }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      strcpy}\OperatorTok{(}\NormalTok{bg\_bar\_char\_str}\OperatorTok{,} \StringTok{"{-}"}\OperatorTok{);}
-    \OperatorTok{\}}
-
-    \CommentTok{// Assign strings to progress}
-    \CommentTok{// According to the code, these are treated as const char* and assumed null{-}terminated}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{fmt }\OperatorTok{=}\NormalTok{ fmt\_str}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{bar\_char }\OperatorTok{=}\NormalTok{ bar\_char\_str}\OperatorTok{;}
-\NormalTok{    progress}\OperatorTok{{-}\textgreater{}}\NormalTok{bg\_bar\_char }\OperatorTok{=}\NormalTok{ bg\_bar\_char\_str}\OperatorTok{;}
-
-    \CommentTok{// Now call progress\_write, the function under test}
-\NormalTok{    progress\_write}\OperatorTok{(}\NormalTok{progress}\OperatorTok{);}
-
-    \CommentTok{// Free allocated strings and struct}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{fmt\_str}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{bar\_char\_str}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{bg\_bar\_char\_str}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{progress}\OperatorTok{);}
-
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input that causes a heap buffer overflow in
-\hl{\mbox{\texttt{LLVMFuzzerTestOneInput}}}\textgreater{}\texttt{malloc()}
-
-\begin{verbatim}
-00000000: 0000 0000 00ff ffff ffff ffff 0000 0000  ................
-00000010: 0000 002a                                ...*
-\end{verbatim}
-
-fuzzed function
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\DataTypeTok{void}
-\NormalTok{progress\_write }\OperatorTok{(}\NormalTok{progress\_t }\OperatorTok{*}\NormalTok{progress}\OperatorTok{)} \OperatorTok{\{}
-  \DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ width }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{width}\OperatorTok{;}
-  \DataTypeTok{int}\NormalTok{ percent }\OperatorTok{=} \DecValTok{100} \OperatorTok{*} \OperatorTok{((}\DataTypeTok{double}\OperatorTok{)}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{value }\OperatorTok{/} \OperatorTok{(}\DataTypeTok{double}\OperatorTok{)}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{total}\OperatorTok{);}
-  \DataTypeTok{int}\NormalTok{ complete }\OperatorTok{=} \OperatorTok{(}\NormalTok{width }\OperatorTok{*} \OperatorTok{((}\DataTypeTok{double}\OperatorTok{)}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{value }\OperatorTok{/} \OperatorTok{(}\DataTypeTok{double}\OperatorTok{)}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{total}\OperatorTok{));}
-  \DataTypeTok{int}\NormalTok{ incomplete }\OperatorTok{=}\NormalTok{ width }\OperatorTok{{-}} \OperatorTok{(}\NormalTok{complete}\OperatorTok{);}
-  \DataTypeTok{double}\NormalTok{ elapsed }\OperatorTok{=}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{elapsed}\OperatorTok{;}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{fmt }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\DecValTok{512} \OperatorTok{*} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{));}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{bar }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{((}\NormalTok{complete }\OperatorTok{+}\NormalTok{ incomplete}\OperatorTok{)} \OperatorTok{*} \KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{));}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{percent\_str }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{)*}\DecValTok{20}\OperatorTok{);}
-  \DataTypeTok{char} \OperatorTok{*}\NormalTok{elapsed\_str }\OperatorTok{=}\NormalTok{ malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\DataTypeTok{char}\OperatorTok{)*}\DecValTok{20}\OperatorTok{);}
-
-\NormalTok{  sprintf}\OperatorTok{(}\NormalTok{percent\_str}\OperatorTok{,} \StringTok{"}\SpecialCharTok{\%d\%\%}\StringTok{"}\OperatorTok{,}\NormalTok{ percent}\OperatorTok{);}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{elapsed }\OperatorTok{\textgreater{}} \DecValTok{1000}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{    sprintf}\OperatorTok{(}\NormalTok{elapsed\_str}\OperatorTok{,} \StringTok{"}\SpecialCharTok{\%.2f}\StringTok{s"}\OperatorTok{,}\NormalTok{ elapsed}\OperatorTok{/}\DecValTok{1000}\OperatorTok{);}
-  \OperatorTok{\}} \ControlFlowTok{else} \OperatorTok{\{}
-\NormalTok{    sprintf}\OperatorTok{(}\NormalTok{elapsed\_str}\OperatorTok{,} \StringTok{"}\SpecialCharTok{\%.0f}\StringTok{ms"}\OperatorTok{,}\NormalTok{ elapsed}\OperatorTok{);}
-  \OperatorTok{\}}
-  
-
-\NormalTok{  strcpy}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,} \StringTok{""}\OperatorTok{);}
-\NormalTok{  strcat}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,}\NormalTok{ progress}\OperatorTok{{-}\textgreater{}}\NormalTok{fmt}\OperatorTok{);}
-\NormalTok{  strcpy}\OperatorTok{(}\NormalTok{bar}\OperatorTok{,} \StringTok{""}\OperatorTok{);}
-
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{complete}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{for} \OperatorTok{(}\NormalTok{i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}}\NormalTok{ complete}\OperatorTok{;} \OperatorTok{++}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{      bar}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \OperatorTok{*}\NormalTok{progress}\OperatorTok{{-}\textgreater{}}\NormalTok{bar\_char}\OperatorTok{;}
-    \OperatorTok{\}}
-  \OperatorTok{\}}
-
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{incomplete}\OperatorTok{)} \OperatorTok{\{}
-    \ControlFlowTok{for} \OperatorTok{(;}\NormalTok{ i }\OperatorTok{\textless{}}\NormalTok{ complete }\OperatorTok{+}\NormalTok{ incomplete}\OperatorTok{;} \OperatorTok{++}\NormalTok{i}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{       bar}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \OperatorTok{*}\NormalTok{progress}\OperatorTok{{-}\textgreater{}}\NormalTok{bg\_bar\_char}\OperatorTok{;}
-    \OperatorTok{\}}
-  \OperatorTok{\}}
-
-\NormalTok{  bar}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-\NormalTok{  fmt }\OperatorTok{=}\NormalTok{ replace\_str}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,} \StringTok{":bar"}\OperatorTok{,}\NormalTok{ bar}\OperatorTok{);}
-\NormalTok{  fmt }\OperatorTok{=}\NormalTok{ replace\_str}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,} \StringTok{":percent"}\OperatorTok{,}\NormalTok{ percent\_str}\OperatorTok{);}
-\NormalTok{  fmt }\OperatorTok{=}\NormalTok{ replace\_str}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{,} \StringTok{":elapsed"}\OperatorTok{,}\NormalTok{ elapsed\_str}\OperatorTok{);}
-
-\NormalTok{  printf}\OperatorTok{(}\StringTok{"}\SpecialCharTok{\%c}\StringTok{[2K"}\OperatorTok{,} \DecValTok{27}\OperatorTok{);}
-\NormalTok{  printf}\OperatorTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}r\%s}\StringTok{"}\OperatorTok{,}\NormalTok{ fmt}\OperatorTok{);}
-
-\NormalTok{  fflush}\OperatorTok{(}\NormalTok{stdout}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{bar}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{percent\_str}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{elapsed\_str}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{fmt}\OperatorTok{);}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Semver.c}\label{semver.c}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
 \PreprocessorTok{\#include }\ImportTok{"semver.h"}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
 
-\CommentTok{// Enhanced fuzzer harness for semver\_parse including calls to semver\_numeric and semver\_render}
-\CommentTok{// to help increase coverage and trigger more bugs faster.}
-\CommentTok{// Dynamically allocates input buffer with no size limit other than system memory.}
-\CommentTok{// Frees allocated semver\_t string members after use.}
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Allocate buffer dynamically to handle any input size.}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{input\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{input\_str }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\CommentTok{// Enhanced fuzzer harness for semver\_parse including calls to semver\_numeric}
+\CommentTok{// and semver\_render to help increase coverage and trigger more bugs faster.}
+\CommentTok{// Dynamically allocates input buffer with no size limit other than system}
+\CommentTok{// memory. Frees allocated semver\_t string members after use.}
+\DataTypeTok{int}
+\NormalTok{LLVMFuzzerTestOneInput }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)}
+\OperatorTok{\{}
+  \CommentTok{// Allocate buffer dynamically to handle any input size.}
+  \DataTypeTok{char} \OperatorTok{*}\NormalTok{input\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc }\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{input\_str }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
+    \OperatorTok{\{}
+      \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
     \OperatorTok{\}}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    input\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
+\NormalTok{  memcpy }\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
+\NormalTok{  input\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
 
-\NormalTok{    semver\_t ver}\OperatorTok{;}
-\NormalTok{    memset}\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{ver}\OperatorTok{));}
+\NormalTok{  semver\_t ver}\OperatorTok{;}
+\NormalTok{  memset }\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof} \OperatorTok{(}\NormalTok{ver}\OperatorTok{));}
 
-    \CommentTok{// Parse the semver string.}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{semver\_parse}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,} \OperatorTok{\&}\NormalTok{ver}\OperatorTok{);}
+  \CommentTok{// Parse the semver string.}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{semver\_parse }\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,} \OperatorTok{\&}\NormalTok{ver}\OperatorTok{);}
 
-    \CommentTok{// Call semver\_numeric to exercise more code paths.}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{semver\_numeric}\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{);}
+  \CommentTok{// Call semver\_numeric to exercise more code paths.}
+  \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{semver\_numeric }\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{);}
 
-    \CommentTok{// Call semver\_render with buffer large enough for rendered output.}
-    \CommentTok{// Typical semantic version strings are short, but use a buffer of size size+20 to be safe.}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{render\_buf }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{20}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{render\_buf }\OperatorTok{!=}\NormalTok{ NULL}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        memset}\OperatorTok{(}\NormalTok{render\_buf}\OperatorTok{,} \DecValTok{0}\OperatorTok{,}\NormalTok{ size }\OperatorTok{+} \DecValTok{20}\OperatorTok{);}
-\NormalTok{        semver\_render}\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{,}\NormalTok{ render\_buf}\OperatorTok{);}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{render\_buf}\OperatorTok{);}
-    \OperatorTok{\}}
-
-    \CommentTok{// Free dynamically allocated members inside semver\_t.}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{prerelease}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{prerelease}\OperatorTok{);}
-\NormalTok{        ver}\OperatorTok{.}\NormalTok{prerelease }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
-    \OperatorTok{\}}
-    \ControlFlowTok{if} \OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{metadata}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{metadata}\OperatorTok{);}
-\NormalTok{        ver}\OperatorTok{.}\NormalTok{metadata }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
+  \CommentTok{// Call semver\_render with buffer large enough for rendered output.}
+  \CommentTok{// Typical semantic version strings are short, but use a buffer of size}
+  \CommentTok{// size+20 to be safe.}
+  \DataTypeTok{char} \OperatorTok{*}\NormalTok{render\_buf }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc }\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{20}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{render\_buf }\OperatorTok{!=}\NormalTok{ NULL}\OperatorTok{)}
+    \OperatorTok{\{}
+\NormalTok{      memset }\OperatorTok{(}\NormalTok{render\_buf}\OperatorTok{,} \DecValTok{0}\OperatorTok{,}\NormalTok{ size }\OperatorTok{+} \DecValTok{20}\OperatorTok{);}
+\NormalTok{      semver\_render }\OperatorTok{(\&}\NormalTok{ver}\OperatorTok{,}\NormalTok{ render\_buf}\OperatorTok{);}
+\NormalTok{      free }\OperatorTok{(}\NormalTok{render\_buf}\OperatorTok{);}
     \OperatorTok{\}}
 
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+  \CommentTok{// Free dynamically allocated members inside semver\_t.}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{prerelease}\OperatorTok{)}
+    \OperatorTok{\{}
+\NormalTok{      free }\OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{prerelease}\OperatorTok{);}
+\NormalTok{      ver}\OperatorTok{.}\NormalTok{prerelease }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
+    \OperatorTok{\}}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{metadata}\OperatorTok{)}
+    \OperatorTok{\{}
+\NormalTok{      free }\OperatorTok{(}\NormalTok{ver}\OperatorTok{.}\NormalTok{metadata}\OperatorTok{);}
+\NormalTok{      ver}\OperatorTok{.}\NormalTok{metadata }\OperatorTok{=}\NormalTok{ NULL}\OperatorTok{;}
+    \OperatorTok{\}}
+
+\NormalTok{  free }\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
+  \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
 \OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-crash input that causes a stack buffer overflow in
-\texttt{semver\_render()}\textgreater{}\texttt{concat\_char()}\textgreater{}\texttt{sprintf()}.
-
-\begin{verbatim}
-00000000: 392d 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  9-++++++++++++++
-00000010: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
-00000020: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
-00000030: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
-00000040: 2b2b 2b2b 2b2b 2b46 4c                   +++++++FL
-\end{verbatim}
-
-fuzzed functions
+Bodies of functions that the harness targets:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -3828,25 +2997,29 @@ fuzzed functions
 \CommentTok{ */}
 
 \DataTypeTok{int}
-\NormalTok{semver\_parse }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{str}\OperatorTok{,}\NormalTok{ semver\_t }\OperatorTok{*}\NormalTok{ver}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{semver\_parse }\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{str}\OperatorTok{,}\NormalTok{ semver\_t }\OperatorTok{*}\NormalTok{ver}\OperatorTok{)}
+\OperatorTok{\{}
   \DataTypeTok{int}\NormalTok{ valid}\OperatorTok{,}\NormalTok{ res}\OperatorTok{;}
   \DataTypeTok{size\_t}\NormalTok{ len}\OperatorTok{;}
   \DataTypeTok{char} \OperatorTok{*}\NormalTok{buf}\OperatorTok{;}
-\NormalTok{  valid }\OperatorTok{=}\NormalTok{ semver\_is\_valid}\OperatorTok{(}\NormalTok{str}\OperatorTok{);}
-  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{valid}\OperatorTok{)} \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
+\NormalTok{  valid }\OperatorTok{=}\NormalTok{ semver\_is\_valid }\OperatorTok{(}\NormalTok{str}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{valid}\OperatorTok{)}
+    \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
 
-\NormalTok{  len }\OperatorTok{=}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{str}\OperatorTok{);}
-\NormalTok{  buf }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{calloc}\OperatorTok{(}\NormalTok{len }\OperatorTok{+} \DecValTok{1}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(*}\NormalTok{buf}\OperatorTok{));}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{buf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)} \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
-\NormalTok{  strcpy}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ str}\OperatorTok{);}
+\NormalTok{  len }\OperatorTok{=}\NormalTok{ strlen }\OperatorTok{(}\NormalTok{str}\OperatorTok{);}
+\NormalTok{  buf }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{calloc }\OperatorTok{(}\NormalTok{len }\OperatorTok{+} \DecValTok{1}\OperatorTok{,} \KeywordTok{sizeof} \OperatorTok{(*}\NormalTok{buf}\OperatorTok{));}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{buf }\OperatorTok{==}\NormalTok{ NULL}\OperatorTok{)}
+    \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
+\NormalTok{  strcpy }\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ str}\OperatorTok{);}
 
-\NormalTok{  ver}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata }\OperatorTok{=}\NormalTok{ parse\_slice}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ MT\_DELIMITER}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}
-\NormalTok{  ver}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease }\OperatorTok{=}\NormalTok{ parse\_slice}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ PR\_DELIMITER}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}
+\NormalTok{  ver}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata }\OperatorTok{=}\NormalTok{ parse\_slice }\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ MT\_DELIMITER}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}
+\NormalTok{  ver}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease }\OperatorTok{=}\NormalTok{ parse\_slice }\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ PR\_DELIMITER}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}
 
-\NormalTok{  res }\OperatorTok{=}\NormalTok{ semver\_parse\_version}\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{);}
-\NormalTok{  free}\OperatorTok{(}\NormalTok{buf}\OperatorTok{);}
+\NormalTok{  res }\OperatorTok{=}\NormalTok{ semver\_parse\_version }\OperatorTok{(}\NormalTok{buf}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{);}
+\NormalTok{  free }\OperatorTok{(}\NormalTok{buf}\OperatorTok{);}
 \PreprocessorTok{\#if DEBUG \textgreater{} 0}
-\NormalTok{  printf}\OperatorTok{(}\StringTok{"[debug] semver.c }\SpecialCharTok{\%s}\StringTok{ = }\SpecialCharTok{\%d}\StringTok{.}\SpecialCharTok{\%d}\StringTok{.}\SpecialCharTok{\%d}\StringTok{, }\SpecialCharTok{\%s}\StringTok{ }\SpecialCharTok{\%s\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ str}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{major}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{minor}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{patch}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{);}
+\NormalTok{  printf }\OperatorTok{(}\StringTok{"[debug] semver.c }\SpecialCharTok{\%s}\StringTok{ = }\SpecialCharTok{\%d}\StringTok{.}\SpecialCharTok{\%d}\StringTok{.}\SpecialCharTok{\%d}\StringTok{, }\SpecialCharTok{\%s}\StringTok{ }\SpecialCharTok{\%s\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ str}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{major}\OperatorTok{,}
+\NormalTok{          ver}\OperatorTok{{-}\textgreater{}}\NormalTok{minor}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{patch}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{,}\NormalTok{ ver}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{);}
 \PreprocessorTok{\#endif}
   \ControlFlowTok{return}\NormalTok{ res}\OperatorTok{;}
 \OperatorTok{\}}
@@ -3858,178 +3031,29 @@ fuzzed functions
 \CommentTok{ */}
 
 \DataTypeTok{void}
-\NormalTok{semver\_render }\OperatorTok{(}\NormalTok{semver\_t }\OperatorTok{*}\NormalTok{x}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{*}\NormalTok{dest}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{  concat\_num}\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{major}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{);}
-\NormalTok{  concat\_num}\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{minor}\OperatorTok{,}\NormalTok{ DELIMITER}\OperatorTok{);}
-\NormalTok{  concat\_num}\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{patch}\OperatorTok{,}\NormalTok{ DELIMITER}\OperatorTok{);}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{x}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{)}\NormalTok{ concat\_char}\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{,}\NormalTok{ PR\_DELIMITER}\OperatorTok{);}
-  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{x}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{)}\NormalTok{ concat\_char}\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{,}\NormalTok{ MT\_DELIMITER}\OperatorTok{);}
+\NormalTok{semver\_render }\OperatorTok{(}\NormalTok{semver\_t }\OperatorTok{*}\NormalTok{x}\OperatorTok{,} \DataTypeTok{char} \OperatorTok{*}\NormalTok{dest}\OperatorTok{)}
+\OperatorTok{\{}
+\NormalTok{  concat\_num }\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{major}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{);}
+\NormalTok{  concat\_num }\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{minor}\OperatorTok{,}\NormalTok{ DELIMITER}\OperatorTok{);}
+\NormalTok{  concat\_num }\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{patch}\OperatorTok{,}\NormalTok{ DELIMITER}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{x}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{)}
+\NormalTok{    concat\_char }\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{prerelease}\OperatorTok{,}\NormalTok{ PR\_DELIMITER}\OperatorTok{);}
+  \ControlFlowTok{if} \OperatorTok{(}\NormalTok{x}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{)}
+\NormalTok{    concat\_char }\OperatorTok{(}\NormalTok{dest}\OperatorTok{,}\NormalTok{ x}\OperatorTok{{-}\textgreater{}}\NormalTok{metadata}\OperatorTok{,}\NormalTok{ MT\_DELIMITER}\OperatorTok{);}
 \OperatorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-\section{Torrent-reader}\label{torrent-reader}
-
-harness
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"torrent\_reader.h"}
-
-\CommentTok{// Dummy callback that accepts event key strings, does nothing and returns 0}
-\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ dummy\_cb\_event}\OperatorTok{(}\DataTypeTok{void}\OperatorTok{*}\NormalTok{ udata}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ key}\OperatorTok{)} \OperatorTok{\{}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{udata}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{key}\OperatorTok{;}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-
-\CommentTok{// Dummy callback that accepts event key and string value with length, does nothing and returns 0}
-\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ dummy\_cb\_event\_str}\OperatorTok{(}\DataTypeTok{void}\OperatorTok{*}\NormalTok{ udata}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ key}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ val}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ len}\OperatorTok{)} \OperatorTok{\{}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{udata}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{key}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{val}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{len}\OperatorTok{;}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-
-\CommentTok{// Dummy callback that accepts event key and int value, does nothing and returns 0}
-\DataTypeTok{static} \DataTypeTok{int}\NormalTok{ dummy\_cb\_event\_int}\OperatorTok{(}\DataTypeTok{void}\OperatorTok{*}\NormalTok{ udata}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ key}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ val}\OperatorTok{)} \OperatorTok{\{}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{udata}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{key}\OperatorTok{;}
-    \OperatorTok{(}\DataTypeTok{void}\OperatorTok{)}\NormalTok{val}\OperatorTok{;}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Guard against null or zero length input, just return early}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{data }\OperatorTok{||}\NormalTok{ size }\OperatorTok{==} \DecValTok{0}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// tfr\_t is an opaque struct hidden inside torrent\_reader.c}
-    \CommentTok{// The tfr\_new function returns void* instead of tfr\_t*,}
-    \CommentTok{// so we treat ctx as void* here following the library interface.}
-    \DataTypeTok{void}\OperatorTok{*}\NormalTok{ ctx }\OperatorTok{=}\NormalTok{ tfr\_new}\OperatorTok{(}\NormalTok{dummy\_cb\_event}\OperatorTok{,}\NormalTok{ dummy\_cb\_event\_str}\OperatorTok{,}\NormalTok{ dummy\_cb\_event\_int}\OperatorTok{,}\NormalTok{ NULL}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{ctx}\OperatorTok{)} \OperatorTok{\{}
-        \CommentTok{// Allocation failed, skip this input}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \CommentTok{// Use ctx as void* in tfr\_read\_metainfo calls}
-\NormalTok{    tfr\_read\_metainfo}\OperatorTok{(}\NormalTok{ctx}\OperatorTok{,} \OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*)}\NormalTok{data}\OperatorTok{,} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{size}\OperatorTok{);}
-
-    \CommentTok{// Free context allocated by tfr\_new using standard free}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{ctx}\OperatorTok{);}
-
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-crash input that causes a runtime assertion error (applying zero offset
-to null pointer) to function of the dependency ``heapless-benocde'':
-\texttt{tfr\_read\_metainfo()}\textgreater{}\texttt{bencode\_dict\_get\_next()}\textgreater{}\texttt{\_\_iterate\_to\_next\_string\_pos()}\textgreater{}\texttt{bencode\_is\_string()}\textgreater{}\texttt{\_\_assert()}.
+Crash input that causes a stack buffer overflow in
+\texttt{semver\_render()}\textgreater{}\texttt{concat\_char()}\textgreater{}\texttt{sprintf()}:
 
 \begin{verbatim}
-00000000: 6464 6464 6464 642e                      ddddddd.
+00000000: 392d 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  9-++++++++++++++
+00000010: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
+00000020: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
+00000030: 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b 2b2b  ++++++++++++++++
+00000040: 2b2b 2b2b 2b2b 2b46 4c                   +++++++FL
 \end{verbatim}
-
-fuzzed function
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\DataTypeTok{void}\NormalTok{ tfr\_read\_metainfo}\OperatorTok{(}
-    \DataTypeTok{void} \OperatorTok{*}\NormalTok{me}\OperatorTok{,}
-    \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{buf}\OperatorTok{,}
-    \DataTypeTok{const} \DataTypeTok{int}\NormalTok{ len}
-\OperatorTok{)}
-\OperatorTok{\{}
-\NormalTok{    bencode\_t ben}\OperatorTok{;}
-
-\NormalTok{    bencode\_init}\OperatorTok{(\&}\NormalTok{ben}\OperatorTok{,}\NormalTok{ buf}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
-
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{bencode\_is\_dict}\OperatorTok{(\&}\NormalTok{ben}\OperatorTok{))}
-    \OperatorTok{\{}
-        \ControlFlowTok{return}\OperatorTok{;}
-    \OperatorTok{\}}
-
-    \ControlFlowTok{while} \OperatorTok{(}\NormalTok{bencode\_dict\_has\_next}\OperatorTok{(\&}\NormalTok{ben}\OperatorTok{))}
-    \OperatorTok{\{}
-        \DataTypeTok{int}\NormalTok{ klen}\OperatorTok{;}
-        \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{key}\OperatorTok{;}
-\NormalTok{        bencode\_t benk}\OperatorTok{;}
-
-\NormalTok{        bencode\_dict\_get\_next}\OperatorTok{(\&}\NormalTok{ben}\OperatorTok{,} \OperatorTok{\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{key}\OperatorTok{,} \OperatorTok{\&}\NormalTok{klen}\OperatorTok{);}
-
-        \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"announce"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \DataTypeTok{int}\NormalTok{ len}\OperatorTok{;}
-            \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{val}\OperatorTok{;}
-
-\NormalTok{            bencode\_string\_value}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{val}\OperatorTok{,} \OperatorTok{\&}\NormalTok{len}\OperatorTok{);}
-\NormalTok{            tfr\_event\_str}\OperatorTok{(}\NormalTok{me}\OperatorTok{,} \StringTok{"announce"}\OperatorTok{,}\NormalTok{ val}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"announce{-}list"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \CommentTok{/*  loop through announce list */}
-
-\NormalTok{            assert}\OperatorTok{(}\NormalTok{bencode\_is\_list}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{));}
-
-            \ControlFlowTok{while} \OperatorTok{(}\NormalTok{bencode\_list\_has\_next}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{))}
-            \OperatorTok{\{}
-\NormalTok{                bencode\_t innerlist}\OperatorTok{;}
-
-\NormalTok{                bencode\_list\_get\_next}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{innerlist}\OperatorTok{);}
-                \ControlFlowTok{while} \OperatorTok{(}\NormalTok{bencode\_list\_has\_next}\OperatorTok{(\&}\NormalTok{innerlist}\OperatorTok{))}
-                \OperatorTok{\{}
-\NormalTok{                    bencode\_t benlitem}\OperatorTok{;}
-                    \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{backup}\OperatorTok{;}
-                    \DataTypeTok{int}\NormalTok{ len}\OperatorTok{;}
-
-\NormalTok{                    bencode\_list\_get\_next}\OperatorTok{(\&}\NormalTok{innerlist}\OperatorTok{,} \OperatorTok{\&}\NormalTok{benlitem}\OperatorTok{);}
-\NormalTok{                    bencode\_string\_value}\OperatorTok{(\&}\NormalTok{benlitem}\OperatorTok{,} \OperatorTok{\&}\NormalTok{backup}\OperatorTok{,} \OperatorTok{\&}\NormalTok{len}\OperatorTok{);}
-\NormalTok{                    tfr\_event\_str}\OperatorTok{(}\NormalTok{me}\OperatorTok{,} \StringTok{"tracker\_backup"}\OperatorTok{,}\NormalTok{ backup}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
-                \OperatorTok{\}}
-            \OperatorTok{\}}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"comment"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \DataTypeTok{int}\NormalTok{ len}\OperatorTok{;}
-            \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{val}\OperatorTok{;}
-
-\NormalTok{            bencode\_string\_value}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{val}\OperatorTok{,} \OperatorTok{\&}\NormalTok{len}\OperatorTok{);}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"created by"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \DataTypeTok{int}\NormalTok{ len}\OperatorTok{;}
-            \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{val}\OperatorTok{;}
-
-\NormalTok{            bencode\_string\_value}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{val}\OperatorTok{,} \OperatorTok{\&}\NormalTok{len}\OperatorTok{);}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"creation date"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \DataTypeTok{long} \DataTypeTok{int}\NormalTok{ date}\OperatorTok{;}
-
-\NormalTok{            bencode\_int\_value}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{date}\OperatorTok{);}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"encoding"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-            \DataTypeTok{int}\NormalTok{ len}\OperatorTok{;}
-            \DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{val}\OperatorTok{;}
-
-\NormalTok{            bencode\_string\_value}\OperatorTok{(\&}\NormalTok{benk}\OperatorTok{,} \OperatorTok{\&}\NormalTok{val}\OperatorTok{,} \OperatorTok{\&}\NormalTok{len}\OperatorTok{);}
-        \OperatorTok{\}}
-        \ControlFlowTok{else} \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{strncmp}\OperatorTok{(}\NormalTok{key}\OperatorTok{,} \StringTok{"info"}\OperatorTok{,}\NormalTok{ klen}\OperatorTok{))}
-        \OperatorTok{\{}
-\NormalTok{            \_\_do\_info\_dict}\OperatorTok{(}\NormalTok{me}\OperatorTok{,} \OperatorTok{\&}\NormalTok{benk}\OperatorTok{);}
-        \OperatorTok{\}}
-    \OperatorTok{\}}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
 \chapter{DSPy Custom Signatures}\label{sec-signatures}
 
