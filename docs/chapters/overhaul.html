@@ -447,32 +447,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Results</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/related.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/discussion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Related work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/future.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Future Work</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -572,7 +560,7 @@ Figure&nbsp;3.1: Overview of OverHAuL’s automatic harnessing process.
 </figcaption>
 </figure>
 </div>
-<p>As detailed in <a href="related.html#sec-differences" class="quarto-xref"><span>Section 7.12</span></a>, OverHAuL does not expect and depend on the existence of client code or unit tests <span class="citation" data-cites="utopia fudge fuzzgen"><a href="refs.html#ref-utopia" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[5]</a></span> <em>nor</em> does it require any preexisting fuzzing harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span> or any documentation present <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[7]</a></span>. Also importantly, OverHAuL is decoupled from other fuzzing projects, thus lowering the barrier to entry for new projects <span class="citation" data-cites="oss-fuzz-gen oss-fuzz"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[8]</a></span>. Lastly, the user isn’t mandated to manually specify the function which the harness-to-be-generated must fuzz. Instead, OverHAuL’s agents examine and assess the provided codebase, choosing after evaluation the most optimal target function.</p>
+<p>As detailed in <a href="related.html#sec-differences" class="quarto-xref"><span>Section 6.12</span></a>, OverHAuL does not expect and depend on the existence of client code or unit tests <span class="citation" data-cites="utopia fudge fuzzgen"><a href="refs.html#ref-utopia" role="doc-biblioref">[3]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[5]</a></span> <em>nor</em> does it require any preexisting fuzzing harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a></span> or any documentation present <span class="citation" data-cites="sun2024"><a href="refs.html#ref-sun2024" role="doc-biblioref">[7]</a></span>. Also importantly, OverHAuL is decoupled from other fuzzing projects, thus lowering the barrier to entry for new projects <span class="citation" data-cites="oss-fuzz-gen oss-fuzz"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-oss-fuzz" role="doc-biblioref">[8]</a></span>. Lastly, the user isn’t mandated to manually specify the function which the harness-to-be-generated must fuzz. Instead, OverHAuL’s agents examine and assess the provided codebase, choosing after evaluation the most optimal target function.</p>
 <p>OverHAuL utilizes autonomous ReAct agents which inspect and analyze the project’s source code. The latter is stored and interacted with as a set of text embeddings <span class="citation" data-cites="mikolov2013"><a href="refs.html#ref-mikolov2013" role="doc-biblioref">[9]</a></span>, kept in a vector store. Both approaches are, to the best of our knowledge, novel in the field of automatic fuzzing harnesses generation. OverHAuL also implements an evaluation component that assesses in real-time all generated harnesses, making the results tenable, reproducible and well-founded. Ideally, this methodology provides a comprehensive and systematic framework for identifying previously unknown software vulnerabilities in projects that have not yet been fuzz tested.</p>
 <p>Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies—only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality.</p>
 <section id="sec-architecture" class="level2" data-number="3.1">

@@ -33,9 +33,7 @@ book:
     - chapters/overhaul.md 
     - chapters/implementation.md
     - chapters/evaluation.md
-    - chapters/results.md
     - chapters/related.md
-    - chapters/discussion.md
     - chapters/future.md
     - chapters/conclusion.md
     - chapters/refs.md # Bibliography
@@ -127,7 +125,7 @@ format:
       - "Liberation Serif:"
       - "NotoColorEmoji:mode=harf"
     sansfont: "Libertinus Sans"
-    monofont: "Roboto Mono"
+    monofont: "Iosevka"
     mathfont: "Libertinus Math"
     numbersections: true
     biblio-style: ieee
