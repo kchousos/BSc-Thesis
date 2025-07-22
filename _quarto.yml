@@ -33,9 +33,7 @@ book:
     - chapters/overhaul.md 
     - chapters/implementation.md
     - chapters/evaluation.md
-    - chapters/results.md
     - chapters/related.md
-    - chapters/discussion.md
     - chapters/future.md
     - chapters/conclusion.md
     - chapters/refs.md # Bibliography
