@@ -60,7 +60,7 @@ OverHAuL demonstrates a notably high success rate in generating fuzzing harnesse
 
 ### RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?
 
-From sampling OverHAuL's generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example @lst-sample-dateparse. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. RQ2's answer remains an unclear "it depends", given the variance in OverHAuL's results.
+From sampling OverHAuL's generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example @lst-sample-dateparse. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (@sec-sample-harnesses). RQ2's answer remains an unclear "it depends", given the variance in OverHAuL's results.
 
 ::: {#lst-sample-dateparse fig-scap='Sample dateparse harness'}
 ```C
