@@ -1747,9 +1747,10 @@ The outcomes of the benchmark experiments are shown in
 Figure~\ref{fig-results}. To ensure the reliability of these results,
 each reported crash was manually validated to confirm that it stemmed
 from genuine defects within the target library, rather than issues of
-the generated harness. With these validated findings, we are now
-positioned to address the initial research questions posed in this
-chapter.
+the generated harness. An iteration heatmap was also generated for the
+verifiably fuzzed projects, displayed in Figure~\ref{fig-iterations}.
+With these validated findings, we are now positioned to address the
+initial research questions posed in this chapter.
 
 \begin{figure}
 
@@ -1776,6 +1777,23 @@ five-minute execution period. Finally, an orange/-2 block means that the
 crash that was found derives from errors in the harness itself.
 AImportantly, there are no red/-1 blocks, which would indicate cases
 where a compilable harness could not be generated.}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/iterations.png}}
+
+}
+
+\caption[Iterations Heatmap]{\label{fig-iterations}This heatmap
+illustrates the number of iterations required for each project to be
+successfully harnessed, as determined by the benchmark results. Higher
+color intensity corresponds to a greater number of iterations needed for
+successful harnessing. Cells left blank signify instances where no valid
+harness was generated.}
 
 \end{figure}%
 
@@ -1900,12 +1918,18 @@ to iterative code exploration and refinement, facilitating a cycle of
 observation, planning, and action that is particularly well-suited to
 harness synthesis.
 
-A crucial component of OverHAuL's architecture is its triplet of ReAct
-agents. Local benchmark results reveal a nearly linear relationship
-between the number of iteration cycles and the success rate in
-generating viable fuzzing harnesses. This direct correlation suggests
-that agentic collaboration and iterative feedback substantially
-contribute to the improvement of harness quality.
+A central element of OverHAuL's architecture is its triplet of ReAct
+agents, each contributing a distinct role in the collaborative
+generation of fuzzing harnesses. Local benchmarking demonstrates an
+almost linear increase in success rates with the number of iteration
+cycles, underscoring the efficacy of agentic collaboration and iterative
+refinement in enhancing harness quality. As illustrated in
+Figure~\ref{fig-iterations}, projects such as ``dateparse'' and
+``semver.c'' exhibit marked improvements when afforded larger iteration
+budgets. This trend highlights the pivotal roles of the ``fixer'' and
+``improver'' agents, whose interventions enable the system to surmount
+challenges present in initial harness generations, ultimately advancing
+the caliber of the final outputs.
 
 Additionally, the inclusion of a codebase oracle is instrumental in
 scaling code exploration efficiently. Unlike previously tested methods
