@@ -1141,6 +1141,121 @@ directly from the project's root directory and interact with the tools
 primarily through unrefined Python scripts, thereby limiting their
 accessibility and ease of use.
 
+\section{Installation and Usage}\label{sec-install}
+
+The source code of OverHAuL is available in
+\url{https://github.com/kchousos/OverHAuL}. OverHAuL can be installed by
+cloning the git repository locally, creating and enabling a Python3.10
+virtual environment \autocite{venv} and installing it inside the
+environment using Python's PIP package installer \autocite{pip}, like in
+Listing~\ref{lst-install}.
+
+\begin{codelisting}
+
+\caption[OverHAuL installation]{\label{lst-install}OverHAuL's
+installation process.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{$ git clone https://github.com/kchousos/overhaul; cd overhaul}
+\NormalTok{  ...}
+\NormalTok{$ python3.10 {-}m venv .venv}
+\NormalTok{$ source ./.venv/bin/activate}
+\NormalTok{$ pip install .}
+\NormalTok{  ...}
+\NormalTok{$ overhaul {-}{-}help}
+\NormalTok{usage: overhaul [{-}h] [{-}c COMMIT] [{-}m MODEL] [{-}f FILES [FILES ...]] }
+\NormalTok{[{-}o OUTPUT\_DIR] repo}
+
+\NormalTok{Generate fuzzing harnesses for C/C++ projects}
+
+\NormalTok{positional arguments:}
+\NormalTok{  repo                  Link of a project\textquotesingle{}s git repo, for which to generate }
+\NormalTok{                        a harness.}
+
+\NormalTok{options:}
+\NormalTok{  {-}h, {-}{-}help            show this help message and exit}
+\NormalTok{  {-}c COMMIT, {-}{-}commit COMMIT}
+\NormalTok{                        A specific commit of the project to check out}
+\NormalTok{  {-}m MODEL, {-}{-}model MODEL}
+\NormalTok{                        LLM model to be used. Available: o3{-}mini, o3, gpt{-}4o,}
+\NormalTok{                        gpt{-}4o{-}mini, gpt{-}4.1, gpt{-}4.1{-}mini, gpt{-}3.5{-}turbo, gpt{-}4}
+\NormalTok{  {-}f FILES [FILES ...], {-}{-}files FILES [FILES ...]}
+\NormalTok{                        File patterns to include in analysis (e.g. *.c *.h)}
+\NormalTok{  {-}o OUTPUT\_DIR, {-}{-}output{-}dir OUTPUT\_DIR}
+\NormalTok{                        Directory to clone the project into. Defaults to "output"}
+\NormalTok{$}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+To use OverHAuL, you need to provide a secret key for using OpenAI's API
+service. This key can be either stored in a \texttt{.env} file in the
+root directory, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{\# cat .env}
+\NormalTok{OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Or it can be exported in the shell environment:
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{$ export OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
+\NormalTok{$ overhaul \textless{}repo{-}link\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Once these preliminary steps are completed, OverHAuL can be executed.
+The primary argument required by OverHAuL is the repository link of the
+library that is to be fuzzed. Additionally, users have the option to
+specify certain command-line flags, which allow them to control the
+checked-out commit of the cloned project, select the OpenAI LLM model
+from a predefined list, define specific file patterns for OverHAuL to
+search for, and determine the directory in which the project will be
+cloned. A sample successful execution can is presented in
+Figure~\ref{fig-success}.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/successful-execution.png}}
+
+}
+
+\caption[OverHAuL execution example]{\label{fig-success}A successful
+execution of OverHAuL, harnessing
+\href{https://github.com/dvhar/dateparse}{dvhar's dateparsing C
+library}, using OpenAI's gpt-4.1 model. Debug statements are printed to
+showcase the interaction between the LLM agents and the codebase oracle
+(Section~\ref{sec-oracle}).}
+
+\end{figure}%
+
+In this example, the dateparse repository is cloned into the
+\texttt{./output/dateparse} directory, which is relative to the root
+directory of OverHAuL. Following a successful execution, this directory
+will contain a new folder named \texttt{harnesses}, which will house all
+the generated harnesses formatted as \texttt{harness\_n.c}---where \(n\)
+ranges from 1 to \(N-1\), with \(N\) representing the total number of
+harnesses produced. The most recent and verifiably correct harness will
+be designated simply as \texttt{harness.c}. Additionally, the dateparse
+directory will include an executable script named \texttt{overhaul.sh},
+which contains the compilation command necessary for the harness. A log
+file titled \texttt{harness.out} will also be present, documenting the
+output from the latest harness execution. Lastly and most importantly,
+there will be at least one non-empty crash file included, serving as a
+witness to the harness's correctness.
+
 \section{Architecture}\label{sec-architecture}
 
 OverHAuL can be compartmentalized in three stages: First, the project
@@ -1371,121 +1486,6 @@ algorithm, making it more abstract and easier to comprehend.
   \State \Return $compiled \land acceptable$
 \end{algorithmic}
 \end{algorithm}
-
-\section{Installation and Usage}\label{sec-install}
-
-The source code of OverHAuL is available in
-\url{https://github.com/kchousos/OverHAuL}. OverHAuL can be installed by
-cloning the git repository locally, creating and enabling a Python3.10
-virtual environment \autocite{venv} and installing it inside the
-environment using Python's PIP package installer \autocite{pip}, like in
-Listing~\ref{lst-install}.
-
-\begin{codelisting}
-
-\caption[OverHAuL installation]{\label{lst-install}OverHAuL's
-installation process.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{$ git clone https://github.com/kchousos/overhaul; cd overhaul}
-\NormalTok{  ...}
-\NormalTok{$ python3.10 {-}m venv .venv}
-\NormalTok{$ source ./.venv/bin/activate}
-\NormalTok{$ pip install .}
-\NormalTok{  ...}
-\NormalTok{$ overhaul {-}{-}help}
-\NormalTok{usage: overhaul [{-}h] [{-}c COMMIT] [{-}m MODEL] [{-}f FILES [FILES ...]] }
-\NormalTok{[{-}o OUTPUT\_DIR] repo}
-
-\NormalTok{Generate fuzzing harnesses for C/C++ projects}
-
-\NormalTok{positional arguments:}
-\NormalTok{  repo                  Link of a project\textquotesingle{}s git repo, for which to generate }
-\NormalTok{                        a harness.}
-
-\NormalTok{options:}
-\NormalTok{  {-}h, {-}{-}help            show this help message and exit}
-\NormalTok{  {-}c COMMIT, {-}{-}commit COMMIT}
-\NormalTok{                        A specific commit of the project to check out}
-\NormalTok{  {-}m MODEL, {-}{-}model MODEL}
-\NormalTok{                        LLM model to be used. Available: o3{-}mini, o3, gpt{-}4o,}
-\NormalTok{                        gpt{-}4o{-}mini, gpt{-}4.1, gpt{-}4.1{-}mini, gpt{-}3.5{-}turbo, gpt{-}4}
-\NormalTok{  {-}f FILES [FILES ...], {-}{-}files FILES [FILES ...]}
-\NormalTok{                        File patterns to include in analysis (e.g. *.c *.h)}
-\NormalTok{  {-}o OUTPUT\_DIR, {-}{-}output{-}dir OUTPUT\_DIR}
-\NormalTok{                        Directory to clone the project into. Defaults to "output"}
-\NormalTok{$}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
-
-To use OverHAuL, you need to provide a secret key for using OpenAI's API
-service. This key can be either stored in a \texttt{.env} file in the
-root directory, like so:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{\# cat .env}
-\NormalTok{OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
-\end{Highlighting}
-\end{Shaded}
-
-Or it can be exported in the shell environment:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{$ export OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
-\NormalTok{$ overhaul \textless{}repo{-}link\textgreater{}}
-\end{Highlighting}
-\end{Shaded}
-
-Once these preliminary steps are completed, OverHAuL can be executed.
-The primary argument required by OverHAuL is the repository link of the
-library that is to be fuzzed. Additionally, users have the option to
-specify certain command-line flags, which allow them to control the
-checked-out commit of the cloned project, select the OpenAI LLM model
-from a predefined list, define specific file patterns for OverHAuL to
-search for, and determine the directory in which the project will be
-cloned. A sample successful execution can is presented in
-Figure~\ref{fig-success}.
-
-\begin{figure}
-
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{chapters/../resources/successful-execution.png}}
-
-}
-
-\caption[OverHAuL execution example]{\label{fig-success}A successful
-execution of OverHAuL, harnessing
-\href{https://github.com/dvhar/dateparse}{dvhar's dateparsing C
-library}, using OpenAI's gpt-4.1 model. Debug statements are printed to
-showcase the interaction between the LLM agents and the codebase oracle
-(Section~\ref{sec-oracle}).}
-
-\end{figure}%
-
-In this example, the dateparse repository is cloned into the
-\texttt{./output/dateparse} directory, which is relative to the root
-directory of OverHAuL. Following a successful execution, this directory
-will contain a new folder named \texttt{harnesses}, which will house all
-the generated harnesses formatted as \texttt{harness\_n.c}---where \(n\)
-ranges from 1 to \(N-1\), with \(N\) representing the total number of
-harnesses produced. The most recent and verifiably correct harness will
-be designated simply as \texttt{harness.c}. Additionally, the dateparse
-directory will include an executable script named \texttt{overhaul.sh},
-which contains the compilation command necessary for the harness. A log
-file titled \texttt{harness.out} will also be present, documenting the
-output from the latest harness execution. Lastly and most importantly,
-there will be at least one non-empty crash file included, serving as a
-witness to the harness's correctness.
 
 \section{Scope}\label{sec-scope}
 

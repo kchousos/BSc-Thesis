@@ -14,6 +14,69 @@ OverHAuL utilizes autonomous ReAct agents which inspect and analyze the project'
 
 Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies---only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality. For instance, both fuzz-introspector and OSS-Fuzz-Gen are specifically designed for integration with the OSS-Fuzz platform [@fuzz-introspector; @oss-fuzz-gen; @oss-fuzz]. When utilized outside this environment, they require users to operate directly from the project's root directory and interact with the tools primarily through unrefined Python scripts, thereby limiting their accessibility and ease of use.
 
+## Installation and Usage {#sec-install}
+
+The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.
+
+::: {#lst-install fig-scap='OverHAuL installation'}
+``` text
+$ git clone https://github.com/kchousos/overhaul; cd overhaul
+  ...
+$ python3.10 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip install .
+  ...
+$ overhaul --help
+usage: overhaul [-h] [-c COMMIT] [-m MODEL] [-f FILES [FILES ...]] 
+[-o OUTPUT_DIR] repo
+
+Generate fuzzing harnesses for C/C++ projects
+
+positional arguments:
+  repo                  Link of a project's git repo, for which to generate 
+                        a harness.
+
+options:
+  -h, --help            show this help message and exit
+  -c COMMIT, --commit COMMIT
+                        A specific commit of the project to check out
+  -m MODEL, --model MODEL
+                        LLM model to be used. Available: o3-mini, o3, gpt-4o,
+                        gpt-4o-mini, gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4
+  -f FILES [FILES ...], --files FILES [FILES ...]
+                        File patterns to include in analysis (e.g. *.c *.h)
+  -o OUTPUT_DIR, --output-dir OUTPUT_DIR
+                        Directory to clone the project into. Defaults to "output"
+$
+```
+
+OverHAuL's installation process.
+:::
+
+To use OverHAuL, you need to provide a secret key for using OpenAI's API service. This key can be either stored in a `.env` file in the root directory, like so:
+
+``` text
+# cat .env
+OPENAI_API_KEY=<API-key-here>
+```
+
+Or it can be exported in the shell environment:
+
+``` text
+$ export OPENAI_API_KEY=<API-key-here>
+$ overhaul <repo-link>
+```
+
+Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. A sample successful execution can is presented in @fig-success.
+
+::: {#fig-success}
+![](../resources/successful-execution.png){fig-scap='OverHAuL execution example'}
+
+A successful execution of OverHAuL, harnessing [dvhar's dateparsing C library](https://github.com/dvhar/dateparse), using OpenAI's gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (@sec-oracle).
+:::
+
+In this example, the dateparse repository is cloned into the `./output/dateparse` directory, which is relative to the root directory of OverHAuL. Following a successful execution, this directory will contain a new folder named `harnesses`, which will house all the generated harnesses formatted as `harness_n.c`---where $n$ ranges from 1 to $N-1$, with $N$ representing the total number of harnesses produced. The most recent and verifiably correct harness will be designated simply as `harness.c`. Additionally, the dateparse directory will include an executable script named `overhaul.sh`, which contains the compilation command necessary for the harness. A log file titled `harness.out` will also be present, documenting the output from the latest harness execution. Lastly and most importantly, there will be at least one non-empty crash file included, serving as a witness to the harness's correctness.
+
 ## Architecture {#sec-architecture}
 
 OverHAuL can be compartmentalized in three stages: First, the project analysis stage (@sec-analysis), the harness creation stage (@sec-creation) and the harness evaluation stage (@sec-evaluation).
@@ -111,69 +174,6 @@ A pseudocode version of OverHAuL’s main function is shown in @alg-main, illust
 \end{algorithmic}
 \end{algorithm}
 ```
-
-## Installation and Usage {#sec-install}
-
-The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.
-
-::: {#lst-install fig-scap='OverHAuL installation'}
-``` text
-$ git clone https://github.com/kchousos/overhaul; cd overhaul
-  ...
-$ python3.10 -m venv .venv
-$ source ./.venv/bin/activate
-$ pip install .
-  ...
-$ overhaul --help
-usage: overhaul [-h] [-c COMMIT] [-m MODEL] [-f FILES [FILES ...]] 
-[-o OUTPUT_DIR] repo
-
-Generate fuzzing harnesses for C/C++ projects
-
-positional arguments:
-  repo                  Link of a project's git repo, for which to generate 
-                        a harness.
-
-options:
-  -h, --help            show this help message and exit
-  -c COMMIT, --commit COMMIT
-                        A specific commit of the project to check out
-  -m MODEL, --model MODEL
-                        LLM model to be used. Available: o3-mini, o3, gpt-4o,
-                        gpt-4o-mini, gpt-4.1, gpt-4.1-mini, gpt-3.5-turbo, gpt-4
-  -f FILES [FILES ...], --files FILES [FILES ...]
-                        File patterns to include in analysis (e.g. *.c *.h)
-  -o OUTPUT_DIR, --output-dir OUTPUT_DIR
-                        Directory to clone the project into. Defaults to "output"
-$
-```
-
-OverHAuL's installation process.
-:::
-
-To use OverHAuL, you need to provide a secret key for using OpenAI's API service. This key can be either stored in a `.env` file in the root directory, like so:
-
-``` text
-# cat .env
-OPENAI_API_KEY=<API-key-here>
-```
-
-Or it can be exported in the shell environment:
-
-``` text
-$ export OPENAI_API_KEY=<API-key-here>
-$ overhaul <repo-link>
-```
-
-Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. A sample successful execution can is presented in @fig-success.
-
-::: {#fig-success}
-![](../resources/successful-execution.png){fig-scap='OverHAuL execution example'}
-
-A successful execution of OverHAuL, harnessing [dvhar's dateparsing C library](https://github.com/dvhar/dateparse), using OpenAI's gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (@sec-oracle).
-:::
-
-In this example, the dateparse repository is cloned into the `./output/dateparse` directory, which is relative to the root directory of OverHAuL. Following a successful execution, this directory will contain a new folder named `harnesses`, which will house all the generated harnesses formatted as `harness_n.c`---where $n$ ranges from 1 to $N-1$, with $N$ representing the total number of harnesses produced. The most recent and verifiably correct harness will be designated simply as `harness.c`. Additionally, the dateparse directory will include an executable script named `overhaul.sh`, which contains the compilation command necessary for the harness. A log file titled `harness.out` will also be present, documenting the output from the latest harness execution. Lastly and most importantly, there will be at least one non-empty crash file included, serving as a witness to the harness's correctness.
 
 ## Scope {#sec-scope}
 
