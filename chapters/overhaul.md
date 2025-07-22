@@ -76,7 +76,7 @@ Defining the function as the primary unit of analysis represents the most propor
 
 ## High-Level Algorithm
 
-A pseudocode version of OverHAuL's main function can be seen in @alg-main. It represents the workflow presented in @fig-flowchart and uses the techniques described in sections -@sec-architecture and -@sec-techniques. It is important to emphasize that, within the context of this algorithm, the `HarnessAgents()` function serves as an interface that bridges the "generator", "fixer" and "improver" LLM agents. The agent that is used upon each function call depends on the values of the function's arguments. This results in the $harness$ variable representing all generated, fixed or improved harnesses. This approach is adopted for making the abstract algorithm simpler and easier to understand.
+A pseudocode version of OverHAuL’s main function is shown in @alg-main, illustrating the workflow depicted in @fig-flowchart and incorporating the methods explained in Sections -@sec-architecture and -@sec-techniques. Notably, within this algorithm, the `HarnessAgents()` function acts as an interface that connects the "generator", "fixer", and "improver" LLM agents. The specific agent utilized during each invocation of `HarnessAgents()` depends on the function's arguments. As a result, the $harness$ variable encapsulates all generated, fixed, or improved harnesses. Since both the "fixer" and "generator" agents are accessed through the `HarnessAgents()` function, the related `continue` statements correspond to the next iterations of fixing or improving a harness. This design choice streamlines the overall algorithm, making it more abstract and easier to comprehend.
 
 ```pseudocode
 #| label: alg-main
