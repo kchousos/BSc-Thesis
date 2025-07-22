@@ -70,7 +70,8 @@ From sampling OverHAuL's generated harnesses, the answer to RQ2 remains unclear.
 #include <stdlib.h>
 #include "dateparse.h"
 
-// No artificial size limit to allow fuzzer to explore full input size for boundaries
+// No artificial size limit to allow fuzzer to explore full
+// input size for boundaries
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     // Allocate buffer with extra byte for null termination
