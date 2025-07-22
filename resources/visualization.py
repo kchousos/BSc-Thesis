@@ -13,11 +13,22 @@ runs = df["run"].astype(str).tolist()
 # Extract binary outcome matrix [projects x runs]
 data = df[project_cols].T.values
 
-# Map data values to color indices: 0 → orange, 1 → light green
-plot_data = np.where(np.isnan(data), 2, data.astype(int))
+# Map values to indices:
+# -2 → 0 (orange)
+#  0 → 1 (yellow)
+#  1 → 2 (green)
+# NaN → 3 (white)
+plot_data = np.full_like(data, fill_value=3, dtype=int)  # default to 3 (white for NaN)
+plot_data[data == -2] = 0
+plot_data[data == 0] = 1
+plot_data[data == 1] = 2
 
-# Define color map: [0 -> orange], [1 -> light green]
-cmap = ListedColormap(["#e69f00", "#abe697"])  # fail, pass
+# Define color map: orange, yellow, green
+cmap = ListedColormap([
+    "#d98c3b",  # orange (crash in harness, -2)
+    "#f5e482",  # yellow (crash not found, 0)
+    "#abe697",  # green (pass, 1)
+])
 
 # Create figure and axis
 fig, ax = plt.subplots(figsize=(len(runs) * 0.8, len(projects) * 0.6))
@@ -31,7 +42,7 @@ for i in range(len(projects) + 1):
 for j in range(len(runs) + 1):
     ax.axvline(j - 0.5, color='black', linewidth=1)
 
-# Add text annotations (0 or 1)
+# Add text annotations (-2, 0, or 1)
 for i in range(len(projects)):
     for j in range(len(runs)):
         val = data[i, j]

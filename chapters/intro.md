@@ -23,7 +23,7 @@ This thesis begins by outlining the foundational concepts necessary to understan
 This thesis presents the following key contributions:
 
 1. The introduction of OverHAuL, a framework that enables fully automated end-to-end fuzzing harness generation using LLMs. It introduces novel techniques like an iterative feedback loop between LLM agents and the usage of a codebase oracle for code exploration.
-2. Empirical validation through benchmarking experiments using ten real-world open source projects. We demonstrate that OverHAuL successfully generates effective fuzzing harnesses with a chance of **92.5%**.
+2. Empirical validation through benchmarking experiments using ten real-world open source projects. We demonstrate that OverHAuL successfully generates effective fuzzing harnesses with a chance of **81.25%**.
 3. Full open sourcing of all research artifacts, datasets, and code at <https://github.com/kchousos/OverHAuL> to encourage further research and ensure reproducibility.
 
 This work aims to advance the use of LLMs in automated software testing, particularly for legacy codebases where building harnesses by hand is impractical or costly. By doing so, we strive to enhance software security and reliability in sectors where correctness is imperative.
