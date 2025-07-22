@@ -10,33 +10,33 @@ Historically, the term was coined by Miller et al. in 1990, who used "fuzz" to d
 
 ::: {#def-fuzzing}
 ###### Fuzzing
-Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the *fuzz input space*) that protrudes the expected input space of the PUT.
+Fuzzing is the execution of a Program Under Test (PUT) using input(s) sampled from an input space (the *fuzz input space*) that protrudes the expected input space of the PUT [@manes2019]. 
 :::
 
 This means fuzzing involves running the target program on inputs that go beyond those it is typically designed to handle, aiming to uncover hidden issues. An individual instance of such execution---or a bounded sequence thereof---is called a *fuzzing run*. When these runs are conducted systematically and at scale with the specific goal of detecting violations of a security policy, the activity is known as *fuzz testing* (or simply *fuzzing*):
 
 ::: {#def-fuzz-testing}
 ###### Fuzz Testing
-Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy.
+Fuzz testing is the use of fuzzing to test whether a PUT violates a security policy [@manes2019].
 :::
 
 This distinction highlights that fuzz testing is fuzzing with an explicit focus on security properties and policy enforcement. Central to managing this process is the *fuzzer engine*, which orchestrates the execution of one or more fuzzing runs as part of a *fuzz campaign*. A fuzz campaign represents a concrete instance of fuzz testing tailored to a particular program and security policy:
 
 ::: {#def-fuzzer}
 ###### Fuzzer, Fuzzer Engine
-A fuzzer is a program that performs fuzz testing on a PUT.
+A fuzzer is a program that performs fuzz testing on a PUT [@manes2019].
 :::
 
 ::: {#def-campaign}
 ###### Fuzz Campaign
-A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy.
+A fuzz campaign is a specific execution of a fuzzer on a PUT with a specific security policy [@manes2019].
 :::
 
 Throughout each execution within a campaign, a *bug oracle* plays a critical role in evaluating the program's behavior to determine whether it violates the defined security policy:
 
 ::: {#def-oracle}
 ###### Bug Oracle
-A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy.
+A bug oracle is a component (often inside the fuzzer) that determines whether a given execution of the PUT violates a specific security policy [@manes2019].
 :::
 
 In practice, bug oracles often rely on runtime instrumentation techniques, such as monitoring for fatal POSIX signals (e.g., `SIGSEGV`) or using sanitizers like AddressSanitizer (ASan) [@serebryany2012]. Tools like LibFuzzer [@libfuzzer] commonly incorporate such instrumentation to reliably identify crashes or memory errors during fuzzing.
@@ -45,7 +45,7 @@ Most fuzz campaigns begin with a set of *seeds*---inputs that are well-formed an
 
 ::: {#def-seed}
 ###### Seed
-An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign ([@def-campaign]) all seeds are stored in a seed *pool* or *corpus*.
+An input given to the PUT that is mutated by the fuzzer to produce new test cases. During a fuzz campaign ([@def-campaign]) all seeds are stored in a seed *pool* or *corpus* [@manes2019].
 :::
 
 The process of selecting an effective initial corpus is crucial because it directly impacts how quickly and thoroughly the fuzzer can cover the target program's code. This challenge---studied as the *seed-selection problem*---involves identifying seeds that enable rapid discovery of diverse execution paths and is non-trivial [@rebert2014]. A well-chosen seed set often accelerates bug discovery and improves overall fuzzing efficiency.
@@ -201,4 +201,3 @@ At its core, Neurosymbolic AI facilitates the development of AI systems that are
 The burgeoning field of neurosymbolic AI is still in its nascent stages, with ongoing research and development actively exploring its potential to enhance attribution methodologies within large language models. By addressing these critical challenges, Neurosymbolic AI can significantly contribute to the broader landscape of trustworthy AI systems, allowing for more transparent and accountable decision-making processes [@sheth2023; @gaur2023; @tilwani2024].
 
 Moreover, the application of neurosymbolic AI within the domain of fuzzing is gaining traction, paving the way for innovative explorations. This integration of LLMs with symbolic systems opens up new avenues for research. Currently, there are only a limited number of tools that support such hybrid approaches (@sec-related). Among these, OverHAuL constitutes a Neuro[Symbolic] tool, as classified by Henry Kautz's taxonomy [@sarker2022; @kautz2020]. This means that the neural model---specifically the LLM---can leverage symbolic reasoning tools---in this case a source code explorer (@sec-implementation)---to augment its reasoning capabilities. This symbiotic relationship enhances the overall efficacy and versatility of LLMs for fuzzing harnesses generation, demonstrating the profound potential held by the fusion of neural and symbolic methodologies.
-
