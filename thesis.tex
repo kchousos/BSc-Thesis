@@ -989,15 +989,15 @@ other issues in the code.
 
 \subsection{LLMs for Fuzzing}\label{llms-for-fuzzing}
 
-While large language models (LLMs) demonstrate significant potential in
-enhancing the software development process, the challenges highlighted
-in Section~\ref{sec-llm-coding} become even more pronounced and
-troublesome when these models are employed to generate fuzzing
-harnesses. The task of writing a fuzzing harness inherently demands an
-in-depth comprehension of both the library being tested and the
-intricate interactions expected among its various components. This level
-of understanding is often beyond the capabilities of LLMs, primarily due
-to their context window limitations, which restrict the amount of
+While LLMs demonstrate significant potential in enhancing the software
+development process, the challenges highlighted in
+Section~\ref{sec-llm-coding} become even more pronounced and troublesome
+when these models are employed to generate fuzzing harnesses. The task
+of writing a fuzzing harness inherently demands an in-depth
+comprehension of both the library being tested and the intricate
+interactions expected among its various components. This level of
+understanding is often beyond the capabilities of LLMs, primarily due to
+their context window limitations, which restrict the amount of
 information they can effectively process and retain during code
 generation.
 
@@ -1276,6 +1276,62 @@ explore, regarding the occurrences of potentially vulnerable functions
 and/or unsafe code practices. Part of dateparse's static analysis report
 is shown in Listing~\ref{lst-static}.
 
+\begin{codelisting}
+
+\caption[Static analysis report]{\label{lst-static}Static analysis
+report (Flawfinder output) of dateparse.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{Flawfinder version 2.0.19, (C) 2001{-}2019 David A. Wheeler.}
+\NormalTok{Number of rules (primarily dangerous function names) in C/C++ ruleset: 222}
+\NormalTok{Examining ./dateparse.c}
+\NormalTok{Examining ./dateparse.h}
+\NormalTok{Examining ./test.c}
+
+\NormalTok{FINAL RESULTS:}
+
+\NormalTok{./dateparse.c:405:  [4] (buffer) strcpy:}
+\NormalTok{  Does not check for buffer overflows when copying to destination [MS{-}banned]}
+\NormalTok{  (CWE{-}120). Consider using snprintf, strcpy\_s, or strlcpy (warning: strncpy}
+\NormalTok{  easily misused).}
+
+\NormalTok{......}
+
+\NormalTok{./dateparse.c:2192:  [1] (buffer) strlen:}
+\NormalTok{  Does not handle strings that are not \textbackslash{}0{-}terminated; if given one it may}
+\NormalTok{  perform an over{-}read (it could cause a crash if unprotected) (CWE{-}126).}
+
+\NormalTok{ANALYSIS SUMMARY:}
+
+\NormalTok{Hits = 64}
+\NormalTok{Lines analyzed = 2719 in approximately 0.04 seconds (61234 lines/second)}
+\NormalTok{Physical Source Lines of Code (SLOC) = 1966}
+\NormalTok{Hits@level = [0]  15 [1]  28 [2]  31 [3]   0 [4]   5 [5]   0}
+\NormalTok{Hits@level+ = [0+]  79 [1+]  64 [2+]  36 [3+]   5 [4+]   5 [5+]   0}
+\NormalTok{Hits/KSLOC@level+ = [0+] 40.1831 [1+] 32.5534 [2+] 18.3113 [3+] 2.54323}
+\NormalTok{    [4+] 2.54323 [5+]   0}
+\NormalTok{Dot directories skipped = 1 ({-}{-}followdotdir overrides)}
+\NormalTok{Minimum risk level = 1}
+
+\NormalTok{Not every hit is necessarily a security vulnerability.}
+\NormalTok{You can inhibit a report by adding a comment in this form:}
+\NormalTok{// flawfinder: ignore}
+\NormalTok{Make *sure* it\textquotesingle{}s a false positive!}
+\NormalTok{You can use the option {-}{-}neverignore to show these.}
+
+\NormalTok{There may be other security vulnerabilities; review your code!}
+\NormalTok{See \textquotesingle{}Secure Programming HOWTO\textquotesingle{}}
+\NormalTok{(https://dwheeler.com/secure{-}programs) for more information.}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
 The codebase oracle is created in the following manner: The source code
 is first chunked in function-level pieces by traversing the code's
 Abstract Syntax Tree (AST) through Clang. Each chunk is represented by
@@ -1286,6 +1342,51 @@ model. Each embedding is stored in the vector store. This structure is
 created and used for easier and more semantically meaningful code
 retrieval, and to also combat context window limitations present in
 LLMs.
+
+\begin{codelisting}
+
+\caption[Codebase oracle samples]{\label{lst-chunks}Sample chunks
+contained in dateparse's codebase oracle.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{int}\OperatorTok{,} \DataTypeTok{int}\OperatorTok{)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setOffset}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ i}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ len}\OperatorTok{)\{}
+\NormalTok{        strncpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{,}\NormalTok{ p}\OperatorTok{{-}\textgreater{}}\NormalTok{datestr}\OperatorTok{+}\NormalTok{i}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
+\NormalTok{        p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{[}\NormalTok{len}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+
+
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{char} \OperatorTok{*)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
+\NormalTok{        strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+\OperatorTok{\}}
+
+
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{int} \OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*,} \DataTypeTok{long} \DataTypeTok{long} \OperatorTok{*,} \DataTypeTok{int} \OperatorTok{*,} \DataTypeTok{int}\OperatorTok{)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{int}\NormalTok{ dateparse}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ datestr}\OperatorTok{,}\NormalTok{ date\_t}\OperatorTok{*}\NormalTok{ t}\OperatorTok{,} \DataTypeTok{int} \OperatorTok{*}\NormalTok{offset}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ stringlen}\OperatorTok{)\{}
+        \KeywordTok{struct}\NormalTok{ parser p}\OperatorTok{;}
+        \OperatorTok{*}\NormalTok{t }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+        \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{stringlen}\OperatorTok{)}
+\NormalTok{                stringlen }\OperatorTok{=}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{);}
+        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{parseTime}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{,} \OperatorTok{\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ stringlen}\OperatorTok{))}
+                \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
+        \ControlFlowTok{return}\NormalTok{ parse}\OperatorTok{(\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ t}\OperatorTok{,}\NormalTok{ offset}\OperatorTok{);}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
 
 \subsection{Harness Creation}\label{sec-creation}
 
@@ -1313,6 +1414,26 @@ flaws. This process is iterated until a compilable harness has been
 obtained. After success, a script is also exported in the project
 directory, containing the generated compilation command. Dateparse's
 compilation command is shown in Listing~\ref{lst-compilation}.
+
+\begin{codelisting}
+
+\caption[Generated compilation
+command]{\label{lst-compilation}OverHAuL's generated compilation command
+for dateparse.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{\# cat ./overhaul.sh}
+\FunctionTok{clang} \AttributeTok{{-}g} \AttributeTok{{-}fsanitize}\OperatorTok{=}\NormalTok{fuzzer,address,undefined harnesses/harness.c }\AttributeTok{{-}I}\NormalTok{ . }
+ \ExtensionTok{dateparse.c} \AttributeTok{{-}o}\NormalTok{ harness}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
 
 \subsection{Harness Evaluation}\label{sec-evaluation}
 
@@ -1350,6 +1471,133 @@ project's directory. An evaluation-passing harness generated for the
 dateparse project is presented in Listing~\ref{lst-harness}, along with
 the associated crash input and execution output displayed in
 Listing~\ref{lst-input} and Listing~\ref{lst-output}, respectively.
+
+\begin{codelisting}
+
+\caption[Sample dateparse harness]{\label{lst-harness}A crash-finding
+harness for dateparse, generated through OverHAuL (some comments were
+removed).}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{"dateparse.h"}
+
+\CommentTok{// ...}
+\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{\{}
+    \DataTypeTok{char}\NormalTok{ mobuf}\OperatorTok{[}\DecValTok{16}\OperatorTok{];}
+\OperatorTok{\};}
+
+\CommentTok{// ...}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
+\NormalTok{    strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+\OperatorTok{\}}
+
+\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+    \CommentTok{// Allocate a parser instance on the heap.}
+    \KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*}\NormalTok{p }\OperatorTok{=} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
+    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{p}\OperatorTok{)} \OperatorTok{\{}
+        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+    \CommentTok{// Initialize parser with zeros.}
+\NormalTok{    memset}\OperatorTok{(}\NormalTok{p}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
+    \CommentTok{// Prepare month string input: ensure null{-}terminated string for strcpy.}
+    \DataTypeTok{char} \OperatorTok{*}\NormalTok{month }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
+    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{month}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{        free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
+        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{month}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
+\NormalTok{    month}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}  \CommentTok{// Null terminate to avoid overread in strcpy.}
+    \CommentTok{// Call the vulnerable function with fuzzed month string.}
+\NormalTok{    setFullMonth}\OperatorTok{(}\NormalTok{p}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+    \CommentTok{// Cleanup}
+\NormalTok{    free}\OperatorTok{(}\NormalTok{month}\OperatorTok{);}
+\NormalTok{    free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Sample dateparse crash input]{\label{lst-input}An input string
+that crashes the harness in Listing~\ref{lst-harness}. What is shown is
+its \texttt{xxd} output.}
+
+\centering{
+
+\begin{verbatim}
+00000000: 315e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e  1^^^^^^^^^^^^^^^
+00000010: 0a                                       .
+\end{verbatim}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Sample dateparse harness output]{\label{lst-output}The output
+of the harness in Listing~\ref{lst-harness} when executed with
+Listing~\ref{lst-input} as input.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{INFO: Running with entropic power schedule (0xFF, 100).}
+\NormalTok{INFO: Seed: 2365219758}
+\NormalTok{INFO: Loaded 1 modules   (3723 inline 8{-}bit counters): 3723 [0x67ccc0,}
+\NormalTok{      0x67db4b),}
+\NormalTok{INFO: Loaded 1 PC tables (3723 PCs): 3723 [0x618d40,0x6275f0),}
+\NormalTok{./harness: Running 1 inputs 1 time(s) each.}
+\NormalTok{Running: crash{-}7fd6f4dd5d39420d6f7887ff995b4e855ae90c16}
+\NormalTok{=================================================================}
+\NormalTok{==10973==ERROR: AddressSanitizer: heap{-}buffer{-}overflow on address}
+\NormalTok{0x7bcece9e00a0 at pc 0x000000526c0e bp 0x7fff3dc0aa20 sp 0x7fff3dc0a1d8}
+\NormalTok{WRITE of size 18 at 0x7bcece9e00a0 thread T0}
+\NormalTok{    \#0 0x000000526c0d in strcpy}
+\NormalTok{       (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
+\NormalTok{       +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0)}
+\NormalTok{    \#1 0x000000585555 in setFullMonth}
+\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
+\NormalTok{       /harness.c:18:2}
+\NormalTok{    \#2 0x0000005853fd in LLVMFuzzerTestOneInput}
+\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
+\NormalTok{       /harness.c:41:2}
+\NormalTok{...}
+\NormalTok{SUMMARY: AddressSanitizer: heap{-}buffer{-}overflow}
+\NormalTok{         (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
+\NormalTok{         +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0) in}
+\NormalTok{         strcpy}
+\NormalTok{Shadow bytes around the buggy address:}
+\NormalTok{  0x7bcece9dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9e0000: fa fa 00 00 fa fa 00 fa fa fa 00 fa fa fa 00 fa}
+\NormalTok{=\textgreater{}0x7bcece9e0080: fa fa 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{Shadow byte legend (one shadow byte represents 8 application bytes):}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
 
 \section{OverHAuL Techniques}\label{sec-techniques}
 
@@ -2587,265 +2835,6 @@ replaced for better alternatives. These are:
   intricate projects. As such, while this approach offered advancements
   in code exploration, it still fell short.
 \end{enumerate}
-
-\chapter{Dateparse example}\label{dateparse-example}
-
-The outputs from each phase of the OverHAuL process pertaining to the
-dateparse project: the static analysis report
-(Listing~\ref{lst-static}), sample function segments derived from
-dateparse (Listing~\ref{lst-chunks}), the generated compilation command
-(Listing~\ref{lst-compilation}), the bug-finding harness
-(Listing~\ref{lst-harness}), the identified crash input
-(Listing~\ref{lst-input}), and a portion of the harness output
-(Listing~\ref{lst-output}).
-
-\begin{codelisting}
-
-\caption[Static analysis report]{\label{lst-static}Static analysis
-report (Flawfinder output) of dateparse.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{Flawfinder version 2.0.19, (C) 2001{-}2019 David A. Wheeler.}
-\NormalTok{Number of rules (primarily dangerous function names) in C/C++ ruleset: 222}
-\NormalTok{Examining ./dateparse.c}
-\NormalTok{Examining ./dateparse.h}
-\NormalTok{Examining ./test.c}
-
-\NormalTok{FINAL RESULTS:}
-
-\NormalTok{./dateparse.c:405:  [4] (buffer) strcpy:}
-\NormalTok{  Does not check for buffer overflows when copying to destination [MS{-}banned]}
-\NormalTok{  (CWE{-}120). Consider using snprintf, strcpy\_s, or strlcpy (warning: strncpy}
-\NormalTok{  easily misused).}
-
-\NormalTok{......}
-
-\NormalTok{./dateparse.c:2192:  [1] (buffer) strlen:}
-\NormalTok{  Does not handle strings that are not \textbackslash{}0{-}terminated; if given one it may}
-\NormalTok{  perform an over{-}read (it could cause a crash if unprotected) (CWE{-}126).}
-
-\NormalTok{ANALYSIS SUMMARY:}
-
-\NormalTok{Hits = 64}
-\NormalTok{Lines analyzed = 2719 in approximately 0.04 seconds (61234 lines/second)}
-\NormalTok{Physical Source Lines of Code (SLOC) = 1966}
-\NormalTok{Hits@level = [0]  15 [1]  28 [2]  31 [3]   0 [4]   5 [5]   0}
-\NormalTok{Hits@level+ = [0+]  79 [1+]  64 [2+]  36 [3+]   5 [4+]   5 [5+]   0}
-\NormalTok{Hits/KSLOC@level+ = [0+] 40.1831 [1+] 32.5534 [2+] 18.3113 [3+] 2.54323}
-\NormalTok{    [4+] 2.54323 [5+]   0}
-\NormalTok{Dot directories skipped = 1 ({-}{-}followdotdir overrides)}
-\NormalTok{Minimum risk level = 1}
-
-\NormalTok{Not every hit is necessarily a security vulnerability.}
-\NormalTok{You can inhibit a report by adding a comment in this form:}
-\NormalTok{// flawfinder: ignore}
-\NormalTok{Make *sure* it\textquotesingle{}s a false positive!}
-\NormalTok{You can use the option {-}{-}neverignore to show these.}
-
-\NormalTok{There may be other security vulnerabilities; review your code!}
-\NormalTok{See \textquotesingle{}Secure Programming HOWTO\textquotesingle{}}
-\NormalTok{(https://dwheeler.com/secure{-}programs) for more information.}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
-
-\begin{codelisting}
-
-\caption[Codebase oracle samples]{\label{lst-chunks}Sample chunks
-contained in dateparse's codebase oracle.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
-\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{int}\OperatorTok{,} \DataTypeTok{int}\OperatorTok{)}
-\NormalTok{Code}\OperatorTok{:}
-\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setOffset}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ i}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ len}\OperatorTok{)\{}
-\NormalTok{        strncpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{,}\NormalTok{ p}\OperatorTok{{-}\textgreater{}}\NormalTok{datestr}\OperatorTok{+}\NormalTok{i}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
-\NormalTok{        p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{[}\NormalTok{len}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-
-
-\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
-\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{char} \OperatorTok{*)}
-\NormalTok{Code}\OperatorTok{:}
-\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
-\NormalTok{        strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
-\OperatorTok{\}}
-
-
-\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
-\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{int} \OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*,} \DataTypeTok{long} \DataTypeTok{long} \OperatorTok{*,} \DataTypeTok{int} \OperatorTok{*,} \DataTypeTok{int}\OperatorTok{)}
-\NormalTok{Code}\OperatorTok{:}
-\DataTypeTok{int}\NormalTok{ dateparse}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ datestr}\OperatorTok{,}\NormalTok{ date\_t}\OperatorTok{*}\NormalTok{ t}\OperatorTok{,} \DataTypeTok{int} \OperatorTok{*}\NormalTok{offset}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ stringlen}\OperatorTok{)\{}
-        \KeywordTok{struct}\NormalTok{ parser p}\OperatorTok{;}
-        \OperatorTok{*}\NormalTok{t }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-        \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{stringlen}\OperatorTok{)}
-\NormalTok{                stringlen }\OperatorTok{=}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{);}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{parseTime}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{,} \OperatorTok{\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ stringlen}\OperatorTok{))}
-                \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
-        \ControlFlowTok{return}\NormalTok{ parse}\OperatorTok{(\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ t}\OperatorTok{,}\NormalTok{ offset}\OperatorTok{);}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
-
-\begin{codelisting}
-
-\caption[Generated compilation
-command]{\label{lst-compilation}OverHAuL's generated compilation command
-for dateparse.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\CommentTok{\# cat ./overhaul.sh}
-\FunctionTok{clang} \AttributeTok{{-}g} \AttributeTok{{-}fsanitize}\OperatorTok{=}\NormalTok{fuzzer,address,undefined harnesses/harness.c }\AttributeTok{{-}I}\NormalTok{ . }
- \ExtensionTok{dateparse.c} \AttributeTok{{-}o}\NormalTok{ harness}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
-
-\begin{codelisting}
-
-\caption[Sample dateparse harness]{\label{lst-harness}A crash-finding
-harness for dateparse, generated through OverHAuL (some comments were
-removed).}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"dateparse.h"}
-
-\CommentTok{// ...}
-\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{\{}
-    \DataTypeTok{char}\NormalTok{ mobuf}\OperatorTok{[}\DecValTok{16}\OperatorTok{];}
-\OperatorTok{\};}
-
-\CommentTok{// ...}
-\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
-\NormalTok{    strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
-\OperatorTok{\}}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Allocate a parser instance on the heap.}
-    \KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*}\NormalTok{p }\OperatorTok{=} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{p}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-    \CommentTok{// Initialize parser with zeros.}
-\NormalTok{    memset}\OperatorTok{(}\NormalTok{p}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
-    \CommentTok{// Prepare month string input: ensure null{-}terminated string for strcpy.}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{month }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{month}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{month}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    month}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}  \CommentTok{// Null terminate to avoid overread in strcpy.}
-    \CommentTok{// Call the vulnerable function with fuzzed month string.}
-\NormalTok{    setFullMonth}\OperatorTok{(}\NormalTok{p}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
-    \CommentTok{// Cleanup}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{month}\OperatorTok{);}
-\NormalTok{    free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
-
-\begin{codelisting}
-
-\caption[Sample dateparse crash input]{\label{lst-input}An input string
-that crashes the harness in Listing~\ref{lst-harness}. What is shown is
-its \texttt{xxd} output.}
-
-\centering{
-
-\begin{verbatim}
-00000000: 315e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e  1^^^^^^^^^^^^^^^
-00000010: 0a                                       .
-\end{verbatim}
-
-}
-
-\end{codelisting}%
-
-\begin{codelisting}
-
-\caption[Sample dateparse harness output]{\label{lst-output}The output
-of the harness in Listing~\ref{lst-harness} when executed with
-Listing~\ref{lst-input} as input.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\NormalTok{INFO: Running with entropic power schedule (0xFF, 100).}
-\NormalTok{INFO: Seed: 2365219758}
-\NormalTok{INFO: Loaded 1 modules   (3723 inline 8{-}bit counters): 3723 [0x67ccc0,}
-\NormalTok{      0x67db4b),}
-\NormalTok{INFO: Loaded 1 PC tables (3723 PCs): 3723 [0x618d40,0x6275f0),}
-\NormalTok{./harness: Running 1 inputs 1 time(s) each.}
-\NormalTok{Running: crash{-}7fd6f4dd5d39420d6f7887ff995b4e855ae90c16}
-\NormalTok{=================================================================}
-\NormalTok{==10973==ERROR: AddressSanitizer: heap{-}buffer{-}overflow on address}
-\NormalTok{0x7bcece9e00a0 at pc 0x000000526c0e bp 0x7fff3dc0aa20 sp 0x7fff3dc0a1d8}
-\NormalTok{WRITE of size 18 at 0x7bcece9e00a0 thread T0}
-\NormalTok{    \#0 0x000000526c0d in strcpy}
-\NormalTok{       (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
-\NormalTok{       +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0)}
-\NormalTok{    \#1 0x000000585555 in setFullMonth}
-\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
-\NormalTok{       /harness.c:18:2}
-\NormalTok{    \#2 0x0000005853fd in LLVMFuzzerTestOneInput}
-\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
-\NormalTok{       /harness.c:41:2}
-\NormalTok{...}
-\NormalTok{SUMMARY: AddressSanitizer: heap{-}buffer{-}overflow}
-\NormalTok{         (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
-\NormalTok{         +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0) in}
-\NormalTok{         strcpy}
-\NormalTok{Shadow bytes around the buggy address:}
-\NormalTok{  0x7bcece9dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
-\NormalTok{  0x7bcece9dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
-\NormalTok{  0x7bcece9dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
-\NormalTok{  0x7bcece9dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
-\NormalTok{  0x7bcece9e0000: fa fa 00 00 fa fa 00 fa fa fa 00 fa fa fa 00 fa}
-\NormalTok{=\textgreater{}0x7bcece9e0080: fa fa 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{  0x7bcece9e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{  0x7bcece9e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{  0x7bcece9e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{  0x7bcece9e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{  0x7bcece9e0300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
-\NormalTok{Shadow byte legend (one shadow byte represents 8 application bytes):}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
 
 \chapter{Sample Generated Harnesses}\label{sec-sample-harnesses}
 

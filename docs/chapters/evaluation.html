@@ -481,20 +481,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/sample-harnesses.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -567,7 +561,7 @@ window.Quarto = {
 </ol>
 </aside>
 <p>OverHAuL was evaluated through the experimental benchmark from 6th of June, 2025 to 18th of July, 2025, using OpenAI’s gpt-4.1-mini model <span class="citation" data-cites="openaidocs2025"><a href="refs.html#ref-openaidocs2025" role="doc-biblioref">[4]</a></span>. For these runs, each OverHAuL execution was configured with a 5 minute harness execution timeout and an iteration budget of 10. Each benchmark run was executed as a GitHub Actions workflow on Linux virtual machines with 4-vCPUs and 16GiB of memory hosted on Microsoft Azure <span class="citation" data-cites="githubdocs2025a githubdocs2025"><a href="refs.html#ref-githubdocs2025a" role="doc-biblioref">[5]</a>, <a href="refs.html#ref-githubdocs2025" role="doc-biblioref">[6]</a></span>. The result directory (as described in <a href="#sec-local" class="quarto-xref"><span>Section 4.1.1</span></a>) for each is available as a downloadable artifact in the corresponding GitHub Actions entry.</p>
-<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Benchmark corpus" data-tbl-colwidths="[25,60,7,8]">
+<div id="tbl-projects" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[25,60,7,8]" data-fig-scap="Benchmark corpus">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-projects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4.1: The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
@@ -690,7 +684,7 @@ Figure&nbsp;4.2: This heatmap illustrates the number of iterations required for 
 </section>
 <section id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">4.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</h3>
-<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="dateparse.html#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (<a href="sample-harnesses.html" class="quarto-xref"><span>Appendix C</span></a>). RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
+<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="overhaul.html#lst-harness" class="quarto-xref">Listing&nbsp;<span>3.5</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (<a href="sample-harnesses.html" class="quarto-xref"><span>Appendix B</span></a>). RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
 </section>
 <section id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">4.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</h3>

@@ -481,20 +481,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/sample-harnesses.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -636,13 +630,112 @@ Figure&nbsp;3.2: A successful execution of OverHAuL, harnessing the “dateparse
 <p>OverHAuL can be compartmentalized in three stages: First, the project analysis stage (<a href="#sec-analysis" class="quarto-xref"><span>Section 3.2.1</span></a>), the harness creation stage (<a href="#sec-creation" class="quarto-xref"><span>Section 3.2.2</span></a>) and the harness evaluation stage (<a href="#sec-evaluation" class="quarto-xref"><span>Section 3.2.3</span></a>).</p>
 <section id="sec-analysis" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-analysis"><span class="header-section-number">3.2.1</span> Project Analysis</h3>
-<p>In the project analysis stage (steps A.1–A.4), dateparse is ran through a static analysis tool named Flawfinder <span class="citation" data-cites="flawfinder"><a href="refs.html#ref-flawfinder" role="doc-biblioref">[13]</a></span> and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a <em>static analysis report</em> and a <em>codebase oracle</em>, i.e.&nbsp;a vector store containing embeddings of function-level code chunks. Both resources are later available to the LLM agents. Flawfinder is executed with the dateparse directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent responsible with the harness creation with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices. Part of dateparse’s static analysis report is shown in <a href="dateparse.html#lst-static" class="quarto-xref">Listing&nbsp;<span>B.1</span></a>.</p>
-<p>The codebase oracle is created in the following manner: The source code is first chunked in function-level pieces by traversing the code’s Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function’s signature, the corresponding filepath and the function’s body (see <a href="dateparse.html#lst-chunks" class="quarto-xref">Listing&nbsp;<span>B.2</span></a>). Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in LLMs.</p>
+<p>In the project analysis stage (steps A.1–A.4), dateparse is ran through a static analysis tool named Flawfinder <span class="citation" data-cites="flawfinder"><a href="refs.html#ref-flawfinder" role="doc-biblioref">[13]</a></span> and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a <em>static analysis report</em> and a <em>codebase oracle</em>, i.e.&nbsp;a vector store containing embeddings of function-level code chunks. Both resources are later available to the LLM agents. Flawfinder is executed with the dateparse directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent responsible with the harness creation with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices. Part of dateparse’s static analysis report is shown in <a href="#lst-static" class="quarto-xref">Listing&nbsp;<span>3.2</span></a>.</p>
+<div id="lst-static" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Static analysis report">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-static-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.2: Static analysis report (Flawfinder output) of dateparse.
+</figcaption>
+<div aria-describedby="lst-static-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>Flawfinder version 2.0.19, (C) 2001-2019 David A. Wheeler.</span>
+<span id="cb3-2"><a href="#cb3-2"></a>Number of rules (primarily dangerous function names) in C/C++ ruleset: 222</span>
+<span id="cb3-3"><a href="#cb3-3"></a>Examining ./dateparse.c</span>
+<span id="cb3-4"><a href="#cb3-4"></a>Examining ./dateparse.h</span>
+<span id="cb3-5"><a href="#cb3-5"></a>Examining ./test.c</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a>FINAL RESULTS:</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>./dateparse.c:405:  [4] (buffer) strcpy:</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  Does not check for buffer overflows when copying to destination [MS-banned]</span>
+<span id="cb3-11"><a href="#cb3-11"></a>  (CWE-120). Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy</span>
+<span id="cb3-12"><a href="#cb3-12"></a>  easily misused).</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a>......</span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a>./dateparse.c:2192:  [1] (buffer) strlen:</span>
+<span id="cb3-17"><a href="#cb3-17"></a>  Does not handle strings that are not \0-terminated; if given one it may</span>
+<span id="cb3-18"><a href="#cb3-18"></a>  perform an over-read (it could cause a crash if unprotected) (CWE-126).</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a>ANALYSIS SUMMARY:</span>
+<span id="cb3-21"><a href="#cb3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22"></a>Hits = 64</span>
+<span id="cb3-23"><a href="#cb3-23"></a>Lines analyzed = 2719 in approximately 0.04 seconds (61234 lines/second)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>Physical Source Lines of Code (SLOC) = 1966</span>
+<span id="cb3-25"><a href="#cb3-25"></a>Hits@level = [0]  15 [1]  28 [2]  31 [3]   0 [4]   5 [5]   0</span>
+<span id="cb3-26"><a href="#cb3-26"></a>Hits@level+ = [0+]  79 [1+]  64 [2+]  36 [3+]   5 [4+]   5 [5+]   0</span>
+<span id="cb3-27"><a href="#cb3-27"></a>Hits/KSLOC@level+ = [0+] 40.1831 [1+] 32.5534 [2+] 18.3113 [3+] 2.54323</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    [4+] 2.54323 [5+]   0</span>
+<span id="cb3-29"><a href="#cb3-29"></a>Dot directories skipped = 1 (--followdotdir overrides)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>Minimum risk level = 1</span>
+<span id="cb3-31"><a href="#cb3-31"></a></span>
+<span id="cb3-32"><a href="#cb3-32"></a>Not every hit is necessarily a security vulnerability.</span>
+<span id="cb3-33"><a href="#cb3-33"></a>You can inhibit a report by adding a comment in this form:</span>
+<span id="cb3-34"><a href="#cb3-34"></a>// flawfinder: ignore</span>
+<span id="cb3-35"><a href="#cb3-35"></a>Make *sure* it's a false positive!</span>
+<span id="cb3-36"><a href="#cb3-36"></a>You can use the option --neverignore to show these.</span>
+<span id="cb3-37"><a href="#cb3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38"></a>There may be other security vulnerabilities; review your code!</span>
+<span id="cb3-39"><a href="#cb3-39"></a>See 'Secure Programming HOWTO'</span>
+<span id="cb3-40"><a href="#cb3-40"></a>(https://dwheeler.com/secure-programs) for more information.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>The codebase oracle is created in the following manner: The source code is first chunked in function-level pieces by traversing the code’s Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function’s signature, the corresponding filepath and the function’s body (see <a href="#lst-chunks" class="quarto-xref">Listing&nbsp;<span>3.3</span></a>). Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in LLMs.</p>
+<div id="lst-chunks" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Codebase oracle samples">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.3: Sample chunks contained in dateparse’s codebase oracle.
+</figcaption>
+<div aria-describedby="lst-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb4-2"><a href="#cb4-2"></a>Signature<span class="op">:</span> <span class="dt">void</span> <span class="op">(</span><span class="kw">struct</span> parser <span class="op">*,</span> <span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>Code<span class="op">:</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="dt">static</span> <span class="dt">void</span> setOffset<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> len<span class="op">){</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>        strncpy<span class="op">(</span>p<span class="op">-&gt;</span>offsetbuf<span class="op">,</span> p<span class="op">-&gt;</span>datestr<span class="op">+</span>i<span class="op">,</span> len<span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>        p<span class="op">-&gt;</span>offsetbuf<span class="op">[</span>len<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="op">}</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb4-11"><a href="#cb4-11"></a>Signature<span class="op">:</span> <span class="dt">void</span> <span class="op">(</span><span class="kw">struct</span> parser <span class="op">*,</span> <span class="dt">char</span> <span class="op">*)</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>Code<span class="op">:</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="dt">static</span> <span class="dt">void</span> setFullMonth<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> month<span class="op">){</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>        strcpy<span class="op">(</span>p<span class="op">-&gt;</span>mobuf<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="op">}</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb4-19"><a href="#cb4-19"></a>Signature<span class="op">:</span> <span class="dt">int</span> <span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*,</span> <span class="dt">long</span> <span class="dt">long</span> <span class="op">*,</span> <span class="dt">int</span> <span class="op">*,</span> <span class="dt">int</span><span class="op">)</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>Code<span class="op">:</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="dt">int</span> dateparse<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span><span class="op">*</span> datestr<span class="op">,</span> date_t<span class="op">*</span> t<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>offset<span class="op">,</span> <span class="dt">int</span> stringlen<span class="op">){</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>        <span class="kw">struct</span> parser p<span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>        <span class="op">*</span>t <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>        <span class="cf">if</span> <span class="op">(!</span>stringlen<span class="op">)</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>                stringlen <span class="op">=</span> strlen<span class="op">(</span>datestr<span class="op">);</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>        <span class="cf">if</span> <span class="op">(</span>parseTime<span class="op">(</span>datestr<span class="op">,</span> <span class="op">&amp;</span>p<span class="op">,</span> stringlen<span class="op">))</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>                <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>        <span class="cf">return</span> parse<span class="op">(&amp;</span>p<span class="op">,</span> t<span class="op">,</span> offset<span class="op">);</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 </section>
 <section id="sec-creation" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-creation"><span class="header-section-number">3.2.2</span> Harness Creation</h3>
 <p>Second is the harness creation stage (steps B.1–B.2). In this part, a “generator” ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the codebase oracle. When the agent makes queries like “functions containing <code>strcpy()</code>”, the querying tool turns the question into an embedding and through similarity search returns the top <span class="math inline">k=5</span> most similar results—in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.</p>
-<p>The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in <a href="#sec-scope" class="quarto-xref"><span>Section 3.5</span></a>. If the compilation fails for any reason, e.g.&nbsp;a missing header include, then the generated faulty harness and its compilation output are passed to a new “fixer” agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command. Dateparse’s compilation command is shown in <a href="dateparse.html#lst-compilation" class="quarto-xref">Listing&nbsp;<span>B.3</span></a>.</p>
+<p>The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in <a href="#sec-scope" class="quarto-xref"><span>Section 3.5</span></a>. If the compilation fails for any reason, e.g.&nbsp;a missing header include, then the generated faulty harness and its compilation output are passed to a new “fixer” agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command. Dateparse’s compilation command is shown in <a href="#lst-compilation" class="quarto-xref">Listing&nbsp;<span>3.4</span></a>.</p>
+<div id="lst-compilation" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Generated compilation command">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.4: OverHAuL’s generated compilation command for dateparse.
+</figcaption>
+<div aria-describedby="lst-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># cat ./overhaul.sh</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">clang</span> <span class="at">-g</span> <span class="at">-fsanitize</span><span class="op">=</span>fuzzer,address,undefined harnesses/harness.c <span class="at">-I</span> . </span>
+<span id="cb5-3"><a href="#cb5-3"></a> <span class="ex">dateparse.c</span> <span class="at">-o</span> harness</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 </section>
 <section id="sec-evaluation" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-evaluation"><span class="header-section-number">3.2.3</span> Harness Evaluation</h3>
@@ -655,7 +748,112 @@ Figure&nbsp;3.2: A successful execution of OverHAuL, harnessing the “dateparse
 <li><p>The created testcase is not empty</p>
 <p>This is examined through <code>xxd</code>’s output given the crash-file.</p></li>
 </ol>
-<p>Similarly to the second stage’s compilation phase (steps B.2–B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an “improver” agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned “fixer” agent is utilized again (steps C.2–C.2.a). All produced crash files and the harness execution output are saved in the project’s directory. An evaluation-passing harness generated for the dateparse project is presented in <a href="dateparse.html#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a>, along with the associated crash input and execution output displayed in <a href="dateparse.html#lst-input" class="quarto-xref">Listing&nbsp;<span>B.5</span></a> and <a href="dateparse.html#lst-output" class="quarto-xref">Listing&nbsp;<span>B.6</span></a>, respectively.</p>
+<p>Similarly to the second stage’s compilation phase (steps B.2–B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an “improver” agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned “fixer” agent is utilized again (steps C.2–C.2.a). All produced crash files and the harness execution output are saved in the project’s directory. An evaluation-passing harness generated for the dateparse project is presented in <a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>3.5</span></a>, along with the associated crash input and execution output displayed in <a href="#lst-input" class="quarto-xref">Listing&nbsp;<span>3.6</span></a> and <a href="#lst-output" class="quarto-xref">Listing&nbsp;<span>3.7</span></a>, respectively.</p>
+<div id="lst-harness" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-harness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.5: A crash-finding harness for dateparse, generated through OverHAuL (some comments were removed).
+</figcaption>
+<div aria-describedby="lst-harness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="pp">#include </span><span class="im">"dateparse.h"</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">// ...</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="kw">struct</span> parser <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="dt">char</span> mobuf<span class="op">[</span><span class="dv">16</span><span class="op">];</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="op">};</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">// ...</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="dt">static</span> <span class="dt">void</span> setFullMonth<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> month<span class="op">){</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>    strcpy<span class="op">(</span>p<span class="op">-&gt;</span>mobuf<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="op">}</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>    <span class="co">// Allocate a parser instance on the heap.</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a>    <span class="kw">struct</span> parser <span class="op">*</span>p <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> parser<span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> parser<span class="op">));</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>    <span class="cf">if</span> <span class="op">(!</span>p<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>    <span class="op">}</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a>    <span class="co">// Initialize parser with zeros.</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a>    memset<span class="op">(</span>p<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> parser<span class="op">));</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a>    <span class="co">// Prepare month string input: ensure null-terminated string for strcpy.</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a>    <span class="dt">char</span> <span class="op">*</span>month <span class="op">=</span> <span class="op">(</span><span class="dt">char</span><span class="op">*)</span>malloc<span class="op">(</span>size <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a>    <span class="cf">if</span> <span class="op">(!</span>month<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a>        free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a>    <span class="op">}</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a>    memcpy<span class="op">(</span>month<span class="op">,</span> data<span class="op">,</span> size<span class="op">);</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a>    month<span class="op">[</span>size<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span>  <span class="co">// Null terminate to avoid overread in strcpy.</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a>    <span class="co">// Call the vulnerable function with fuzzed month string.</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a>    setFullMonth<span class="op">(</span>p<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a>    <span class="co">// Cleanup</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a>    free<span class="op">(</span>month<span class="op">);</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a>    free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-input" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse crash input">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.6: An input string that crashes the harness in <a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>3.5</span></a>. What is shown is its <code>xxd</code> output.
+</figcaption>
+<div aria-describedby="lst-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<pre><code>00000000: 315e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e  1^^^^^^^^^^^^^^^
+00000010: 0a                                       .</code></pre>
+</div>
+</figure>
+</div>
+<div id="lst-output" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness output">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;3.7: The output of the harness in <a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>3.5</span></a> when executed with <a href="#lst-input" class="quarto-xref">Listing&nbsp;<span>3.6</span></a> as input.
+</figcaption>
+<div aria-describedby="lst-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>INFO: Running with entropic power schedule (0xFF, 100).</span>
+<span id="cb8-2"><a href="#cb8-2"></a>INFO: Seed: 2365219758</span>
+<span id="cb8-3"><a href="#cb8-3"></a>INFO: Loaded 1 modules   (3723 inline 8-bit counters): 3723 [0x67ccc0,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>      0x67db4b),</span>
+<span id="cb8-5"><a href="#cb8-5"></a>INFO: Loaded 1 PC tables (3723 PCs): 3723 [0x618d40,0x6275f0),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>./harness: Running 1 inputs 1 time(s) each.</span>
+<span id="cb8-7"><a href="#cb8-7"></a>Running: crash-7fd6f4dd5d39420d6f7887ff995b4e855ae90c16</span>
+<span id="cb8-8"><a href="#cb8-8"></a>=================================================================</span>
+<span id="cb8-9"><a href="#cb8-9"></a>==10973==ERROR: AddressSanitizer: heap-buffer-overflow on address</span>
+<span id="cb8-10"><a href="#cb8-10"></a>0x7bcece9e00a0 at pc 0x000000526c0e bp 0x7fff3dc0aa20 sp 0x7fff3dc0a1d8</span>
+<span id="cb8-11"><a href="#cb8-11"></a>WRITE of size 18 at 0x7bcece9e00a0 thread T0</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    #0 0x000000526c0d in strcpy</span>
+<span id="cb8-13"><a href="#cb8-13"></a>       (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness</span>
+<span id="cb8-14"><a href="#cb8-14"></a>       +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0)</span>
+<span id="cb8-15"><a href="#cb8-15"></a>    #1 0x000000585555 in setFullMonth</span>
+<span id="cb8-16"><a href="#cb8-16"></a>       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses</span>
+<span id="cb8-17"><a href="#cb8-17"></a>       /harness.c:18:2</span>
+<span id="cb8-18"><a href="#cb8-18"></a>    #2 0x0000005853fd in LLVMFuzzerTestOneInput</span>
+<span id="cb8-19"><a href="#cb8-19"></a>       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses</span>
+<span id="cb8-20"><a href="#cb8-20"></a>       /harness.c:41:2</span>
+<span id="cb8-21"><a href="#cb8-21"></a>...</span>
+<span id="cb8-22"><a href="#cb8-22"></a>SUMMARY: AddressSanitizer: heap-buffer-overflow</span>
+<span id="cb8-23"><a href="#cb8-23"></a>         (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness</span>
+<span id="cb8-24"><a href="#cb8-24"></a>         +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0) in</span>
+<span id="cb8-25"><a href="#cb8-25"></a>         strcpy</span>
+<span id="cb8-26"><a href="#cb8-26"></a>Shadow bytes around the buggy address:</span>
+<span id="cb8-27"><a href="#cb8-27"></a>  0x7bcece9dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb8-28"><a href="#cb8-28"></a>  0x7bcece9dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb8-29"><a href="#cb8-29"></a>  0x7bcece9dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb8-30"><a href="#cb8-30"></a>  0x7bcece9dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb8-31"><a href="#cb8-31"></a>  0x7bcece9e0000: fa fa 00 00 fa fa 00 fa fa fa 00 fa fa fa 00 fa</span>
+<span id="cb8-32"><a href="#cb8-32"></a>=&gt;0x7bcece9e0080: fa fa 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-33"><a href="#cb8-33"></a>  0x7bcece9e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-34"><a href="#cb8-34"></a>  0x7bcece9e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-35"><a href="#cb8-35"></a>  0x7bcece9e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-36"><a href="#cb8-36"></a>  0x7bcece9e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-37"><a href="#cb8-37"></a>  0x7bcece9e0300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb8-38"><a href="#cb8-38"></a>Shadow byte legend (one shadow byte represents 8 application bytes):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 </section>
 </section>
 <section id="sec-techniques" class="level2" data-number="3.3">
@@ -697,21 +895,21 @@ Figure&nbsp;3.2: A successful execution of OverHAuL, harnessing the “dateparse
 <section id="sec-implementation" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="sec-implementation"><span class="header-section-number">3.6</span> Implementation</h2>
 <p>In creating the codebase oracle, we employ the “libclang” Python package <span class="citation" data-cites="he2025"><a href="refs.html#ref-he2025" role="doc-biblioref">[18]</a></span> to slice functions based on the AST capability provided by Clang. As detailed in <a href="#sec-oracle" class="quarto-xref"><span>Section 3.3.3</span></a>, the intermediate output consists of a list of Python dictionaries, with each dictionary storing a function’s body, signature, and corresponding file path. Each chunk of function code is then converted into an embedding using OpenAI’s “text-embedding-3-small” model <span class="citation" data-cites="openaidocs2025a"><a href="refs.html#ref-openaidocs2025a" role="doc-biblioref">[19]</a></span> and stored in a FAISS vector store index <span class="citation" data-cites="faiss"><a href="refs.html#ref-faiss" role="doc-biblioref">[20]</a></span>. This index is mapped to a metadata structure that contains the aforementioned function data—specifically the actual function body, signature, and file path. When a search is conducted on the index, the results returned are the embeddings. The responses that the LLM agent receives are derived from the corresponding metadata entries of each embedding.</p>
-<p>All LLM agents and components are developed using the DSPy library, a declarative Python framework for LLM programming created by Stanford’s NLP research team <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[21]</a></span>. DSPy offers built-in modules and abstractions that facilitate the composition of LLMs and prompting techniques, such as Chain of Thought and ReAct (<a href="#lst-dspy" class="quarto-xref">Listing&nbsp;<span>3.2</span></a>). Each agent within OverHAuL is an instance of DSPy’s ReAct module <span class="citation" data-cites="stanfordnlpteam2025"><a href="refs.html#ref-stanfordnlpteam2025" role="doc-biblioref">[22]</a></span>, accompanied by a custom Signature <span class="citation" data-cites="stanfordnlpteam2025a"><a href="refs.html#ref-stanfordnlpteam2025a" role="doc-biblioref">[23]</a></span>—displayed in <a href="prompts.html" class="quarto-xref"><span>Appendix D</span></a>. DSPy was selected over other contemporary LLM libraries, such as LangChain and Llamaindex <span class="citation" data-cites="langchain llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[24]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[25]</a></span>, because of its user-friendliness, logical abstractions, and efficient development process—qualities that are often lacking in these alternative libraries <span class="citation" data-cites="both2024 woolf2023 woyera2023"><a href="refs.html#ref-both2024" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-woolf2023" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-woyera2023" role="doc-biblioref">[28]</a></span>.</p>
+<p>All LLM agents and components are developed using the DSPy library, a declarative Python framework for LLM programming created by Stanford’s NLP research team <span class="citation" data-cites="dspy"><a href="refs.html#ref-dspy" role="doc-biblioref">[21]</a></span>. DSPy offers built-in modules and abstractions that facilitate the composition of LLMs and prompting techniques, such as Chain of Thought and ReAct (<a href="#lst-dspy" class="quarto-xref">Listing&nbsp;<span>3.8</span></a>). Each agent within OverHAuL is an instance of DSPy’s ReAct module <span class="citation" data-cites="stanfordnlpteam2025"><a href="refs.html#ref-stanfordnlpteam2025" role="doc-biblioref">[22]</a></span>, accompanied by a custom Signature <span class="citation" data-cites="stanfordnlpteam2025a"><a href="refs.html#ref-stanfordnlpteam2025a" role="doc-biblioref">[23]</a></span>—displayed in <a href="prompts.html" class="quarto-xref"><span>Appendix C</span></a>. DSPy was selected over other contemporary LLM libraries, such as LangChain and Llamaindex <span class="citation" data-cites="langchain llamaindex"><a href="refs.html#ref-langchain" role="doc-biblioref">[24]</a>, <a href="refs.html#ref-llamaindex" role="doc-biblioref">[25]</a></span>, because of its user-friendliness, logical abstractions, and efficient development process—qualities that are often lacking in these alternative libraries <span class="citation" data-cites="both2024 woolf2023 woyera2023"><a href="refs.html#ref-both2024" role="doc-biblioref">[26]</a>, <a href="refs.html#ref-woolf2023" role="doc-biblioref">[27]</a>, <a href="refs.html#ref-woyera2023" role="doc-biblioref">[28]</a></span>.</p>
 <div id="lst-dspy" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="DSPy example">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-dspy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Listing&nbsp;3.2: Sample DSPy program.
+Listing&nbsp;3.8: Sample DSPy program.
 </figcaption>
 <div aria-describedby="lst-dspy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> dspy</span>
-<span id="cb3-2"><a href="#cb3-2"></a>lm <span class="op">=</span> dspy.LM(<span class="st">'openai/gpt-4o-mini'</span>, api_key<span class="op">=</span><span class="st">'YOUR_OPENAI_API_KEY'</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>dspy.configure(lm<span class="op">=</span>lm)</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a>math <span class="op">=</span> dspy.ChainOfThought(<span class="st">"question -&gt; answer: float"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>math(question<span class="op">=</span>(</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    <span class="st">"Two dice are tossed. What is the probability that the sum equals two?"</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> dspy</span>
+<span id="cb9-2"><a href="#cb9-2"></a>lm <span class="op">=</span> dspy.LM(<span class="st">'openai/gpt-4o-mini'</span>, api_key<span class="op">=</span><span class="st">'YOUR_OPENAI_API_KEY'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>dspy.configure(lm<span class="op">=</span>lm)</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>math <span class="op">=</span> dspy.ChainOfThought(<span class="st">"question -&gt; answer: float"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>math(question<span class="op">=</span>(</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="st">"Two dice are tossed. What is the probability that the sum equals two?"</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </figure>
 </div>
