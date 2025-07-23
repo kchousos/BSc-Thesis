@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix B — Sample Generated Harnesses – OverHAuL</title>
+<title>Appendix C — Sample Generated Harnesses – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,21 +66,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/prompts.html" rel="next">
-<link href="../chapters/abandoned.html" rel="prev">
+<link href="../chapters/dateparse.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -289,6 +289,7 @@ MathJax = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -313,7 +314,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/sample-harnesses.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/sample-harnesses.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -414,14 +415,20 @@ MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapters/sample-harnesses.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -436,10 +443,10 @@ MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#clibsbuffer" id="toc-clibsbuffer" class="nav-link active" data-scroll-target="#clibsbuffer"><span class="header-section-number">B.1</span> clibs/buffer</a></li>
-  <li><a href="#willemtcbuffer" id="toc-willemtcbuffer" class="nav-link" data-scroll-target="#willemtcbuffer"><span class="header-section-number">B.2</span> willemt/cbuffer</a></li>
-  <li><a href="#dvhardateparse" id="toc-dvhardateparse" class="nav-link" data-scroll-target="#dvhardateparse"><span class="header-section-number">B.3</span> dvhar/dateparse</a></li>
-  <li><a href="#h2nonsemver.c" id="toc-h2nonsemver.c" class="nav-link" data-scroll-target="#h2nonsemver.c"><span class="header-section-number">B.4</span> h2non/semver.c</a></li>
+  <li><a href="#clibsbuffer" id="toc-clibsbuffer" class="nav-link active" data-scroll-target="#clibsbuffer"><span class="header-section-number">C.1</span> clibs/buffer</a></li>
+  <li><a href="#willemtcbuffer" id="toc-willemtcbuffer" class="nav-link" data-scroll-target="#willemtcbuffer"><span class="header-section-number">C.2</span> willemt/cbuffer</a></li>
+  <li><a href="#dvhardateparse" id="toc-dvhardateparse" class="nav-link" data-scroll-target="#dvhardateparse"><span class="header-section-number">C.3</span> dvhar/dateparse</a></li>
+  <li><a href="#h2nonsemver.c" id="toc-h2nonsemver.c" class="nav-link" data-scroll-target="#h2nonsemver.c"><span class="header-section-number">C.4</span> h2non/semver.c</a></li>
   </ul>
 </nav>
     </div>
@@ -447,9 +454,9 @@ MathJax = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/sample-harnesses.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/sample-harnesses.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-sample-harnesses" class="quarto-section-identifier">Appendix B — Sample Generated Harnesses</span></h1>
+<h1 class="title"><span id="sec-sample-harnesses" class="quarto-section-identifier">Appendix C — Sample Generated Harnesses</span></h1>
 </div>
 
 
@@ -467,8 +474,8 @@ MathJax = {
 
 
 <p>This appendix presents a selection of harnesses generated by OverHAuL, originating from the benchmark run <a href="https://github.com/kchousos/OverHAuL/actions/runs/16351915455">16351915455</a>. The examples included herein demonstrate a notable diversity, ranging from concise and straightforward harnesses to those that are more elaborate and complex. The crash inputs are provided in the form of their corresponding <code>xxd</code> hexadecimal representations.</p>
-<section id="clibsbuffer" class="level2" data-number="B.1">
-<h2 data-number="B.1" class="anchored" data-anchor-id="clibsbuffer"><span class="header-section-number">B.1</span> clibs/buffer</h2>
+<section id="clibsbuffer" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="clibsbuffer"><span class="header-section-number">C.1</span> clibs/buffer</h2>
 <p>Generated harness:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">"buffer.h"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
@@ -566,8 +573,8 @@ MathJax = {
 00000020: 2d2d 2d2d 2d2d 2d2d 2d2d 2d25 2d2d 2d2d  -----------%----
 00000030: 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d         -------------</code></pre>
 </section>
-<section id="willemtcbuffer" class="level2" data-number="B.2">
-<h2 data-number="B.2" class="anchored" data-anchor-id="willemtcbuffer"><span class="header-section-number">B.2</span> willemt/cbuffer</h2>
+<section id="willemtcbuffer" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="willemtcbuffer"><span class="header-section-number">C.2</span> willemt/cbuffer</h2>
 <p>Generated harness:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">"cbuffer.h"</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
@@ -684,8 +691,8 @@ MathJax = {
 <p>Crash input which triggers an exception in <code>cbuf_offer()</code>&gt;<code>memcpy()</code>:</p>
 <pre><code>00000000: 0a                                       .</code></pre>
 </section>
-<section id="dvhardateparse" class="level2" data-number="B.3">
-<h2 data-number="B.3" class="anchored" data-anchor-id="dvhardateparse"><span class="header-section-number">B.3</span> dvhar/dateparse</h2>
+<section id="dvhardateparse" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="dvhardateparse"><span class="header-section-number">C.3</span> dvhar/dateparse</h2>
 <p>Generated harness:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
@@ -716,8 +723,8 @@ MathJax = {
 <p>Crash input that causes a heap buffer overflow in <code>dateparse()</code>&gt;<code>parseTime()</code>&gt;<code>setMonth()</code>&gt;<code>strncpy()</code>.</p>
 <pre><code>00000000: 6632 2066                                f2 f</code></pre>
 </section>
-<section id="h2nonsemver.c" class="level2" data-number="B.4">
-<h2 data-number="B.4" class="anchored" data-anchor-id="h2nonsemver.c"><span class="header-section-number">B.4</span> h2non/semver.c</h2>
+<section id="h2nonsemver.c" class="level2" data-number="C.4">
+<h2 data-number="C.4" class="anchored" data-anchor-id="h2nonsemver.c"><span class="header-section-number">C.4</span> h2non/semver.c</h2>
 <p>Generated harness:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a><span class="pp">#include </span><span class="im">"semver.h"</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
@@ -1255,13 +1262,13 @@ MathJax = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/abandoned.html" class="pagination-link" aria-label="Abandoned Techniques">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span>
+      <a href="../chapters/dateparse.html" class="pagination-link" aria-label="Dateparse example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/prompts.html" class="pagination-link" aria-label="DSPy Custom Signatures">
-        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

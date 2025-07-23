@@ -1078,18 +1078,18 @@ methodologies.
 In this thesis we present \textbf{OverHAuL} (\textbf{H}arness
 \textbf{Au}tomation with \textbf{L}LMs), a neurosymbolic AI tool that
 automatically generates fuzzing harnesses for C libraries through LLM
-agents. In its core, OverHAuL is comprised by three LLM ReAct agents
-\autocite{reAct}---each with its own responsibility and scope---and a
-vector store index reserving the given project's analyzed codebase. An
-overview of OverHAuL's process is presented in
-Figure~\ref{fig-flowchart}. The objective of OverHAuL is to streamline
-the process of fuzz testing for C libraries. Given a link to a git
-repository \autocite{torvalds2005} of a C library, OverHAuL
-automatically generates a new fuzzing harness specifically designed for
-the project. In addition to the harness, it produces a compilation
-script to facilitate building the harness, generates a representative
-input that can trigger crashes, and logs the output from the executed
-harness.
+agents. In its core, OverHAuL is comprised by a triplet of LLM ReAct
+agents \autocite{reAct}---each with its own responsibility and
+scope---and a codebase oracle reserving the given project's analyzed
+source code. An overview of OverHAuL's process is presented in
+Figure~\ref{fig-flowchart}, detailed in Section~\ref{sec-architecture}.
+The objective of OverHAuL is to streamline the process of fuzz testing
+for unfuzzed C libraries. Given a link to a git repository
+\autocite{torvalds2005} of a C library, OverHAuL automatically generates
+a new fuzzing harness specifically designed for the project. In addition
+to the harness, it produces a compilation script to facilitate building
+the harness, generates a representative input that can trigger crashes,
+and logs the output from the executed harness.
 
 \begin{figure}
 
@@ -1104,6 +1104,17 @@ automatic harnessing process.}
 
 \end{figure}%
 
+OverHAuL utilizes autonomous ReAct agents which inspect and analyze the
+project's source code. The latter is stored and interacted with as a set
+of text embeddings \autocite{mikolov2013}, kept in a vector store. Both
+approaches are, to the best of our knowledge, novel in the field of
+automatic fuzzing harnesses generation. OverHAuL also implements an
+evaluation component that assesses in real-time all generated harnesses,
+making the results tenable, reproducible and well-founded. Ideally, this
+methodology provides a comprehensive and systematic framework for
+identifying previously unknown software vulnerabilities in projects that
+have not yet been fuzz tested.
+
 As detailed in Section~\ref{sec-differences}, OverHAuL does not expect
 and depend on the existence of client code or unit tests
 \autocite{utopia,fudge,fuzzgen} \emph{nor} does it require any
@@ -1116,44 +1127,33 @@ harness-to-be-generated must fuzz. Instead, OverHAuL's agents examine
 and assess the provided codebase, choosing after evaluation the most
 optimal target function.
 
-OverHAuL utilizes autonomous ReAct agents which inspect and analyze the
-project's source code. The latter is stored and interacted with as a set
-of text embeddings \autocite{mikolov2013}, kept in a vector store. Both
-approaches are, to the best of our knowledge, novel in the field of
-automatic fuzzing harnesses generation. OverHAuL also implements an
-evaluation component that assesses in real-time all generated harnesses,
-making the results tenable, reproducible and well-founded. Ideally, this
-methodology provides a comprehensive and systematic framework for
-identifying previously unknown software vulnerabilities in projects that
-have not yet been fuzz tested.
-
 Finally, OverHAuL excels in its user-friendliness, as it constitutes a
 simple and easily-installable Python package with minimal external
 dependencies---only real dependency being Clang, a prevalent compiler
 available across all primary operating systems. This contrasts most
 other comparable systems, which are typically characterized by their
 limited documentation, lack of extensive testing, and a focus primarily
-on experimental functionality. For instance, both fuzz-introspector and
-OSS-Fuzz-Gen are specifically designed for integration with the OSS-Fuzz
-platform \autocite{fuzz-introspector,oss-fuzz-gen,oss-fuzz}. When
-utilized outside this environment, they require users to operate
-directly from the project's root directory and interact with the tools
-primarily through unrefined Python scripts, thereby limiting their
-accessibility and ease of use.
+on experimental functionality.\footnote{For instance, both
+  fuzz-introspector and OSS-Fuzz-Gen are integrated by design to the
+  OSS-Fuzz platform \autocite{fuzz-introspector,oss-fuzz-gen,oss-fuzz}.
+  When utilized outside this environment, they require users to operate
+  directly from the project's root directory and interact with the tools
+  primarily through unrefined Python scripts, thereby limiting their
+  accessibility and ease of use.}
 
 \section{Installation and Usage}\label{sec-install}
 
 The source code of OverHAuL is available in
 \url{https://github.com/kchousos/OverHAuL}. OverHAuL can be installed by
 cloning the git repository locally, creating and enabling a Python3.10
-virtual environment \autocite{venv} and installing it inside the
-environment using Python's PIP package installer \autocite{pip}, like in
-Listing~\ref{lst-install}.
+virtual environment \autocite{venv} (optional, but recommended) and
+installing it inside the environment using Python's PIP package
+installer \autocite{pip}, like in Listing~\ref{lst-install}.
 
 \begin{codelisting}
 
 \caption[OverHAuL installation]{\label{lst-install}OverHAuL's
-installation process.}
+straightforward installation process.}
 
 \centering{
 
@@ -1196,21 +1196,13 @@ installation process.}
 
 To use OverHAuL, you need to provide a secret key for using OpenAI's API
 service. This key can be either stored in a \texttt{.env} file in the
-root directory, like so:
+root directory or exported in the shell environment:
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{\# cat .env}
-\NormalTok{OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
-\end{Highlighting}
-\end{Shaded}
-
-Or it can be exported in the shell environment:
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
+\NormalTok{$ echo "OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}" \textgreater{}\textgreater{} .env}
+\NormalTok{\# OR}
 \NormalTok{$ export OPENAI\_API\_KEY=\textless{}API{-}key{-}here\textgreater{}}
-\NormalTok{$ overhaul \textless{}repo{-}link\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1221,7 +1213,10 @@ specify certain command-line flags, which allow them to control the
 checked-out commit of the cloned project, select the OpenAI LLM model
 from a predefined list, define specific file patterns for OverHAuL to
 search for, and determine the directory in which the project will be
-cloned. A sample successful execution can is presented in
+cloned. For a concrete example, we will use OverHAuL to create a new
+fuzzing harness for \href{https://github.com/dvhar/dateparse}{dvhar's
+dateparsing C library} and specify the LLM model to OpenAI's gpt-4.1
+model. The resulting command and its output is presented in
 Figure~\ref{fig-success}.
 
 \begin{figure}
@@ -1232,29 +1227,31 @@ Figure~\ref{fig-success}.
 
 }
 
-\caption[OverHAuL execution example]{\label{fig-success}A successful
-execution of OverHAuL, harnessing
-\href{https://github.com/dvhar/dateparse}{dvhar's dateparsing C
-library}, using OpenAI's gpt-4.1 model. Debug statements are printed to
-showcase the interaction between the LLM agents and the codebase oracle
+\caption[OverHAuL execution on dateparse]{\label{fig-success}A
+successful execution of OverHAuL, harnessing the ``dateparse'' library
+using OpenAI's gpt-4.1 model. Debug statements are printed to showcase
+the queries of the LLM agents to the codebase oracle
 (Section~\ref{sec-oracle}).}
 
 \end{figure}%
 
 In this example, the dateparse repository is cloned into the
 \texttt{./output/dateparse} directory, which is relative to the root
-directory of OverHAuL. Following a successful execution, this directory
-will contain a new folder named \texttt{harnesses}, which will house all
-the generated harnesses formatted as \texttt{harness\_n.c}---where \(n\)
-ranges from 1 to \(N-1\), with \(N\) representing the total number of
-harnesses produced. The most recent and verifiably correct harness will
-be designated simply as \texttt{harness.c}. Additionally, the dateparse
-directory will include an executable script named \texttt{overhaul.sh},
-which contains the compilation command necessary for the harness. A log
-file titled \texttt{harness.out} will also be present, documenting the
-output from the latest harness execution. Lastly and most importantly,
-there will be at least one non-empty crash file included, serving as a
-witness to the harness's correctness.
+directory of OverHAuL. Following a successful execution, the project's
+directory will contain a new folder named \texttt{harnesses}, which will
+house all the generated harnesses formatted as
+\texttt{harness\_n.c}---where \(n\) ranges from 1 to \(N-1\), with \(N\)
+representing the total number of harnesses produced. The most recent and
+verifiably correct harness will be designated simply as
+\texttt{harness.c}. Additionally, the dateparse folder will include an
+executable script named \texttt{overhaul.sh}, which contains the
+compilation command necessary for the harness. A log file titled
+\texttt{harness.out} will also be present, documenting the output from
+the latest harness execution. Lastly and most importantly, there will be
+at least one non-empty crash file included, serving as a witness to the
+harness's correctness. In the following sections, the intermediary steps
+between invocation and completion are disected and analyzed. The
+dateparse project is used as a running example.
 
 \section{Architecture}\label{sec-architecture}
 
@@ -1265,39 +1262,43 @@ analysis stage (Section~\ref{sec-analysis}), the harness creation stage
 
 \subsection{Project Analysis}\label{sec-analysis}
 
-In the project analysis stage (steps A.1--A.4), the project to be fuzzed
-is ran through a static analysis tool named Flawfinder
-\autocite{flawfinder} and is sliced into function-level chunks, which
-are stored in a vector store. The results of this stage are a static
-analysis report and a vector store containing embeddings of
-function-level code chunks, both of which are later available to the LLM
-agents.Flawfinder is executed with the project directory as input and is
-responsible for the static analysis report. This report is considered a
-meaningful resource, since it provides the LLM agent with some starting
-points to explore, regarding the occurrences of potentially vulnerable
-functions and/or unsafe code practices.
+In the project analysis stage (steps A.1--A.4), dateparse is ran through
+a static analysis tool named Flawfinder \autocite{flawfinder} and is
+sliced into function-level chunks, which are stored in a vector store.
+The results of this stage are a \emph{static analysis report} and a
+\emph{codebase oracle}, i.e.~a vector store containing embeddings of
+function-level code chunks. Both resources are later available to the
+LLM agents. Flawfinder is executed with the dateparse directory as input
+and is responsible for the static analysis report. This report is
+considered a meaningful resource, since it provides the LLM agent
+responsible with the harness creation with some starting points to
+explore, regarding the occurrences of potentially vulnerable functions
+and/or unsafe code practices. Part of dateparse's static analysis report
+is shown in Listing~\ref{lst-static}.
 
-The vector store is created in the following manner: The codebase is
-first chunked in function-level pieces by traversing the code's Abstract
-Syntax Tree (AST) through Clang. Each chunk is represented by an object
-with the function's signature, the corresponding filepath and the
-function's body. Afterwards, each function body is turned into a vector
-embedding through an embedding model. Each embedding is stored in the
-vector store. This structure is created and used for easier and more
-semantically meaningful code retrieval, and to also combat context
-window limitations present in LLMs.
+The codebase oracle is created in the following manner: The source code
+is first chunked in function-level pieces by traversing the code's
+Abstract Syntax Tree (AST) through Clang. Each chunk is represented by
+an object with the function's signature, the corresponding filepath and
+the function's body (see Listing~\ref{lst-chunks}). Afterwards, each
+function body is turned into a vector embedding through an embedding
+model. Each embedding is stored in the vector store. This structure is
+created and used for easier and more semantically meaningful code
+retrieval, and to also combat context window limitations present in
+LLMs.
 
 \subsection{Harness Creation}\label{sec-creation}
 
 Second is the harness creation stage (steps B.1--B.2). In this part, a
 ``generator'' ReAct LLM agent is tasked with creating a fuzzing harness
 for the project. The agent has access to a querying tool that acts as an
-interface between it and the vector store. When the agent makes queries
-like ``functions containing \texttt{strcpy()}'', the querying tool turns
-the question into an embedding and through similarity search returns the
-top \(k=5\) most similar results---in this case, functions of the
-project. With this approach, the agent is able to explore the codebase
-semantically and pinpoint potentially vulnerable usage patterns easily.
+interface between it and the codebase oracle. When the agent makes
+queries like ``functions containing \texttt{strcpy()}'', the querying
+tool turns the question into an embedding and through similarity search
+returns the top \(k=5\) most similar results---in this case, functions
+of the project. With this approach, the agent is able to explore the
+codebase semantically and pinpoint potentially vulnerable usage patterns
+easily.
 
 The harness generated by the agent is then compiled using Clang and
 linked with the AddressSanitizer, LeakSanitizer, and
@@ -1310,7 +1311,8 @@ repairing any errors in the harness (step B.2.a). This results in a
 newly generated harness, presumably free from the previously shown
 flaws. This process is iterated until a compilable harness has been
 obtained. After success, a script is also exported in the project
-directory, containing the generated compilation command.
+directory, containing the generated compilation command. Dateparse's
+compilation command is shown in Listing~\ref{lst-compilation}.
 
 \subsection{Harness Evaluation}\label{sec-evaluation}
 
@@ -1334,7 +1336,7 @@ generated harness passes the evaluation phase if and only if:
 \item
   The created testcase is not empty
 
-  This is examined through xxd's output given the crash-file.
+  This is examined through \texttt{xxd}'s output given the crash-file.
 \end{enumerate}
 
 Similarly to the second stage's compilation phase (steps B.2--B.2.a), if
@@ -1344,7 +1346,10 @@ its code and cause of failing the evaluation. This process is also
 iterative. If any of the improved harness versions fail to compile, the
 aforementioned ``fixer'' agent is utilized again (steps C.2--C.2.a). All
 produced crash files and the harness execution output are saved in the
-project's directory.
+project's directory. An evaluation-passing harness generated for the
+dateparse project is presented in Listing~\ref{lst-harness}, along with
+the associated crash input and execution output displayed in
+Listing~\ref{lst-input} and Listing~\ref{lst-output}, respectively.
 
 \section{OverHAuL Techniques}\label{sec-techniques}
 
@@ -1815,67 +1820,14 @@ harnesses?}\label{rq2-what-characteristics-do-these-harnesses-have-are-they-simi
 From sampling OverHAuL's generated harnesses, the answer to RQ2 remains
 unclear. Most of the time, the fuzz targets that are produced are
 understandable and similar to something a software engineer might
-program. Take for example Listing~\ref{lst-sample-dateparse}.
-Nonetheless, sometimes generated harnesses contain usage of inexplicable
-or arbitrary constants and peculiar control flow checks. This makes them
-harder to understand and quite possibly incorrect in many cases, thus
-diverging from seeming human-written. Additionally, the generated
-harnesses differ significantly across projects and executions, both in
-size and complexity (Appendix~\ref{sec-sample-harnesses}). RQ2's answer
-remains an unclear ``it depends'', given the variance in OverHAuL's
-results.
-
-\begin{codelisting}
-
-\caption[Sample dateparse harness]{\label{lst-sample-dateparse}Sample
-harness for dateparse, generated by OverHAuL.}
-
-\centering{
-
-\begin{Shaded}
-\begin{Highlighting}[numbers=left,,]
-\PreprocessorTok{\#include }\ImportTok{\textless{}stddef.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
-\PreprocessorTok{\#include }\ImportTok{"dateparse.h"}
-
-\CommentTok{// No artificial size limit to allow fuzzer to explore full}
-\CommentTok{// input size for boundaries}
-
-\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-    \CommentTok{// Allocate buffer with extra byte for null termination}
-    \DataTypeTok{char} \OperatorTok{*}\NormalTok{input\_str }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char} \OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
-    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{input\_str}\OperatorTok{)} \OperatorTok{\{}
-        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-    \OperatorTok{\}}
-
-\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
-\NormalTok{    input\_str}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}
-
-\NormalTok{    date\_t parsed\_date }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-    \DataTypeTok{int}\NormalTok{ offset }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
-
-    \CommentTok{// Array of string lengths targeting boundary }
-    \CommentTok{// (including 0 = internal strlen)}
-    \DataTypeTok{size\_t}\NormalTok{ test\_lens}\OperatorTok{[]} \OperatorTok{=} \OperatorTok{\{}\DecValTok{0}\OperatorTok{,}\NormalTok{ size}\OperatorTok{,}\NormalTok{ size }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{?}\NormalTok{ size }\OperatorTok{{-}} \DecValTok{1} \OperatorTok{:} \DecValTok{0}\OperatorTok{,} \DecValTok{12}\OperatorTok{,} \DecValTok{13}\OperatorTok{,} \DecValTok{14}\OperatorTok{\};}
-
-    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{size\_t}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{)} \OperatorTok{/} \KeywordTok{sizeof}\OperatorTok{(}\NormalTok{test\_lens}\OperatorTok{[}\DecValTok{0}\OperatorTok{]);}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
-        \DataTypeTok{size\_t}\NormalTok{ len }\OperatorTok{=}\NormalTok{ test\_lens}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
-        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{len }\OperatorTok{\textless{}=}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{            dateparse}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{,} \OperatorTok{\&}\NormalTok{parsed\_date}\OperatorTok{,} \OperatorTok{\&}\NormalTok{offset}\OperatorTok{,} \OperatorTok{(}\DataTypeTok{int}\OperatorTok{)}\NormalTok{len}\OperatorTok{);}
-        \OperatorTok{\}}
-    \OperatorTok{\}}
-
-\NormalTok{    free}\OperatorTok{(}\NormalTok{input\_str}\OperatorTok{);}
-    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-}
-
-\end{codelisting}%
+program. Take for example Listing~\ref{lst-harness}. Nonetheless,
+sometimes generated harnesses contain usage of inexplicable or arbitrary
+constants and peculiar control flow checks. This makes them harder to
+understand and quite possibly incorrect in many cases, thus diverging
+from seeming human-written. Additionally, the generated harnesses differ
+significantly across projects and executions, both in size and
+complexity (Appendix~\ref{sec-sample-harnesses}). RQ2's answer remains
+an unclear ``it depends'', given the variance in OverHAuL's results.
 
 \subsection{RQ3: How do LLM usage patterns influence the generated
 harnesses?}\label{rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses}
@@ -1886,21 +1838,20 @@ prompting strategies. The experimental evaluation presents compelling
 evidence regarding the substantial impact of both dimensions.
 
 All benchmark experiments on GitHub's infrastructure were conducted
-using OpenAI's \texttt{gpt-4.1-mini}. Preliminary local testing included
-a spectrum of models---\texttt{gpt-4.1}, \texttt{gpt-4o},
-\texttt{gpt-4}, and \texttt{gpt-3.5-turbo}. Notably, both
-\texttt{gpt-4.1} and \texttt{gpt-4.1-mini} achieved comparable
-performance, consistently generating robust fuzzing harnesses. In
-contrast, \texttt{gpt-4o} yielded somewhat average results, while
-\texttt{gpt-4} and \texttt{gpt-3.5-turbo} exhibited significantly
-inferior performance, averaging only 2 out of 10 projects successfully
-harnessed per benchmark run. Models with suboptimal performance were
-excluded in subsequent development phases. These findings underscore the
-necessity of selecting advanced LLM architectures to realize OverHAuL's
-potential; in particular, \texttt{gpt-4o} represents a recent baseline
-for acceptable performance. Because LLM model capabilities are evolving
-rapidly, it is reasonable to anticipate ongoing improvements in
-OverHAuL's harness-generation efficacy as newer LLMs become available.
+using OpenAI's gpt-4.1-mini. Preliminary local testing included a
+spectrum of models---gpt-4.1, gpt-4o, gpt-4, and gpt-3.5-turbo. Notably,
+both gpt-4.1 and gpt-4.1-mini achieved comparable performance,
+consistently generating robust fuzzing harnesses. In contrast, gpt-4o
+yielded somewhat average results, while gpt-4 and gpt-3.5-turbo
+exhibited significantly inferior performance, averaging only 2 out of 10
+projects successfully harnessed per benchmark run. Models with
+suboptimal performance were excluded in subsequent development phases.
+These findings underscore the necessity of selecting advanced LLM
+architectures to realize OverHAuL's potential; in particular, gpt-4o
+represents a recent baseline for acceptable performance. Because LLM
+model capabilities are evolving rapidly, it is reasonable to anticipate
+ongoing improvements in OverHAuL's harness-generation efficacy as newer
+LLMs become available.
 
 Prompting methodology is equally crucial. The adoption of ReAct
 prompting has proven most effective in the current implementation of
@@ -2636,6 +2587,265 @@ replaced for better alternatives. These are:
   intricate projects. As such, while this approach offered advancements
   in code exploration, it still fell short.
 \end{enumerate}
+
+\chapter{Dateparse example}\label{dateparse-example}
+
+The outputs from each phase of the OverHAuL process pertaining to the
+dateparse project: the static analysis report
+(Listing~\ref{lst-static}), sample function segments derived from
+dateparse (Listing~\ref{lst-chunks}), the generated compilation command
+(Listing~\ref{lst-compilation}), the bug-finding harness
+(Listing~\ref{lst-harness}), the identified crash input
+(Listing~\ref{lst-input}), and a portion of the harness output
+(Listing~\ref{lst-output}).
+
+\begin{codelisting}
+
+\caption[Static analysis report]{\label{lst-static}Static analysis
+report (Flawfinder output) of dateparse.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{Flawfinder version 2.0.19, (C) 2001{-}2019 David A. Wheeler.}
+\NormalTok{Number of rules (primarily dangerous function names) in C/C++ ruleset: 222}
+\NormalTok{Examining ./dateparse.c}
+\NormalTok{Examining ./dateparse.h}
+\NormalTok{Examining ./test.c}
+
+\NormalTok{FINAL RESULTS:}
+
+\NormalTok{./dateparse.c:405:  [4] (buffer) strcpy:}
+\NormalTok{  Does not check for buffer overflows when copying to destination [MS{-}banned]}
+\NormalTok{  (CWE{-}120). Consider using snprintf, strcpy\_s, or strlcpy (warning: strncpy}
+\NormalTok{  easily misused).}
+
+\NormalTok{......}
+
+\NormalTok{./dateparse.c:2192:  [1] (buffer) strlen:}
+\NormalTok{  Does not handle strings that are not \textbackslash{}0{-}terminated; if given one it may}
+\NormalTok{  perform an over{-}read (it could cause a crash if unprotected) (CWE{-}126).}
+
+\NormalTok{ANALYSIS SUMMARY:}
+
+\NormalTok{Hits = 64}
+\NormalTok{Lines analyzed = 2719 in approximately 0.04 seconds (61234 lines/second)}
+\NormalTok{Physical Source Lines of Code (SLOC) = 1966}
+\NormalTok{Hits@level = [0]  15 [1]  28 [2]  31 [3]   0 [4]   5 [5]   0}
+\NormalTok{Hits@level+ = [0+]  79 [1+]  64 [2+]  36 [3+]   5 [4+]   5 [5+]   0}
+\NormalTok{Hits/KSLOC@level+ = [0+] 40.1831 [1+] 32.5534 [2+] 18.3113 [3+] 2.54323}
+\NormalTok{    [4+] 2.54323 [5+]   0}
+\NormalTok{Dot directories skipped = 1 ({-}{-}followdotdir overrides)}
+\NormalTok{Minimum risk level = 1}
+
+\NormalTok{Not every hit is necessarily a security vulnerability.}
+\NormalTok{You can inhibit a report by adding a comment in this form:}
+\NormalTok{// flawfinder: ignore}
+\NormalTok{Make *sure* it\textquotesingle{}s a false positive!}
+\NormalTok{You can use the option {-}{-}neverignore to show these.}
+
+\NormalTok{There may be other security vulnerabilities; review your code!}
+\NormalTok{See \textquotesingle{}Secure Programming HOWTO\textquotesingle{}}
+\NormalTok{(https://dwheeler.com/secure{-}programs) for more information.}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Codebase oracle samples]{\label{lst-chunks}Sample chunks
+contained in dateparse's codebase oracle.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{int}\OperatorTok{,} \DataTypeTok{int}\OperatorTok{)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setOffset}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ i}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ len}\OperatorTok{)\{}
+\NormalTok{        strncpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{,}\NormalTok{ p}\OperatorTok{{-}\textgreater{}}\NormalTok{datestr}\OperatorTok{+}\NormalTok{i}\OperatorTok{,}\NormalTok{ len}\OperatorTok{);}
+\NormalTok{        p}\OperatorTok{{-}\textgreater{}}\NormalTok{offsetbuf}\OperatorTok{[}\NormalTok{len}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+
+
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{void} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*,} \DataTypeTok{char} \OperatorTok{*)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
+\NormalTok{        strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+\OperatorTok{\}}
+
+
+\NormalTok{File}\OperatorTok{:}\NormalTok{ dateparse}\OperatorTok{/}\NormalTok{dateparse}\OperatorTok{.}\NormalTok{c}
+\NormalTok{Signature}\OperatorTok{:} \DataTypeTok{int} \OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char} \OperatorTok{*,} \DataTypeTok{long} \DataTypeTok{long} \OperatorTok{*,} \DataTypeTok{int} \OperatorTok{*,} \DataTypeTok{int}\OperatorTok{)}
+\NormalTok{Code}\OperatorTok{:}
+\DataTypeTok{int}\NormalTok{ dateparse}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ datestr}\OperatorTok{,}\NormalTok{ date\_t}\OperatorTok{*}\NormalTok{ t}\OperatorTok{,} \DataTypeTok{int} \OperatorTok{*}\NormalTok{offset}\OperatorTok{,} \DataTypeTok{int}\NormalTok{ stringlen}\OperatorTok{)\{}
+        \KeywordTok{struct}\NormalTok{ parser p}\OperatorTok{;}
+        \OperatorTok{*}\NormalTok{t }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+        \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{stringlen}\OperatorTok{)}
+\NormalTok{                stringlen }\OperatorTok{=}\NormalTok{ strlen}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{);}
+        \ControlFlowTok{if} \OperatorTok{(}\NormalTok{parseTime}\OperatorTok{(}\NormalTok{datestr}\OperatorTok{,} \OperatorTok{\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ stringlen}\OperatorTok{))}
+                \ControlFlowTok{return} \OperatorTok{{-}}\DecValTok{1}\OperatorTok{;}
+        \ControlFlowTok{return}\NormalTok{ parse}\OperatorTok{(\&}\NormalTok{p}\OperatorTok{,}\NormalTok{ t}\OperatorTok{,}\NormalTok{ offset}\OperatorTok{);}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Generated compilation
+command]{\label{lst-compilation}OverHAuL's generated compilation command
+for dateparse.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\CommentTok{\# cat ./overhaul.sh}
+\FunctionTok{clang} \AttributeTok{{-}g} \AttributeTok{{-}fsanitize}\OperatorTok{=}\NormalTok{fuzzer,address,undefined harnesses/harness.c }\AttributeTok{{-}I}\NormalTok{ . }
+ \ExtensionTok{dateparse.c} \AttributeTok{{-}o}\NormalTok{ harness}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Sample dateparse harness]{\label{lst-harness}A crash-finding
+harness for dateparse, generated through OverHAuL (some comments were
+removed).}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdlib.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}string.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{"dateparse.h"}
+
+\CommentTok{// ...}
+\KeywordTok{struct}\NormalTok{ parser }\OperatorTok{\{}
+    \DataTypeTok{char}\NormalTok{ mobuf}\OperatorTok{[}\DecValTok{16}\OperatorTok{];}
+\OperatorTok{\};}
+
+\CommentTok{// ...}
+\DataTypeTok{static} \DataTypeTok{void}\NormalTok{ setFullMonth}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*}\NormalTok{ p}\OperatorTok{,} \DataTypeTok{char}\OperatorTok{*}\NormalTok{ month}\OperatorTok{)\{}
+\NormalTok{    strcpy}\OperatorTok{(}\NormalTok{p}\OperatorTok{{-}\textgreater{}}\NormalTok{mobuf}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+\OperatorTok{\}}
+
+\DataTypeTok{int}\NormalTok{ LLVMFuzzerTestOneInput}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint8\_t} \OperatorTok{*}\NormalTok{data}\OperatorTok{,} \DataTypeTok{size\_t}\NormalTok{ size}\OperatorTok{)} \OperatorTok{\{}
+    \CommentTok{// Allocate a parser instance on the heap.}
+    \KeywordTok{struct}\NormalTok{ parser }\OperatorTok{*}\NormalTok{p }\OperatorTok{=} \OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
+    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{p}\OperatorTok{)} \OperatorTok{\{}
+        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+    \CommentTok{// Initialize parser with zeros.}
+\NormalTok{    memset}\OperatorTok{(}\NormalTok{p}\OperatorTok{,} \DecValTok{0}\OperatorTok{,} \KeywordTok{sizeof}\OperatorTok{(}\KeywordTok{struct}\NormalTok{ parser}\OperatorTok{));}
+    \CommentTok{// Prepare month string input: ensure null{-}terminated string for strcpy.}
+    \DataTypeTok{char} \OperatorTok{*}\NormalTok{month }\OperatorTok{=} \OperatorTok{(}\DataTypeTok{char}\OperatorTok{*)}\NormalTok{malloc}\OperatorTok{(}\NormalTok{size }\OperatorTok{+} \DecValTok{1}\OperatorTok{);}
+    \ControlFlowTok{if} \OperatorTok{(!}\NormalTok{month}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{        free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
+        \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+\NormalTok{    memcpy}\OperatorTok{(}\NormalTok{month}\OperatorTok{,}\NormalTok{ data}\OperatorTok{,}\NormalTok{ size}\OperatorTok{);}
+\NormalTok{    month}\OperatorTok{[}\NormalTok{size}\OperatorTok{]} \OperatorTok{=} \CharTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}0}\CharTok{\textquotesingle{}}\OperatorTok{;}  \CommentTok{// Null terminate to avoid overread in strcpy.}
+    \CommentTok{// Call the vulnerable function with fuzzed month string.}
+\NormalTok{    setFullMonth}\OperatorTok{(}\NormalTok{p}\OperatorTok{,}\NormalTok{ month}\OperatorTok{);}
+    \CommentTok{// Cleanup}
+\NormalTok{    free}\OperatorTok{(}\NormalTok{month}\OperatorTok{);}
+\NormalTok{    free}\OperatorTok{(}\NormalTok{p}\OperatorTok{);}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Sample dateparse crash input]{\label{lst-input}An input string
+that crashes the harness in Listing~\ref{lst-harness}. What is shown is
+its \texttt{xxd} output.}
+
+\centering{
+
+\begin{verbatim}
+00000000: 315e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e  1^^^^^^^^^^^^^^^
+00000010: 0a                                       .
+\end{verbatim}
+
+}
+
+\end{codelisting}%
+
+\begin{codelisting}
+
+\caption[Sample dateparse harness output]{\label{lst-output}The output
+of the harness in Listing~\ref{lst-harness} when executed with
+Listing~\ref{lst-input} as input.}
+
+\centering{
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{INFO: Running with entropic power schedule (0xFF, 100).}
+\NormalTok{INFO: Seed: 2365219758}
+\NormalTok{INFO: Loaded 1 modules   (3723 inline 8{-}bit counters): 3723 [0x67ccc0,}
+\NormalTok{      0x67db4b),}
+\NormalTok{INFO: Loaded 1 PC tables (3723 PCs): 3723 [0x618d40,0x6275f0),}
+\NormalTok{./harness: Running 1 inputs 1 time(s) each.}
+\NormalTok{Running: crash{-}7fd6f4dd5d39420d6f7887ff995b4e855ae90c16}
+\NormalTok{=================================================================}
+\NormalTok{==10973==ERROR: AddressSanitizer: heap{-}buffer{-}overflow on address}
+\NormalTok{0x7bcece9e00a0 at pc 0x000000526c0e bp 0x7fff3dc0aa20 sp 0x7fff3dc0a1d8}
+\NormalTok{WRITE of size 18 at 0x7bcece9e00a0 thread T0}
+\NormalTok{    \#0 0x000000526c0d in strcpy}
+\NormalTok{       (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
+\NormalTok{       +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0)}
+\NormalTok{    \#1 0x000000585555 in setFullMonth}
+\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
+\NormalTok{       /harness.c:18:2}
+\NormalTok{    \#2 0x0000005853fd in LLVMFuzzerTestOneInput}
+\NormalTok{       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses}
+\NormalTok{       /harness.c:41:2}
+\NormalTok{...}
+\NormalTok{SUMMARY: AddressSanitizer: heap{-}buffer{-}overflow}
+\NormalTok{         (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness}
+\NormalTok{         +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0) in}
+\NormalTok{         strcpy}
+\NormalTok{Shadow bytes around the buggy address:}
+\NormalTok{  0x7bcece9dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00}
+\NormalTok{  0x7bcece9e0000: fa fa 00 00 fa fa 00 fa fa fa 00 fa fa fa 00 fa}
+\NormalTok{=\textgreater{}0x7bcece9e0080: fa fa 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{  0x7bcece9e0300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa}
+\NormalTok{Shadow byte legend (one shadow byte represents 8 application bytes):}
+\end{Highlighting}
+\end{Shaded}
+
+}
+
+\end{codelisting}%
 
 \chapter{Sample Generated Harnesses}\label{sec-sample-harnesses}
 

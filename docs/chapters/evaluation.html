@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -93,14 +93,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bbc094eb4da8cefe3fa2efe68a14d403.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d84c9656e6f015c0df4e6e55ade86f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-450b7d896efee5edec3f767475d1ea0a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc28e9b749f75a4a381771fbe9d42b43.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1c875b5aec5ce2fd3b3db69ce3cc9ef6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-faa9c311aadba2721c5c43713756b1b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3fc190bb73c398b54bbb1660cc7262c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-59deb8712cfd670027f81299959788f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
@@ -355,6 +355,7 @@ window.Quarto = {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     queryPrefersDark.addEventListener("change", e => {
       if(window.localStorage.getItem("quarto-color-scheme") !== null)
@@ -480,14 +481,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapters/sample-harnesses.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/prompts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">DSPy Custom Signatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -683,57 +690,12 @@ Figure&nbsp;4.2: This heatmap illustrates the number of iterations required for 
 </section>
 <section id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="rq2-what-characteristics-do-these-harnesses-have-are-they-similar-to-man-made-harnesses"><span class="header-section-number">4.2.2</span> RQ2: What characteristics do these harnesses have? Are they similar to man-made harnesses?</h3>
-<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="#lst-sample-dateparse" class="quarto-xref">Listing&nbsp;<span>4.1</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (<a href="sample-harnesses.html" class="quarto-xref"><span>Appendix B</span></a>). RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
-<div id="lst-sample-dateparse" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness">
-<figure class="quarto-float quarto-float-lst figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Listing&nbsp;4.1: Sample harness for dateparse, generated by OverHAuL.
-</figcaption>
-<div aria-describedby="lst-sample-dateparse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">#include </span><span class="im">&lt;stddef.h&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="pp">#include </span><span class="im">"dateparse.h"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">// No artificial size limit to allow fuzzer to explore full</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">// input size for boundaries</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>    <span class="co">// Allocate buffer with extra byte for null termination</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>    <span class="dt">char</span> <span class="op">*</span>input_str <span class="op">=</span> <span class="op">(</span><span class="dt">char</span> <span class="op">*)</span>malloc<span class="op">(</span>size <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="cf">if</span> <span class="op">(!</span>input_str<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>    <span class="op">}</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a>    memcpy<span class="op">(</span>input_str<span class="op">,</span> data<span class="op">,</span> size<span class="op">);</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a>    input_str<span class="op">[</span>size<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a></span>
-<span id="cb2-20"><a href="#cb2-20"></a>    date_t parsed_date <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a>    <span class="dt">int</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a>    <span class="co">// Array of string lengths targeting boundary </span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>    <span class="co">// (including 0 = internal strlen)</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>    <span class="dt">size_t</span> test_lens<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">,</span> size<span class="op">,</span> size <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> size <span class="op">-</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">14</span><span class="op">};</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a></span>
-<span id="cb2-27"><a href="#cb2-27"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>test_lens<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a>        <span class="dt">size_t</span> len <span class="op">=</span> test_lens<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>        <span class="cf">if</span> <span class="op">(</span>len <span class="op">&lt;=</span> size<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a>            dateparse<span class="op">(</span>input_str<span class="op">,</span> <span class="op">&amp;</span>parsed_date<span class="op">,</span> <span class="op">&amp;</span>offset<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>len<span class="op">);</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a>        <span class="op">}</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a>    <span class="op">}</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a></span>
-<span id="cb2-34"><a href="#cb2-34"></a>    free<span class="op">(</span>input_str<span class="op">);</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</figure>
-</div>
+<p>From sampling OverHAuL’s generated harnesses, the answer to RQ2 remains unclear. Most of the time, the fuzz targets that are produced are understandable and similar to something a software engineer might program. Take for example <a href="dateparse.html#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a>. Nonetheless, sometimes generated harnesses contain usage of inexplicable or arbitrary constants and peculiar control flow checks. This makes them harder to understand and quite possibly incorrect in many cases, thus diverging from seeming human-written. Additionally, the generated harnesses differ significantly across projects and executions, both in size and complexity (<a href="sample-harnesses.html" class="quarto-xref"><span>Appendix C</span></a>). RQ2’s answer remains an unclear “it depends”, given the variance in OverHAuL’s results.</p>
 </section>
 <section id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="rq3-how-do-llm-usage-patterns-influence-the-generated-harnesses"><span class="header-section-number">4.2.3</span> RQ3: How do LLM usage patterns influence the generated harnesses?</h3>
 <p>The effectiveness of LLM-driven fuzzing harness generation in OverHAuL is heavily influenced by two primary factors: model selection and prompting strategies. The experimental evaluation presents compelling evidence regarding the substantial impact of both dimensions.</p>
-<p>All benchmark experiments on GitHub’s infrastructure were conducted using OpenAI’s <code>gpt-4.1-mini</code>. Preliminary local testing included a spectrum of models—<code>gpt-4.1</code>, <code>gpt-4o</code>, <code>gpt-4</code>, and <code>gpt-3.5-turbo</code>. Notably, both <code>gpt-4.1</code> and <code>gpt-4.1-mini</code> achieved comparable performance, consistently generating robust fuzzing harnesses. In contrast, <code>gpt-4o</code> yielded somewhat average results, while <code>gpt-4</code> and <code>gpt-3.5-turbo</code> exhibited significantly inferior performance, averaging only 2 out of 10 projects successfully harnessed per benchmark run. Models with suboptimal performance were excluded in subsequent development phases. These findings underscore the necessity of selecting advanced LLM architectures to realize OverHAuL’s potential; in particular, <code>gpt-4o</code> represents a recent baseline for acceptable performance. Because LLM model capabilities are evolving rapidly, it is reasonable to anticipate ongoing improvements in OverHAuL’s harness-generation efficacy as newer LLMs become available.</p>
+<p>All benchmark experiments on GitHub’s infrastructure were conducted using OpenAI’s gpt-4.1-mini. Preliminary local testing included a spectrum of models—gpt-4.1, gpt-4o, gpt-4, and gpt-3.5-turbo. Notably, both gpt-4.1 and gpt-4.1-mini achieved comparable performance, consistently generating robust fuzzing harnesses. In contrast, gpt-4o yielded somewhat average results, while gpt-4 and gpt-3.5-turbo exhibited significantly inferior performance, averaging only 2 out of 10 projects successfully harnessed per benchmark run. Models with suboptimal performance were excluded in subsequent development phases. These findings underscore the necessity of selecting advanced LLM architectures to realize OverHAuL’s potential; in particular, gpt-4o represents a recent baseline for acceptable performance. Because LLM model capabilities are evolving rapidly, it is reasonable to anticipate ongoing improvements in OverHAuL’s harness-generation efficacy as newer LLMs become available.</p>
 <p>Prompting methodology is equally crucial. The adoption of ReAct prompting has proven most effective in the current implementation of OverHAuL <span class="citation" data-cites="reAct"><a href="refs.html#ref-reAct" role="doc-biblioref">[10]</a></span>. Alternative prompting paradigms—including zero-shot and Chain-of-Thought (COT) approaches <span class="citation" data-cites="chainofthought"><a href="refs.html#ref-chainofthought" role="doc-biblioref">[11]</a></span>—were empirically evaluated, as detailed in <a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>, but failed to deliver satisfactory outcomes. A central challenge in automated harness generation involves ensuring that the resulting harness is both compilable and operationally effective. This alignment with real-world constraints necessitates continuous interaction between the LLM and the target environment, best achieved through agentic workflows <span class="citation" data-cites="giannone2025"><a href="refs.html#ref-giannone2025" role="doc-biblioref">[12]</a></span>. The superior performance of ReAct prompting likely stems from its structured approach to iterative code exploration and refinement, facilitating a cycle of observation, planning, and action that is particularly well-suited to harness synthesis.</p>
 <p>A central element of OverHAuL’s architecture is its triplet of ReAct agents, each contributing a distinct role in the collaborative generation of fuzzing harnesses. Local benchmarking demonstrates an almost linear increase in success rates with the number of iteration cycles, underscoring the efficacy of agentic collaboration and iterative refinement in enhancing harness quality. As illustrated in <a href="#fig-iterations" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>, projects such as “dateparse” and “semver.c” exhibit marked improvements when afforded larger iteration budgets. This trend highlights the pivotal roles of the “fixer” and “improver” agents, whose interventions enable the system to surmount challenges present in initial harness generations, ultimately advancing the caliber of the final outputs.</p>
 <p>Additionally, the inclusion of a codebase oracle is instrumental in scaling code exploration efficiently. Unlike previously tested methods (see <a href="abandoned.html" class="quarto-xref"><span>Appendix A</span></a>), the codebase oracle enables comprehensive traversal and understanding of project code, overcoming the token and context window limitations typically associated with LLMs.</p>

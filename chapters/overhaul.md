@@ -1,6 +1,6 @@
 # OverHAuL's Design {#sec-overhaul}
 
-In this thesis we present **OverHAuL** (**H**arness **Au**tomation with **L**LMs), a neurosymbolic AI tool that automatically generates fuzzing harnesses for C libraries through LLM agents. In its core, OverHAuL is comprised by three LLM ReAct agents [@reAct]---each with its own responsibility and scope---and a vector store index reserving the given project's analyzed codebase. An overview of OverHAuL's process is presented in @fig-flowchart. The objective of OverHAuL is to streamline the process of fuzz testing for C libraries. Given a link to a git repository [@torvalds2005] of a C library, OverHAuL automatically generates a new fuzzing harness specifically designed for the project. In addition to the harness, it produces a compilation script to facilitate building the harness, generates a representative input that can trigger crashes, and logs the output from the executed harness.
+In this thesis we present **OverHAuL** (**H**arness **Au**tomation with **L**LMs), a neurosymbolic AI tool that automatically generates fuzzing harnesses for C libraries through LLM agents. In its core, OverHAuL is comprised by a triplet of LLM ReAct agents [@reAct]---each with its own responsibility and scope---and a codebase oracle reserving the given project's analyzed source code. An overview of OverHAuL's process is presented in @fig-flowchart, detailed in @sec-architecture. The objective of OverHAuL is to streamline the process of fuzz testing for unfuzzed C libraries. Given a link to a git repository [@torvalds2005] of a C library, OverHAuL automatically generates a new fuzzing harness specifically designed for the project. In addition to the harness, it produces a compilation script to facilitate building the harness, generates a representative input that can trigger crashes, and logs the output from the executed harness.
 
 :::{#fig-flowchart}
 ![](../resources/flowchart.png){fig-scap='OverHAuL Workflow'}
@@ -8,15 +8,15 @@ In this thesis we present **OverHAuL** (**H**arness **Au**tomation with **L**LMs
 Overview of OverHAuL's automatic harnessing process.
 :::
 
-As detailed in @sec-differences, OverHAuL does not expect and depend on the existence of client code or unit tests [@utopia; @fudge; @fuzzgen] *nor* does it require any preexisting fuzzing harnesses [@oss-fuzz-gen] or any documentation present [@sun2024]. Also importantly, OverHAuL is decoupled from other fuzzing projects, thus lowering the barrier to entry for new projects [@oss-fuzz-gen; @oss-fuzz]. Lastly, the user isn't mandated to manually specify the function which the harness-to-be-generated must fuzz. Instead, OverHAuL's agents examine and assess the provided codebase, choosing after evaluation the most optimal target function.
-
 OverHAuL utilizes autonomous ReAct agents which inspect and analyze the project's source code. The latter is stored and interacted with as a set of text embeddings [@mikolov2013], kept in a vector store. Both approaches are, to the best of our knowledge, novel in the field of automatic fuzzing harnesses generation. OverHAuL also implements an evaluation component that assesses in real-time all generated harnesses, making the results tenable, reproducible and well-founded. Ideally, this methodology provides a comprehensive and systematic framework for identifying previously unknown software vulnerabilities in projects that have not yet been fuzz tested.
 
-Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies---only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality. For instance, both fuzz-introspector and OSS-Fuzz-Gen are specifically designed for integration with the OSS-Fuzz platform [@fuzz-introspector; @oss-fuzz-gen; @oss-fuzz]. When utilized outside this environment, they require users to operate directly from the project's root directory and interact with the tools primarily through unrefined Python scripts, thereby limiting their accessibility and ease of use.
+As detailed in @sec-differences, OverHAuL does not expect and depend on the existence of client code or unit tests [@utopia; @fudge; @fuzzgen] *nor* does it require any preexisting fuzzing harnesses [@oss-fuzz-gen] or any documentation present [@sun2024]. Also importantly, OverHAuL is decoupled from other fuzzing projects, thus lowering the barrier to entry for new projects [@oss-fuzz-gen; @oss-fuzz]. Lastly, the user isn't mandated to manually specify the function which the harness-to-be-generated must fuzz. Instead, OverHAuL's agents examine and assess the provided codebase, choosing after evaluation the most optimal target function.
+
+Finally, OverHAuL excels in its user-friendliness, as it constitutes a simple and easily-installable Python package with minimal external dependencies---only real dependency being Clang, a prevalent compiler available across all primary operating systems. This contrasts most other comparable systems, which are typically characterized by their limited documentation, lack of extensive testing, and a focus primarily on experimental functionality.^[For instance, both fuzz-introspector and OSS-Fuzz-Gen are integrated by design to the OSS-Fuzz platform [@fuzz-introspector; @oss-fuzz-gen; @oss-fuzz]. When utilized outside this environment, they require users to operate directly from the project's root directory and interact with the tools primarily through unrefined Python scripts, thereby limiting their accessibility and ease of use.]
 
 ## Installation and Usage {#sec-install}
 
-The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.
+The source code of OverHAuL is available in <https://github.com/kchousos/OverHAuL>. OverHAuL can be installed by cloning the git repository locally, creating and enabling a Python3.10 virtual environment [@venv] (optional, but recommended) and installing it inside the environment using Python's PIP package installer [@pip], like in @lst-install.
 
 ::: {#lst-install fig-scap='OverHAuL installation'}
 ``` text
@@ -50,32 +50,26 @@ options:
 $
 ```
 
-OverHAuL's installation process.
+OverHAuL's straightforward installation process.
 :::
 
-To use OverHAuL, you need to provide a secret key for using OpenAI's API service. This key can be either stored in a `.env` file in the root directory, like so:
+To use OverHAuL, you need to provide a secret key for using OpenAI's API service. This key can be either stored in a `.env` file in the root directory or exported in the shell environment:
 
 ``` text
-# cat .env
-OPENAI_API_KEY=<API-key-here>
-```
-
-Or it can be exported in the shell environment:
-
-``` text
+$ echo "OPENAI_API_KEY=<API-key-here>" >> .env
+# OR
 $ export OPENAI_API_KEY=<API-key-here>
-$ overhaul <repo-link>
 ```
 
-Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. A sample successful execution can is presented in @fig-success.
+Once these preliminary steps are completed, OverHAuL can be executed. The primary argument required by OverHAuL is the repository link of the library that is to be fuzzed. Additionally, users have the option to specify certain command-line flags, which allow them to control the checked-out commit of the cloned project, select the OpenAI LLM model from a predefined list, define specific file patterns for OverHAuL to search for, and determine the directory in which the project will be cloned. For a concrete example, we will use OverHAuL to create a new fuzzing harness for [dvhar's dateparsing C library](https://github.com/dvhar/dateparse) and specify the LLM model to OpenAI's gpt-4.1 model. The resulting command and its output is presented in @fig-success.
 
 ::: {#fig-success}
-![](../resources/successful-execution.png){fig-scap='OverHAuL execution example'}
+![](../resources/successful-execution.png){fig-scap='OverHAuL execution on dateparse'}
 
-A successful execution of OverHAuL, harnessing [dvhar's dateparsing C library](https://github.com/dvhar/dateparse), using OpenAI's gpt-4.1 model. Debug statements are printed to showcase the interaction between the LLM agents and the codebase oracle (@sec-oracle).
+A successful execution of OverHAuL, harnessing the "dateparse " library using OpenAI's gpt-4.1 model. Debug statements are printed to showcase the queries of the LLM agents to the codebase oracle (@sec-oracle).
 :::
 
-In this example, the dateparse repository is cloned into the `./output/dateparse` directory, which is relative to the root directory of OverHAuL. Following a successful execution, this directory will contain a new folder named `harnesses`, which will house all the generated harnesses formatted as `harness_n.c`---where $n$ ranges from 1 to $N-1$, with $N$ representing the total number of harnesses produced. The most recent and verifiably correct harness will be designated simply as `harness.c`. Additionally, the dateparse directory will include an executable script named `overhaul.sh`, which contains the compilation command necessary for the harness. A log file titled `harness.out` will also be present, documenting the output from the latest harness execution. Lastly and most importantly, there will be at least one non-empty crash file included, serving as a witness to the harness's correctness.
+In this example, the dateparse repository is cloned into the `./output/dateparse` directory, which is relative to the root directory of OverHAuL. Following a successful execution, the project's directory will contain a new folder named `harnesses`, which will house all the generated harnesses formatted as `harness_n.c`---where $n$ ranges from 1 to $N-1$, with $N$ representing the total number of harnesses produced. The most recent and verifiably correct harness will be designated simply as `harness.c`. Additionally, the dateparse folder will include an executable script named `overhaul.sh`, which contains the compilation command necessary for the harness. A log file titled `harness.out` will also be present, documenting the output from the latest harness execution. Lastly and most importantly, there will be at least one non-empty crash file included, serving as a witness to the harness's correctness. In the following sections, the intermediary steps between invocation and completion are disected and analyzed. The dateparse project is used as a running example.
 
 ## Architecture {#sec-architecture}
 
@@ -83,15 +77,15 @@ OverHAuL can be compartmentalized in three stages: First, the project analysis s
 
 ### Project Analysis {#sec-analysis}
 
-In the project analysis stage (steps A.1--A.4), the project to be fuzzed is ran through a static analysis tool named Flawfinder [@flawfinder] and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a static analysis report and a vector store containing embeddings of function-level code chunks, both of which are later available to the LLM agents.Flawfinder is executed with the project directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices.
+In the project analysis stage (steps A.1--A.4), dateparse is ran through a static analysis tool named Flawfinder [@flawfinder] and is sliced into function-level chunks, which are stored in a vector store. The results of this stage are a *static analysis report* and a *codebase oracle*, i.e. a vector store containing embeddings of function-level code chunks. Both resources are later available to the LLM agents. Flawfinder is executed with the dateparse directory as input and is responsible for the static analysis report. This report is considered a meaningful resource, since it provides the LLM agent responsible with the harness creation with some starting points to explore, regarding the occurrences of potentially vulnerable functions and/or unsafe code practices. Part of dateparse's static analysis report is shown in @lst-static.
 
-The vector store is created in the following manner: The codebase is first chunked in function-level pieces by traversing the code's Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function's signature, the corresponding filepath and the function's body. Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in LLMs.
+The codebase oracle is created in the following manner: The source code is first chunked in function-level pieces by traversing the code's Abstract Syntax Tree (AST) through Clang. Each chunk is represented by an object with the function's signature, the corresponding filepath and the function's body (see @lst-chunks). Afterwards, each function body is turned into a vector embedding through an embedding model. Each embedding is stored in the vector store. This structure is created and used for easier and more semantically meaningful code retrieval, and to also combat context window limitations present in LLMs.
 
 ### Harness Creation {#sec-creation}
 
-Second is the harness creation stage (steps B.1--B.2). In this part, a "generator" ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the vector store. When the agent makes queries like "functions containing `strcpy()`", the querying tool turns the question into an embedding and through similarity search returns the top $k=5$ most similar results---in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.
+Second is the harness creation stage (steps B.1--B.2). In this part, a "generator" ReAct LLM agent is tasked with creating a fuzzing harness for the project. The agent has access to a querying tool that acts as an interface between it and the codebase oracle. When the agent makes queries like "functions containing `strcpy()`", the querying tool turns the question into an embedding and through similarity search returns the top $k=5$ most similar results---in this case, functions of the project. With this approach, the agent is able to explore the codebase semantically and pinpoint potentially vulnerable usage patterns easily.
 
-The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in @sec-scope. If the compilation fails for any reason, e.g. a missing header include, then the generated faulty harness and its compilation output are passed to a new "fixer" agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command.
+The harness generated by the agent is then compiled using Clang and linked with the AddressSanitizer, LeakSanitizer, and UndefinedBehaviorSanitizer. The compilation command used is generated programmatically, according to the rules described in @sec-scope. If the compilation fails for any reason, e.g. a missing header include, then the generated faulty harness and its compilation output are passed to a new "fixer" agent tasked with repairing any errors in the harness (step B.2.a). This results in a newly generated harness, presumably free from the previously shown flaws. This process is iterated until a compilable harness has been obtained. After success, a script is also exported in the project directory, containing the generated compilation command. Dateparse's compilation command is shown in @lst-compilation.
 
 ### Harness Evaluation {#sec-evaluation}
 
@@ -107,9 +101,9 @@ Third comes the evaluation stage (steps C.1--C.3). During this step, the compile
    
 3. The created testcase is not empty
 
-   This is examined through xxd's output given the crash-file.
+   This is examined through `xxd`'s output given the crash-file.
 
-Similarly to the second stage's compilation phase (steps B.2--B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an "improver" agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned "fixer" agent is utilized again (steps C.2--C.2.a). All produced crash files and the harness execution output are saved in the project's directory.
+Similarly to the second stage's compilation phase (steps B.2--B.2.a), if a harness does not pass the evaluation for whatever reason it is sent to an "improver" agent. This agent is instructed to refine it based on its code and cause of failing the evaluation. This process is also iterative. If any of the improved harness versions fail to compile, the aforementioned "fixer" agent is utilized again (steps C.2--C.2.a). All produced crash files and the harness execution output are saved in the project's directory. An evaluation-passing harness generated for the dateparse project is presented in @lst-harness, along with the associated crash input and execution output displayed in @lst-input and @lst-output, respectively.
 
 ## OverHAuL Techniques {#sec-techniques}
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introduction – OverHAuL</title>
+<title>Appendix B — Dateparse example – OverHAuL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +65,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/background.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../chapters/sample-harnesses.html" rel="next">
+<link href="../chapters/abandoned.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -299,7 +314,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/dateparse.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -337,7 +352,7 @@ MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
@@ -400,7 +415,7 @@ MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/dateparse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></span></a>
   </div>
 </li>
@@ -423,23 +438,16 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#thesis-structure" id="toc-thesis-structure" class="nav-link active" data-scroll-target="#thesis-structure"><span class="header-section-number">1.1</span> Thesis Structure</a></li>
-  <li><a href="#summary-of-contributions" id="toc-summary-of-contributions" class="nav-link" data-scroll-target="#summary-of-contributions"><span class="header-section-number">1.2</span> Summary of Contributions</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/abandoned.html">Appendices</a></li><li class="breadcrumb-item"><a href="../chapters/dateparse.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Dateparse example</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
+<h1 class="title">Appendix B — Dateparse example</h1>
 </div>
 
 
@@ -456,67 +464,213 @@ MathJax = {
 </header>
 
 
+<p>The outputs from each phase of the OverHAuL process pertaining to the dateparse project: the static analysis report (<a href="#lst-static" class="quarto-xref">Listing&nbsp;<span>B.1</span></a>), sample function segments derived from dateparse (<a href="#lst-chunks" class="quarto-xref">Listing&nbsp;<span>B.2</span></a>), the generated compilation command (<a href="#lst-compilation" class="quarto-xref">Listing&nbsp;<span>B.3</span></a>), the bug-finding harness (<a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a>), the identified crash input (<a href="#lst-input" class="quarto-xref">Listing&nbsp;<span>B.5</span></a>), and a portion of the harness output (<a href="#lst-output" class="quarto-xref">Listing&nbsp;<span>B.6</span></a>).</p>
+<div id="lst-static" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Static analysis report">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-static-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.1: Static analysis report (Flawfinder output) of dateparse.
+</figcaption>
+<div aria-describedby="lst-static-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>Flawfinder version 2.0.19, (C) 2001-2019 David A. Wheeler.</span>
+<span id="cb1-2"><a href="#cb1-2"></a>Number of rules (primarily dangerous function names) in C/C++ ruleset: 222</span>
+<span id="cb1-3"><a href="#cb1-3"></a>Examining ./dateparse.c</span>
+<span id="cb1-4"><a href="#cb1-4"></a>Examining ./dateparse.h</span>
+<span id="cb1-5"><a href="#cb1-5"></a>Examining ./test.c</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>FINAL RESULTS:</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>./dateparse.c:405:  [4] (buffer) strcpy:</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  Does not check for buffer overflows when copying to destination [MS-banned]</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  (CWE-120). Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy</span>
+<span id="cb1-12"><a href="#cb1-12"></a>  easily misused).</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>......</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a>./dateparse.c:2192:  [1] (buffer) strlen:</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  Does not handle strings that are not \0-terminated; if given one it may</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  perform an over-read (it could cause a crash if unprotected) (CWE-126).</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>ANALYSIS SUMMARY:</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>Hits = 64</span>
+<span id="cb1-23"><a href="#cb1-23"></a>Lines analyzed = 2719 in approximately 0.04 seconds (61234 lines/second)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>Physical Source Lines of Code (SLOC) = 1966</span>
+<span id="cb1-25"><a href="#cb1-25"></a>Hits@level = [0]  15 [1]  28 [2]  31 [3]   0 [4]   5 [5]   0</span>
+<span id="cb1-26"><a href="#cb1-26"></a>Hits@level+ = [0+]  79 [1+]  64 [2+]  36 [3+]   5 [4+]   5 [5+]   0</span>
+<span id="cb1-27"><a href="#cb1-27"></a>Hits/KSLOC@level+ = [0+] 40.1831 [1+] 32.5534 [2+] 18.3113 [3+] 2.54323</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    [4+] 2.54323 [5+]   0</span>
+<span id="cb1-29"><a href="#cb1-29"></a>Dot directories skipped = 1 (--followdotdir overrides)</span>
+<span id="cb1-30"><a href="#cb1-30"></a>Minimum risk level = 1</span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a>Not every hit is necessarily a security vulnerability.</span>
+<span id="cb1-33"><a href="#cb1-33"></a>You can inhibit a report by adding a comment in this form:</span>
+<span id="cb1-34"><a href="#cb1-34"></a>// flawfinder: ignore</span>
+<span id="cb1-35"><a href="#cb1-35"></a>Make *sure* it's a false positive!</span>
+<span id="cb1-36"><a href="#cb1-36"></a>You can use the option --neverignore to show these.</span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>There may be other security vulnerabilities; review your code!</span>
+<span id="cb1-39"><a href="#cb1-39"></a>See 'Secure Programming HOWTO'</span>
+<span id="cb1-40"><a href="#cb1-40"></a>(https://dwheeler.com/secure-programs) for more information.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-chunks" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Codebase oracle samples">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.2: Sample chunks contained in dateparse’s codebase oracle.
+</figcaption>
+<div aria-describedby="lst-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb2-2"><a href="#cb2-2"></a>Signature<span class="op">:</span> <span class="dt">void</span> <span class="op">(</span><span class="kw">struct</span> parser <span class="op">*,</span> <span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>Code<span class="op">:</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="dt">static</span> <span class="dt">void</span> setOffset<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> len<span class="op">){</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>        strncpy<span class="op">(</span>p<span class="op">-&gt;</span>offsetbuf<span class="op">,</span> p<span class="op">-&gt;</span>datestr<span class="op">+</span>i<span class="op">,</span> len<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>        p<span class="op">-&gt;</span>offsetbuf<span class="op">[</span>len<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb2-11"><a href="#cb2-11"></a>Signature<span class="op">:</span> <span class="dt">void</span> <span class="op">(</span><span class="kw">struct</span> parser <span class="op">*,</span> <span class="dt">char</span> <span class="op">*)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>Code<span class="op">:</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="dt">static</span> <span class="dt">void</span> setFullMonth<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> month<span class="op">){</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>        strcpy<span class="op">(</span>p<span class="op">-&gt;</span>mobuf<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a>File<span class="op">:</span> dateparse<span class="op">/</span>dateparse<span class="op">.</span>c</span>
+<span id="cb2-19"><a href="#cb2-19"></a>Signature<span class="op">:</span> <span class="dt">int</span> <span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*,</span> <span class="dt">long</span> <span class="dt">long</span> <span class="op">*,</span> <span class="dt">int</span> <span class="op">*,</span> <span class="dt">int</span><span class="op">)</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>Code<span class="op">:</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="dt">int</span> dateparse<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span><span class="op">*</span> datestr<span class="op">,</span> date_t<span class="op">*</span> t<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>offset<span class="op">,</span> <span class="dt">int</span> stringlen<span class="op">){</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>        <span class="kw">struct</span> parser p<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>        <span class="op">*</span>t <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>        <span class="cf">if</span> <span class="op">(!</span>stringlen<span class="op">)</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>                stringlen <span class="op">=</span> strlen<span class="op">(</span>datestr<span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a>        <span class="cf">if</span> <span class="op">(</span>parseTime<span class="op">(</span>datestr<span class="op">,</span> <span class="op">&amp;</span>p<span class="op">,</span> stringlen<span class="op">))</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>                <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>        <span class="cf">return</span> parse<span class="op">(&amp;</span>p<span class="op">,</span> t<span class="op">,</span> offset<span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-compilation" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Generated compilation command">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.3: OverHAuL’s generated compilation command for dateparse.
+</figcaption>
+<div aria-describedby="lst-compilation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># cat ./overhaul.sh</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">clang</span> <span class="at">-g</span> <span class="at">-fsanitize</span><span class="op">=</span>fuzzer,address,undefined harnesses/harness.c <span class="at">-I</span> . </span>
+<span id="cb3-3"><a href="#cb3-3"></a> <span class="ex">dateparse.c</span> <span class="at">-o</span> harness</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-harness" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-harness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.4: A crash-finding harness for dateparse, generated through OverHAuL (some comments were removed).
+</figcaption>
+<div aria-describedby="lst-harness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="pp">#include </span><span class="im">"dateparse.h"</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">// ...</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">struct</span> parser <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="dt">char</span> mobuf<span class="op">[</span><span class="dv">16</span><span class="op">];</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="op">};</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">// ...</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="dt">static</span> <span class="dt">void</span> setFullMonth<span class="op">(</span><span class="kw">struct</span> parser<span class="op">*</span> p<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> month<span class="op">){</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>    strcpy<span class="op">(</span>p<span class="op">-&gt;</span>mobuf<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="dt">int</span> LLVMFuzzerTestOneInput<span class="op">(</span><span class="dt">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="co">// Allocate a parser instance on the heap.</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="kw">struct</span> parser <span class="op">*</span>p <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> parser<span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> parser<span class="op">));</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="cf">if</span> <span class="op">(!</span>p<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="op">}</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="co">// Initialize parser with zeros.</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>    memset<span class="op">(</span>p<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> parser<span class="op">));</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="co">// Prepare month string input: ensure null-terminated string for strcpy.</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="dt">char</span> <span class="op">*</span>month <span class="op">=</span> <span class="op">(</span><span class="dt">char</span><span class="op">*)</span>malloc<span class="op">(</span>size <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="cf">if</span> <span class="op">(!</span>month<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>        free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>    <span class="op">}</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>    memcpy<span class="op">(</span>month<span class="op">,</span> data<span class="op">,</span> size<span class="op">);</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>    month<span class="op">[</span>size<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span>  <span class="co">// Null terminate to avoid overread in strcpy.</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>    <span class="co">// Call the vulnerable function with fuzzed month string.</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>    setFullMonth<span class="op">(</span>p<span class="op">,</span> month<span class="op">);</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>    <span class="co">// Cleanup</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>    free<span class="op">(</span>month<span class="op">);</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a>    free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<div id="lst-input" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse crash input">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.5: An input string that crashes the harness in <a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a>. What is shown is its <code>xxd</code> output.
+</figcaption>
+<div aria-describedby="lst-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<pre><code>00000000: 315e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e 5e5e  1^^^^^^^^^^^^^^^
+00000010: 0a                                       .</code></pre>
+</div>
+</figure>
+</div>
+<div id="lst-output" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-scap="Sample dateparse harness output">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;B.6: The output of the harness in <a href="#lst-harness" class="quarto-xref">Listing&nbsp;<span>B.4</span></a> when executed with <a href="#lst-input" class="quarto-xref">Listing&nbsp;<span>B.5</span></a> as input.
+</figcaption>
+<div aria-describedby="lst-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>INFO: Running with entropic power schedule (0xFF, 100).</span>
+<span id="cb6-2"><a href="#cb6-2"></a>INFO: Seed: 2365219758</span>
+<span id="cb6-3"><a href="#cb6-3"></a>INFO: Loaded 1 modules   (3723 inline 8-bit counters): 3723 [0x67ccc0,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>      0x67db4b),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>INFO: Loaded 1 PC tables (3723 PCs): 3723 [0x618d40,0x6275f0),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>./harness: Running 1 inputs 1 time(s) each.</span>
+<span id="cb6-7"><a href="#cb6-7"></a>Running: crash-7fd6f4dd5d39420d6f7887ff995b4e855ae90c16</span>
+<span id="cb6-8"><a href="#cb6-8"></a>=================================================================</span>
+<span id="cb6-9"><a href="#cb6-9"></a>==10973==ERROR: AddressSanitizer: heap-buffer-overflow on address</span>
+<span id="cb6-10"><a href="#cb6-10"></a>0x7bcece9e00a0 at pc 0x000000526c0e bp 0x7fff3dc0aa20 sp 0x7fff3dc0a1d8</span>
+<span id="cb6-11"><a href="#cb6-11"></a>WRITE of size 18 at 0x7bcece9e00a0 thread T0</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    #0 0x000000526c0d in strcpy</span>
+<span id="cb6-13"><a href="#cb6-13"></a>       (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness</span>
+<span id="cb6-14"><a href="#cb6-14"></a>       +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    #1 0x000000585555 in setFullMonth</span>
+<span id="cb6-16"><a href="#cb6-16"></a>       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses</span>
+<span id="cb6-17"><a href="#cb6-17"></a>       /harness.c:18:2</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    #2 0x0000005853fd in LLVMFuzzerTestOneInput</span>
+<span id="cb6-19"><a href="#cb6-19"></a>       /home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harnesses</span>
+<span id="cb6-20"><a href="#cb6-20"></a>       /harness.c:41:2</span>
+<span id="cb6-21"><a href="#cb6-21"></a>...</span>
+<span id="cb6-22"><a href="#cb6-22"></a>SUMMARY: AddressSanitizer: heap-buffer-overflow</span>
+<span id="cb6-23"><a href="#cb6-23"></a>         (/home/kchou/Bin/Repos/kchousos/OverHAuL/output/dateparse/harness</span>
+<span id="cb6-24"><a href="#cb6-24"></a>         +0x526c0d) (BuildId: d658684b8726dc7e8e768089710d13c96cfc81f0) in</span>
+<span id="cb6-25"><a href="#cb6-25"></a>         strcpy</span>
+<span id="cb6-26"><a href="#cb6-26"></a>Shadow bytes around the buggy address:</span>
+<span id="cb6-27"><a href="#cb6-27"></a>  0x7bcece9dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb6-28"><a href="#cb6-28"></a>  0x7bcece9dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb6-29"><a href="#cb6-29"></a>  0x7bcece9dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb6-30"><a href="#cb6-30"></a>  0x7bcece9dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span id="cb6-31"><a href="#cb6-31"></a>  0x7bcece9e0000: fa fa 00 00 fa fa 00 fa fa fa 00 fa fa fa 00 fa</span>
+<span id="cb6-32"><a href="#cb6-32"></a>=&gt;0x7bcece9e0080: fa fa 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-33"><a href="#cb6-33"></a>  0x7bcece9e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-34"><a href="#cb6-34"></a>  0x7bcece9e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-35"><a href="#cb6-35"></a>  0x7bcece9e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-36"><a href="#cb6-36"></a>  0x7bcece9e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-37"><a href="#cb6-37"></a>  0x7bcece9e0300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span>
+<span id="cb6-38"><a href="#cb6-38"></a>Shadow byte legend (one shadow byte represents 8 application bytes):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 
-<p>Modern society’s reliance on software systems continues to grow, particularly in mission-critical environments such as healthcare, aerospace, and industrial infrastructure. The reliability of these systems is crucial—failures or vulnerabilities can lead to severe financial losses and even endanger lives. A significant portion of this foundational software is still written in C, a language created by Dennis Ritchie in 1972 <span class="citation" data-cites="kernighan1978 ritchie1978"><a href="refs.html#ref-kernighan1978" role="doc-biblioref">[1]</a>, <a href="refs.html#ref-ritchie1978" role="doc-biblioref">[2]</a></span>. Although C has been instrumental in the evolution of software, its lack of safeguards—especially around memory management—is notorious. Memory safety bugs remain a persistent vulnerability, and producing provably and verifiably safe code in C is exceptionally challenging—take for example the stringent guidelines required by organizations like NASA for safety-critical applications <span class="citation" data-cites="holzmann2006"><a href="refs.html#ref-holzmann2006" role="doc-biblioref">[3]</a></span>.</p>
-<p>To address these challenges, programming languages with built-in memory safety features, such as Ada and Rust, have been introduced <span class="citation" data-cites="adadevelopers2022 rustprojectdevelopers2025"><a href="refs.html#ref-adadevelopers2022" role="doc-biblioref">[4]</a>, <a href="refs.html#ref-rustprojectdevelopers2025" role="doc-biblioref">[5]</a></span>. Nevertheless, no language offers absolute immunity from such vulnerabilities. In addition, much of the global software infrastructure remains written in memory-unsafe languages, with C-based codebases unlikely to disappear in the near future. Ultimately, the potential for human error grows in tandem with increasing software complexity, meaning software is only as safe as its weakest link.</p>
-<p>The advent of Large Language Models (LLMs) has profoundly influenced software development. Developers have began to regularly use LLMs for code generation, refactoring, and documentation assistance. These models at large demonstrate remarkable programming capabilities. Still, they can often introduce subtle errors that may go unnoticed by even experienced developers. Many researchers argue that the use of such technologies inherently contributes to the generation of insecure code <span class="citation" data-cites="perry2023 kosmyna2025 lee2025"><a href="refs.html#ref-perry2023" role="doc-biblioref">[6]</a>, <a href="refs.html#ref-kosmyna2025" role="doc-biblioref">[7]</a>, <a href="refs.html#ref-lee2025" role="doc-biblioref">[8]</a></span>. As LLM-generated code becomes more pervasive, so does the likelihood of unnoticed software errors escaping traditional human review.</p>
-<p>Within this landscape, the need to detect vulnerabilities and ensure software quality is more urgent than ever. Fuzzing, a technique that generates and executes a vast array of test cases to identify potential bugs, has emerged as a vital approach for detecting memory safety violations. However, the necessity of manually-written harnesses—programs designed to exercise the Application Programming Interface (API) of the software under examination—poses a significant barrier to its broader adoption. As a result, the field of fuzzing automation through LLMs has gained considerable traction in recent years. Despite extensive advances in automating fuzzing, significant hurdles remain. Most current automatic-fuzzing systems require pre-existing fuzz harnesses <span class="citation" data-cites="oss-fuzz-gen"><a href="refs.html#ref-oss-fuzz-gen" role="doc-biblioref">[9]</a></span> or depend on sample client code to exercise the target program <span class="citation" data-cites="utopia fuzzgen fudge"><a href="refs.html#ref-utopia" role="doc-biblioref">[10]</a>, <a href="refs.html#ref-fuzzgen" role="doc-biblioref">[11]</a>, <a href="refs.html#ref-fudge" role="doc-biblioref">[12]</a></span>. Often, these tools still rely on developers for integration or final evaluation, leaving parts of the process manual and incomplete. Consequently, the application of LLMs to harness generation and end-to-end fuzzing remains a developing field.</p>
-<p>This thesis aims to push the boundaries of fuzzing automation by leveraging the code synthesis and most importantly reasoning strengths of modern LLMs. We introduce OverHAuL, a system that accepts a bare and previously unfuzzed C project, utilizes LLM agents to author a new fuzzing harness from scratch and evaluates its efficacy in a closed iterative feedback loop. In this loop, said feedback is constantly utilized to improve the generated harness. This end-to-end approach is designed to minimize manual effort and accelerate vulnerability detection in C codebases.</p>
-<section id="thesis-structure" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="thesis-structure"><span class="header-section-number">1.1</span> Thesis Structure</h2>
-<p>qqqqqqqq: Refactor when structure stabilizes</p>
-<p>This thesis begins by outlining the foundational concepts necessary to understand its context (<a href="background.html" class="quarto-xref"><span>Chapter 2</span></a>) and progresses to a thorough survey of existing research in the field of automated fuzzing (<a href="related.html" class="quarto-xref"><span>Chapter 5</span></a>). We illustrate that the majority of contemporary fuzzing systems either depend on pre-existing harnesses or utilize client code, frequently placing the burden of validation and integration on the user. Next, we present the OverHAuL system, detailing its architecture and the innovative techniques that underpin its implementation, as well as their contributions to the advancement of automated harness generation (<a href="overhaul.html" class="quarto-xref"><span>Chapter 3</span></a>). Lastly, we compile a benchmark dataset consisting of ten open-source C projects and rigorously assess OverHAuL’s performance (<a href="evaluation.html" class="quarto-xref"><span>Chapter 4</span></a>, <a href="evaluation.html#sec-results" class="quarto-xref"><span>4.2</span></a>).</p>
-</section>
-<section id="summary-of-contributions" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="summary-of-contributions"><span class="header-section-number">1.2</span> Summary of Contributions</h2>
-<p>This thesis presents the following key contributions:</p>
-<ol type="1">
-<li>The introduction of OverHAuL, a framework that enables fully automated end-to-end fuzzing harness generation using LLMs. It introduces novel techniques like an iterative feedback loop between LLM agents and the usage of a codebase oracle for code exploration.</li>
-<li>Empirical validation through benchmarking experiments using ten real-world open source projects. We demonstrate that OverHAuL successfully generates effective fuzzing harnesses with a chance of <strong>81.25%</strong>.</li>
-<li>Full open sourcing of all research artifacts, datasets, and code at <a href="https://github.com/kchousos/OverHAuL" class="uri">https://github.com/kchousos/OverHAuL</a> to encourage further research and ensure reproducibility.</li>
-</ol>
-<p>This work aims to advance the use of LLMs in automated software testing, particularly for legacy codebases where building harnesses by hand is impractical or costly. By doing so, we strive to enhance software security and reliability in sectors where correctness is imperative.</p>
 
-
-<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-kernighan1978" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">B. W. Kernighan and D. M. Ritchie, <em>The <span>C</span> programming language</em>. in Prentice-<span>Hall</span> software series. Englewood Cliffs, N.J: Prentice-Hall, 1978.</div>
-</div>
-<div id="ref-ritchie1978" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D. M. Ritchie, S. C. Johnson, M. E. Lesk, and B. W. Kernighan, <span>“The <span>C</span> programming language,”</span> <em>Bell Sys. Tech. J</em>, vol. 57, no. 6, pp. 1991–2019, 1978, Available: <a href="https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85">https://www.academia.edu/download/67840358/1978.07_Bell_System_Technical_Journal.pdf#page=85</a></div>
-</div>
-<div id="ref-holzmann2006" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">G. J. Holzmann, <span>“The <span>Power</span> of 10: <span>Rules</span> for <span>Developing Safety-Critical Code</span>,”</span> Jun. 2006, Available: <a href="https://web.eecs.umich.edu/~imarkov/10rules.pdf">https://web.eecs.umich.edu/~imarkov/10rules.pdf</a></div>
-</div>
-<div id="ref-adadevelopers2022" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Ada Developers, <span>“Ada <span>Reference Manual</span>, 2022 <span>Edition</span>,”</span> 2022. Available: <a href="https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html">https://www.adaic.org/resources/add_content/standards/22rm/html/RM-TTL.html</a></div>
-</div>
-<div id="ref-rustprojectdevelopers2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Rust Project Developers, <span>“Rust <span>Programming Language</span>,”</span> 2025. Available: <a href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></div>
-</div>
-<div id="ref-perry2023" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">N. Perry, M. Srivastava, D. Kumar, and D. Boneh, <span>“Do <span>Users Write More Insecure Code</span> with <span>AI Assistants</span>?”</span> Dec. 18, 2023. doi: <a href="https://doi.org/10.48550/arXiv.2211.03622">10.48550/arXiv.2211.03622</a>. Available: <a href="http://arxiv.org/abs/2211.03622">http://arxiv.org/abs/2211.03622</a></div>
-</div>
-<div id="ref-kosmyna2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">N. Kosmyna <em>et al.</em>, <span>“Your <span>Brain</span> on <span>ChatGPT</span>: <span>Accumulation</span> of <span>Cognitive Debt</span> when <span>Using</span> an <span>AI Assistant</span> for <span>Essay Writing Task</span>,”</span> Jun. 10, 2025. doi: <a href="https://doi.org/10.48550/arXiv.2506.08872">10.48550/arXiv.2506.08872</a>. Available: <a href="http://arxiv.org/abs/2506.08872">http://arxiv.org/abs/2506.08872</a></div>
-</div>
-<div id="ref-lee2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">H.-P. H. Lee <em>et al.</em>, <span>“The <span>Impact</span> of <span>Generative AI</span> on <span>Critical Thinking</span>: <span>Self-Reported Reductions</span> in <span>Cognitive Effort</span> and <span>Confidence Effects From</span> a <span>Survey</span> of <span>Knowledge Workers</span>,”</span> 2025, Available: <a href="https://hankhplee.com/papers/genai_critical_thinking.pdf">https://hankhplee.com/papers/genai_critical_thinking.pdf</a></div>
-</div>
-<div id="ref-oss-fuzz-gen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">D. Liu, O. Chang, J. metzman, M. Sablotny, and M. Maruseac, <span>“<span class="nocase">OSS-fuzz-gen</span>: <span>Automated</span> fuzz target generation.”</span> May 2024. Available: <a href="https://github.com/google/oss-fuzz-gen">https://github.com/google/oss-fuzz-gen</a></div>
-</div>
-<div id="ref-utopia" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">B. Jeong <em>et al.</em>, <span>“<span>UTopia</span>: <span>Automatic Generation</span> of <span>Fuzz Driver</span> using <span>Unit Tests</span>,”</span> in <em>2023 <span>IEEE Symposium</span> on <span>Security</span> and <span>Privacy</span> (<span>SP</span>)</em>, May 2023, pp. 2676–2692. doi: <a href="https://doi.org/10.1109/SP46215.2023.10179394">10.1109/SP46215.2023.10179394</a>. Available: <a href="https://ieeexplore.ieee.org/abstract/document/10179394">https://ieeexplore.ieee.org/abstract/document/10179394</a></div>
-</div>
-<div id="ref-fuzzgen" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">K. Ispoglou, D. Austin, V. Mohan, and M. Payer, <span>“<span>FuzzGen</span>: <span>Automatic</span> fuzzer generation,”</span> in <em>29th <span>USENIX Security Symposium</span> (<span>USENIX Security</span> 20)</em>, 2020, pp. 2271–2287. Available: <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou">https://www.usenix.org/conference/usenixsecurity20/presentation/ispoglou</a></div>
-</div>
-<div id="ref-fudge" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">D. Babić <em>et al.</em>, <span>“<span>FUDGE</span>: Fuzz driver generation at scale,”</span> in <em>Proceedings of the 2019 27th <span>ACM Joint Meeting</span> on <span>European Software Engineering Conference</span> and <span>Symposium</span> on the <span>Foundations</span> of <span>Software Engineering</span></em>, Tallinn Estonia: ACM, Aug. 2019, pp. 975–985. doi: <a href="https://doi.org/10.1145/3338906.3340456">10.1145/3338906.3340456</a>. Available: <a href="https://dl.acm.org/doi/10.1145/3338906.3340456">https://dl.acm.org/doi/10.1145/3338906.3340456</a></div>
-</div>
-</div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -933,13 +1087,13 @@ MathJax = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="../chapters/abandoned.html" class="pagination-link" aria-label="Abandoned Techniques">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Abandoned Techniques</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/background.html" class="pagination-link" aria-label="Background">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Background</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/sample-harnesses.html" class="pagination-link" aria-label="Sample Generated Harnesses">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Sample Generated Harnesses</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
