@@ -1,5 +1,13 @@
 # Conclusion
 
-Recap
-Performed a literature review of similar projects.
-Presented the algorithm *and* the implementation.
+This thesis set out to address a pressing challenge in software testing for legacy and under-tested C codebases: the significant manual effort required to develop fuzzing harnesses in the absence of pre-existing test infrastructure. In response, we present OverHAuL, a neurosymbolic AI system capable of autonomously generating effective fuzzing harnesses directly from source code. OverHAuL synthesizes the complementary strengths of advanced program analysis techniques and large language models (LLMs), enabling it to overcome the traditional dependencies on manual effort, client code, or existing test harnesses that characterize previous tools.
+
+Central to OverHAuL's methodology is the integration of a ReAct LLM agents triplet working within a feedback-oriented, iterative loop, capable of investigating the given project's source code through a codebase oracle. This architecture allows the system to intelligently explore otherwise opaque codebases, systematically identifying candidate entry points for fuzzing and synthesizing robust harnesses. The end-to-end automation pipeline incorporates a compilation and evaluation phase, during which the generated harnesses are systematically compiled and rigorously assessed for correctness and effectiveness.
+
+To rigorously assess OverHAuL's efficacy and reliability, we designed a comprehensive evaluation using a benchmark suite of ten open-source C libraries. Our experiments demonstrate that OverHAuL successfully produced valid and usable fuzzing harnesses in 81.25% of the cases. This high success rate offers strong evidence supporting OverHAuL's correctness and practical applicability, substantiating the central hypothesis of this thesis.
+
+Through a comprehensive literature review of prominent related projects and a detailed comparative analysis with OverHAuL, we demonstrate that OverHAuL distinguishes itself in several critical aspects. Specifically, the system's high degree of automation and limited dependence on external artifacts confer significant advantages over previous methods, particularly regarding its applicability to legacy or inadequately documented C codebases. OverHAuL's novel methodology underscores its distinctive role within the rapidly evolving landscape of automated fuzzing solutions, especially when contrasted against other state-of-the-art approaches.
+
+Looking ahead, this body of work invites several promising directions for future exploration. Expanding OverHAuL's applicability to additional programming languages and software ecosystems would significantly widen its practical impact. Furthermore, ongoing refinements to its AI-driven algorithms, especially in areas of program comprehension and harness evaluation, have the potential to further enhance the robustness and effectiveness of the system. 
+
+In summary, this thesis advances the field of automated software testing by demonstrating the feasibility and utility of autonomously generated fuzzing harnesses for C projects. OverHAuL establishes a compelling foundation for future research, representing a substantial step towards fully automated, scalable, and intelligent fuzzing infrastructure in the face of increasingly complex software systems.
