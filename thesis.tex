@@ -2694,17 +2694,16 @@ development would help facilitate practical follow-up and improvements.
 
 This thesis set out to address a pressing challenge in software testing
 for legacy and under-tested C codebases: the significant manual effort
-required to develop fuzzing harnesses in the absence of pre-existing
-test infrastructure. In response, we present OverHAuL, a neurosymbolic
-AI system capable of autonomously generating effective fuzzing harnesses
-directly from source code. OverHAuL synthesizes the complementary
-strengths of advanced program analysis techniques and large language
-models (LLMs), enabling it to overcome the traditional dependencies on
-manual effort, client code, or existing test harnesses that characterize
-previous tools.
+required to develop fuzzing harnesses, especially in the absence of
+pre-existing test infrastructure. In response, we present OverHAuL, a
+neurosymbolic AI system capable of autonomously generating effective
+fuzzing harnesses directly from source code. OverHAuL leverages the
+strengths of advanced large language model (LLM) agents, enabling it to
+overcome the traditional dependencies on manual effort, client code, or
+existing test harnesses that characterize previous tools.
 
-Central to OverHAuL's methodology is the integration of a ReAct LLM
-agents triplet working within a feedback-oriented, iterative loop,
+Central to OverHAuL's methodology is the integration of a triplet of
+ReAct LLM agents working within a feedback-oriented, iterative loop,
 capable of investigating the given project's source code through a
 codebase oracle. This architecture allows the system to intelligently
 explore otherwise opaque codebases, systematically identifying candidate
@@ -2722,23 +2721,27 @@ correctness and practical applicability, substantiating the central
 hypothesis of this thesis.
 
 Through a comprehensive literature review of prominent related projects
-and a detailed comparative analysis with OverHAuL, we demonstrate that
-OverHAuL distinguishes itself in several critical aspects. Specifically,
-the system's high degree of automation and limited dependence on
-external artifacts confer significant advantages over previous methods,
-particularly regarding its applicability to legacy or inadequately
-documented C codebases. OverHAuL's novel methodology underscores its
-distinctive role within the rapidly evolving landscape of automated
-fuzzing solutions, especially when contrasted against other
+and a detailed comparative analysis between them and OverHAuL, we
+demonstrate that OverHAuL distinguishes itself in several critical
+aspects. Our system's high degree of automation and limited dependence
+on external artifacts constitute significant advantages over previous
+methods, particularly regarding its applicability to legacy or
+inadequately documented C codebases. OverHAuL's novel methodology
+underscores its distinctive role within the rapidly evolving landscape
+of automated fuzzing solutions, especially when contrasted against other
 state-of-the-art approaches.
 
 Looking ahead, this body of work invites several promising directions
 for future exploration. Expanding OverHAuL's applicability to additional
-programming languages and software ecosystems would significantly widen
-its practical impact. Furthermore, ongoing refinements to its AI-driven
-algorithms, especially in areas of program comprehension and harness
-evaluation, have the potential to further enhance the robustness and
-effectiveness of the system.
+programming languages and improving compatibility with established build
+ecosystems would significantly widen its practical impact. Ongoing
+refinements to its AI-driven algorithms, especially in areas of program
+slicing and harness evaluation, have the potential to further enhance
+the robustness and effectiveness of the system. Lastly, conducting more
+comprehensive evaluations and large-scale comparisons with
+state-of-the-art tools would provide stronger evidence for the
+effectiveness of OverHAuL, further demonstrating its superiority over
+existing solutions.
 
 In summary, this thesis advances the field of automated software testing
 by demonstrating the feasibility and utility of autonomously generated
