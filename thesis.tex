@@ -269,14 +269,22 @@ Language Models}
 \begin{document}
 \maketitle
 \begin{abstract}
-Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse congue
-tempus erat rhoncus sapien interdum dolor nec. Posuere habitant metus
-tellus erat eu. Risus ultricies eu rhoncus, conubia euismod convallis
-commodo per. Nam tellus quisque maximus duis eleifend; arcu aptent. Nisi
-rutrum primis luctus tortor tempor maecenas. Donec curae cras dolor;
-malesuada ultricies scelerisque. Molestie class tincidunt quis gravida
-ut proin. Consequat lacinia arcu justo leo maecenas nunc neque ex.
-Platea eros ullamcorper nullam rutrum facilisis.
+Software vulnerabilities remain pervasive and challenging to detect,
+making robust testing approaches imperative. Fuzzing is an established
+software testing method for uncovering such vulnerabilities, through
+random input execution. Recent research has leveraged Large Language
+Models (LLMs) to enhance fuzz driver generation. However, most
+contemporary tools rely on additional resources beyond the target code,
+such as client programs or preexisting harnesses, limiting their
+scalability and applicability. In this thesis, we present OverHAuL, a
+neurosymbolic AI system that employs LLM agents to automatically
+generate fuzzing harnesses directly from library code, eliminating the
+need for auxiliary artifacts. To comprehensively evaluate OverHAuL, we
+construct a benchmark suite consisting of ten open-source C libraries.
+Our empirical analysis demonstrates that OverHAuL achieves an 81.25\%
+success rate in harness generation across the evaluated projects,
+underscoring its effectiveness and potential to facilitate more
+efficient vulnerability discovery.
 \end{abstract}
 
 \floatname{algorithm}{Algorithm}
