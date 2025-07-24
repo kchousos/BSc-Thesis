@@ -969,61 +969,76 @@ and coding standards.
 Despite these advancements, it is crucial to recognize the inherent
 limitations of LLMs when applied to software development. While they can
 help in many aspects of coding, they are not immune to generating
-erroneous outputs---a phenomenon often referred to as ``hallucination''.
-Hallucinations occur when LLMs produce information that is unfounded or
-inaccurate, which can stem from several factors, including the
-limitations of their training data and the constrained context window
-within which they operate. As LLMs generate code suggestions based on
-the patterns learned from vast datasets, they may inadvertently propose
-solutions that do not align with the specific requirements of a task or
-that utilize outdated programming paradigms.
+erroneous outputs---a phenomenon often referred to as ``hallucination''
+\autocite{huang2025}. Hallucinations occur when LLMs produce information
+that is unfounded or inaccurate, which can stem from several factors,
+including the limitations of their training data and the constrained
+context window within which they operate. As LLMs generate code
+suggestions based on the patterns learned from vast datasets, they may
+inadvertently propose solutions that do not align with the specific
+requirements of a task or that utilize outdated programming paradigms.
 
 Moreover, the challenge of limited context windows can lead to
-suboptimal suggestions. LLMs generally process a fixed amount of text
-when generating responses, which can impact their ability to fully grasp
-the nuances of complex coding scenarios. This may result in outputs that
-lack the necessary depth and specificity required for successful
-implementation. As a consequence, developers must exercise caution and
-critically evaluate the suggestions offered by these models, as reliance
-on them without due diligence could lead to the introduction of bugs or
-other issues in the code.
+suboptimal suggestions \autocite{kaddour2023}. LLMs generally process a
+fixed amount of text when generating responses, which can impact their
+ability to fully grasp the nuances of complex coding scenarios. This may
+result in outputs that lack the necessary depth and specificity required
+for successful implementation. As a consequence, developers must
+exercise caution and critically evaluate the suggestions offered by
+these models, as reliance on them without due diligence could lead to
+the introduction of bugs or other issues in the code.
 
 \subsection{LLMs for Fuzzing}\label{llms-for-fuzzing}
 
-While LLMs demonstrate significant potential in enhancing the software
-development process, the challenges highlighted in
-Section~\ref{sec-llm-coding} become even more pronounced and troublesome
-when these models are employed to generate fuzzing harnesses. The task
-of writing a fuzzing harness inherently demands an in-depth
-comprehension of both the library being tested and the intricate
-interactions expected among its various components. This level of
-understanding is often beyond the capabilities of LLMs, primarily due to
-their context window limitations, which restrict the amount of
-information they can effectively process and retain during code
-generation.
+In the domain of fuzzing, recent research has explored the application
+of LLMs primarily along two axes: employing LLMs to generate seeds and
+inputs for the program under test
+\autocite{titanfuzz,black2024,shi2024,fuzzgpt} and leveraging them to
+generate the fuzz driver itself (Chapter~\ref{sec-related}). This thesis
+focuses on the latter, recognizing that while using LLMs for seed
+generation offers certain advantages, the challenge of automating
+harness generation represents a deeper and more meaningful frontier.
+Significant limitations such as restricted context windows and the
+propensity for LLMs to hallucinate remain central concerns in this area
+\autocite{huang2025,kaddour2023}.
 
-In addition to this issue, the risk of error-prone code produced by LLMs
-further complicates the fuzzing workflow. When a crash occurs during the
-fuzzing process, it becomes imperative for developers to ascertain that
-the root cause of the failure is not attributable to deficiencies or
-bugs within the harness itself. This additional layer of verification
-adds to the cognitive load placed upon developers, potentially
-detracting from their ability to focus on testing and improving the
-underlying software.
+The process of constructing a fuzzing harness is inherently complex,
+demanding a profound understanding of the target library and the nuanced
+interactions among its components. Achieving this level of comprehension
+is often beyond the reach of LLMs when deployed in isolation. Empirical
+evidence by Jiang et al. \autocite{jiang2024} demonstrates that
+zero-shot harness generation with LLMs is both ineffective and prone to
+significant errors. Specifically, LLMs tend to rely heavily on patterns
+encountered during training, which leads to the erroneous invocation of
+APIs, particularly when their context window is pushed to its limits.
+This over-reliance on training data exacerbates the risk of
+hallucination, compounding the challenge of generating correct and
+robust fuzz drivers.
 
-To enhance the reliability of LLM-generated harnesses in fuzzing
-contexts, it is essential that these generated artifacts undergo
-thorough evaluation and validation through programmatic means. This
-involves the implementation of systematic techniques that assess the
-accuracy and robustness of the generated code, ensuring that it aligns
-with the expected behavior of the components it is intended to interact
-with. This strategy can be conceptualized within the framework of
-Neurosymbolic AI (Section~\ref{sec-nesy}), which seeks to integrate the
-strengths of neural networks with symbolic reasoning capabilities. By
-marrying these two paradigms, it may be possible to improve the
-reliability and efficacy of LLMs in the creation of fuzzing harnesses,
-ultimately leading to a more seamless integration of automated testing
-methodologies into the software development lifecycle.
+Compounding this issue is the inherent risk introduced by error-prone
+code synthesized by LLMs. In the context of fuzzing, a fundamental
+requirement is the clear attribution of observed failures: developers
+must be confident that detected crashes stem from vulnerabilities in the
+tested software rather than flaws or bugs inadvertently introduced by
+the harness. This necessity imposes an additional verification burden,
+increasing developers' cognitive load and diverting attention from the
+primary goal of meaningful software evaluation and improvement.
+
+Enhancing the reliability of LLM-generated harnesses thus necessitates
+systematic and programmatic evaluation and validation of generated
+artifacts \autocite{tilwani2024}. Such validation involves implementing
+structured techniques to rigorously assess both the accuracy and
+robustness of the code, confirming that it interacts correctly with the
+relevant software components and behaves as intended. This approach
+aligns with the emerging framework of Neurosymbolic AI
+(Section~\ref{sec-nesy}), which integrates the statistical learning
+capabilities of neural networks with the rigor and precision of symbolic
+reasoning. By leveraging the strengths of both paradigms,
+neuroscience-inspired symbolic methods \autocite{kahneman2011} may offer
+pathways toward more reliable and effective LLM-generated fuzzing
+harnesses, facilitating a smoother integration of automated testing
+practices into established software development pipelines
+\autocite{mastropaolo2025,velasco2025}.
 
 \section{Neurosymbolic AI}\label{sec-nesy}
 
