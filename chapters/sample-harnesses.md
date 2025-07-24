@@ -241,7 +241,7 @@ Crash input which triggers an exception in `cbuf_offer()`>`memcpy()`:
 00000000: 0a                                       .
 ```
 
-## dvhar/dateparse
+## dvhar/dateparse {#sec-dateparse}
 
 Generated harness:
 
