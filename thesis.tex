@@ -159,8 +159,8 @@ Serif}
 
 
 \pagenumbering{roman}
-\usepackage{lineno}
-\linenumbers
+% \usepackage{lineno}
+% \linenumbers
 \renewcommand*{\bibfont}{\small}
 \usepackage[font={footnotesize}, margin=1cm, labelfont=bf, format=plain]{caption}
 \usepackage{orcidlink}
@@ -460,7 +460,7 @@ This thesis presents the following key contributions:
 \item
   Empirical validation through benchmarking experiments using ten
   real-world open source projects. We demonstrate that OverHAuL
-  successfully generates effective fuzzing harnesses with a chance of
+  generates effective fuzzing harnesses with a success rate of
   \textbf{81.25\%}.
 \item
   Full open sourcing of all research artifacts, datasets, and code at
@@ -656,13 +656,14 @@ variants were discovered by Google's Michał Zalewski using his own
 fuzzer---the now ubiquitous AFL fuzzer \autocite{afl}---in late 2014
 \autocite{saarinen2014}.
 
-On the defensive tooling side, the security tool named
-\emph{Mayhem}---developed by the company of the same name, formerly
-known as ForAllSecure---has since been adopted by the US Air Force, the
-Pentagon, Cloudflare, and numerous open-source communities. It has found
-and facilitated the remediation of thousands of previously unknown
-vulnerabilities, from errors in Cloudflare's infrastructure to bugs in
-open-source projects like OpenWRT \autocite{simonite2020mayhem}.
+On the defensive tooling side, the security tool named \emph{Mayhem}
+\autocite{avgerinos2018,cha2012}---developed by the company of the same
+name, formerly known as ForAllSecure---has since been adopted by the US
+Air Force, the Pentagon, Cloudflare, and numerous open-source
+communities. It has found and facilitated the remediation of thousands
+of previously unknown vulnerabilities, from errors in Cloudflare's
+infrastructure to bugs in open-source projects like OpenWRT
+\autocite{simonite2020mayhem}.
 
 These cases underscore the central thesis of fuzz testing: exhaustive
 manual review is infeasible, but scalable stochastic exploration
@@ -2206,6 +2207,17 @@ codebase oracle is proposed as a highly scalable solution. This strategy
 not only enhances the organization of larger files but also accommodates
 expanding project sizes, facilitating more semantically meaningful code
 examination.
+
+The significance of the iterative feedback loop is clearly demonstrated
+by the results presented in Figure~\ref{fig-iterations}. Analysis of the
+heatmap reveals that earlier versions of OverHAuL, which employed a
+one-shot approach to harness generation, achieved a success rate of only
+28.75\%. In contrast, the current implementation shows that 42 out of 65
+projects successfully fuzzed (64.62\%) did not produce a successful
+harness in the initial attempt and therefore benefited from the
+iterative feedback process. Notably, two projects (3.07\%) required the
+full allocation of eight iterations, underscoring the necessity of
+maintaining a generous iteration budget to maximize effectiveness.
 
 \section{Discussion}\label{discussion}
 

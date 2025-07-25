@@ -66,7 +66,7 @@ Beyond security, fuzzing plays a crucial role in improving the robustness and co
 
 Likewise, the *Shellshock* (or *Bashdoor*) family of bugs in GNU Bash [@bash] enabled arbitrary command execution on many UNIX systems. While the initial flaw was fixed promptly, subsequent bug variants were discovered by Google's Michał Zalewski using his own fuzzer---the now ubiquitous AFL fuzzer  [@afl]---in late 2014 [@saarinen2014].
 
-On the defensive tooling side, the security tool named *Mayhem*---developed by the company of the same name, formerly known as ForAllSecure---has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities, from errors in Cloudflare's infrastructure to bugs in open-source projects like OpenWRT [@simonite2020mayhem].
+On the defensive tooling side, the security tool named *Mayhem* [@avgerinos2018; @cha2012]---developed by the company of the same name, formerly known as ForAllSecure---has since been adopted by the US Air Force, the Pentagon, Cloudflare, and numerous open-source communities. It has found and facilitated the remediation of thousands of previously unknown vulnerabilities, from errors in Cloudflare's infrastructure to bugs in open-source projects like OpenWRT [@simonite2020mayhem].
 
 These cases underscore the central thesis of fuzz testing: exhaustive manual review is infeasible, but scalable stochastic exploration reliably surfaces the critical few defects that matter most.
 
