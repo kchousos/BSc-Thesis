@@ -31,7 +31,7 @@ OverHAuL was evaluated through the experimental benchmark from 6th of June, 2025
 | [orangeduck/mpc](https://github.com/orangeduck/mpc)                 | A type-generic parser combinator library.                                  | 2,753 | 3632 |
 | [h2non/semver.c](https://github.com/h2non/semver.c)                 | A semantic version v2.0 parsing and rendering library [@semver].           |   190 |  608 |
 
-The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description and its GitHub stars count, as of July 18th, 2025.
+The benchmark project corpus. Each project name links to its corresponding GitHub repository. Each is followed by a short description, its GitHub stars count and its Significant Lines of Code (SLOC), as of July 18th, 2025.
 :::
 
 ### Local Benchmarking {#sec-local}
