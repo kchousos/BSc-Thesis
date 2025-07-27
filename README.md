@@ -7,6 +7,12 @@
 <a href="https://github.com/kchousos/OverHAuL"><img alt="Repo" src="https://img.shields.io/badge/Repo-Implementation-purple?logo=github"/></a>
 </p>
 
+### Abstract
+
+Software vulnerabilities remain pervasive and challenging to detect, making robust testing approaches imperative. Fuzzing is an established software testing method for uncovering such vulnerabilities, through random input execution. Recent research has leveraged Large Language Models (LLMs) to enhance fuzz driver generation. However, most contemporary tools rely on additional resources beyond the target code, such as client programs or preexisting harnesses, limiting their scalability and applicability. In this thesis, we present OverHAuL, a neurosymbolic AI system that employs LLM agents to automatically generate fuzzing harnesses directly from library code, eliminating the need for auxiliary artifacts. To comprehensively evaluate OverHAuL, we construct a benchmark suite consisting of ten open-source C libraries. Our empirical analysis demonstrates that OverHAuL achieves an 81.25% success rate in harness generation across the evaluated projects, underscoring its effectiveness and potential to facilitate more efficient vulnerability discovery.
+
+### Preface
+
 This thesis was prepared in Athens, Greece, during the academic year 2024–2025, fulfilling a requirement for the Bachelor of Science degree at the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) of the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research presented herein was carried out under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/) and in accordance with the guidelines stipulated by the department. All processes and methodologies adopted during the research adhere to the academic and ethical standards of the university. The final version of this thesis is [hosted online](https://kchousos.github.io/BSc-Thesis/) and is also archived in the department's records, made publicly accessible through the university’s digital repository [Pergamos](https://pergamos.lib.uoa.gr/uoa/dl/object/5300250).
 
 #### Citation
