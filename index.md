@@ -43,17 +43,19 @@ A special *thank you* goes to my parents Giannis and Gianna, Christina, and my f
 <div id="quarto-appendix" class="default">
 <section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading" id="citation">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div>
 <pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@thesis{chousos2025,
-  title = {{OverHAuL}: Harnessing Automation for C Libraries with Large Language Models},
-  shorttitle = {{OverHAuL}},
+  type = {BSc Thesis},
+  title = {{{OverHAuL}}: {{Harnessing}} Automation for {{C}} Libraries with Large Language Models},
+  shorttitle = {{{OverHAuL}}},
   author = {Chousos, Konstantinos},
   date = {2025-07-27},
   institution = {{National and Kapodistrian University of Athens}},
   location = {Athens, Greece},
-  url = {https://kchousos.github.io/BSc-Thesis/},
-  langid = {en}
+  url = {https://pergamos.lib.uoa.gr/uoa/dl/object/5300250},
+  langid = {english},
+  pagetotal = {79},
+  note = {Also available at: \href{https://kchousos.github.io/BSc-Thesis/}{https://kchousos.github.io/BSc-Thesis/}}
 }</code></pre>
 <div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-chousos2025" class="csl-entry quarto-appendix-citeas">
-K. Chousos, <span>“OverHAuL: Harnessing Automation for C Libraries with Large Language Models,”</span> Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://kchousos.github.io/BSc-Thesis/">https://kchousos.github.io/BSc-Thesis/</a>
-</div></div></section></div>
+K. Chousos, “OverHAuL: Harnessing automation for C libraries with large language models,” BSc Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: <a href="https://pergamos.lib.uoa.gr/uoa/dl/object/5300250">https://pergamos.lib.uoa.gr/uoa/dl/object/5300250</a></div></div></section></div>
 
 :::

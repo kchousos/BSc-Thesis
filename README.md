@@ -9,23 +9,26 @@ This thesis was prepared in Athens, Greece, during the academic year 2024–2025
 
 #### Citation
 
- BibTeX citation:
+ BibLaTeX citation:
 
-```bibtex
+```biblatex
 @thesis{chousos2025,
-  title = {{OverHAuL}: Harnessing Automation for C Libraries with Large Language Models},
-  shorttitle = {{OverHAuL}},
+  type = {BSc Thesis},
+  title = {{{OverHAuL}}: {{Harnessing}} Automation for {{C}} Libraries with Large Language Models},
+  shorttitle = {{{OverHAuL}}},
   author = {Chousos, Konstantinos},
   date = {2025-07-27},
   institution = {{National and Kapodistrian University of Athens}},
   location = {Athens, Greece},
-  url = {https://kchousos.github.io/BSc-Thesis/},
-  langid = {en}
+  url = {https://pergamos.lib.uoa.gr/uoa/dl/object/5300250},
+  langid = {english},
+  pagetotal = {79},
+  note = {Also available at: \href{https://kchousos.github.io/BSc-Thesis/}{https://kchousos.github.io/BSc-Thesis/}}
 }
 ```
 
  For attribution, please cite this work as:
  
  ```
-K. Chousos, “OverHAuL: Harnessing Automation for C Libraries with Large Language Models,” Bachelor Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: https://kchousos.github.io/BSc-Thesis/ 
+K. Chousos, “OverHAuL: Harnessing automation for C libraries with large language models,” BSc Thesis, National and Kapodistrian University of Athens, Athens, Greece, 2025. [Online]. Available: https://pergamos.lib.uoa.gr/uoa/dl/object/5300250
  ```
