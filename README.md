@@ -7,8 +7,6 @@
 
 This thesis was prepared in Athens, Greece, during the academic year 2024–2025, fulfilling a requirement for the Bachelor of Science degree at the [Department of Informatics and Telecommunications](https://www.di.uoa.gr/en) of the [National and Kapodistrian University of Athens](https://en.uoa.gr/). The research presented herein was carried out under the supervision of Prof. [Thanassis Avgerinos](https://cgi.di.uoa.gr/~thanassis/) and in accordance with the guidelines stipulated by the department. All processes and methodologies adopted during the research adhere to the academic and ethical standards of the university. The final version of this thesis is [hosted online](https://kchousos.github.io/BSc-Thesis/) and is also archived in the department's records, made publicly accessible through the university’s digital repository [Pergamos](https://pergamos.lib.uoa.gr/uoa/dl/object/5300250).
 
---------------------------------------------------------------------------------
-
 #### Citation
 
  BibTeX citation:
