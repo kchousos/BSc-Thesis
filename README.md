@@ -1,5 +1,5 @@
 <h1 align="center">OverHAuL: Harnessing Automation for C Libraries with Large Language Models</h1>
-<h3 align="center">BSc Thesis</h1>
+<h2 align="center">BSc Thesis</h1>
 
 <p>
 <a href="https://pergamos.lib.uoa.gr/uoa/dl/object/5300250"><img src="https://img.shields.io/badge/uoadl-5300250-blue?link=https%3A%2F%2Fpergamos.lib.uoa.gr%2Fuoa%2Fdl%2Fobject%2F5300250" alt="uoadl:5300250" /></a>
