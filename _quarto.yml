@@ -141,7 +141,7 @@ format:
     include-in-header: ./resources/preamble.tex
     fig-scap: true
     template-partials:
-      - ./resources/title.tex
+      - ./resources/before-body.tex
 
 pdf-engine: lualatex
 pdf-engine-opts:

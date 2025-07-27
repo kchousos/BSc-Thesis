@@ -241,51 +241,77 @@ Serif}
   pdfcreator={LaTeX via pandoc}}
 
 
-\title{OverHAuL: Harnessing Automation for C Libraries with Large
-Language Models}
+\title{OverHAuL}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
-	\apptocmd{\@title}{\par {\Large #1 \par}}{}{}
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{BSc Thesis}
-\author{
-	%
-	Konstantinos Chousos \orcidlink{0009-0008-6063-7915}
-	\\\medskip sdi2000215@di.uoa.gr%
-	%
-	\\\medskip
-	\\\medskip
-	%
-	Department of Informatics and Telecommunications
-	\\\medskip
-	%
-	National and Kapodistrian University of Athens
-	%
-	%
-}
+\subtitle{Harnessing Automation for C Libraries with Large Language
+Models}
+\author{Konstantinos Chousos}
 \date{July, 2025}
 \begin{document}
-\maketitle
-\begin{abstract}
-Software vulnerabilities remain pervasive and challenging to detect,
-making robust testing approaches imperative. Fuzzing is an established
-software testing method for uncovering such vulnerabilities, through
-random input execution. Recent research has leveraged Large Language
-Models (LLMs) to enhance fuzz driver generation. However, most
-contemporary tools rely on additional resources beyond the target code,
-such as client programs or preexisting harnesses, limiting their
-scalability and applicability. In this thesis, we present OverHAuL, a
-neurosymbolic AI system that employs LLM agents to automatically
-generate fuzzing harnesses directly from library code, eliminating the
-need for auxiliary artifacts. To comprehensively evaluate OverHAuL, we
-construct a benchmark suite consisting of ten open-source C libraries.
-Our empirical analysis demonstrates that OverHAuL achieves an 81.25\%
-success rate in harness generation across the evaluated projects,
-underscoring its effectiveness and potential to facilitate more
-efficient vulnerability discovery.
-\end{abstract}
+\cleardoublepage
+\thispagestyle{empty}
+{\centering
+	\includegraphics[scale=0.85]{resources/athena-black}
+	\linebreak
+	\linebreak
+	\begin{minipage}[t]{\textwidth}
+		\begin{center}
+			{\Large \bfseries
+				National and Kapodistrian University of Athens
+			}
+			\linebreak
+
+			{\bfseries
+				\large
+				School of Sciences \\ Department of Informatics and Telecommunications
+			}
+			\linebreak\linebreak\linebreak\linebreak\linebreak
+
+			{\LARGE \bfseries
+				OverHAuL: Harnessing Automation for C Libraries with Large Language
+Models
+				\linebreak
+
+				{
+					\large
+					BSc Thesis
+				}
+			}
+			\linebreak\linebreak
+
+			{\bfseries
+				%
+				{\Large Konstantinos Chousos} \orcidlink{0009-0008-6063-7915}
+				%
+			}
+			\linebreak\linebreak\linebreak
+			\linebreak\linebreak\linebreak
+			\linebreak\linebreak
+		\end{center}
+		{
+		\begin{center}
+			\large
+			\textbf{Supervisor: Thanassis Avgerinos}, Assistant Professor \\
+		\end{center}
+		}
+	\end{minipage}
+	\vfill
+	\begin{center}
+		{\bfseries
+			Athens
+		}
+		\\\vspace*{4mm}
+		{\bfseries
+			July, 2025
+		}
+	\end{center}
+	\clearpage
+}
 
 \floatname{algorithm}{Algorithm}
 
