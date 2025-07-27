@@ -1,0 +1,63 @@
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+$if(title)$
+\cleardoublepage
+\thispagestyle{empty}
+{\centering
+	\includegraphics[scale=0.85]{resources/athena-black}
+	\linebreak
+	\linebreak
+	\begin{minipage}[t]{\textwidth}
+		\begin{center}
+			{\Large \bfseries
+				National and Kapodistrian University of Athens
+			}
+			\linebreak
+
+			{\bfseries
+				\large
+				School of Sciences \\ Department of Informatics and Telecommunications
+			}
+			\linebreak\linebreak\linebreak\linebreak\linebreak
+
+			{\LARGE \bfseries
+				$title$: $if(subtitle)$$subtitle$$endif$
+				\linebreak
+
+				{
+					\large
+					BSc Thesis
+				}
+			}
+			\linebreak\linebreak
+
+			{\bfseries
+				$for(by-author)$%
+				{\Large $by-author.name.literal$} \orcidlink{$by-author.orcid$}
+				$endfor$%
+			}
+			\linebreak\linebreak\linebreak
+			\linebreak\linebreak\linebreak
+			\linebreak\linebreak
+		\end{center}
+		{
+		\begin{center}
+			\large
+			\textbf{Supervisor: Thanassis Avgerinos}, Assistant Professor \\
+		\end{center}
+		}
+	\end{minipage}
+	\vfill
+	\begin{center}
+		{\bfseries
+			Athens
+		}
+		\\\vspace*{4mm}
+		{\bfseries
+			$date$
+		}
+	\end{center}
+	\clearpage
+}
+$endif$
