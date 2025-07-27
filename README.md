@@ -7,6 +7,8 @@
 <a href="https://github.com/kchousos/OverHAuL"><img alt="Repo" src="https://img.shields.io/badge/Repo-Implementation-purple?logo=github"/></a>
 </p>
 
+**Keywords:** LLMs, Fuzzing, Automation, Security, Neurosymbolic AI
+
 ### Abstract
 
 Software vulnerabilities remain pervasive and challenging to detect, making robust testing approaches imperative. Fuzzing is an established software testing method for uncovering such vulnerabilities, through random input execution. Recent research has leveraged Large Language Models (LLMs) to enhance fuzz driver generation. However, most contemporary tools rely on additional resources beyond the target code, such as client programs or preexisting harnesses, limiting their scalability and applicability. In this thesis, we present OverHAuL, a neurosymbolic AI system that employs LLM agents to automatically generate fuzzing harnesses directly from library code, eliminating the need for auxiliary artifacts. To comprehensively evaluate OverHAuL, we construct a benchmark suite consisting of ten open-source C libraries. Our empirical analysis demonstrates that OverHAuL achieves an 81.25% success rate in harness generation across the evaluated projects, underscoring its effectiveness and potential to facilitate more efficient vulnerability discovery.
